@@ -3,11 +3,10 @@
 //  Cromi
 //
 //  Created by Radu Dutzan on 11/17/16.
-//  Copyright © 2016 Onda. All rights reserved.
+//  Copyright © 2016 Radu Dutzan. All rights reserved.
 //
 
 import UIKit
-import AVFoundation
 
 // MARK: - Free functions
 func delay(_ delay: Double, closure: @escaping ()->()) {
@@ -36,6 +35,36 @@ extension UIImageView {
 }
 
 extension UIColor {
+    // hex utilities from http://stackoverflow.com/questions/24263007/how-to-use-hex-colour-values-in-swift-ios#24263296
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: 1)
+    }
+    
+    convenience init(netHex: Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    }
+    
+    convenience init(hexString: String) {
+        var sanitizedString = hexString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (sanitizedString.hasPrefix("#")) {
+            sanitizedString.remove(at: sanitizedString.startIndex)
+        }
+        
+        if ((sanitizedString.characters.count) != 6) {
+            self.init(white: 0.7, alpha: 1)
+            return
+        }
+        
+        var rgbValue: UInt32 = 0
+        Scanner(string: sanitizedString).scanHexInt32(&rgbValue)
+        self.init(netHex: Int(rgbValue))
+    }
+    
     func isLight() -> Bool {
         //  from: http://stackoverflow.com/a/29044899/1851965
         let components = self.cgColor.components

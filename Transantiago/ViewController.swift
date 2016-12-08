@@ -101,7 +101,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         prototypeSignView.frame = CGRect(size: originSignSize, center: point(forAnnotation: selectedAnnotation!))
         
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
-            self.prototypeSignView.alpha = 1
+//            self.prototypeSignView.alpha = 1
             self.prototypeSignView.frame = self.signFrame(forAnnotation: self.selectedAnnotation!)
         }, completion: nil)
     }
