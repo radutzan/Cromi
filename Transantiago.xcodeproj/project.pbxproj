@@ -12,16 +12,26 @@
 		7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
 		7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */; };
 		7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */; };
+		7CE946D31DF8FB0600F3D29A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE946D21DF8FB0600F3D29A /* MapKit.framework */; };
+		7CE946D51DF93F1200F3D29A /* Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946D41DF93F1200F3D29A /* Extras.swift */; };
+		7CE946D71DF94DCB00F3D29A /* Transantiago.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946D61DF94DCB00F3D29A /* Transantiago.swift */; };
+		7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */; };
+		7CE946DB1DF9579200F3D29A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7CE946BC1DF8FA3E00F3D29A /* Transantiago.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transantiago.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CE946BC1DF8FA3E00F3D29A /* Cromi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cromi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CE946C11DF8FA3E00F3D29A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7CE946C41DF8FA3E00F3D29A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CE946C91DF8FA3E00F3D29A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CE946CB1DF8FA3E00F3D29A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CE946D21DF8FB0600F3D29A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7CE946D41DF93F1200F3D29A /* Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extras.swift; sourceTree = "<group>"; };
+		7CE946D61DF94DCB00F3D29A /* Transantiago.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transantiago.swift; sourceTree = "<group>"; };
+		7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilities.swift; sourceTree = "<group>"; };
+		7CE946DA1DF9579200F3D29A /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CE946D31DF8FB0600F3D29A /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,13 +51,14 @@
 			children = (
 				7CE946BE1DF8FA3E00F3D29A /* Transantiago */,
 				7CE946BD1DF8FA3E00F3D29A /* Products */,
+				7CE946D11DF8FB0600F3D29A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		7CE946BD1DF8FA3E00F3D29A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7CE946BC1DF8FA3E00F3D29A /* Transantiago.app */,
+				7CE946BC1DF8FA3E00F3D29A /* Cromi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -54,8 +66,12 @@
 		7CE946BE1DF8FA3E00F3D29A /* Transantiago */ = {
 			isa = PBXGroup;
 			children = (
+				7CE946D41DF93F1200F3D29A /* Extras.swift */,
 				7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */,
 				7CE946C11DF8FA3E00F3D29A /* ViewController.swift */,
+				7CE946D61DF94DCB00F3D29A /* Transantiago.swift */,
+				7CE946DA1DF9579200F3D29A /* Models.swift */,
+				7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */,
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
 				7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */,
 				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
@@ -64,12 +80,20 @@
 			path = Transantiago;
 			sourceTree = "<group>";
 		};
+		7CE946D11DF8FB0600F3D29A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7CE946D21DF8FB0600F3D29A /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7CE946BB1DF8FA3E00F3D29A /* Transantiago */ = {
+		7CE946BB1DF8FA3E00F3D29A /* Cromi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7CE946CE1DF8FA3E00F3D29A /* Build configuration list for PBXNativeTarget "Transantiago" */;
+			buildConfigurationList = 7CE946CE1DF8FA3E00F3D29A /* Build configuration list for PBXNativeTarget "Cromi" */;
 			buildPhases = (
 				7CE946B81DF8FA3E00F3D29A /* Sources */,
 				7CE946B91DF8FA3E00F3D29A /* Frameworks */,
@@ -79,9 +103,9 @@
 			);
 			dependencies = (
 			);
-			name = Transantiago;
+			name = Cromi;
 			productName = Transantiago;
-			productReference = 7CE946BC1DF8FA3E00F3D29A /* Transantiago.app */;
+			productReference = 7CE946BC1DF8FA3E00F3D29A /* Cromi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -114,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7CE946BB1DF8FA3E00F3D29A /* Transantiago */,
+				7CE946BB1DF8FA3E00F3D29A /* Cromi */,
 			);
 		};
 /* End PBXProject section */
@@ -137,7 +161,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CE946D71DF94DCB00F3D29A /* Transantiago.swift in Sources */,
 				7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */,
+				7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */,
+				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,
+				7CE946D51DF93F1200F3D29A /* Extras.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,7 +321,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7CE946CE1DF8FA3E00F3D29A /* Build configuration list for PBXNativeTarget "Transantiago" */ = {
+		7CE946CE1DF8FA3E00F3D29A /* Build configuration list for PBXNativeTarget "Cromi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7CE946CF1DF8FA3E00F3D29A /* Debug */,
