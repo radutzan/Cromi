@@ -33,16 +33,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         // test/mock stuff
         let initialCoordinate = CLLocationCoordinate2DMake(-33.425567, -70.614486)
-        let allowedSpan: CLLocationDegrees = 0.01
+        let allowedSpan: CLLocationDegrees = 0.005
         let initialRegion = MKCoordinateRegion(center: initialCoordinate, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))
         mapView.setRegion(initialRegion, animated: false)
         
-        Transantiago.get.stops(aroundCoordinate: initialCoordinate) { (annotations) -> (Void) in
-            guard let stopAnnotations = annotations else { return }
-            for annotation in stopAnnotations {
-                mainThread {
-                    self.mapView.addAnnotation(annotation)
-                }
+        Transantiago.get.annotations(aroundCoordinate: initialCoordinate) { (stops, bipSpots, metroStations) -> (Void) in
+            guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
+            mainThread {
+                self.mapView.addAnnotations(stops)
+                self.mapView.addAnnotations(bipSpots)
+                self.mapView.addAnnotations(metroStations)
             }
         }
     }
@@ -69,7 +69,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     private let originSignSize = CGSize(width: 22, height: 24)
     private let targetSignSize = CGSize(width: 215, height: 142)
-    private let signDistance: CGFloat = 40
+    private let signDistance: CGFloat = 20
     private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
         return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
     }
@@ -101,7 +101,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         prototypeSignView.frame = CGRect(size: originSignSize, center: point(forAnnotation: selectedAnnotation!))
         
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
-//            self.prototypeSignView.alpha = 1
+            self.prototypeSignView.alpha = 1
             self.prototypeSignView.frame = self.signFrame(forAnnotation: self.selectedAnnotation!)
         }, completion: nil)
     }
@@ -114,6 +114,32 @@ class ViewController: UIViewController, MKMapViewDelegate {
             self.prototypeSignView.alpha = 0
             self.prototypeSignView.frame = CGRect(size: self.originSignSize, center: self.point(forAnnotation: oldAnnotation))
         }, completion: nil)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is TransantiagoAnnotation else { return nil }
+        
+        var reuseIdentifier = ""
+        var pinImage: UIImage?
+        switch annotation {
+        case is Stop:
+            reuseIdentifier = "Stop pin"
+            pinImage = #imageLiteral(resourceName: "pin paradero")
+        case is MetroStation:
+            reuseIdentifier = "Metro pin"
+            pinImage = #imageLiteral(resourceName: "pin metro")
+        case is BipSpot:
+            reuseIdentifier = "Bip pin"
+            pinImage = #imageLiteral(resourceName: "pin bip")
+        default:
+            return nil
+        }
+        
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        annotationView.canShowCallout = false
+        annotationView.image = pinImage
+        
+        return annotationView
     }
 
 }
