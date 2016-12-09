@@ -87,9 +87,12 @@ class StreetSignView: NibLoadingView {
         layer.shadowOffset = CGSize(width: 0, height: 17)
         layer.shadowRadius = 11
         layer.shadowOpacity = 0.2
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         view.layer.borderWidth = 2
+        headerView.layoutMargins = UIEdgeInsets(top: 10, left: 12, bottom: 9, right: 12)
+        contentView.layoutMargins = UIEdgeInsets(top: 4, left: 12, bottom: 10, right: 12)
         stopNumberLabel.layer.cornerRadius = 2
         didPerformInitialSetup = true
     }
@@ -122,6 +125,9 @@ class StreetSignView: NibLoadingView {
                 pretitle = "Metro"
             }
             title = stopTitle
+            if let stopSubtitle = annotation.subtitle {
+                subtitle = "con " + stopSubtitle
+            }
             
         case let annotation as MetroStation:
             style = .light
@@ -142,8 +148,15 @@ class StreetSignView: NibLoadingView {
             return
         }
         
+        headerView.setNeedsLayout()
         contentStackView.setNeedsLayout()
         mainStackView.setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        view.frame.origin = CGPoint.zero
     }
     
     private func clearContentStack() {

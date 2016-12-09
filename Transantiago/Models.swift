@@ -45,17 +45,23 @@ class Stop: TransantiagoAnnotation, CreatableFromJSON {
         guard let code = json["cod"] as? String else { return nil }
         let stopNumber = json["num"] as? Int
         let services: [Service] = Service.createRequiredInstances(from: json, arrayKey: "servicios") ?? []
-        self.init(code: code, number: stopNumber, services: services, coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name, subtitle: nil, commune: commune)
+        let nameComponents = name.components(separatedBy: " esq. ")
+        let title = nameComponents[0]
+        var subtitle: String?
+        if nameComponents.count > 1 {
+            subtitle = nameComponents[1]
+        }
+        self.init(code: code, number: stopNumber, services: services, coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: title, subtitle: subtitle, commune: commune)
     }
     
 }
 
 class BipSpot: TransantiagoAnnotation {
     
-    let address: String
+    let address: String?
     let operationHours: [OperationHours]
     
-    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, commune: String, address: String, operationHours: [OperationHours]) { 
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?, commune: String, address: String?, operationHours: [OperationHours]) {
         self.address = address
         self.operationHours = operationHours
         super.init(coordinate: coordinate, title: title, subtitle: subtitle, commune: commune)
@@ -66,15 +72,14 @@ class BipSpot: TransantiagoAnnotation {
         guard let commune = json["comuna"] as? String else { return nil }
         guard let name = json["name"] as? String else { return nil }
         guard let location = (json["pos"] as? [NSNumber]).map({ $0.toDoubleArray() }) else { return nil }
-        // TODO: operation hours and address
-        self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name.capitalized(with: Locale(identifier: "es-CL")), subtitle: nil, commune: commune, address: "", operationHours: [])
+        let address = json["direccion"] as? String
+        // TODO: operation hours
+        self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name.capitalized(with: Locale(identifier: "es-CL")), subtitle: nil, commune: commune, address: address?.capitalized, operationHours: [])
     }
     
 }
 
 class MetroStation: BipSpot {
-    
-    
     
 }
 

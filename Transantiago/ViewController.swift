@@ -51,7 +51,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         scrollEventTimer?.invalidate()
         scrollEventTimer = nil
-        print("region changed")
     }
     
     private func mapViewDidScroll() {
@@ -61,8 +60,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     private let originSignSize = CGSize(width: 22, height: 24)
-    private let targetSignSize = CGSize(width: 215, height: 142)
-    private let signDistance: CGFloat = 20
+    private var targetSignSize: CGSize {
+        return signView.view.bounds.size
+    }
+    private let signDistance: CGFloat = 25
     private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
         return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
     }
@@ -92,12 +93,12 @@ class ViewController: UIViewController, MKMapViewDelegate {
         guard let annotation = view.annotation as? TransantiagoAnnotation else { return }
         selectedAnnotation = annotation
         
-        signView.frame = CGRect(size: originSignSize, center: point(forAnnotation: selectedAnnotation!))
         signView.annotation = annotation
+        signView.frame = CGRect(size: targetSignSize, center: point(forAnnotation: annotation))
         
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
             self.signView.alpha = 1
-            self.signView.frame = self.signFrame(forAnnotation: self.selectedAnnotation!)
+            self.signView.frame = self.signFrame(forAnnotation: annotation)
         }, completion: nil)
     }
     
@@ -107,7 +108,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
             self.signView.alpha = 0
-            self.signView.frame = CGRect(size: self.originSignSize, center: self.point(forAnnotation: oldAnnotation))
+            self.signView.center = self.point(forAnnotation: oldAnnotation)
         }) { (finished) in
             
         }
