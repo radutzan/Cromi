@@ -67,7 +67,7 @@ class BipSpot: TransantiagoAnnotation {
         guard let name = json["name"] as? String else { return nil }
         guard let location = (json["pos"] as? [NSNumber]).map({ $0.toDoubleArray() }) else { return nil }
         // TODO: operation hours and address
-        self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name, subtitle: nil, commune: commune, address: "", operationHours: [])
+        self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name.capitalized(with: Locale(identifier: "es-CL")), subtitle: nil, commune: commune, address: "", operationHours: [])
     }
     
 }

@@ -17,6 +17,9 @@
 		7CE946D71DF94DCB00F3D29A /* Transantiago.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946D61DF94DCB00F3D29A /* Transantiago.swift */; };
 		7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */; };
 		7CE946DB1DF9579200F3D29A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
+		7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */; };
+		7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */; };
+		7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946E01DFA366100F3D29A /* NibLoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		7CE946D61DF94DCB00F3D29A /* Transantiago.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transantiago.swift; sourceTree = "<group>"; };
 		7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilities.swift; sourceTree = "<group>"; };
 		7CE946DA1DF9579200F3D29A /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetSignView.swift; sourceTree = "<group>"; };
+		7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreetSignView.xib; sourceTree = "<group>"; };
+		7CE946E01DFA366100F3D29A /* NibLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,9 @@
 				7CE946D61DF94DCB00F3D29A /* Transantiago.swift */,
 				7CE946DA1DF9579200F3D29A /* Models.swift */,
 				7CE946C11DF8FA3E00F3D29A /* ViewController.swift */,
+				7CE946E01DFA366100F3D29A /* NibLoadingView.swift */,
+				7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */,
+				7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */,
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
 				7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */,
 				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
@@ -150,6 +159,7 @@
 			files = (
 				7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */,
 				7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */,
+				7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */,
 				7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,9 +172,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CE946D71DF94DCB00F3D29A /* Transantiago.swift in Sources */,
+				7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */,
 				7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */,
 				7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */,
 				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,
+				7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */,
 				7CE946D51DF93F1200F3D29A /* Extras.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
 			);

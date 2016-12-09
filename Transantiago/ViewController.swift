@@ -13,27 +13,20 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet var mapView: MKMapView!
     
-    private var selectedAnnotation: MKAnnotation?
+    private var selectedAnnotation: TransantiagoAnnotation?
     private var scrollEventTimer: Timer?
-    private let prototypeSignView = UIView()
+    private let signView = StreetSignView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.delegate = self
         
-        prototypeSignView.alpha = 0
-        prototypeSignView.layer.backgroundColor = UIColor.black.cgColor
-        prototypeSignView.layer.cornerRadius = 5
-        prototypeSignView.layer.shadowColor = UIColor.black.cgColor
-        prototypeSignView.layer.shadowOffset = CGSize(width: 0, height: 17)
-        prototypeSignView.layer.shadowRadius = 11
-        prototypeSignView.layer.shadowOpacity = 0.2
-        view.addSubview(prototypeSignView)
+        view.addSubview(signView)
         
         // test/mock stuff
         let initialCoordinate = CLLocationCoordinate2DMake(-33.425567, -70.614486)
-        let allowedSpan: CLLocationDegrees = 0.005
+        let allowedSpan: CLLocationDegrees = 0.0025
         let initialRegion = MKCoordinateRegion(center: initialCoordinate, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))
         mapView.setRegion(initialRegion, animated: false)
         
@@ -49,7 +42,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         mapViewDidScroll()
-        scrollEventTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true, block: { (timer) in
+        scrollEventTimer = Timer.scheduledTimer(withTimeInterval: 1/30, repeats: true, block: { (timer) in
             self.mapViewDidScroll()
         })
         RunLoop.main.add(scrollEventTimer!, forMode: .commonModes)
@@ -63,7 +56,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     private func mapViewDidScroll() {
         if let selectedAnnotation = selectedAnnotation {
-            prototypeSignView.frame = signFrame(forAnnotation: selectedAnnotation)
+            signView.frame = signFrame(forAnnotation: selectedAnnotation)
         }
     }
     
@@ -96,13 +89,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        selectedAnnotation = view.annotation
+        guard let annotation = view.annotation as? TransantiagoAnnotation else { return }
+        selectedAnnotation = annotation
         
-        prototypeSignView.frame = CGRect(size: originSignSize, center: point(forAnnotation: selectedAnnotation!))
+        signView.frame = CGRect(size: originSignSize, center: point(forAnnotation: selectedAnnotation!))
+        signView.annotation = annotation
         
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
-            self.prototypeSignView.alpha = 1
-            self.prototypeSignView.frame = self.signFrame(forAnnotation: self.selectedAnnotation!)
+            self.signView.alpha = 1
+            self.signView.frame = self.signFrame(forAnnotation: self.selectedAnnotation!)
         }, completion: nil)
     }
     
@@ -111,9 +106,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
         selectedAnnotation = nil
         
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-            self.prototypeSignView.alpha = 0
-            self.prototypeSignView.frame = CGRect(size: self.originSignSize, center: self.point(forAnnotation: oldAnnotation))
-        }, completion: nil)
+            self.signView.alpha = 0
+            self.signView.frame = CGRect(size: self.originSignSize, center: self.point(forAnnotation: oldAnnotation))
+        }) { (finished) in
+            
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
