@@ -24,6 +24,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         view.addSubview(signView)
         
+        let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
+        displayLink.add(to: .main, forMode: .defaultRunLoopMode)
+        
         // test/mock stuff
         let initialCoordinate = CLLocationCoordinate2DMake(-33.425567, -70.614486)
         let allowedSpan: CLLocationDegrees = 0.0025
@@ -40,33 +43,75 @@ class ViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        mapViewDidScroll()
-        scrollEventTimer = Timer.scheduledTimer(withTimeInterval: 1/30, repeats: true, block: { (timer) in
-            self.mapViewDidScroll()
-        })
-        RunLoop.main.add(scrollEventTimer!, forMode: .commonModes)
-    }
-    
+    // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        scrollEventTimer?.invalidate()
-        scrollEventTimer = nil
+        // TODO: load more stops
     }
     
-    private func mapViewDidScroll() {
-        if let selectedAnnotation = selectedAnnotation {
-            signView.frame = signFrame(forAnnotation: selectedAnnotation)
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation as? TransantiagoAnnotation else { return }
+        selectedAnnotation = annotation
+        view.image = pinImage(forAnnotation: annotation, selected: true)
+        
+        signView.annotation = annotation
+        signView.frame = CGRect(size: targetSignSize, center: point(forAnnotation: annotation))
+        
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
+            self.signView.alpha = 1
+            self.signView.frame = self.signFrame(forAnnotation: annotation)
+        }, completion: nil)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        guard let oldAnnotation = view.annotation as? TransantiagoAnnotation else { return }
+        view.image = pinImage(forAnnotation: oldAnnotation, selected: false)
+        selectedAnnotation = nil
+        
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+            self.signView.alpha = 0
+            self.signView.center = self.point(forAnnotation: oldAnnotation)
+        }) { (finished) in
+            
         }
     }
     
-    private let originSignSize = CGSize(width: 22, height: 24)
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? TransantiagoAnnotation else { return nil }
+        
+        var reuseIdentifier = ""
+        switch annotation {
+        case is Stop:
+            reuseIdentifier = "Stop pin"
+        case is MetroStation:
+            reuseIdentifier = "Metro pin"
+        case is BipSpot:
+            reuseIdentifier = "Bip pin"
+        default:
+            return nil
+        }
+        
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        annotationView.canShowCallout = false
+        annotationView.image = pinImage(forAnnotation: annotation, selected: false)
+        
+        return annotationView
+    }
+    
+    // MARK: - Helpers
+    @objc private func updateSignFrameIfNeeded() {
+        guard let selectedAnnotation = selectedAnnotation else { return }
+        signView.frame = signFrame(forAnnotation: selectedAnnotation)
+    }
+    
     private var targetSignSize: CGSize {
         return signView.view.bounds.size
     }
     private let signDistance: CGFloat = 25
+    
     private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
         return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
     }
+    
     private func signFrame(forAnnotation annotation: MKAnnotation) -> CGRect {
         let annotationPoint = point(forAnnotation: annotation)
         
@@ -89,55 +134,19 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return proposedFrame
     }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let annotation = view.annotation as? TransantiagoAnnotation else { return }
-        selectedAnnotation = annotation
-        
-        signView.annotation = annotation
-        signView.frame = CGRect(size: targetSignSize, center: point(forAnnotation: annotation))
-        
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
-            self.signView.alpha = 1
-            self.signView.frame = self.signFrame(forAnnotation: annotation)
-        }, completion: nil)
-    }
-    
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        let oldAnnotation: MKAnnotation! = selectedAnnotation
-        selectedAnnotation = nil
-        
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-            self.signView.alpha = 0
-            self.signView.center = self.point(forAnnotation: oldAnnotation)
-        }) { (finished) in
-            
-        }
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is TransantiagoAnnotation else { return nil }
-        
-        var reuseIdentifier = ""
+    private func pinImage(forAnnotation annotation: TransantiagoAnnotation, selected: Bool) -> UIImage? {
         var pinImage: UIImage?
         switch annotation {
         case is Stop:
-            reuseIdentifier = "Stop pin"
-            pinImage = #imageLiteral(resourceName: "pin paradero")
+            pinImage = selected ? #imageLiteral(resourceName: "pin paradero selected") : #imageLiteral(resourceName: "pin paradero")
         case is MetroStation:
-            reuseIdentifier = "Metro pin"
-            pinImage = #imageLiteral(resourceName: "pin metro")
+            pinImage = selected ? #imageLiteral(resourceName: "pin metro selected") : #imageLiteral(resourceName: "pin metro")
         case is BipSpot:
-            reuseIdentifier = "Bip pin"
-            pinImage = #imageLiteral(resourceName: "pin bip")
+            pinImage = selected ? #imageLiteral(resourceName: "pin bip selected") : #imageLiteral(resourceName: "pin bip")
         default:
             return nil
         }
-        
-        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        annotationView.canShowCallout = false
-        annotationView.image = pinImage
-        
-        return annotationView
+        return pinImage
     }
 
 }
