@@ -91,8 +91,8 @@ struct Service: CreatableFromJSON {
     let destinationString: String?
     
     struct Route {
-        enum Way {
-            case outbound, inbound
+        enum Way: Int {
+            case outbound = 1, inbound = 2
         }
         let way: Way
         let operationHours: [OperationHours]
@@ -164,7 +164,31 @@ struct OperationHours {
 }
 
 struct StopPrediction {
-    
+    let timestamp: Date
     let stop: Stop
+    let responseString: String
+    let serviceResponses: [ServiceResponse]
+    
+    struct ServiceResponse {
+        let type: ResponseType
+        let serviceInfo: ServiceInfo
+        let responseString: String
+        let predictions: [Prediction]?
+        
+        enum ResponseType: Int {
+            case twoPredictions = 00, onePrediction = 01, noPrediction = 9, noIncomingBuses = 10, outOfSchedule = 11
+        }
+        struct ServiceInfo {
+            let serviceName: String
+            let color: UIColor
+            let directionString: String
+            let way: Service.Route.Way
+        }
+        struct Prediction {
+            let distance: Int
+            let predictionString: String
+            let licensePlate: String
+        }
+    }
     
 }

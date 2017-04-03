@@ -9,43 +9,62 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var mapView: MKMapView!
     
     private var selectedAnnotation: TransantiagoAnnotation?
     private var scrollEventTimer: Timer?
     private let signView = StreetSignView()
+    
+    private let locationManager = CLLocationManager()
+    private var currentCoordinate: CLLocationCoordinate2D?
+    private var userLocation: CLLocationCoordinate2D {
+        return currentCoordinate ?? CLLocationCoordinate2DMake(-33.425567, -70.614486)
+    }
+    private var locationAuthorized = false {
+        didSet {
+            guard locationAuthorized else { return }
+            locationManager.startUpdatingLocation()
+            centerMapAroundUserLocation(animated: true)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.delegate = self
+        mapView.showsUserLocation = true
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.distanceFilter = 200
+        locationManager.requestWhenInUseAuthorization()
+        locationAuthorized = CLLocationManager.authorizationStatus() == .authorizedWhenInUse
         
         view.addSubview(signView)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
         
-        // test/mock stuff
-        let initialCoordinate = CLLocationCoordinate2DMake(-33.425567, -70.614486)
-        let allowedSpan: CLLocationDegrees = 0.0025
-        let initialRegion = MKCoordinateRegion(center: initialCoordinate, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))
-        mapView.setRegion(initialRegion, animated: false)
-        
-        Transantiago.get.annotations(aroundCoordinate: initialCoordinate) { (stops, bipSpots, metroStations) -> (Void) in
-            guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
-            mainThread {
-                self.mapView.addAnnotations(stops)
-                self.mapView.addAnnotations(bipSpots)
-                self.mapView.addAnnotations(metroStations)
-            }
-        }
+        centerMapAroundUserLocation(animated: false)
+        placeAnnotations(aroundCoordinate: userLocation)
+    }
+    
+    // MARK: - CLLocationManagerDelegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentCoordinate = locations.last?.coordinate
+        manager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationAuthorized = status == .authorizedWhenInUse || status == .authorizedAlways
     }
     
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        // TODO: load more stops
+        // this could be more efficient, maybe
+        placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -97,7 +116,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return annotationView
     }
     
-    // MARK: - Helpers
+    // MARK: - Pins and signs
     @objc private func updateSignFrameIfNeeded() {
         guard let selectedAnnotation = selectedAnnotation else { return }
         signView.frame = signFrame(forAnnotation: selectedAnnotation)
@@ -147,6 +166,35 @@ class ViewController: UIViewController, MKMapViewDelegate {
             return nil
         }
         return pinImage
+    }
+    
+    // MARK: - Helpers
+    private func clearTransantiagoAnnotations(in mapView: MKMapView) {
+        let transantiagoAnnotations = mapView.annotations.filter { $0 is TransantiagoAnnotation }
+        mapView.removeAnnotations(transantiagoAnnotations)
+    }
+    
+    private func centerMapAroundUserLocation(animated: Bool) {
+        let initialCoordinate = userLocation
+        let allowedSpan: CLLocationDegrees = 0.0025
+        let initialRegion = MKCoordinateRegion(center: initialCoordinate, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))
+        mapView.setRegion(initialRegion, animated: animated)
+    }
+    
+    private func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D) {
+        Transantiago.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) -> (Void) in
+            guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
+            mainThread {
+                self.clearTransantiagoAnnotations(in: self.mapView)
+                self.mapView.addAnnotations(stops)
+                self.mapView.addAnnotations(bipSpots)
+                self.mapView.addAnnotations(metroStations)
+            }
+        }
+    }
+    
+    @IBAction func locationButtonTapped() {
+        centerMapAroundUserLocation(animated: true)
     }
 
 }
