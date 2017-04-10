@@ -12,6 +12,7 @@ import MapKit
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var locationButton: UIButton!
     
     private var selectedAnnotation: TransantiagoAnnotation?
     private var scrollEventTimer: Timer?
@@ -24,14 +25,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     private var locationAuthorized = false {
         didSet {
-            guard locationAuthorized else { return }
+            guard locationAuthorized, !didSetInitialLocation else { return }
             locationManager.startUpdatingLocation()
-            centerMapAroundUserLocation(animated: true)
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private var didSetInitialLocation = false
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -40,21 +41,29 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
-        locationAuthorized = CLLocationManager.authorizationStatus() == .authorizedWhenInUse
+        
+        locationButton.layer.backgroundColor = UIColor.white.cgColor
+        locationButton.layer.cornerRadius = locationButton.bounds.width / 2
+        locationButton.layer.shadowPath = UIBezierPath(roundedRect: locationButton.bounds, cornerRadius: locationButton.layer.cornerRadius).cgPath
+        locationButton.layer.shadowOffset = CGSize(width: 0, height: 17)
+        locationButton.layer.shadowRadius = 11
+        locationButton.layer.shadowOpacity = 0.2
         
         view.addSubview(signView)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
-        
-        centerMapAroundUserLocation(animated: false)
-        placeAnnotations(aroundCoordinate: userLocation)
     }
     
     // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentCoordinate = locations.last?.coordinate
+        guard let coordinate = locations.last?.coordinate else { return }
+        currentCoordinate = coordinate
         manager.stopUpdatingLocation()
+        
+        guard !didSetInitialLocation else { return }
+        centerMapAroundUserLocation(animated: false)
+        didSetInitialLocation = true
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -123,7 +132,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     private var targetSignSize: CGSize {
-        return signView.view.bounds.size
+        return signView.intrinsicContentSize
     }
     private let signDistance: CGFloat = 25
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C28C6011E9B26E00012BD19 /* SignHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6001E9B26E00012BD19 /* SignHeaderView.xib */; };
+		7C28C6031E9B27170012BD19 /* SignHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6021E9B27170012BD19 /* SignHeaderView.swift */; };
 		7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
 		7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946C11DF8FA3E00F3D29A /* ViewController.swift */; };
 		7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
@@ -23,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C100DA11E8C32E7005EC7B1 /* PokeWalk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PokeWalk.gpx; sourceTree = "<group>"; };
+		7C28C6001E9B26E00012BD19 /* SignHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignHeaderView.xib; sourceTree = "<group>"; };
+		7C28C6021E9B27170012BD19 /* SignHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignHeaderView.swift; sourceTree = "<group>"; };
 		7CE946BC1DF8FA3E00F3D29A /* Cromi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cromi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CE946C11DF8FA3E00F3D29A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +60,7 @@
 		7CE946B31DF8FA3E00F3D29A = {
 			isa = PBXGroup;
 			children = (
+				7C100DA11E8C32E7005EC7B1 /* PokeWalk.gpx */,
 				7CE946BE1DF8FA3E00F3D29A /* Transantiago */,
 				7CE946BD1DF8FA3E00F3D29A /* Products */,
 				7CE946D11DF8FB0600F3D29A /* Frameworks */,
@@ -78,10 +84,12 @@
 				7CE946D61DF94DCB00F3D29A /* Transantiago.swift */,
 				7CE946DA1DF9579200F3D29A /* Models.swift */,
 				7CE946C11DF8FA3E00F3D29A /* ViewController.swift */,
+				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
 				7CE946E01DFA366100F3D29A /* NibLoadingView.swift */,
 				7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */,
 				7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */,
-				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
+				7C28C6021E9B27170012BD19 /* SignHeaderView.swift */,
+				7C28C6001E9B26E00012BD19 /* SignHeaderView.xib */,
 				7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */,
 				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
 				7CE946CB1DF8FA3E00F3D29A /* Info.plist */,
@@ -158,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */,
+				7C28C6011E9B26E00012BD19 /* SignHeaderView.xib in Resources */,
 				7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */,
 				7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */,
 				7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */,
@@ -173,6 +182,7 @@
 			files = (
 				7CE946D71DF94DCB00F3D29A /* Transantiago.swift in Sources */,
 				7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */,
+				7C28C6031E9B27170012BD19 /* SignHeaderView.swift in Sources */,
 				7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */,
 				7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */,
 				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,

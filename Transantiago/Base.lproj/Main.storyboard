@@ -26,12 +26,11 @@
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBD-cJ-nR7">
                                 <rect key="frame" x="316" y="603" width="44" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="GD7-EH-VcS"/>
                                     <constraint firstAttribute="width" constant="44" id="T5J-z6-JwE"/>
                                 </constraints>
-                                <state key="normal" title="Loc"/>
+                                <state key="normal" image="location"/>
                                 <connections>
                                     <action selector="locationButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="OT5-8X-wIU"/>
                                 </connections>
@@ -48,6 +47,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="locationButton" destination="bBD-cJ-nR7" id="NHk-rW-QoW"/>
                         <outlet property="mapView" destination="At1-li-cYk" id="KgX-z0-Ixc"/>
                     </connections>
                 </viewController>
@@ -55,4 +55,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="location" width="24" height="24"/>
+    </resources>
 </document>
