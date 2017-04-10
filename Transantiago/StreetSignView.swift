@@ -17,7 +17,7 @@ struct SignConstants {
         static let bipBlue = UIColor(red: 0, green: 0.416, blue: 1, alpha: 1)
     }
     static let cornerRadius: CGFloat = 5
-    static let secondarySubtitleOpacity: CGFloat = 0.5
+    static let secondarySubtitleOpacity: CGFloat = 0.55
 }
 
 class StreetSignView: NibLoadingView {
@@ -43,7 +43,7 @@ class StreetSignView: NibLoadingView {
     private let bipBlueColor = SignConstants.Color.bipBlue
     
     private var didPerformInitialSetup = false
-    private func perfornInitialSetupIfNeeded() {
+    private func performInitialSetupIfNeeded() {
         if didPerformInitialSetup { return }
         alpha = 0
         layer.shadowColor = UIColor.black.cgColor
@@ -56,10 +56,11 @@ class StreetSignView: NibLoadingView {
     }
     
     private func reloadData() {
-        perfornInitialSetupIfNeeded()
+        performInitialSetupIfNeeded()
         clearContentStack()
         view.backgroundColor = UIColor.clear
         view.layer.borderColor = UIColor.clear.cgColor
+        mainStackView.spacing = 0
         
         guard let annotation = annotation else { return }
         
@@ -79,28 +80,23 @@ class StreetSignView: NibLoadingView {
                 }
             }
             
-        case let annotation as MetroStation:
-            style = .light
-            
-            for hours in annotation.operationHours {
-                let hoursRow = SignHoursRowView()
-                hoursRow.days = hours.rangeTitle
-                hoursRow.hours = "\(hours.start) \(NSLocalizedString("to", comment: "")) \(hours.end)"
-                mainStackView.addArrangedSubview(hoursRow)
-            }
-            mainStackView.layoutIfNeeded()
-            
         case let annotation as BipSpot:
             style = .light
-            signView.backgroundColor = bipBlueColor
+            let isBip = !(annotation is MetroStation)
+            if isBip {
+                signView.backgroundColor = bipBlueColor
+                mainStackView.spacing = 5
+            }
             
+            let timetableView = SignTimetableView()
             for hours in annotation.operationHours {
                 let hoursRow = SignHoursRowView()
                 hoursRow.days = hours.rangeTitle
                 hoursRow.hours = "\(hours.start) \(NSLocalizedString("to", comment: "")) \(hours.end)"
-                hoursRow.style = .dark
-                mainStackView.addArrangedSubview(hoursRow)
+                if isBip { hoursRow.style = .dark }
+                timetableView.add(hoursRow: hoursRow)
             }
+            mainStackView.addArrangedSubview(timetableView)
             mainStackView.layoutIfNeeded()
             
         default:

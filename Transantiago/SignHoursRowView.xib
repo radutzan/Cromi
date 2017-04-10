@@ -18,22 +18,22 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
+            <rect key="frame" x="0.0" y="0.0" width="220" height="20"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FcN-Tx-EFN">
-                    <rect key="frame" x="12" y="0.0" width="196" height="25"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FcN-Tx-EFN">
+                    <rect key="frame" x="12" y="0.0" width="196" height="20"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lunes a Viernes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZ4-jm-v10">
-                            <rect key="frame" x="0.0" y="0.0" width="94" height="25"/>
+                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Lunes a Viernes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZ4-jm-v10">
+                            <rect key="frame" x="0.0" y="0.0" width="94" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="25" id="6xa-KX-v8D"/>
+                                <constraint firstAttribute="height" constant="20" id="6xa-KX-v8D"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 a 19:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9e-LM-g0N">
-                            <rect key="frame" x="121" y="0.0" width="75" height="25"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="9:00 a 19:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9e-LM-g0N">
+                            <rect key="frame" x="121" y="0.0" width="75" height="20"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -48,7 +48,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-43" y="-266.5"/>
+            <point key="canvasLocation" x="-43" y="-269"/>
         </view>
     </objects>
 </document>

@@ -63,14 +63,14 @@ class SignHeaderView: NibLoadingView {
     private let bipBlueColor = SignConstants.Color.bipBlue
     
     private var didPerformInitialSetup = false
-    private func perfornInitialSetupIfNeeded() {
+    private func performInitialSetupIfNeeded() {
         if didPerformInitialSetup { return }
         view.layer.cornerRadius = SignConstants.cornerRadius
         didPerformInitialSetup = true
     }
     
     private func reloadData() {
-        perfornInitialSetupIfNeeded()
+        performInitialSetupIfNeeded()
         number = nil
         pretitle = nil
         title = nil
@@ -79,6 +79,7 @@ class SignHeaderView: NibLoadingView {
         view.backgroundColor = UIColor.white
         view.layer.borderWidth = 0
         view.layer.borderColor = UIColor.clear.cgColor
+        numberLabel.textColor = .black
         numberLabel.backgroundColor = .white
         numberLabel.layer.cornerRadius = 2
         
@@ -108,7 +109,8 @@ class SignHeaderView: NibLoadingView {
             }
             number = annotation.lineNumber // TODO: get real metro line number
             numberLabel.backgroundColor = annotation.lineColor // TODO: get real metro color
-            numberLabel.layer.cornerRadius = 2
+            numberLabel.layer.cornerRadius = 28 / 2 // TODO: make 28 a constant
+            numberLabel.textColor = .white
             
         case let annotation as BipSpot:
             style = .light

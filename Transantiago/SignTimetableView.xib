@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignTimetableView" customModule="Cromi" customModuleProvider="target">
+            <connections>
+                <outlet property="timeStack" destination="1aV-Cx-pPB" id="efg-Ql-WCp"/>
+                <outlet property="view" destination="iN0-l3-epB" id="g4o-td-2c3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="144"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1aV-Cx-pPB">
+                    <rect key="frame" x="0.0" y="0.0" width="220" height="136"/>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="1aV-Cx-pPB" secondAttribute="bottom" constant="8" id="Ae9-ew-BXL"/>
+                <constraint firstItem="1aV-Cx-pPB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DqU-Hk-iJh"/>
+                <constraint firstAttribute="trailing" secondItem="1aV-Cx-pPB" secondAttribute="trailing" id="tNd-Wz-8Ha"/>
+                <constraint firstItem="1aV-Cx-pPB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="w55-XS-pgZ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-43" y="316"/>
+        </view>
+    </objects>
+</document>

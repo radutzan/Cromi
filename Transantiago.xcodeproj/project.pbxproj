@@ -15,6 +15,8 @@
 		7C28C60C1E9B380C0012BD19 /* SignHoursRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C60B1E9B380C0012BD19 /* SignHoursRowView.swift */; };
 		7C28C6101E9B38570012BD19 /* SignServiceRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C60F1E9B38570012BD19 /* SignServiceRowView.xib */; };
 		7C28C6121E9B38EF0012BD19 /* SignHoursRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */; };
+		7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */; };
+		7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */; };
 		7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
 		7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946C11DF8FA3E00F3D29A /* ViewController.swift */; };
 		7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		7C28C60B1E9B380C0012BD19 /* SignHoursRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignHoursRowView.swift; sourceTree = "<group>"; };
 		7C28C60F1E9B38570012BD19 /* SignServiceRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignServiceRowView.xib; sourceTree = "<group>"; };
 		7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignHoursRowView.xib; sourceTree = "<group>"; };
+		7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignTimetableView.xib; sourceTree = "<group>"; };
+		7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignTimetableView.swift; sourceTree = "<group>"; };
 		7CE946BC1DF8FA3E00F3D29A /* Cromi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cromi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CE946C11DF8FA3E00F3D29A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 				7C28C60F1E9B38570012BD19 /* SignServiceRowView.xib */,
 				7C28C60B1E9B380C0012BD19 /* SignHoursRowView.swift */,
 				7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */,
+				7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */,
+				7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */,
 			);
 			name = "Sign View";
 			sourceTree = "<group>";
@@ -196,6 +202,7 @@
 				7C28C6121E9B38EF0012BD19 /* SignHoursRowView.xib in Resources */,
 				7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */,
 				7C28C6101E9B38570012BD19 /* SignServiceRowView.xib in Resources */,
+				7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */,
 				7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */,
 				7C28C6061E9B35250012BD19 /* SignServiceView.xib in Resources */,
 				7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */,
@@ -209,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
 				7CE946D71DF94DCB00F3D29A /* Transantiago.swift in Sources */,
 				7C28C6081E9B37750012BD19 /* SignServiceView.swift in Sources */,
 				7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */,

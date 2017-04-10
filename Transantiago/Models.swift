@@ -38,11 +38,11 @@ class Stop: TransantiagoAnnotation, CreatableFromJSON {
     }
     
     convenience required init?(json: [String: Any]) {
-        guard let type = json["type"] as? Int, type == 0 else { return nil }
-        guard let commune = json["comuna"] as? String else { return nil }
-        guard let name = json["name"] as? String else { return nil }
-        guard let location = (json["pos"] as? [NSNumber]).map({ $0.toDoubleArray() }) else { return nil }
-        guard let code = json["cod"] as? String else { return nil }
+        guard let type = json["type"] as? Int, type == 0,
+            let commune = json["comuna"] as? String,
+            let name = json["name"] as? String,
+            let location = (json["pos"] as? [NSNumber]).map({ $0.toDoubleArray() }),
+            let code = json["cod"] as? String else { return nil }
         let stopNumber = json["num"] as? Int
         let services: [Service] = Service.createRequiredInstances(from: json, arrayKey: "servicios") ?? []
         let nameComponents = name.components(separatedBy: " esq. ")
@@ -68,13 +68,31 @@ class BipSpot: TransantiagoAnnotation {
     }
     
     convenience required init?(json: [String: Any]) {
-        guard let type = json["type"] as? Int, type == 1 else { return nil }
-        guard let commune = json["comuna"] as? String else { return nil }
-        guard let name = json["name"] as? String else { return nil }
-        guard let location = (json["pos"] as? [NSNumber]).map({ $0.toDoubleArray() }) else { return nil }
+        guard let type = json["type"] as? Int, type == 1,
+            let commune = json["comuna"] as? String,
+            let name = json["name"] as? String,
+            let location = (json["pos"] as? [NSNumber]).map({ $0.toDoubleArray() }) else { return nil }
         let address = json["direccion"] as? String
-        // TODO: operation hours
-        self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name.capitalized(with: Locale(identifier: "es-CL")), subtitle: nil, commune: commune, address: address?.capitalized, operationHours: [])
+        
+        var operationHours: [OperationHours] = []
+        if let operationHoursJSON = json["horarios"] as? [String] {
+            for timeString in operationHoursJSON {
+                let components = timeString.components(separatedBy: ": de ")
+                if components.count <= 1 { continue }
+                let rangeTitle = components[0]
+                var rangeComponents = components[1].components(separatedBy: " a ")
+                if rangeComponents.count == 1 {
+                    rangeComponents = components[1].components(separatedBy: " - ")
+                }
+                var rangeStart = rangeComponents[0]
+                if rangeStart.hasPrefix("0") {
+                    rangeStart.remove(at: rangeStart.startIndex)
+                }
+                operationHours.append(OperationHours(rangeTitle: rangeTitle, start: rangeStart, end: rangeComponents.last!))
+            }
+        }
+        
+        self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name.capitalized(with: Locale(identifier: "es-CL")), subtitle: nil, commune: commune, address: address?.capitalized, operationHours: operationHours)
     }
     
 }
@@ -113,9 +131,9 @@ struct Service: CreatableFromJSON {
     
     init?(json: [String: Any]) {
         // Creating directly from a single JSON dictionary instead of from an array of JSON dictionaries means we only have a partial representation of the Service
-        guard let name = json["cod"] as? String else { return nil }
-        guard let colorString = json["color"] as? String else { return nil }
-        guard let destinationString = json["destino"] as? String else { return nil }
+        guard let name = json["cod"] as? String,
+            let colorString = json["color"] as? String,
+            let destinationString = json["destino"] as? String else { return nil }
         
         self.init(name: name, color: UIColor(hexString: colorString), routes: nil, destinationString: destinationString)
     }
@@ -127,10 +145,10 @@ struct Service: CreatableFromJSON {
         
         var routes: [Route] = []
         for (index, json) in jsonDictionaries.enumerated() {
-            guard let destinationString = json["destino"] as? String else { return nil }
-            guard let operationHoursJSON = json["horarios"] as? [[String: String]] else { return nil }
-            guard let shapesJSON = json["shapes"] as? [[String: Any]] else { return nil }
-            guard let stopsJSON = json["paradas"] as? [[String: Any]] else { return nil }
+            guard let destinationString = json["destino"] as? String,
+                let operationHoursJSON = json["horarios"] as? [[String: String]],
+                let shapesJSON = json["shapes"] as? [[String: Any]],
+                let stopsJSON = json["paradas"] as? [[String: Any]] else { return nil }
             
             let way: Route.Way = index == 0 ? .outbound : .inbound
             
