@@ -81,6 +81,9 @@ class BipSpot: TransantiagoAnnotation {
 
 class MetroStation: BipSpot {
     
+    let lineNumber: Int = 1
+    let lineColor: UIColor = .red
+    
 }
 
 struct Service: CreatableFromJSON {
@@ -155,8 +158,14 @@ struct Service: CreatableFromJSON {
         
         self.init(name: name, color: UIColor(hexString: colorString), routes: routes, destinationString: nil)
     }
-    
 }
+
+extension Service: Equatable {
+    static func ==(lhs: Service, rhs: Service) -> Bool {
+        return lhs.name == rhs.name && lhs.destinationString == rhs.destinationString
+    }
+}
+
 struct OperationHours {
     let rangeTitle: String
     let start: String

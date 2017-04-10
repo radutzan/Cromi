@@ -17,6 +17,7 @@ struct SignConstants {
         static let bipBlue = UIColor(red: 0, green: 0.416, blue: 1, alpha: 1)
     }
     static let cornerRadius: CGFloat = 5
+    static let secondarySubtitleOpacity: CGFloat = 0.5
 }
 
 class StreetSignView: NibLoadingView {
@@ -30,7 +31,7 @@ class StreetSignView: NibLoadingView {
     private var style: SignStyle = .dark {
         didSet {
             let backgroundColor = style == .dark ? UIColor.black : UIColor.white
-            view.backgroundColor = backgroundColor
+            signView.backgroundColor = backgroundColor
             headerView.style = style
         }
     }
@@ -64,16 +65,43 @@ class StreetSignView: NibLoadingView {
         
         switch annotation {
         case let annotation as Stop:
-            // TODO: load content subviews for stop (services)
-            return
+            style = .dark
+            
+            var pendingServices: [Service] = []
+            for service in annotation.services {
+                pendingServices.append(service)
+                
+                if pendingServices.count == 2 || service == annotation.services.last! {
+                    let serviceRowView = SignServiceRowView(services: pendingServices)
+                    mainStackView.addArrangedSubview(serviceRowView)
+                    mainStackView.layoutIfNeeded()
+                    pendingServices = []
+                }
+            }
             
         case let annotation as MetroStation:
-            // TODO: load content subviews for metro (times)
-            return
+            style = .light
+            
+            for hours in annotation.operationHours {
+                let hoursRow = SignHoursRowView()
+                hoursRow.days = hours.rangeTitle
+                hoursRow.hours = "\(hours.start) \(NSLocalizedString("to", comment: "")) \(hours.end)"
+                mainStackView.addArrangedSubview(hoursRow)
+            }
+            mainStackView.layoutIfNeeded()
             
         case let annotation as BipSpot:
-            // TODO: load content subviews for bip (times)
-            return
+            style = .light
+            signView.backgroundColor = bipBlueColor
+            
+            for hours in annotation.operationHours {
+                let hoursRow = SignHoursRowView()
+                hoursRow.days = hours.rangeTitle
+                hoursRow.hours = "\(hours.start) \(NSLocalizedString("to", comment: "")) \(hours.end)"
+                hoursRow.style = .dark
+                mainStackView.addArrangedSubview(hoursRow)
+            }
+            mainStackView.layoutIfNeeded()
             
         default:
             return

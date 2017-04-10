@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignServiceRowView" customModule="Cromi" customModuleProvider="target">
+            <connections>
+                <outlet property="serviceView1" destination="XrB-fg-wMX" id="JXw-ZN-mgw"/>
+                <outlet property="serviceView2" destination="T9L-y6-hW6" id="MPf-nC-lGD"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Ozg-iH-fhj"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="42"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="FcN-Tx-EFN">
+                    <rect key="frame" x="6" y="0.0" width="208" height="42"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XrB-fg-wMX" customClass="SignServiceView" customModule="Cromi" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="104" height="42"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="Msy-xE-UhX"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="serviceName" value="666"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="serviceColor">
+                                    <color key="value" red="1" green="0.2328993056" blue="0.24568431709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="subtitle" value="a Thu Bieja M3n ;)"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9L-y6-hW6" customClass="SignServiceView" customModule="Cromi" customModuleProvider="target">
+                            <rect key="frame" x="104" y="0.0" width="104" height="42"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="ZXf-Kh-8zX"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="serviceColor">
+                                    <color key="value" red="1" green="0.2328993056" blue="0.24568431709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSubtitleSecondary" value="YES"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="subtitle" value=" "/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="serviceName" value=" "/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="FcN-Tx-EFN" secondAttribute="trailing" constant="6" id="JWL-hl-Po1"/>
+                <constraint firstAttribute="bottom" secondItem="FcN-Tx-EFN" secondAttribute="bottom" id="Jha-xx-N34"/>
+                <constraint firstItem="FcN-Tx-EFN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="6" id="V0y-9P-qDp"/>
+                <constraint firstItem="FcN-Tx-EFN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ddy-gY-EF6"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-43" y="-258"/>
+        </view>
+    </objects>
+</document>

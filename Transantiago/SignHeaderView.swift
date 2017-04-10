@@ -50,7 +50,7 @@ class SignHeaderView: NibLoadingView {
     }
     var isSubtitleSecondary: Bool = false {
         didSet {
-            subtitleLabel.alpha = isSubtitleSecondary ? 0.55 : 1
+            subtitleLabel.alpha = isSubtitleSecondary ? SignConstants.secondarySubtitleOpacity : 1
         }
     }
     
@@ -106,8 +106,8 @@ class SignHeaderView: NibLoadingView {
             if metroTitle.hasPrefix("Metro ") {
                 title = metroTitle.replacingOccurrences(of: "Metro ", with: "")
             }
-            number = 1 // TODO: get real metro line number
-            numberLabel.backgroundColor = .red // TODO: get real metro color
+            number = annotation.lineNumber // TODO: get real metro line number
+            numberLabel.backgroundColor = annotation.lineColor // TODO: get real metro color
             numberLabel.layer.cornerRadius = 2
             
         case let annotation as BipSpot:
