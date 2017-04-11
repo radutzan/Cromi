@@ -8,8 +8,8 @@
 
 import MapKit
 
+// MARK: - Annotations
 class TransantiagoAnnotation: NSObject, MKAnnotation {
-    
     let coordinate: CLLocationCoordinate2D
     let title: String?
     let subtitle: String?
@@ -21,11 +21,10 @@ class TransantiagoAnnotation: NSObject, MKAnnotation {
         self.subtitle = subtitle
         self.commune = commune
     }
-    
 }
 
+// MARK: - Stop
 class Stop: TransantiagoAnnotation, CreatableFromJSON {
-    
     let code: String
     let number: Int?
     let services: [Service]
@@ -53,11 +52,10 @@ class Stop: TransantiagoAnnotation, CreatableFromJSON {
         }
         self.init(code: code, number: stopNumber, services: services, coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: title, subtitle: subtitle, commune: commune)
     }
-    
 }
 
+// MARK: - Bip spot
 class BipSpot: TransantiagoAnnotation {
-    
     let address: String?
     let operationHours: [OperationHours]
     
@@ -94,18 +92,16 @@ class BipSpot: TransantiagoAnnotation {
         
         self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name.capitalized(with: Locale(identifier: "es-CL")), subtitle: nil, commune: commune, address: address?.capitalized, operationHours: operationHours)
     }
-    
 }
 
+// MARK: - Metro station
 class MetroStation: BipSpot {
-    
     let lineNumber: Int = 1
     let lineColor: UIColor = .red
-    
 }
 
+// MARK: - Service
 struct Service: CreatableFromJSON {
-    
     let name: String
     let color: UIColor
     let routes: [Route]?
@@ -184,27 +180,31 @@ extension Service: Equatable {
     }
 }
 
+// MARK: - Operation hours
 struct OperationHours {
     let rangeTitle: String
     let start: String
     let end: String
 }
 
+// MARK: - Stop prediction
 struct StopPrediction {
     let timestamp: Date
-    let stop: Stop
+    let stopCode: String
     let responseString: String
     let serviceResponses: [ServiceResponse]
     
     struct ServiceResponse {
         let type: ResponseType
-        let serviceInfo: ServiceInfo
-        let responseString: String
+        let serviceName: String
+//        let serviceInfo: ServiceInfo?
+//        let responseString: String
         let predictions: [Prediction]?
         
         enum ResponseType: Int {
             case twoPredictions = 00, onePrediction = 01, noPrediction = 9, noIncomingBuses = 10, outOfSchedule = 11
         }
+        // deprecated?
         struct ServiceInfo {
             let serviceName: String
             let color: UIColor
@@ -217,5 +217,4 @@ struct StopPrediction {
             let licensePlate: String
         }
     }
-    
 }

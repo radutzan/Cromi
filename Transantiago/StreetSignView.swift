@@ -88,6 +88,7 @@ class StreetSignView: NibLoadingView {
                 mainStackView.spacing = 5
             }
             
+            guard annotation.operationHours.count > 0 else { return }
             let timetableView = SignTimetableView()
             for hours in annotation.operationHours {
                 let hoursRow = SignHoursRowView()
@@ -121,6 +122,14 @@ class StreetSignView: NibLoadingView {
     
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 220, height: signView.bounds.height)
+    }
+    
+    func willAppear() {
+        
+    }
+    
+    func willDisappear() {
+        
     }
 
 }

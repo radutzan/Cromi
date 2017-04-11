@@ -81,6 +81,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         selectedAnnotation = annotation
         view.image = pinImage(forAnnotation: annotation, selected: true)
         
+        signView.willAppear()
+        
         signView.annotation = annotation
         signView.frame = CGRect(size: targetSignSize, center: point(forAnnotation: annotation))
         
@@ -94,6 +96,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         guard let oldAnnotation = view.annotation as? TransantiagoAnnotation else { return }
         view.image = pinImage(forAnnotation: oldAnnotation, selected: false)
         selectedAnnotation = nil
+        
+        signView.willDisappear()
         
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
             self.signView.alpha = 0

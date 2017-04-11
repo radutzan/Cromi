@@ -46,8 +46,52 @@ class Transantiago: NSObject {
         task.resume()
     }
     
-    func prediction(forStopCode: String, completion: @escaping (StopPrediction?) -> (Void)) {
+    func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> (Void)) {
         // http://www.transantiago.cl/predictor/prediccion?codsimt=PA420
+        let task = URLSession.shared.dataTask(with: URL(string: "http://www.transantiago.cl/predictor/prediccion?codsimt=\(code)")!) { (data, response, error) in
+            var prediction: StopPrediction?
+            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
+                guard let json = jsonObject as? [String: Any],
+                    let stopCode = json["paradero"] as? String,
+                    let responseString = json["respuestaParadero"] as? String,
+                    let servicesRoot = json["servicios"] as? [String: Any],
+                    let services = servicesRoot["item"] as? [[String: Any]] else { return }
+                
+                var serviceResponses: [StopPrediction.ServiceResponse] = []
+                for service in services {
+                    guard let responseCodeString = service["codigorespuesta"] as? String,
+                        let responseCode = Int(responseCodeString),
+                        let responseType = StopPrediction.ServiceResponse.ResponseType(rawValue: responseCode),
+                        let serviceName = service["servicio"] as? String else { return }
+                    
+                    var predictions: [StopPrediction.ServiceResponse.Prediction] = []
+                    switch responseType {
+                    case .onePrediction, .twoPredictions:
+                        guard let distanceString1 = service["distanciabus1"] as? String,
+                            let distance1 = Int(distanceString1),
+                            let predictionString1 = service["horaprediccionbus1"] as? String,
+                            let licensePlate1 = service["ppubus1"] as? String else { break }
+                        predictions.append(StopPrediction.ServiceResponse.Prediction(distance: distance1, predictionString: predictionString1, licensePlate: licensePlate1))
+                        
+                        guard let distanceString2 = service["distanciabus2"] as? String,
+                            let distance2 = Int(distanceString2),
+                            let predictionString2 = service["horaprediccionbus2"] as? String,
+                            let licensePlate2 = service["ppubus2"] as? String else { break }
+                        predictions.append(StopPrediction.ServiceResponse.Prediction(distance: distance2, predictionString: predictionString2, licensePlate: licensePlate2))
+                        break
+                        
+                    default:
+                        break
+                    }
+                    
+                    serviceResponses.append(StopPrediction.ServiceResponse(type: responseType, serviceName: serviceName, predictions: []))
+                }
+                
+                prediction = StopPrediction(timestamp: Date(), stopCode: stopCode, responseString: responseString, serviceResponses: serviceResponses)
+            }
+            completion(prediction)
+        }
+        task.resume()
     }
     
     func service(withName serviceName: String, completion: @escaping (Service?) -> (Void)) {
