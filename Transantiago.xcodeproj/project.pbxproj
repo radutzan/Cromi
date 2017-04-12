@@ -352,7 +352,7 @@
 				DEVELOPMENT_TEAM = 7VT456V4Y2;
 				INFOPLIST_FILE = Transantiago/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.Transantiago;
+				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -365,7 +365,7 @@
 				DEVELOPMENT_TEAM = 7VT456V4Y2;
 				INFOPLIST_FILE = Transantiago/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.Transantiago;
+				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

@@ -39,6 +39,11 @@ class StreetSignView: NibLoadingView {
     @IBOutlet private var signView: UIView!
     @IBOutlet private var mainStackView: UIStackView!
     @IBOutlet private var headerView: SignHeaderView!
+    private let maskerView = UIView()
+    private var maskViewOriginSize = CGSize(width: 24, height: 24)
+    private var maskViewCenter: CGPoint {
+        return CGPoint(x: frame.width / 2, y: frame.height / 2)
+    }
     
     private let bipBlueColor = SignConstants.Color.bipBlue
     
@@ -52,6 +57,10 @@ class StreetSignView: NibLoadingView {
         layer.shadowOpacity = 0.2
         signView.layer.cornerRadius = SignConstants.cornerRadius
         signView.layer.masksToBounds = true
+        signView.mask = maskerView
+        maskerView.frame = CGRect(size: maskViewOriginSize, center: CGPoint.zero)
+        maskerView.backgroundColor = .black
+        maskerView.layer.cornerRadius = 12
         didPerformInitialSetup = true
     }
     
@@ -124,11 +133,40 @@ class StreetSignView: NibLoadingView {
         return CGSize(width: 220, height: signView.bounds.height)
     }
     
-    func willAppear() {
+    func present(fromCenter originCenter: CGPoint, targetFrame: CGRect) {
+        frame = CGRect(size: targetFrame.size, center: originCenter)
+        let targetMaskFrame = frame.insetBy(dx: -12, dy: -12)
+        maskerView.center = maskViewCenter
+        willAppear()
+        
+        UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+            self.alpha = 1
+            self.frame = targetFrame
+            self.maskerView.frame.size = targetMaskFrame.size
+            self.maskerView.center = self.maskViewCenter
+        }, completion: nil)
+    }
+    
+    func dismiss(toCenter targetCenter: CGPoint) {
+        willDisappear()
+        
+        UIView.animateKeyframes(withDuration: 0.36, delay: 0, options: [.calculationModeCubic], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7, animations: {
+                self.alpha = 0
+            })
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                self.center = targetCenter
+                self.maskerView.frame.size = self.maskViewOriginSize
+                self.maskerView.center = self.maskViewCenter
+            })
+        }, completion: nil)
+    }
+    
+    private func willAppear() {
         
     }
     
-    func willDisappear() {
+    private func willDisappear() {
         
     }
 

@@ -63,6 +63,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         guard !didSetInitialLocation else { return }
         centerMapAroundUserLocation(animated: false)
+        placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
         didSetInitialLocation = true
     }
     
@@ -81,30 +82,20 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         selectedAnnotation = annotation
         view.image = pinImage(forAnnotation: annotation, selected: true)
         
-        signView.willAppear()
-        
         signView.annotation = annotation
-        signView.frame = CGRect(size: targetSignSize, center: point(forAnnotation: annotation))
-        
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
-            self.signView.alpha = 1
-            self.signView.frame = self.signFrame(forAnnotation: annotation)
-        }, completion: nil)
+        signView.present(fromCenter: point(forAnnotation: annotation), targetFrame: signFrame(forAnnotation: annotation))
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         guard let oldAnnotation = view.annotation as? TransantiagoAnnotation else { return }
         view.image = pinImage(forAnnotation: oldAnnotation, selected: false)
+        let transition = CATransition()
+        transition.duration = 0.24
+        transition.type = kCATransitionFade
+        view.layer.add(transition, forKey: nil)
         selectedAnnotation = nil
         
-        signView.willDisappear()
-        
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-            self.signView.alpha = 0
-            self.signView.center = self.point(forAnnotation: oldAnnotation)
-        }) { (finished) in
-            
-        }
+        signView.dismiss(toCenter: point(forAnnotation: oldAnnotation))
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
