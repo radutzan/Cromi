@@ -30,6 +30,7 @@
 		7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */; };
 		7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */; };
 		7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946E01DFA366100F3D29A /* NibLoadingView.swift */; };
+		7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,8 @@
 		7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetSignView.swift; sourceTree = "<group>"; };
 		7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreetSignView.xib; sourceTree = "<group>"; };
 		7CE946E01DFA366100F3D29A /* NibLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadingView.swift; sourceTree = "<group>"; };
+		7CF818CB1E9EF3A9007F1468 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7CF818CD1E9EF3D2007F1468 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +128,7 @@
 				7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */,
 				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
 				7CE946CB1DF8FA3E00F3D29A /* Info.plist */,
+				7CF818CC1E9EF3A9007F1468 /* Localizable.strings */,
 			);
 			path = Transantiago;
 			sourceTree = "<group>";
@@ -181,6 +185,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"es-419",
 			);
 			mainGroup = 7CE946B31DF8FA3E00F3D29A;
 			productRefGroup = 7CE946BD1DF8FA3E00F3D29A /* Products */;
@@ -202,6 +207,7 @@
 				7C28C6121E9B38EF0012BD19 /* SignHoursRowView.xib in Resources */,
 				7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */,
 				7C28C6101E9B38570012BD19 /* SignServiceRowView.xib in Resources */,
+				7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */,
 				7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */,
 				7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */,
 				7C28C6061E9B35250012BD19 /* SignServiceView.xib in Resources */,
@@ -251,6 +257,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		7CF818CC1E9EF3A9007F1468 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7CF818CB1E9EF3A9007F1468 /* Base */,
+				7CF818CD1E9EF3D2007F1468 /* es-419 */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -258,6 +273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -307,6 +323,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

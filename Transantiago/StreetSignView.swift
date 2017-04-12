@@ -25,7 +25,6 @@ class StreetSignView: NibLoadingView {
     var annotation: TransantiagoAnnotation? {
         didSet {
             reloadData()
-            headerView.annotation = annotation
         }
     }
     private var style: SignStyle = .dark {
@@ -45,6 +44,8 @@ class StreetSignView: NibLoadingView {
         return CGPoint(x: frame.width / 2, y: frame.height / 2)
     }
     
+    private(set) var isVisible = false
+    
     private let bipBlueColor = SignConstants.Color.bipBlue
     
     private var didPerformInitialSetup = false
@@ -59,8 +60,9 @@ class StreetSignView: NibLoadingView {
         signView.layer.masksToBounds = true
         signView.mask = maskerView
         maskerView.frame = CGRect(size: maskViewOriginSize, center: CGPoint.zero)
-        maskerView.backgroundColor = .black
+        maskerView.backgroundColor = .blue
         maskerView.layer.cornerRadius = 12
+//        addSubview(maskerView) // masking debug
         didPerformInitialSetup = true
     }
     
@@ -70,6 +72,8 @@ class StreetSignView: NibLoadingView {
         view.backgroundColor = UIColor.clear
         view.layer.borderColor = UIColor.clear.cgColor
         mainStackView.spacing = 0
+        
+        headerView.annotation = annotation
         
         guard let annotation = annotation else { return }
         
@@ -85,9 +89,15 @@ class StreetSignView: NibLoadingView {
                     let serviceRowView = SignServiceRowView(services: pendingServices)
                     mainStackView.addArrangedSubview(serviceRowView)
                     mainStackView.layoutIfNeeded()
+                    
+                    for (index, service) in pendingServices.enumerated() {
+                        serviceViews[service.name] = index == 0 ? serviceRowView.serviceView1 : serviceRowView.serviceView2
+                    }
+                    
                     pendingServices = []
                 }
             }
+            beginStopPredictions()
             
         case let annotation as BipSpot:
             style = .light
@@ -127,6 +137,7 @@ class StreetSignView: NibLoadingView {
             mainStackView.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
+        mainStackView.layoutIfNeeded()
     }
     
     override var intrinsicContentSize: CGSize {
@@ -135,14 +146,15 @@ class StreetSignView: NibLoadingView {
     
     func present(fromCenter originCenter: CGPoint, targetFrame: CGRect) {
         frame = CGRect(size: targetFrame.size, center: originCenter)
-        let targetMaskFrame = frame.insetBy(dx: -12, dy: -12)
+        let targetMaskSize = frame.insetBy(dx: -12, dy: -12).size
+        maskerView.frame.size = maskViewOriginSize
         maskerView.center = maskViewCenter
         willAppear()
         
         UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
             self.alpha = 1
             self.frame = targetFrame
-            self.maskerView.frame.size = targetMaskFrame.size
+            self.maskerView.frame.size = targetMaskSize
             self.maskerView.center = self.maskViewCenter
         }, completion: nil)
     }
@@ -150,24 +162,65 @@ class StreetSignView: NibLoadingView {
     func dismiss(toCenter targetCenter: CGPoint) {
         willDisappear()
         
-        UIView.animateKeyframes(withDuration: 0.36, delay: 0, options: [.calculationModeCubic], animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7, animations: {
-                self.alpha = 0
-            })
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                self.center = targetCenter
-                self.maskerView.frame.size = self.maskViewOriginSize
-                self.maskerView.center = self.maskViewCenter
-            })
-        }, completion: nil)
+        delay(1/60) {
+            if self.isVisible { return }
+            UIView.animateKeyframes(withDuration: 0.36, delay: 0, options: [.calculationModeCubic], animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7, animations: {
+                    self.alpha = 0
+                })
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                    self.center = targetCenter
+                    self.maskerView.frame.size = self.maskViewOriginSize
+                    self.maskerView.center = self.maskViewCenter
+                })
+            }, completion: nil)
+        }
     }
     
     private func willAppear() {
-        
+        isVisible = true
     }
     
     private func willDisappear() {
-        
+        isVisible = false
+        endStopPredictions()
+    }
+    
+    // MARK: - Stop predictions
+    private var serviceViews: [String: SignServiceView] = [:]
+    private var predictionUpdateTimer: Timer?
+    
+    private func beginStopPredictions() {
+        getCurrentStopPrediction()
+        startPredictionTimer()
+    }
+    
+    private func endStopPredictions() {
+        cancelPredictionTimer()
+        serviceViews = [:]
+    }
+    
+    @objc private func getCurrentStopPrediction() {
+        guard let stop = annotation as? Stop else { return }
+        Transantiago.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
+            guard let prediction = prediction else { return }
+            for response in prediction.serviceResponses {
+                guard let view = self.serviceViews[response.serviceName], let predictions = response.predictions else { continue }
+                mainThread {
+                    view.subtitle = predictions[0].predictionString
+                    view.isSubtitleSecondary = false
+                }
+            }
+        }
+    }
+    
+    private func startPredictionTimer() {
+        cancelPredictionTimer()
+        predictionUpdateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(getCurrentStopPrediction), userInfo: nil, repeats: true)
     }
 
+    private func cancelPredictionTimer() {
+        predictionUpdateTimer?.invalidate()
+        predictionUpdateTimer = nil
+    }
 }

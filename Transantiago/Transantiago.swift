@@ -48,7 +48,7 @@ class Transantiago: NSObject {
     
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> (Void)) {
         // http://www.transantiago.cl/predictor/prediccion?codsimt=PA420
-        let task = URLSession.shared.dataTask(with: URL(string: "http://www.transantiago.cl/predictor/prediccion?codsimt=\(code)")!) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: URL(string: "https://www.transantiago.cl/predictor/prediccion?codsimt=\(code)")!) { (data, response, error) in
             var prediction: StopPrediction?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
                 guard let json = jsonObject as? [String: Any],
@@ -64,27 +64,29 @@ class Transantiago: NSObject {
                         let responseType = StopPrediction.ServiceResponse.ResponseType(rawValue: responseCode),
                         let serviceName = service["servicio"] as? String else { return }
                     
-                    var predictions: [StopPrediction.ServiceResponse.Prediction] = []
+                    var predictions: [StopPrediction.ServiceResponse.Prediction]?
                     switch responseType {
                     case .onePrediction, .twoPredictions:
                         guard let distanceString1 = service["distanciabus1"] as? String,
                             let distance1 = Int(distanceString1),
                             let predictionString1 = service["horaprediccionbus1"] as? String,
                             let licensePlate1 = service["ppubus1"] as? String else { break }
-                        predictions.append(StopPrediction.ServiceResponse.Prediction(distance: distance1, predictionString: predictionString1, licensePlate: licensePlate1))
+                        let prediction1 = self.sanitize(prediction: predictionString1)
+                        predictions = [StopPrediction.ServiceResponse.Prediction(distance: distance1, predictionString: prediction1, licensePlate: licensePlate1)]
                         
                         guard let distanceString2 = service["distanciabus2"] as? String,
                             let distance2 = Int(distanceString2),
                             let predictionString2 = service["horaprediccionbus2"] as? String,
                             let licensePlate2 = service["ppubus2"] as? String else { break }
-                        predictions.append(StopPrediction.ServiceResponse.Prediction(distance: distance2, predictionString: predictionString2, licensePlate: licensePlate2))
+                        let prediction2 = self.sanitize(prediction: predictionString2)
+                        predictions?.append(StopPrediction.ServiceResponse.Prediction(distance: distance2, predictionString: prediction2, licensePlate: licensePlate2))
                         break
                         
                     default:
                         break
                     }
                     
-                    serviceResponses.append(StopPrediction.ServiceResponse(type: responseType, serviceName: serviceName, predictions: []))
+                    serviceResponses.append(StopPrediction.ServiceResponse(type: responseType, serviceName: serviceName, predictions: predictions))
                 }
                 
                 prediction = StopPrediction(timestamp: Date(), stopCode: stopCode, responseString: responseString, serviceResponses: serviceResponses)
@@ -92,6 +94,10 @@ class Transantiago: NSObject {
             completion(prediction)
         }
         task.resume()
+    }
+    
+    private func sanitize(prediction string: String) -> String {
+        return string.replacingOccurrences(of: " 0", with: " ").replacingOccurrences(of: "Entre ", with: "").replacingOccurrences(of: "Menos de ", with: "~").replacingOccurrences(of: "Mas de ", with: ">").replacingOccurrences(of: ". ", with: "").replacingOccurrences(of: ".", with: "").replacingOccurrences(of: "Y", with: NSLocalizedString("to", comment: ""))
     }
     
     func service(withName serviceName: String, completion: @escaping (Service?) -> (Void)) {
