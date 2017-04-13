@@ -47,7 +47,6 @@ class Transantiago: NSObject {
     }
     
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> (Void)) {
-        // http://www.transantiago.cl/predictor/prediccion?codsimt=PA420
         let task = URLSession.shared.dataTask(with: URL(string: "https://www.transantiago.cl/predictor/prediccion?codsimt=\(code)")!) { (data, response, error) in
             var prediction: StopPrediction?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
@@ -97,7 +96,7 @@ class Transantiago: NSObject {
     }
     
     private func sanitize(prediction string: String) -> String {
-        return string.replacingOccurrences(of: " 0", with: " ").replacingOccurrences(of: "Entre ", with: "").replacingOccurrences(of: "Menos de ", with: "~").replacingOccurrences(of: "Mas de ", with: ">").replacingOccurrences(of: ". ", with: "").replacingOccurrences(of: ".", with: "").replacingOccurrences(of: "Y", with: NSLocalizedString("to", comment: ""))
+        return string.replacingOccurrences(of: " 0", with: " ").replacingOccurrences(of: "Entre ", with: "").replacingOccurrences(of: "En menos de ", with: "~").replacingOccurrences(of: "Menos de ", with: "~").replacingOccurrences(of: "Mas de ", with: ">").replacingOccurrences(of: ". ", with: "").replacingOccurrences(of: ".", with: "").replacingOccurrences(of: "Y", with: NSLocalizedString("to", comment: ""))
     }
     
     func service(withName serviceName: String, completion: @escaping (Service?) -> (Void)) {

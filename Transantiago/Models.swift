@@ -43,7 +43,8 @@ class Stop: TransantiagoAnnotation, CreatableFromJSON {
             let location = (json["pos"] as? [NSNumber]).map({ $0.toDoubleArray() }),
             let code = json["cod"] as? String else { return nil }
         let stopNumber = json["num"] as? Int
-        let services: [Service] = Service.createRequiredInstances(from: json, arrayKey: "servicios") ?? []
+        var services: [Service] = Service.createRequiredInstances(from: json, arrayKey: "servicios") ?? []
+        services = services.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == ComparisonResult.orderedAscending }
         let nameComponents = name.components(separatedBy: " esq. ")
         let title = nameComponents[0]
         var subtitle: String?
@@ -51,6 +52,19 @@ class Stop: TransantiagoAnnotation, CreatableFromJSON {
             subtitle = nameComponents[1]
         }
         self.init(code: code, number: stopNumber, services: services, coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: title, subtitle: subtitle, commune: commune)
+    }
+    
+    override var hashValue: Int {
+        return code.hashValue ^ 420.hashValue
+    }
+    
+    static func == (rhs: Stop, lhs: Stop) -> Bool {
+        return rhs.code == lhs.code
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let otherStop = object as? Stop else { return false }
+        return code == otherStop.code
     }
 }
 
@@ -91,6 +105,19 @@ class BipSpot: TransantiagoAnnotation {
         }
         
         self.init(coordinate: CLLocationCoordinate2D(latitude: location[0], longitude: location[1]), title: name.capitalized(with: Locale(identifier: "es-CL")), subtitle: nil, commune: commune, address: address?.capitalized, operationHours: operationHours)
+    }
+    
+    override var hashValue: Int {
+        return coordinate.latitude.hashValue ^ coordinate.longitude.hashValue ^ (title ?? "").hashValue
+    }
+    
+    static func == (rhs: BipSpot, lhs: BipSpot) -> Bool {
+        return rhs.coordinate.latitude == lhs.coordinate.latitude && rhs.coordinate.longitude == lhs.coordinate.longitude && rhs.title == lhs.title
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let lhs = object as? BipSpot else { return false }
+        return coordinate.latitude == lhs.coordinate.latitude && coordinate.longitude == lhs.coordinate.longitude && title == lhs.title
     }
 }
 

@@ -189,10 +189,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         Transantiago.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) -> (Void) in
             guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
             mainThread {
-                self.clearTransantiagoAnnotations(in: self.mapView)
-                self.mapView.addAnnotations(stops)
-                self.mapView.addAnnotations(bipSpots)
-                self.mapView.addAnnotations(metroStations)
+                let currentAnnotationsSet = Set(self.mapView.annotations.filter { $0 is TransantiagoAnnotation } as! [TransantiagoAnnotation])
+                let newAnnotationsSet = Set((stops as [TransantiagoAnnotation]) + (bipSpots as [TransantiagoAnnotation]) + (metroStations as [TransantiagoAnnotation]))
+                let annotationsToRemove = Array(currentAnnotationsSet.subtracting(newAnnotationsSet))
+                let annotationsToAdd = Array(newAnnotationsSet.subtracting(currentAnnotationsSet))
+                
+                self.mapView.removeAnnotations(annotationsToRemove)
+                self.mapView.addAnnotations(annotationsToAdd)
             }
         }
     }
