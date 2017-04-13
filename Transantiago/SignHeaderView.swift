@@ -55,6 +55,7 @@ class SignHeaderView: NibLoadingView {
     }
     
     @IBOutlet private var stackView: UIStackView!
+    @IBOutlet private var metroImageView: UIImageView!
     @IBOutlet private var numberLabel: UILabel!
     @IBOutlet private var pretitleLabel: UILabel!
     @IBOutlet private var titleLabel: UILabel!
@@ -82,6 +83,7 @@ class SignHeaderView: NibLoadingView {
         numberLabel.textColor = .black
         numberLabel.backgroundColor = .white
         numberLabel.layer.cornerRadius = 2
+        metroImageView.isHidden = true
         
         guard let annotation = annotation else { return }
         
@@ -107,10 +109,11 @@ class SignHeaderView: NibLoadingView {
             if metroTitle.hasPrefix("Metro ") {
                 title = metroTitle.replacingOccurrences(of: "Metro ", with: "")
             }
-            number = annotation.lineNumber // TODO: get real metro line number
+//            number = annotation.lineNumber // TODO: get real metro line number
             numberLabel.backgroundColor = annotation.lineColor // TODO: get real metro color
             numberLabel.layer.cornerRadius = 28 / 2 // TODO: make 28 a constant
             numberLabel.textColor = .white
+            metroImageView.isHidden = false
             
         case let annotation as BipSpot:
             style = .light

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignHeaderView" customModule="Cromi" customModuleProvider="target">
             <connections>
+                <outlet property="metroImageView" destination="wwR-xo-iJO" id="g35-ee-ytc"/>
                 <outlet property="numberLabel" destination="Hhh-z7-qg4" id="IVq-cm-QaS"/>
                 <outlet property="pretitleLabel" destination="ShS-Rw-kjo" id="ZCz-dE-84f"/>
                 <outlet property="stackView" destination="ajY-mH-IjD" id="iyj-Z4-rN3"/>
@@ -28,8 +29,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ajY-mH-IjD">
                     <rect key="frame" x="11" y="0.0" width="201" height="52"/>
                     <subviews>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign accessory metro" translatesAutoresizingMaskIntoConstraints="NO" id="wwR-xo-iJO">
+                            <rect key="frame" x="0.0" y="18.5" width="27" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="27" id="aJn-xg-ciQ"/>
+                            </constraints>
+                        </imageView>
                         <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhh-z7-qg4">
-                            <rect key="frame" x="0.0" y="12" width="28" height="28"/>
+                            <rect key="frame" x="37" y="12" width="28" height="28"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="E1N-w6-0Eu"/>
@@ -40,10 +47,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Sy9-eU-t7z">
-                            <rect key="frame" x="38" y="9.5" width="163" height="33"/>
+                            <rect key="frame" x="75" y="9.5" width="126" height="33"/>
                             <subviews>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShS-Rw-kjo">
-                                    <rect key="frame" x="0.0" y="0.0" width="163" height="7"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="126" height="7"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -55,7 +62,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4U6-Mg-wq3">
-                                    <rect key="frame" x="0.0" y="26.5" width="163" height="6.5"/>
+                                    <rect key="frame" x="0.0" y="26.5" width="126" height="6.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -81,4 +88,7 @@
             <point key="canvasLocation" x="-381" y="54"/>
         </view>
     </objects>
+    <resources>
+        <image name="sign accessory metro" width="27" height="15"/>
+    </resources>
 </document>

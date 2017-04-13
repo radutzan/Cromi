@@ -17,6 +17,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private var selectedAnnotation: TransantiagoAnnotation?
     private var scrollEventTimer: Timer?
     private let signView = StreetSignView()
+    private let gradientLayer = CAGradientLayer()
     
     private let locationManager = CLLocationManager()
     private var currentCoordinate: CLLocationCoordinate2D?
@@ -49,10 +50,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationButton.layer.shadowRadius = 11
         locationButton.layer.shadowOpacity = 0.2
         
+        gradientLayer.colors = [UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 1).cgColor, UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 0).cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        view.layer.addSublayer(gradientLayer)
+        
         view.addSubview(signView)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        gradientLayer.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: view.bounds.width, height: 40))
     }
     
     // MARK: - CLLocationManagerDelegate
@@ -173,11 +183,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     // MARK: - Helpers
-    private func clearTransantiagoAnnotations(in mapView: MKMapView) {
-        let transantiagoAnnotations = mapView.annotations.filter { $0 is TransantiagoAnnotation }
-        mapView.removeAnnotations(transantiagoAnnotations)
-    }
-    
     private func centerMapAroundUserLocation(animated: Bool) {
         let initialCoordinate = userLocation
         let allowedSpan: CLLocationDegrees = 0.0025
