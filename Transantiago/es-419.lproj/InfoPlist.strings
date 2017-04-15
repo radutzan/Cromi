@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Transantiago
+
+  Created by Radu Dutzan on 4/13/17.
+  Copyright © 2017 Radu Dutzan. All rights reserved.
+*/
+
+"NSLocationWhenInUseUsageDescription" = "Cromi usa tu ubicación para mostrarte los paraderos más cercanos.";

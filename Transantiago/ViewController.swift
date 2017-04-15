@@ -20,10 +20,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private let gradientLayer = CAGradientLayer()
     
     private let locationManager = CLLocationManager()
-    private var currentCoordinate: CLLocationCoordinate2D?
-    private var userLocation: CLLocationCoordinate2D {
-        return currentCoordinate ?? CLLocationCoordinate2DMake(-33.425567, -70.614486)
-    }
     private var locationAuthorized = false {
         didSet {
             guard locationAuthorized, !didSetInitialLocation else { return }
@@ -31,6 +27,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     private var didSetInitialLocation = false
+    private var currentCoordinate: CLLocationCoordinate2D?
+    private var forceSantiago = false
+    private var userLocation: CLLocationCoordinate2D {
+        let defaultCoordinate = CLLocationCoordinate2DMake(-33.425567, -70.614486)
+        if forceSantiago { return defaultCoordinate }
+        return currentCoordinate ?? defaultCoordinate
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -67,13 +70,29 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coordinate = locations.last?.coordinate else { return }
-        currentCoordinate = coordinate
+        guard let location = locations.last else { return }
+        currentCoordinate = location.coordinate
         manager.stopUpdatingLocation()
         
         guard !didSetInitialLocation else { return }
         centerMapAroundUserLocation(animated: false)
         placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
+        
+        // check if user is not in Santiago
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            guard let placemark = placemarks?.first, let administrativeArea = placemark.administrativeArea else { return }
+            if administrativeArea != "Metropolitana de Santiago" {
+                let stgoAlert = UIAlertController(title: NSLocalizedString("Not in Santiago alert title", comment: ""), message: NSLocalizedString("Not in Santiago alert message", comment: ""), preferredStyle: .alert)
+                stgoAlert.addAction(UIAlertAction(title: NSLocalizedString("Not in Santiago alert confirmation", comment: ""), style: .default, handler: { (action) in
+                    self.forceSantiago = true
+                    self.centerMapAroundUserLocation(animated: true)
+                    self.placeAnnotations(aroundCoordinate: self.userLocation)
+                }))
+                self.present(stgoAlert, animated: true, completion: nil)
+            }
+        }
+        
         didSetInitialLocation = true
     }
     
@@ -83,7 +102,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        // this could be more efficient, maybe
         placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
     }
     
@@ -184,10 +202,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     // MARK: - Helpers
     private func centerMapAroundUserLocation(animated: Bool) {
-        let initialCoordinate = userLocation
         let allowedSpan: CLLocationDegrees = 0.0025
-        let initialRegion = MKCoordinateRegion(center: initialCoordinate, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))
-        mapView.setRegion(initialRegion, animated: animated)
+        let userRegion = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))
+        mapView.setRegion(userRegion, animated: animated)
     }
     
     private func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D) {

@@ -158,7 +158,8 @@ struct Service: CreatableFromJSON {
             let colorString = json["color"] as? String,
             let destinationString = json["destino"] as? String else { return nil }
         
-        self.init(name: name, color: UIColor(hexString: colorString), routes: nil, destinationString: destinationString)
+        let finalDestination = NSLocalizedString("to", comment: "") + destinationString.substring(from: destinationString.index(after: destinationString.startIndex))
+        self.init(name: name, color: UIColor(hexString: colorString), routes: nil, destinationString: finalDestination)
     }
     
     init?(jsonDictionaries: [[String: Any]]) {

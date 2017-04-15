@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Transantiago
+
+  Created by Radu Dutzan on 4/12/17.
+  Copyright © 2017 Radu Dutzan. All rights reserved.
+*/
+
+"to" = "to";
+"Not in Santiago alert title" = "You're Not In Santiago";
+"Not in Santiago alert message" = "Cromi only works in Santiago de Chile.";
+"Not in Santiago alert confirmation" = "Fly Me There";

@@ -7,3 +7,6 @@
  */
 
 "to" = "a";
+"Not in Santiago alert title" = "No estás en Santiago";
+"Not in Santiago alert message" = "Cromi sólo funciona en Santiago de Chile.";
+"Not in Santiago alert confirmation" = "Volemos allá";

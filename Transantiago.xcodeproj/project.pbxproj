@@ -17,6 +17,7 @@
 		7C28C6121E9B38EF0012BD19 /* SignHoursRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */; };
 		7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */; };
 		7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */; };
+		7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
 		7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
 		7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946C11DF8FA3E00F3D29A /* ViewController.swift */; };
 		7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
@@ -45,6 +46,9 @@
 		7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignHoursRowView.xib; sourceTree = "<group>"; };
 		7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignTimetableView.xib; sourceTree = "<group>"; };
 		7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignTimetableView.swift; sourceTree = "<group>"; };
+		7C58CC4D1EA05C3600259F11 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7C58CC511EA05C5500259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7C58CC531EA05C6700259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7CE946BC1DF8FA3E00F3D29A /* Cromi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cromi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CE946C11DF8FA3E00F3D29A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +64,6 @@
 		7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetSignView.swift; sourceTree = "<group>"; };
 		7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreetSignView.xib; sourceTree = "<group>"; };
 		7CE946E01DFA366100F3D29A /* NibLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadingView.swift; sourceTree = "<group>"; };
-		7CF818CB1E9EF3A9007F1468 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7CF818CD1E9EF3D2007F1468 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +132,7 @@
 				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
 				7CE946CB1DF8FA3E00F3D29A /* Info.plist */,
 				7CF818CC1E9EF3A9007F1468 /* Localizable.strings */,
+				7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */,
 			);
 			path = Transantiago;
 			sourceTree = "<group>";
@@ -212,6 +216,7 @@
 				7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */,
 				7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */,
 				7C28C6061E9B35250012BD19 /* SignServiceView.xib in Resources */,
+				7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */,
 				7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,14 +226,14 @@
 /* Begin PBXShellScriptBuildPhase section */
 		7CF818CE1EA050E4007F1468 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list HEAD --count`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nfi";
 		};
@@ -258,6 +263,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7C58CC4D1EA05C3600259F11 /* es-419 */,
+				7C58CC511EA05C5500259F11 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		7CE946C31DF8FA3E00F3D29A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -277,8 +291,8 @@
 		7CF818CC1E9EF3A9007F1468 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7CF818CB1E9EF3A9007F1468 /* Base */,
 				7CF818CD1E9EF3D2007F1468 /* es-419 */,
+				7C58CC531EA05C6700259F11 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
