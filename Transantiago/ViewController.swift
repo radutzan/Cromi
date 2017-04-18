@@ -82,7 +82,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             guard let placemark = placemarks?.first, let administrativeArea = placemark.administrativeArea else { return }
-            if administrativeArea != "Metropolitana de Santiago" {
+            if !administrativeArea.localizedCaseInsensitiveContains("santiago") {
                 let stgoAlert = UIAlertController(title: NSLocalizedString("Not in Santiago alert title", comment: ""), message: NSLocalizedString("Not in Santiago alert message", comment: ""), preferredStyle: .alert)
                 stgoAlert.addAction(UIAlertAction(title: NSLocalizedString("Not in Santiago alert confirmation", comment: ""), style: .default, handler: { (action) in
                     self.forceSantiago = true
