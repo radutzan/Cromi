@@ -23,7 +23,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private var locationAuthorized = false {
         didSet {
             guard locationAuthorized, !didSetInitialLocation else { return }
-            locationManager.startUpdatingLocation()
+            updateLocation() {
+                self.centerMapAroundUserLocation(animated: false)
+                self.placeAnnotations(aroundCoordinate: self.mapView.centerCoordinate)
+                self.didSetInitialLocation = true
+            }
         }
     }
     private var didSetInitialLocation = false
@@ -69,14 +73,24 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     // MARK: - CLLocationManagerDelegate
+    private var needsLocationUpdate = false
+    private var locationUpdateCompletionHandler: ((Void) -> (Void))?
+    func updateLocation(completion: ((Void) -> (Void))? = nil) {
+        guard locationAuthorized else { return }
+        forceSantiago = false
+        needsLocationUpdate = true
+        locationManager.startUpdatingLocation()
+        locationUpdateCompletionHandler = completion
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
+        guard needsLocationUpdate, let location = locations.last else { return }
         currentCoordinate = location.coordinate
         manager.stopUpdatingLocation()
         
-        guard !didSetInitialLocation else { return }
-        centerMapAroundUserLocation(animated: false)
-        placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
+        needsLocationUpdate = false
+        locationUpdateCompletionHandler?()
+        locationUpdateCompletionHandler = nil
         
         // check if user is not in Santiago
         let geocoder = CLGeocoder()
@@ -92,8 +106,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.present(stgoAlert, animated: true, completion: nil)
             }
         }
-        
-        didSetInitialLocation = true
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -223,7 +235,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     @IBAction func locationButtonTapped() {
-        centerMapAroundUserLocation(animated: true)
+        updateLocation() {
+            self.centerMapAroundUserLocation(animated: true)
+        }
     }
 
 }
