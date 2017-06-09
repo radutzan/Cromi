@@ -33,5 +33,10 @@ class SignServiceView: NibLoadingView {
     
     @IBOutlet private var serviceLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
+    
+    override func willMove(toSuperview newSuperview: UIView?) {
+        serviceLabel.font = .titleBold
+        subtitleLabel.font = .subtitle
+    }
 
 }

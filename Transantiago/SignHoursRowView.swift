@@ -30,5 +30,10 @@ class SignHoursRowView: NibLoadingView {
     
     @IBOutlet private var daysLabel: UILabel!
     @IBOutlet private var hoursLabel: UILabel!
+    
+    override func willMove(toSuperview newSuperview: UIView?) {
+        daysLabel.font = .subtitle
+        hoursLabel.font = .subtitle
+    }
 
 }

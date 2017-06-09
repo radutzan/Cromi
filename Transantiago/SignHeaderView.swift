@@ -67,11 +67,16 @@ class SignHeaderView: NibLoadingView {
     private func performInitialSetupIfNeeded() {
         if didPerformInitialSetup { return }
         view.layer.cornerRadius = SignConstants.cornerRadius
+        pretitleLabel.font = .subtitle
+        titleLabel.font = .title
+        subtitleLabel.font = .subtitle
+        numberLabel.font = .titleBold
         didPerformInitialSetup = true
     }
     
     private func reloadData() {
         performInitialSetupIfNeeded()
+        
         number = nil
         pretitle = nil
         title = nil
