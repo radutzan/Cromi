@@ -25,7 +25,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             guard locationAuthorized, !didSetInitialLocation else { return }
             updateLocation() {
                 self.centerMapAroundUserLocation(animated: false)
-                self.placeAnnotations(aroundCoordinate: self.mapView.centerCoordinate)
+                self.placeAnnotations(aroundCoordinate: self.mapView.centerCoordinate) {
+                    self.selectNearestStop()
+                }
                 self.didSetInitialLocation = true
             }
         }
@@ -219,7 +221,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         mapView.setRegion(userRegion, animated: animated)
     }
     
-    private func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D) {
+    private func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: ((Void) -> ())? = nil) {
         Transantiago.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) -> (Void) in
             guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
             mainThread {
@@ -230,8 +232,27 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 self.mapView.removeAnnotations(annotationsToRemove)
                 self.mapView.addAnnotations(annotationsToAdd)
+                
+                completion?()
             }
         }
+    }
+    
+    private func selectNearestStop() {
+        let stops = mapView.annotations.filter { $0 is Stop } as! [Stop]
+        guard stops.count > 0 else { return }
+        let currentLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+        var stopsByDistance: [CLLocationDistance: Stop] = [:]
+        
+        for stop in stops {
+            let location = CLLocation(latitude: stop.coordinate.latitude, longitude: stop.coordinate.longitude)
+            let distance = location.distance(from: currentLocation)
+            stopsByDistance[distance] = stop
+        }
+        
+        let nearestDistance = stopsByDistance.keys.sorted()[0]
+        guard let nearestStop = stopsByDistance[nearestDistance] else { return }
+        mapView.selectAnnotation(nearestStop, animated: true)
     }
     
     @IBAction func locationButtonTapped() {

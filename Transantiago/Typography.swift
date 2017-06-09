@@ -1,9 +1,9 @@
 //
 //  Typography.swift
-//  Dopi
+//  Cromi
 //
 //  Created by Radu Dutzan on 5/8/17.
-//  Copyright © 2017 Onda. All rights reserved.
+//  Copyright © 2017 Radu Dutzan. All rights reserved.
 //
 
 import UIKit
