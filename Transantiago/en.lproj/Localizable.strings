@@ -10,3 +10,6 @@
 "Not in Santiago alert title" = "You're Not In Santiago";
 "Not in Santiago alert message" = "Cromi only works in Santiago de Chile.";
 "Not in Santiago alert confirmation" = "Fly Me There";
+
+"Search box placeholder" = "Search for place or address";
+"Place not found" = "Couldn't find place or address";

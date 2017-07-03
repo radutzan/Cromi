@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Transantiago.xcodeproj">
+      location = "self:/Users/radutzan/Proyectos/repos/Cromi/Cromi.xcodeproj">
    </FileRef>
 </Workspace>

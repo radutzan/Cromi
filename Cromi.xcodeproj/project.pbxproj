@@ -17,8 +17,10 @@
 		7C28C6121E9B38EF0012BD19 /* SignHoursRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */; };
 		7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */; };
 		7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */; };
+		7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */; };
 		7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
 		7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B96311EEA2F2600CAB04E /* Typography.swift */; };
+		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
 		7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
 		7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946C11DF8FA3E00F3D29A /* ViewController.swift */; };
 		7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
@@ -47,10 +49,12 @@
 		7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignHoursRowView.xib; sourceTree = "<group>"; };
 		7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignTimetableView.xib; sourceTree = "<group>"; };
 		7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignTimetableView.swift; sourceTree = "<group>"; };
+		7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7C58CC4D1EA05C3600259F11 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7C58CC511EA05C5500259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7C58CC531EA05C6700259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C7B96311EEA2F2600CAB04E /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		7CE946BC1DF8FA3E00F3D29A /* Cromi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cromi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CE946C11DF8FA3E00F3D29A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				7C100DA11E8C32E7005EC7B1 /* PokeWalk.gpx */,
-				7CE946BE1DF8FA3E00F3D29A /* Transantiago */,
+				7CE946BE1DF8FA3E00F3D29A /* Cromi */,
 				7CE946BD1DF8FA3E00F3D29A /* Products */,
 				7CE946D11DF8FB0600F3D29A /* Frameworks */,
 			);
@@ -119,7 +123,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7CE946BE1DF8FA3E00F3D29A /* Transantiago */ = {
+		7CE946BE1DF8FA3E00F3D29A /* Cromi */ = {
 			isa = PBXGroup;
 			children = (
 				7CE946D41DF93F1200F3D29A /* Extras.swift */,
@@ -128,8 +132,10 @@
 				7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */,
 				7CE946D61DF94DCB00F3D29A /* Transantiago.swift */,
 				7CE946DA1DF9579200F3D29A /* Models.swift */,
-				7CE946C11DF8FA3E00F3D29A /* ViewController.swift */,
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
+				7CE946C11DF8FA3E00F3D29A /* ViewController.swift */,
+				7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */,
+				7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */,
 				7C28C6041E9B32FD0012BD19 /* Sign View */,
 				7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */,
 				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
@@ -137,6 +143,7 @@
 				7CF818CC1E9EF3A9007F1468 /* Localizable.strings */,
 				7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */,
 			);
+			name = Cromi;
 			path = Transantiago;
 			sourceTree = "<group>";
 		};
@@ -186,7 +193,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7CE946B71DF8FA3E00F3D29A /* Build configuration list for PBXProject "Transantiago" */;
+			buildConfigurationList = 7CE946B71DF8FA3E00F3D29A /* Build configuration list for PBXProject "Cromi" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -247,10 +254,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */,
 				7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */,
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
 				7CE946D71DF94DCB00F3D29A /* Transantiago.swift in Sources */,
 				7C28C6081E9B37750012BD19 /* SignServiceView.swift in Sources */,
+				7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */,
 				7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */,
 				7C28C60C1E9B380C0012BD19 /* SignHoursRowView.swift in Sources */,
 				7C28C6031E9B27170012BD19 /* SignHeaderView.swift in Sources */,
@@ -426,7 +435,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7CE946B71DF8FA3E00F3D29A /* Build configuration list for PBXProject "Transantiago" */ = {
+		7CE946B71DF8FA3E00F3D29A /* Build configuration list for PBXProject "Cromi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7CE946CC1DF8FA3E00F3D29A /* Debug */,

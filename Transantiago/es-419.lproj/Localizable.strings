@@ -10,3 +10,6 @@
 "Not in Santiago alert title" = "No estás en Santiago";
 "Not in Santiago alert message" = "Cromi sólo funciona en Santiago de Chile.";
 "Not in Santiago alert confirmation" = "Volemos allá";
+
+"Search box placeholder" = "Busca un lugar o dirección";
+"Place not found" = "No se encontró la dirección o lugar";

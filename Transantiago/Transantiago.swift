@@ -13,7 +13,6 @@ class Transantiago: NSObject {
     
     static let get = Transantiago()
     
-    // TODO: differentiate annotation types (should be "annotations aroundCoordinate")
     func annotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping ([Stop]?, [BipSpot]?, [MetroStation]?) -> (Void)) {
         let task = URLSession.shared.dataTask(with: URL(string: "https://www.transantiago.cl/restservice/rest/getpuntoparada?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&bip=1")!) { (data, response, error) in
             var stops: [Stop]?
@@ -40,6 +39,9 @@ class Transantiago: NSObject {
                         stops!.append(stop)
                     }
                 }
+            }
+            if let error = error {
+                print(error)
             }
             completion(stops, bipSpots, metroStations)
         }
@@ -90,6 +92,9 @@ class Transantiago: NSObject {
                 
                 prediction = StopPrediction(timestamp: Date(), stopCode: stopCode, responseString: responseString, serviceResponses: serviceResponses)
             }
+            if let error = error {
+                print(error)
+            }
             completion(prediction)
         }
         task.resume()
@@ -106,6 +111,9 @@ class Transantiago: NSObject {
                 guard let baseArray = jsonObject as? [[String: Any]] else { return }
                 
                 service = Service(jsonDictionaries: baseArray)
+            }
+            if let error = error {
+                print(error)
             }
             completion(service)
         }

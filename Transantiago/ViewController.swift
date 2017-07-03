@@ -62,9 +62,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         gradientLayer.colors = [UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 1).cgColor, UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 0).cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
-        view.layer.addSublayer(gradientLayer)
+        view.layer.insertSublayer(gradientLayer, above: mapView.layer)
         
-        view.addSubview(signView)
+        view.insertSubview(signView, at: 1)//addSubview()
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
@@ -180,7 +180,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     private func signFrame(forAnnotation annotation: MKAnnotation) -> CGRect {
         let annotationPoint = point(forAnnotation: annotation)
         
-        let protectedInsets = UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
+        // TODO: make these insets more aware of environment
+        let protectedInsets = UIEdgeInsets(top: 85, left: 10, bottom: 10, right: 10)
         var proposedFrame = CGRect(size: targetSignSize, center: annotationPoint.offsetBy(dx: 0, dy: -targetSignSize.height / 2 - signDistance))
         
         if proposedFrame.minX < protectedInsets.left {
