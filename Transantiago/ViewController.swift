@@ -13,6 +13,7 @@ import MessageUI
 class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewControllerDelegate, CLLocationManagerDelegate, TransantiagoAPIErrorDelegate {
     
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var errorInfoButton: MapButton!
     
     private var selectedAnnotation: TransantiagoAnnotation?
     private var scrollEventTimer: Timer?
@@ -176,7 +177,7 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
         let annotationPoint = point(forAnnotation: annotation)
         
         // TODO: make these insets more aware of environment
-        let protectedInsets = UIEdgeInsets(top: 30, left: 10, bottom: 70, right: 10)
+        let protectedInsets = UIEdgeInsets(top: 30, left: 10, bottom: 80, right: 10)
         var proposedFrame = CGRect(size: targetSignSize, center: annotationPoint.offsetBy(dx: 0, dy: -targetSignSize.height / 2 - signDistance))
         
         if proposedFrame.minX < protectedInsets.left {
@@ -189,7 +190,7 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
             proposedFrame.origin.x = view.bounds.width - protectedInsets.left - proposedFrame.width
         }
         if proposedFrame.maxY > view.bounds.height - protectedInsets.bottom {
-            proposedFrame.origin.x = view.bounds.height - protectedInsets.bottom - proposedFrame.height
+            proposedFrame.origin.y = view.bounds.height - protectedInsets.bottom - proposedFrame.height
         }
         
         return proposedFrame
@@ -216,9 +217,17 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     
     func transantiagoFailingAPIsDidChange(_ apis: [Transantiago.APIType]) {
         failingAPIs = apis
+        toggleErrorInfoButton(hidden: apis.count == 0)
         guard apis.count > 0, !didPresentAPIErrorAlert else { return }
         presentAPIErrorAlert()
         didPresentAPIErrorAlert = true
+    }
+    
+    private func toggleErrorInfoButton(hidden: Bool) {
+        guard (hidden && errorInfoButton.alpha == 1) || (!hidden && errorInfoButton.alpha == 0) else { return }
+        UIView.animate(withDuration: 0.24) { 
+            self.errorInfoButton.alpha = hidden ? 0 : 1
+        }
     }
     
     @IBAction func infoButtonPressed() {
