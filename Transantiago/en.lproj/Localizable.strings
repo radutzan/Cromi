@@ -13,3 +13,17 @@
 
 "Search box placeholder" = "Search for place or address";
 "Place not found" = "Couldn't find place or address";
+
+// API Errors
+"and" = "and";
+"map" = "map";
+"service information" = "bus service information";
+"stop prediction" = "stop prediction";
+"service" = "service";
+"services" = "services";
+"API Error title" = "The Transantiago web services are failing";
+"API Error message" = "If Transantiago doesn't run their web services, Cromi can't deliver your data.\n\nAsk Transantiago to let you keep using Cromi:";
+"Tweet @transantiago" = "Tweet @transantiago";
+"Email Transantiago" = "Email Transantiago";
+"Follow Cromi" = "Follow @cromi_app";
+"Done" = "Done";

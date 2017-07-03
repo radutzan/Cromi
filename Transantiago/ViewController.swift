@@ -8,11 +8,11 @@
 
 import UIKit
 import MapKit
+import MessageUI
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewControllerDelegate, CLLocationManagerDelegate, TransantiagoAPIErrorDelegate {
     
     @IBOutlet var mapView: MKMapView!
-    @IBOutlet var locationButton: UIButton!
     
     private var selectedAnnotation: TransantiagoAnnotation?
     private var scrollEventTimer: Timer?
@@ -44,6 +44,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        Transantiago.get.errorDelegate = self
+        
         mapView.delegate = self
         mapView.showsUserLocation = true
         
@@ -51,13 +53,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
-        
-        locationButton.layer.backgroundColor = UIColor.white.cgColor
-        locationButton.layer.cornerRadius = locationButton.bounds.width / 2
-        locationButton.layer.shadowPath = UIBezierPath(roundedRect: locationButton.bounds, cornerRadius: locationButton.layer.cornerRadius).cgPath
-        locationButton.layer.shadowOffset = CGSize(width: 0, height: 17)
-        locationButton.layer.shadowRadius = 11
-        locationButton.layer.shadowOpacity = 0.2
         
         gradientLayer.colors = [UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 1).cgColor, UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 0).cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
@@ -76,8 +71,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     // MARK: - CLLocationManagerDelegate
     private var needsLocationUpdate = false
-    private var locationUpdateCompletionHandler: ((Void) -> (Void))?
-    func updateLocation(completion: ((Void) -> (Void))? = nil) {
+    private var locationUpdateCompletionHandler: (() -> ())?
+    func updateLocation(completion: (() -> ())? = nil) {
         guard locationAuthorized else { return }
         forceSantiago = false
         needsLocationUpdate = true
@@ -181,7 +176,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let annotationPoint = point(forAnnotation: annotation)
         
         // TODO: make these insets more aware of environment
-        let protectedInsets = UIEdgeInsets(top: 85, left: 10, bottom: 10, right: 10)
+        let protectedInsets = UIEdgeInsets(top: 30, left: 10, bottom: 70, right: 10)
         var proposedFrame = CGRect(size: targetSignSize, center: annotationPoint.offsetBy(dx: 0, dy: -targetSignSize.height / 2 - signDistance))
         
         if proposedFrame.minX < protectedInsets.left {
@@ -215,6 +210,86 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return pinImage
     }
     
+    // MARK: - Error reporting
+    private var didPresentAPIErrorAlert = false
+    private var failingAPIs: [Transantiago.APIType] = []
+    
+    func transantiagoFailingAPIsDidChange(_ apis: [Transantiago.APIType]) {
+        failingAPIs = apis
+        guard apis.count > 0, !didPresentAPIErrorAlert else { return }
+        presentAPIErrorAlert()
+        didPresentAPIErrorAlert = true
+    }
+    
+    @IBAction func infoButtonPressed() {
+        presentAPIErrorAlert()
+    }
+    
+    private func presentAPIErrorAlert() {
+        guard failingAPIs.count > 0 else { return }
+        
+        func apiLegibleString(forType type: Transantiago.APIType, forceSpanish: Bool = false) -> String {
+            switch type {
+            case .mapAnnotations:
+                return forceSpanish ? "mapa" : "map"
+            case .serviceInfo:
+                return forceSpanish ? "información de recorrido" : "service information"
+            case .stopPrediction:
+                return forceSpanish ? "predicción de parada" : "stop prediction"
+            }
+        }
+        
+        func failingAPIsString(forceSpanish: Bool = false) -> String {
+            var failingAPIsString = ""
+            for (index, api) in failingAPIs.enumerated() {
+                if index > 0 && index == failingAPIs.count - 1 { failingAPIsString += " \(forceSpanish ? "y" : NSLocalizedString("and", comment: "")) " }
+                else if index > 0 { failingAPIsString += ", " }
+                failingAPIsString += forceSpanish ? apiLegibleString(forType: api, forceSpanish: forceSpanish) : NSLocalizedString(apiLegibleString(forType: api), comment: "")
+            }
+            return failingAPIsString
+        }
+        
+        
+        let controller = UIAlertController(title: "\(NSLocalizedString("API Error title", comment: "")): \(failingAPIsString())", message: NSLocalizedString("API Error message", comment: ""), preferredStyle: .alert)
+        controller.addAction(UIAlertAction(title: NSLocalizedString("Tweet @transantiago", comment: ""), style: .default, handler: { (action) in
+            let tweetString = "@transantiago Quiero que @cromi_app vuelva a funcionar! Restauren APIs de \(failingAPIsString(forceSpanish: true)) por favor!"
+            let baseURLStrings = ["twitter://post?message=","https://twitter.com/intent/tweet?text="]
+            for urlString in baseURLStrings {
+                guard let url = URL(string: "\(urlString)\(tweetString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!)") else { continue }
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    break
+                }
+            }
+        }))
+        controller.addAction(UIAlertAction(title: NSLocalizedString("Email Transantiago", comment: ""), style: .default, handler: { (action) in
+            if MFMailComposeViewController.canSendMail() {
+                let mailComposer = MFMailComposeViewController()
+                mailComposer.mailComposeDelegate = self
+                mailComposer.setSubject("Arreglen sus APIs, por favor")
+                mailComposer.setToRecipients(["contacto@transantiago.cl"])
+                mailComposer.setMessageBody("Hola,\n\nLa app Cromi (https://itunes.apple.com/us/app/cromi/id1226025448?mt=8), que uso para ver los tiempos de llegada de los buses, dejó de funcionar porque sus APIs de \(failingAPIsString(forceSpanish: true)) están fallando. Por favor, restaúrenlas para poder seguir usando la aplicación. Gracias de antemano.\n\nAtentamente,", isHTML: false)
+                self.present(mailComposer, animated: true, completion: nil)
+            }
+        }))
+        controller.addAction(UIAlertAction(title: NSLocalizedString("Follow Cromi", comment: ""), style: .default, handler: { (action) in
+            let urlStrings = ["twitter://user?screen_name=cromi_app","https://twitter.com/cromi_app"]
+            for urlString in urlStrings {
+                guard let url = URL(string: urlString) else { continue }
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    break
+                }
+            }
+        }))
+        controller.addAction(UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .cancel, handler: nil))
+        present(controller, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Helpers
     private func centerMapAroundUserLocation(animated: Bool) {
         let allowedSpan: CLLocationDegrees = 0.0025
@@ -222,8 +297,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         mapView.setRegion(userRegion, animated: animated)
     }
     
-    private func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: ((Void) -> ())? = nil) {
-        Transantiago.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) -> (Void) in
+    private func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: (() -> ())? = nil) {
+        Transantiago.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) in
             guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
             mainThread {
                 let currentAnnotationsSet = Set(self.mapView.annotations.filter { $0 is TransantiagoAnnotation } as! [TransantiagoAnnotation])

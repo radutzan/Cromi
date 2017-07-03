@@ -13,3 +13,17 @@
 
 "Search box placeholder" = "Busca un lugar o dirección";
 "Place not found" = "No se encontró la dirección o lugar";
+
+// API Errors
+"and" = "y";
+"map" = "mapa";
+"service information" = "información de recorrido";
+"stop prediction" = "predicción de parada";
+"service" = "servicio";
+"services" = "servicios";
+"API Error title" = "Los servicios de Transantiago están fallando";
+"API Error message" = "Si Transantiago no opera sus servicios web, Cromi no puede entregarte información.\n\nPídele a Transantiago que te permita seguir usando Cromi:";
+"Tweet @transantiago" = "Twittear a @transantiago";
+"Email Transantiago" = "Enviar correo a Transantiago";
+"Follow Cromi" = "Sigue a @cromi_app";
+"Done" = "Cerrar";
