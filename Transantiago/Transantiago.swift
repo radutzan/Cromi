@@ -68,7 +68,7 @@ class Transantiago: NSObject {
     }
     
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> ()) {
-        let task = URLSession.shared.dataTask(with: URL(string: "https://www.transantiago.cl/predictor/prediccion?codsimt=\(code)")!) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: URL(string: "https://www.transantiago.cl/predictor/prediccion?codsimt=\(code)&codser=")!) { (data, response, error) in
             var prediction: StopPrediction?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
                 guard let json = jsonObject as? [String: Any],
