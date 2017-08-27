@@ -164,7 +164,7 @@ struct Service: CreatableFromJSON {
     
     init?(jsonDictionaries: [[String: Any]]) {
         // Creating from a multiple JSON dictionaries means we have all the data
-        guard let name = jsonDictionaries[0]["cod"] as? String else { return nil }
+        guard jsonDictionaries.count > 0, let name = jsonDictionaries[0]["cod"] as? String else { return nil }
         guard let colorString = jsonDictionaries[0]["color"] as? String else { return nil }
         
         var routes: [Route] = []
