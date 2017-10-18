@@ -1,24 +1,23 @@
 //
-//  Transantiago.swift
-//  Transantiago
+//  TransantiagoAPI.swift
+//  Cromi
 //
 //  Created by Radu Dutzan on 12/8/16.
 //  Copyright © 2016 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
 import MapKit
 
 protocol TransantiagoAPIErrorDelegate: class {
-    func transantiagoFailingAPIsDidChange(_ apis: [Transantiago.APIType])
+    func transantiagoFailingAPIsDidChange(_ apis: [TransantiagoAPI.APIType])
 }
 
-class Transantiago: NSObject {
+class TransantiagoAPI: NSObject, DataSource {
     enum APIType: String {
         case mapAnnotations, stopPrediction, serviceInfo
     }
     
-    static let get = Transantiago()
+    static let get = TransantiagoAPI()
     weak var errorDelegate: TransantiagoAPIErrorDelegate?
     
     override init() {
@@ -44,15 +43,15 @@ class Transantiago: NSObject {
                 for json in baseArray {
                     if let type = json["type"] as? Int, let name = json["name"] as? String, type == 1 {
                         if name.hasPrefix("METRO") {
-                            if let metroStation = MetroStation(json: json) {
+                            if let metroStation = TSAPIBipSpot.from(json: json, metro: true) as? MetroStation {
                                 metroStations!.append(metroStation)
                             }
                         } else {
-                            if let bipSpot = BipSpot(json: json) {
+                            if let bipSpot = TSAPIBipSpot.from(json: json, metro: false) {
                                 bipSpots!.append(bipSpot)
                             }
                         }
-                    } else if let stop = Stop(json: json) {
+                    } else if let stop = TSAPIStop(json: json) {
                         stops!.append(stop)
                     }
                 }
@@ -135,7 +134,7 @@ class Transantiago: NSObject {
                 
                 self.failingAPIs.remove(.serviceInfo)
                 
-                service = Service(jsonDictionaries: baseArray)
+                service = TSAPIService(jsonDictionaries: baseArray)
             }
             if let error = error {
                 self.registerError(for: .serviceInfo, requestURL: requestURL, code: nil, error: error)

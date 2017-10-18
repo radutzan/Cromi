@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Transantiago
+//  Cromi
 //
 //  Created by Radu Dutzan on 12/7/16.
 //  Copyright © 2016 Radu Dutzan. All rights reserved.
@@ -45,7 +45,7 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Transantiago.get.errorDelegate = self
+        TransantiagoAPI.get.errorDelegate = self
         
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -213,9 +213,9 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     
     // MARK: - Error reporting
     private var didPresentAPIErrorAlert = false
-    private var failingAPIs: [Transantiago.APIType] = []
+    private var failingAPIs: [TransantiagoAPI.APIType] = []
     
-    func transantiagoFailingAPIsDidChange(_ apis: [Transantiago.APIType]) {
+    func transantiagoFailingAPIsDidChange(_ apis: [TransantiagoAPI.APIType]) {
         failingAPIs = apis
         toggleErrorInfoButton(hidden: apis.count == 0)
         guard apis.count > 0, !didPresentAPIErrorAlert else { return }
@@ -239,7 +239,7 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     private func presentAPIErrorAlert() {
         guard failingAPIs.count > 0 else { return }
         
-        func apiLegibleString(forType type: Transantiago.APIType, forceSpanish: Bool = false) -> String {
+        func apiLegibleString(forType type: TransantiagoAPI.APIType, forceSpanish: Bool = false) -> String {
             switch type {
             case .mapAnnotations:
                 return forceSpanish ? "mapa" : "map"
@@ -309,7 +309,7 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     }
     
     private func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: (() -> ())? = nil) {
-        Transantiago.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) in
+        TransantiagoAPI.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) in
             guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
             mainThread {
                 let currentAnnotationsSet = Set(self.mapView.annotations.filter { $0 is TransantiagoAnnotation } as! [TransantiagoAnnotation])

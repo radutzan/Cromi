@@ -1,6 +1,6 @@
 //
 //  StreetSignView.swift
-//  Transantiago
+//  Cromi
 //
 //  Created by Radu Dutzan on 12/8/16.
 //  Copyright © 2016 Radu Dutzan. All rights reserved.
@@ -202,7 +202,7 @@ class StreetSignView: NibLoadingView {
     
     @objc private func getCurrentStopPrediction() {
         guard let stop = annotation as? Stop else { return }
-        Transantiago.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
+        TransantiagoAPI.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
             guard let prediction = prediction else { return }
             for response in prediction.serviceResponses {
                 guard let view = self.serviceViews[response.serviceName], let predictions = response.predictions else { continue }
