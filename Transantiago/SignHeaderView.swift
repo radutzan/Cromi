@@ -37,7 +37,7 @@ class SignHeaderView: NibLoadingView {
             pretitleLabel.text = pretitle
         }
     }
-    var title: String? {
+    @objc var title: String? {
         didSet {
             titleLabel.text = title
         }

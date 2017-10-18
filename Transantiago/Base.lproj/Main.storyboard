@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,7 +54,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bBD-cJ-nR7" secondAttribute="bottom" constant="20" id="948-Vl-a5n"/>
                             <constraint firstItem="At1-li-cYk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IeG-XC-JPm"/>
                             <constraint firstAttribute="trailing" secondItem="bBD-cJ-nR7" secondAttribute="trailing" constant="15" id="L0s-MV-NTg"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="At1-li-cYk" secondAttribute="bottom" id="ehu-7A-lHd"/>
+                            <constraint firstAttribute="bottom" secondItem="At1-li-cYk" secondAttribute="bottom" id="ehu-7A-lHd"/>
                             <constraint firstAttribute="trailing" secondItem="At1-li-cYk" secondAttribute="trailing" id="mqb-95-fSm"/>
                             <constraint firstItem="NmH-Qq-Sm5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="psF-v1-hC4"/>
                             <constraint firstItem="At1-li-cYk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="vkz-j5-2Ih"/>
@@ -68,48 +68,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140" y="138.98050974512745"/>
-        </scene>
-        <!--Search View Controller-->
-        <scene sceneID="YKE-9p-nK7">
-            <objects>
-                <viewController id="lku-ZG-qm5" customClass="SearchViewController" customModule="Cromi" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Nbs-MV-pYZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Qw8-Hm-Nxa"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GMC-w6-i3x" customClass="PassThroughView" customModule="Cromi" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ziQ-N1-UZ0">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.29957726883561642" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kne-n8-SGt" customClass="SearchBar" customModule="Cromi" customModuleProvider="target">
-                                <rect key="frame" x="15" y="30" width="345" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="c57-jf-c5N"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="ziQ-N1-UZ0" secondAttribute="bottom" id="GXX-iJ-mN0"/>
-                            <constraint firstItem="kne-n8-SGt" firstAttribute="top" secondItem="Nbs-MV-pYZ" secondAttribute="bottom" constant="10" id="IJb-dd-cZ6"/>
-                            <constraint firstItem="ziQ-N1-UZ0" firstAttribute="top" secondItem="GMC-w6-i3x" secondAttribute="top" id="Mjd-fa-GU6"/>
-                            <constraint firstItem="kne-n8-SGt" firstAttribute="leading" secondItem="GMC-w6-i3x" secondAttribute="leading" constant="15" id="Yyp-YR-h6G"/>
-                            <constraint firstItem="ziQ-N1-UZ0" firstAttribute="leading" secondItem="GMC-w6-i3x" secondAttribute="leading" id="gMW-xP-3lH"/>
-                            <constraint firstAttribute="trailing" secondItem="kne-n8-SGt" secondAttribute="trailing" constant="15" id="hWn-ex-A6v"/>
-                            <constraint firstAttribute="trailing" secondItem="ziQ-N1-UZ0" secondAttribute="trailing" id="nNh-RJ-qQI"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="overlayView" destination="ziQ-N1-UZ0" id="RRN-oD-YGG"/>
-                        <outlet property="searchBar" destination="kne-n8-SGt" id="YGr-bW-ajL"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hoM-JC-GUW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="948" y="131.78410794602701"/>
         </scene>
     </scenes>
     <resources>

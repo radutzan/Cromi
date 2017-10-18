@@ -158,7 +158,7 @@ struct Service: CreatableFromJSON {
             let colorString = json["color"] as? String,
             let destinationString = json["destino"] as? String else { return nil }
         
-        let finalDestination = NSLocalizedString("to", comment: "") + destinationString.substring(from: destinationString.index(after: destinationString.startIndex))
+        let finalDestination = NSLocalizedString("to", comment: "") + String(destinationString[destinationString.index(after: destinationString.startIndex)...])//destinationString.suffix(from: destinationString.index(after: destinationString.startIndex))
         self.init(name: name, color: UIColor(hexString: colorString), routes: nil, destinationString: finalDestination)
     }
     

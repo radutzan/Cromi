@@ -55,7 +55,7 @@ extension UIColor {
             sanitizedString.remove(at: sanitizedString.startIndex)
         }
         
-        if ((sanitizedString.characters.count) != 6) {
+        if sanitizedString.count != 6 {
             self.init(white: 0.7, alpha: 1)
             return
         }

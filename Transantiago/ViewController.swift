@@ -224,9 +224,11 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     }
     
     private func toggleErrorInfoButton(hidden: Bool) {
-        guard (hidden && errorInfoButton.alpha == 1) || (!hidden && errorInfoButton.alpha == 0) else { return }
-        UIView.animate(withDuration: 0.24) { 
-            self.errorInfoButton.alpha = hidden ? 0 : 1
+        mainThread {
+            guard (hidden && self.errorInfoButton.alpha == 1) || (!hidden && self.errorInfoButton.alpha == 0) else { return }
+            UIView.animate(withDuration: 0.24) {
+                self.errorInfoButton.alpha = hidden ? 0 : 1
+            }
         }
     }
     

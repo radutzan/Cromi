@@ -21,6 +21,7 @@
 		7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
 		7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B96311EEA2F2600CAB04E /* Typography.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
+		7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE273971F97E6940008A070 /* CromiDefines.swift */; };
 		7CE4B70F1F09D3260067E5CB /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE4B70E1F09D3260067E5CB /* MapButton.swift */; };
 		7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
 		7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946C11DF8FA3E00F3D29A /* ViewController.swift */; };
@@ -56,6 +57,7 @@
 		7C58CC531EA05C6700259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C7B96311EEA2F2600CAB04E /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		7CE273971F97E6940008A070 /* CromiDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDefines.swift; sourceTree = "<group>"; };
 		7CE4B70E1F09D3260067E5CB /* MapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButton.swift; sourceTree = "<group>"; };
 		7CE946BC1DF8FA3E00F3D29A /* Cromi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cromi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		7CE946BE1DF8FA3E00F3D29A /* Cromi */ = {
 			isa = PBXGroup;
 			children = (
+				7CE273971F97E6940008A070 /* CromiDefines.swift */,
 				7CE946D41DF93F1200F3D29A /* Extras.swift */,
 				7C7B96311EEA2F2600CAB04E /* Typography.swift */,
 				7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */,
@@ -186,12 +189,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Radu Dutzan";
 				TargetAttributes = {
 					7CE946BB1DF8FA3E00F3D29A = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = 7VT456V4Y2;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -272,6 +276,7 @@
 				7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */,
 				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,
 				7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */,
+				7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */,
 				7CE946D51DF93F1200F3D29A /* Extras.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
 			);
@@ -327,7 +332,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -335,7 +342,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -377,7 +388,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -385,7 +398,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -419,7 +436,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -432,7 +450,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

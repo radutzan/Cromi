@@ -13,23 +13,6 @@ struct TypeStyle {
         case none, lowercase, uppercase
     }
     
-    var size: CGFloat
-    var weight: CGFloat
-    var letterSpacing: CGFloat?
-    var textTransform: TextTransform?
-    
-    init(size: CGFloat, weight: CGFloat, letterSpacing: CGFloat? = nil, textTransform: TextTransform? = nil) {
-        self.size = size
-        self.weight = weight
-        self.letterSpacing = letterSpacing
-        self.textTransform = textTransform
-    }
-    
-    static let title     = TypeStyle(size: proportionalTypeSize(for: 16), weight: UIFontWeightMedium)
-    static let titleBold = TypeStyle(size: proportionalTypeSize(for: 16), weight: UIFontWeightBold)
-    
-    static let subtitle  = TypeStyle(size: proportionalTypeSize(for: 12), weight: UIFontWeightSemibold)
-    
     static var sizeMultiplier: CGFloat {
         let normalBodySize: CGFloat = 17
         let currentBodySize = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).pointSize
@@ -43,36 +26,49 @@ struct TypeStyle {
     }
     
     static func proportionalContainerSize(for originalSize: CGFloat) -> CGFloat {
-        let multiplier = max(sizeMultiplier, 1)
+        let multiplier = max(sizeMultiplier * 0.9, 1)
         let result = round(originalSize * multiplier)
         return result
     }
+    
+    var normalSize: CGFloat
+    var size: CGFloat {
+        return isFixedSize ? normalSize : TypeStyle.proportionalTypeSize(for: normalSize)
+    }
+    var isFixedSize = false
+    var weight: UIFont.Weight
+    var letterSpacing: CGFloat?
+    var textTransform: TextTransform?
+    
+    init(normalSize size: CGFloat, weight: UIFont.Weight, fixedSize: Bool = false, letterSpacing: CGFloat? = nil, textTransform: TextTransform? = nil) {
+        self.normalSize = size
+        self.weight = weight
+        self.isFixedSize = fixedSize
+        self.letterSpacing = letterSpacing
+        self.textTransform = textTransform
+    }
+    
+    func with(fontWeight weight: UIFont.Weight) -> TypeStyle {
+        return TypeStyle(normalSize: normalSize, weight: weight, fixedSize: isFixedSize, letterSpacing: letterSpacing, textTransform: textTransform)
+    }
+    
+    func fontObject() -> UIFont {
+        return UIFont.systemFont(ofSize: size, weight: weight)
+    }
 }
 
 extension UIFont {
-    static var title: UIFont {
-        return  UIFont.systemFont(ofSize: TypeStyle.title.size,     weight: TypeStyle.title.weight)
-    }
-    static var titleBold: UIFont {
-        return  UIFont.systemFont(ofSize: TypeStyle.titleBold.size, weight: TypeStyle.titleBold.weight)
-    }
-    static var subtitle: UIFont {
-        return  UIFont.systemFont(ofSize: TypeStyle.subtitle.size,  weight: TypeStyle.subtitle.weight)
-    }
-}
-
-extension UIFont {
-    static func digitSystemFontOfSize(size: CGFloat, weight: CGFloat) -> UIFont {
+    static func digitSystemFontOfSize(size: CGFloat, weight: UIFont.Weight) -> UIFont {
         let baseFont = UIFont.systemFont(ofSize: TypeStyle.proportionalTypeSize(for: size), weight: weight)
         
         let fontDescriptorFeatureSettings = [[
-                UIFontFeatureTypeIdentifierKey: kNumberSpacingType,
-            UIFontFeatureSelectorIdentifierKey: kMonospacedNumbersSelector], [
-                UIFontFeatureTypeIdentifierKey: kStylisticAlternativesType,
-            UIFontFeatureSelectorIdentifierKey: kStylisticAltOneOnSelector]]
+            UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
+            UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector], [
+            UIFontDescriptor.FeatureKey.featureIdentifier: kStylisticAlternativesType,
+            UIFontDescriptor.FeatureKey.typeIdentifier: kStylisticAltOneOnSelector]]
         
         let descriptor = baseFont.fontDescriptor.addingAttributes([
-      UIFontDescriptorFeatureSettingsAttribute: fontDescriptorFeatureSettings])
+      UIFontDescriptor.AttributeName.featureSettings: fontDescriptorFeatureSettings])
         
         return UIFont(descriptor: descriptor, size: size)
     }
@@ -90,13 +86,12 @@ func attributedString(from string: String, style: TypeStyle, textColor: UIColor?
     }
     
     let attributedString = NSMutableAttributedString(string: string, attributes: [
-        NSFontAttributeName: UIFont.systemFont(ofSize: style.size, weight: style.weight),
-        NSKernAttributeName: style.letterSpacing ?? 0])
+        .font: UIFont.systemFont(ofSize: style.size, weight: style.weight),
+        .kern: style.letterSpacing ?? 0])
     
     if let color = textColor {
-        attributedString.addAttributes([
-            NSForegroundColorAttributeName: color],
-                                     range: NSMakeRange(0, string.characters.count))
+        attributedString.addAttributes([.foregroundColor: color],
+                                       range: NSMakeRange(0, string.count))
     }
     
     return attributedString
