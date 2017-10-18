@@ -100,10 +100,10 @@ class Service: NSObject {
     let destinationString: String?
     
     struct Route {
-        enum Way: Int {
+        enum Direction: Int {
             case outbound = 1, inbound = 2
         }
-        let way: Way
+        let direction: Direction
         let operationHours: [OperationHours]
         let destinationString: String
         let polyline: MKPolyline
@@ -156,7 +156,7 @@ struct StopPrediction {
             let serviceName: String
             let color: UIColor
             let directionString: String
-            let way: Service.Route.Way
+            let direction: Service.Route.Direction
         }
         struct Prediction {
             let distance: Int

@@ -85,7 +85,7 @@ class TSAPIService: Service, CreatableFromJSON {
                 let shapesJSON = json["shapes"] as? [[String: Any]],
                 let stopsJSON = json["paradas"] as? [[String: Any]] else { return nil }
             
-            let way: Route.Way = index == 0 ? .outbound : .inbound
+            let direction: Route.Direction = index == 0 ? .outbound : .inbound
             
             var operationHours: [OperationHours] = []
             for hoursJSON in operationHoursJSON {
@@ -106,7 +106,7 @@ class TSAPIService: Service, CreatableFromJSON {
                 stops.append(stop)
             }
             
-            routes.append(Route(way: way, operationHours: operationHours, destinationString: destinationString, polyline: polyline, stops: stops))
+            routes.append(Route(direction: direction, operationHours: operationHours, destinationString: destinationString, polyline: polyline, stops: stops))
         }
         
         self.init(name: name, color: UIColor(hexString: colorString), routes: routes, destinationString: nil)
