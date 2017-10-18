@@ -84,11 +84,11 @@ class TransantiagoAPI: NSObject, DataSource {
                 for service in services {
                     guard let responseCodeString = service["codigorespuesta"] as? String,
                         let responseCode = Int(responseCodeString),
-                        let responseType = StopPrediction.ServiceResponse.ResponseType(rawValue: responseCode),
+                        let responseKind = StopPrediction.ServiceResponse.Kind(rawValue: responseCode),
                         let serviceName = service["servicio"] as? String else { return }
                     
                     var predictions: [StopPrediction.ServiceResponse.Prediction]?
-                    switch responseType {
+                    switch responseKind {
                     case .onePrediction, .twoPredictions:
                         guard let distanceString1 = service["distanciabus1"] as? String,
                             let distance1 = Int(distanceString1),
@@ -109,7 +109,7 @@ class TransantiagoAPI: NSObject, DataSource {
                         break
                     }
                     
-                    serviceResponses.append(StopPrediction.ServiceResponse(type: responseType, serviceName: serviceName, predictions: predictions))
+                    serviceResponses.append(StopPrediction.ServiceResponse(kind: responseKind, serviceName: serviceName, predictions: predictions))
                 }
                 
                 prediction = StopPrediction(timestamp: Date(), stopCode: stopCode, responseString: responseString, serviceResponses: serviceResponses)

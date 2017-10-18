@@ -142,22 +142,14 @@ struct StopPrediction {
     let serviceResponses: [ServiceResponse]
     
     struct ServiceResponse {
-        let type: ResponseType
-        let serviceName: String
-//        let serviceInfo: ServiceInfo?
-//        let responseString: String
-        let predictions: [Prediction]?
-        
-        enum ResponseType: Int {
+        enum Kind: Int {
             case twoPredictions = 00, onePrediction = 01, noPrediction = 9, noIncomingBuses = 10, outOfSchedule = 11
         }
-        // deprecated?
-        struct ServiceInfo {
-            let serviceName: String
-            let color: UIColor
-            let directionString: String
-            let direction: Service.Route.Direction
-        }
+        
+        let kind: Kind
+        let serviceName: String
+        let predictions: [Prediction]?
+        
         struct Prediction {
             let distance: Int
             let predictionString: String
