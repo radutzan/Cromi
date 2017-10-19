@@ -138,7 +138,7 @@ struct OperationHours {
 struct StopPrediction {
     let timestamp: Date
     let stopCode: String
-    let responseString: String
+    let responseString: String?
     let serviceResponses: [ServiceResponse]
     
     struct ServiceResponse {
@@ -153,7 +153,7 @@ struct StopPrediction {
         struct Prediction {
             let distance: Int
             let predictionString: String
-            let licensePlate: String
+            let licensePlate: String?
         }
     }
 }

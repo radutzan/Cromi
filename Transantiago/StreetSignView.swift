@@ -202,7 +202,7 @@ class StreetSignView: NibLoadingView {
     
     @objc private func getCurrentStopPrediction() {
         guard let stop = annotation as? Stop else { return }
-        TransantiagoAPI.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
+        CFAPI.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
             guard let prediction = prediction else { return }
             for response in prediction.serviceResponses {
                 guard let view = self.serviceViews[response.serviceName], let predictions = response.predictions else { continue }
