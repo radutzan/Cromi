@@ -30,14 +30,21 @@ class NibLoadingView: UIView, NibDefinable {
     private func nibSetup() {
         backgroundColor = .clear
 
+        // Nib setup
         view = loadViewFromNib()
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.translatesAutoresizingMaskIntoConstraints = true
-
         addSubview(view)
         
         didLoadNibView()
+        
+        // Font update registering
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateFonts),
+                                               name: Notification.Name.UIContentSizeCategoryDidChange,
+                                               object: nil)
+        updateFonts()
     }
 
     private func loadViewFromNib() -> UIView {
@@ -49,5 +56,7 @@ class NibLoadingView: UIView, NibDefinable {
     }
     
     func didLoadNibView() {}
+    
+    @objc func updateFonts() {}
 
 }

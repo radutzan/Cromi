@@ -19,15 +19,13 @@ class SignServiceRowView: NibLoadingView {
             let service = services[0]
             serviceView1.serviceName = service.name
             serviceView1.serviceColor = service.color
-            serviceView1.subtitle = service.destinationString ?? " "
-            serviceView1.isSubtitleSecondary = true
+            serviceView1.subtitle2 = service.destinationString
         }
         if services.count >= 2 {
             let service = services[1]
             serviceView2.serviceName = service.name
             serviceView2.serviceColor = service.color
-            serviceView2.subtitle = service.destinationString ?? " "
-            serviceView2.isSubtitleSecondary = true
+            serviceView2.subtitle2 = service.destinationString
         }
         if services.count >= 3 {
             print("SignServiceRowView: Too many services! Only 2 are supported, received \(services.count).")

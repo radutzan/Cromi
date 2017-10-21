@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignServiceView: NibLoadingView {
+@IBDesignable class SignServiceView: NibLoadingView {
 
     @IBInspectable var serviceName: String? {
         didSet {
@@ -22,21 +22,33 @@ class SignServiceView: NibLoadingView {
     }
     @IBInspectable var subtitle: String? {
         didSet {
-            subtitleLabel.text = subtitle
+            subtitleLabel.text = subtitle ?? " "
+            subtitleLabel.isHidden = subtitle == nil
+            subtitle2Label.numberOfLines = subtitle == nil ? 2 : 1
         }
     }
-    @IBInspectable var isSubtitleSecondary: Bool = false {
+    @IBInspectable var subtitle2: String? {
         didSet {
-            subtitleLabel.alpha = isSubtitleSecondary ? SignConstants.secondarySubtitleOpacity : 1
+            subtitle2Label.text = subtitle2
+        }
+    }
+    @IBInspectable var isServiceSecondary: Bool = false {
+        didSet {
+            serviceLabel.textColor = isServiceSecondary ? UIColor(white: 1, alpha: SignConstants.secondarySubtitleOpacity) : serviceColor
         }
     }
     
     @IBOutlet private var serviceLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
+    @IBOutlet private var subtitle2Label: UILabel!
     
-    override func willMove(toSuperview newSuperview: UIView?) {
-        serviceLabel.font = .titleBold
+    override func updateFonts() {
+        serviceLabel.font = .serviceName
         subtitleLabel.font = .subtitle
+        subtitle2Label.font = .subtitle
     }
-
+    
+    private func updateSubtitles() {
+        
+    }
 }

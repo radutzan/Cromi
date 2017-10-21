@@ -16,7 +16,7 @@ struct SignConstants {
     struct Color {
         static let bipBlue = UIColor(red: 0, green: 0.416, blue: 1, alpha: 1)
     }
-    static let cornerRadius: CGFloat = 5
+    static let cornerRadius: CGFloat = 6
     static let secondarySubtitleOpacity: CGFloat = 0.55
 }
 
@@ -48,10 +48,9 @@ class StreetSignView: NibLoadingView {
     
     private let bipBlueColor = SignConstants.Color.bipBlue
     
-    private var didPerformInitialSetup = false
-    private func performInitialSetupIfNeeded() {
-        if didPerformInitialSetup { return }
+    override func didLoadNibView() {
         alpha = 0
+        isUserInteractionEnabled = false
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 17)
         layer.shadowRadius = 11
@@ -63,11 +62,9 @@ class StreetSignView: NibLoadingView {
         maskerView.backgroundColor = .blue
         maskerView.layer.cornerRadius = 12
 //        addSubview(maskerView) // masking debug
-        didPerformInitialSetup = true
     }
     
     private func reloadData() {
-        performInitialSetupIfNeeded()
         clearContentStack()
         view.backgroundColor = UIColor.clear
         view.layer.borderColor = UIColor.clear.cgColor
@@ -141,7 +138,7 @@ class StreetSignView: NibLoadingView {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 220, height: signView.bounds.height)
+        return CGSize(width: 240, height: signView.bounds.height)
     }
     
     func present(fromCenter originCenter: CGPoint, targetFrame: CGRect) {
@@ -191,6 +188,7 @@ class StreetSignView: NibLoadingView {
     private var predictionUpdateTimer: Timer?
     
     private func beginStopPredictions() {
+        guard annotation is Stop else { return }
         getCurrentStopPrediction()
         startPredictionTimer()
     }
@@ -204,17 +202,35 @@ class StreetSignView: NibLoadingView {
         guard let stop = annotation as? Stop else { return }
         CFAPI.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
             guard let prediction = prediction else { return }
-            for response in prediction.serviceResponses {
-                guard let view = self.serviceViews[response.serviceName], let predictions = response.predictions else { continue }
+            for (service, view) in self.serviceViews {
                 mainThread {
-                    view.subtitle = predictions[0].predictionString
-                    view.isSubtitleSecondary = false
+                    view.isServiceSecondary = true
+                }
+                
+                let responses = prediction.serviceResponses.filter { $0.serviceName == service }
+                guard responses.count > 0, let predictions = responses[0].predictions else  { continue }
+                mainThread {
+                    var distance = Double(predictions[0].distance)
+                    var isKilometers = false
+                    if distance >= 1000 {
+                        isKilometers = true
+                        distance = distance / 1000
+                    }
+                    let distanceStringValue = String(format: "%.\(isKilometers ? 1 : 0)f", distance)
+                    
+                    view.isServiceSecondary = false
+                    
+                    UIView.animate(withDuration: 0.24, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+                        view.subtitle = "\(distanceStringValue) \(isKilometers ? "km" : "m")"
+                        view.subtitle2 = predictions[0].predictionString
+                    }, completion: nil)
                 }
             }
         }
     }
     
     private func startPredictionTimer() {
+        guard annotation is Stop else { return }
         cancelPredictionTimer()
         predictionUpdateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(getCurrentStopPrediction), userInfo: nil, repeats: true)
     }

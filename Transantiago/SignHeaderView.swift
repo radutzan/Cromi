@@ -35,6 +35,9 @@ class SignHeaderView: NibLoadingView {
         didSet {
             pretitleLabel.isHidden = pretitle == nil
             pretitleLabel.text = pretitle
+            if let pretitle = pretitle {
+                pretitleLabel.attributedText = attributedString(from: pretitle, style: TypeStyle.preTitle)
+            }
         }
     }
     @objc var title: String? {
@@ -63,20 +66,18 @@ class SignHeaderView: NibLoadingView {
     
     private let bipBlueColor = SignConstants.Color.bipBlue
     
-    private var didPerformInitialSetup = false
-    private func performInitialSetupIfNeeded() {
-        if didPerformInitialSetup { return }
+    override func didLoadNibView() {
         view.layer.cornerRadius = SignConstants.cornerRadius
-        pretitleLabel.font = .subtitle
+    }
+    
+    override func updateFonts() {
+        pretitleLabel.text = pretitle
         titleLabel.font = .title
-        subtitleLabel.font = .subtitle
+        subtitleLabel.font = .subtitleBold
         numberLabel.font = .titleBold
-        didPerformInitialSetup = true
     }
     
     private func reloadData() {
-        performInitialSetupIfNeeded()
-        
         number = nil
         pretitle = nil
         title = nil

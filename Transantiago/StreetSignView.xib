@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,22 +18,22 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="Jem-DC-S0Q" customClass="PassThroughView" customModule="Cromi" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="Jem-DC-S0Q" customClass="TouchTransparentView" customModule="Cromi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="220" height="320"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-jd-Wnv">
-                    <rect key="frame" x="0.0" y="0.0" width="220" height="52"/>
+                <view clipsSubviews="YES" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-jd-Wnv">
+                    <rect key="frame" x="0.0" y="0.0" width="220" height="64"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="s65-Pt-tBP">
-                            <rect key="frame" x="0.0" y="0.0" width="220" height="52"/>
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="64"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcT-uD-syX" customClass="SignHeaderView" customModule="Cromi" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="64"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="220" id="Ylq-nr-Rb6"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="52" id="o20-Ry-Vcx"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="o20-Ry-Vcx"/>
                                     </constraints>
                                 </view>
                             </subviews>

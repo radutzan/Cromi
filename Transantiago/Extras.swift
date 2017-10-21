@@ -127,7 +127,7 @@ extension CGRect {
 }
 
 // MARK: - Subclasses
-class PassThroughView: UIView {
+class TouchTransparentView: UIView {
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         for subview in subviews {
             if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
@@ -138,7 +138,18 @@ class PassThroughView: UIView {
     }
 }
 
-class MegaTouchableView: UIView { // this is the first time i've heard about this, i swear
+class TouchTransparentStackView: UIStackView {
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        for subview in subviews {
+            if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
+                return true
+            }
+        }
+        return false
+    }
+}
+
+class ExtraTouchableView: UIView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         for subview in subviews {
             let pointInSubview = subview.convert(point, from: self)
@@ -150,7 +161,7 @@ class MegaTouchableView: UIView { // this is the first time i've heard about thi
     }
 }
 
-class MegaTouchableScrollView: UIScrollView { // this is the first time i've heard about this, i swear
+class ExtraTouchableScrollView: UIScrollView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         for subview in subviews {
             let pointInSubview = subview.convert(point, from: self)
