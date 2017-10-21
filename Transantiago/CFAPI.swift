@@ -17,39 +17,44 @@ class CFAPI: NSObject, DataSource {
     
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> ()) {
         guard let requestURL = URL(string: "http://api.cuantofalta.mobi/bus_stops/estimate?parada=\(code)&codser=") else { return }
+        print("CFAPI: Predicting at stop \(code)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var prediction: StopPrediction?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
                 guard let json = jsonObject as? [String: Any],
-                    let stopData = json["bus_stop"] as? [String: Any],
-                    let stopServices = stopData["recorridos"] as? [[String: String]],
                     let estimationRoot = json["estimation"] as? [Any],
                     let estimations = estimationRoot[0] as? [[String]] else { return }
                 
-                let otherResponses = estimationRoot.last as? [String: String]
-                
                 var serviceResponses: [StopPrediction.ServiceResponse] = []
-                for serviceData in stopServices {
-                    for (key, value) in serviceData {
-                        guard key == "name" else { continue }
-                        let serviceName = value
-                        var predictions: [StopPrediction.ServiceResponse.Prediction]?
-                        for estimation in estimations {
-                            guard estimation.count == 3, estimation[0] == serviceName, let distance = Int(estimation[2]) else { continue }
-                            if predictions == nil { predictions = [] }
-                            let predictionString = self.sanitize(prediction: estimation[1])
-                            predictions?.append(StopPrediction.ServiceResponse.Prediction(distance: distance, predictionString: predictionString, licensePlate: nil))
-                        }
-                        var responseKind: StopPrediction.ServiceResponse.Kind = predictions == nil ? .noPrediction : (predictions!.count == 1 ? .onePrediction : .twoPredictions)
-                        if let otherResponses = otherResponses, predictions == nil {
-                            for (key, value) in otherResponses {
-                                guard key == serviceName else { continue }
-                                if value == "fuera_de_horario" {
-                                    responseKind = .outOfSchedule
-                                }
-                            }
-                        }
-                        let response = StopPrediction.ServiceResponse(kind: responseKind, serviceName: serviceName, predictions: predictions)
+                
+                var orderedEstimations: [String: [[String]]] = [:]
+                for estimation in estimations {
+                    let name = estimation[0].lowercased()
+                    if orderedEstimations[name] != nil {
+                        orderedEstimations[name]!.append(estimation)
+                    } else {
+                        orderedEstimations[name] = [estimation]
+                    }
+                }
+                print(orderedEstimations)
+                
+                for (service, estimations) in orderedEstimations {
+                    var predictions: [StopPrediction.ServiceResponse.Prediction]?
+                    for estimation in estimations {
+                        guard estimation.count == 3, let distance = Int(estimation[2]) else { continue }
+                        if predictions == nil { predictions = [] }
+                        let predictionString = self.sanitize(prediction: estimation[1])
+                        predictions?.append(StopPrediction.ServiceResponse.Prediction(distance: distance, predictionString: predictionString, licensePlate: nil))
+                    }
+                    let responseKind: StopPrediction.ServiceResponse.Kind = predictions!.count == 1 ? .onePrediction : .twoPredictions
+                    let response = StopPrediction.ServiceResponse(kind: responseKind, serviceName: service, predictions: predictions)
+                    serviceResponses.append(response)
+                }
+                
+                if let otherResponses = estimationRoot.last as? [String: String] {
+                    for (key, value) in otherResponses {
+                        let responseKind: StopPrediction.ServiceResponse.Kind = value == "fuera_de_horario" ? .outOfSchedule : .noPrediction
+                        let response = StopPrediction.ServiceResponse(kind: responseKind, serviceName: key, predictions: nil)
                         serviceResponses.append(response)
                     }
                 }

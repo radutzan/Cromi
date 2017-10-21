@@ -49,6 +49,9 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
         
         mapView.delegate = self
         mapView.showsUserLocation = true
+        if #available(iOS 11.0, *) {
+            mapView.mapType = .mutedStandard
+        }
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -60,14 +63,17 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         view.layer.insertSublayer(gradientLayer, above: mapView.layer)
         
-        view.insertSubview(signView, at: 1)//addSubview()
+        view.addSubview(signView)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
     }
     
     override func viewWillLayoutSubviews() {
-        gradientLayer.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: view.bounds.width, height: 40))
+        gradientLayer.isHidden = UIApplication.shared.statusBarFrame.height <= 0
+        if !gradientLayer.isHidden {
+            gradientLayer.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: view.bounds.width, height: 40))
+        }
     }
     
     // MARK: - CLLocationManagerDelegate
@@ -159,25 +165,29 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     }
     
     // MARK: - Pins and signs
+    private let customProtectedInsets = UIEdgeInsets(top: 10, left: 10, bottom: 80, right: 10)
+    private var protectedInsets: UIEdgeInsets {
+        var systemInsets = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height, left: 0, bottom: 0, right: 0)
+        if #available(iOS 11.0, *) {
+            systemInsets = view.safeAreaInsets
+        }
+        return UIEdgeInsets(top: customProtectedInsets.top + systemInsets.top, left: customProtectedInsets.left + systemInsets.left, bottom: customProtectedInsets.bottom + systemInsets.bottom, right: customProtectedInsets.right + systemInsets.right)
+    }
+    private var targetSignSize: CGSize {
+        let maxHeight = view.bounds.height - protectedInsets.top - protectedInsets.bottom
+        return CGSize(width: signView.intrinsicContentSize.width, height: signView.intrinsicContentSize.height > maxHeight ? maxHeight : signView.intrinsicContentSize.height)
+    }
+    private let signDistance: CGFloat = 25
+    
     @objc private func updateSignFrameIfNeeded() {
         guard let selectedAnnotation = selectedAnnotation else { return }
         signView.frame = signFrame(forAnnotation: selectedAnnotation)
     }
     
-    private var targetSignSize: CGSize {
-        return signView.intrinsicContentSize
-    }
-    private let signDistance: CGFloat = 25
-    
-    private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
-        return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
-    }
     
     private func signFrame(forAnnotation annotation: MKAnnotation) -> CGRect {
         let annotationPoint = point(forAnnotation: annotation)
         
-        // TODO: make these insets more aware of environment
-        let protectedInsets = UIEdgeInsets(top: 30, left: 10, bottom: 80, right: 10)
         var proposedFrame = CGRect(size: targetSignSize, center: annotationPoint.offsetBy(dx: 0, dy: -targetSignSize.height / 2 - signDistance))
         
         if proposedFrame.minX < protectedInsets.left {
@@ -194,6 +204,10 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
         }
         
         return proposedFrame
+    }
+    
+    private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
+        return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
     }
     
     private func pinImage(forAnnotation annotation: TransantiagoAnnotation, selected: Bool) -> UIImage? {
