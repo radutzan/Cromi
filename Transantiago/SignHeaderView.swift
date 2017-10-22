@@ -53,7 +53,7 @@ class SignHeaderView: NibLoadingView {
     }
     var isSubtitleSecondary: Bool = false {
         didSet {
-            subtitleLabel.alpha = isSubtitleSecondary ? SignConstants.secondarySubtitleOpacity : 1
+            subtitleLabel.alpha = isSubtitleSecondary ? SignConstants.secondaryOpacity : 1
         }
     }
     

@@ -34,7 +34,8 @@ import UIKit
     }
     @IBInspectable var isServiceSecondary: Bool = false {
         didSet {
-            serviceLabel.textColor = isServiceSecondary ? UIColor(white: 1, alpha: SignConstants.secondarySubtitleOpacity) : serviceColor
+            serviceLabel.textColor = isServiceSecondary ? UIColor(white: 1, alpha: SignConstants.tertiaryOpacity) : serviceColor
+            subtitle2Label.alpha = isServiceSecondary ? SignConstants.tertiaryOpacity : SignConstants.secondaryOpacity
         }
     }
     

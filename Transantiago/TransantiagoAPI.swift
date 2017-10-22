@@ -28,6 +28,7 @@ class TransantiagoAPI: NSObject, DataSource {
     // MARK: - Requests
     func annotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping ([Stop]?, [BipSpot]?, [MetroStation]?) -> ()) {
         guard let requestURL = URL(string: "https://www.transantiago.cl/restservice/rest/getpuntoparada?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&bip=1") else { return }
+        print("TSAPI: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var stops: [Stop]?
             var bipSpots: [BipSpot]?
