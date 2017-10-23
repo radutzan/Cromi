@@ -25,7 +25,7 @@
                 <view clipsSubviews="YES" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-jd-Wnv">
                     <rect key="frame" x="0.0" y="0.0" width="220" height="64"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="s65-Pt-tBP">
+                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="s65-Pt-tBP">
                             <rect key="frame" x="0.0" y="0.0" width="220" height="64"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcT-uD-syX" customClass="SignHeaderView" customModule="Cromi" customModuleProvider="target">

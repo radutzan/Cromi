@@ -53,8 +53,10 @@ class StreetSignView: NibLoadingView {
         alpha = 0
         isUserInteractionEnabled = false
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 17)
-        layer.shadowRadius = 11
+//        layer.shadowOffset = CGSize(width: 0, height: 17)
+//        layer.shadowRadius = 11
+        layer.shadowOffset = CGSize(width: 0, height: 14.5)
+        layer.shadowRadius = 9
         layer.shadowOpacity = 0.2
         signView.layer.cornerRadius = SignConstants.cornerRadius
         signView.layer.masksToBounds = true
@@ -192,11 +194,13 @@ class StreetSignView: NibLoadingView {
         guard annotation is Stop else { return }
         getCurrentStopPrediction()
         startPredictionTimer()
+        addRefreshIndicator()
     }
     
     private func endStopPredictions() {
         cancelPredictionTimer()
         serviceViews = [:]
+        removeRefreshIndicator()
     }
     
     @objc private func getCurrentStopPrediction() {
@@ -239,5 +243,24 @@ class StreetSignView: NibLoadingView {
     private func cancelPredictionTimer() {
         predictionUpdateTimer?.invalidate()
         predictionUpdateTimer = nil
+    }
+    
+    private let refreshIndicator = UIView()
+    private func addRefreshIndicator() {
+        let indicatorSize: CGFloat = 5
+        let indicatorDistance: CGFloat = 10
+        refreshIndicator.frame.size = CGSize(width: indicatorSize, height: indicatorSize)
+        refreshIndicator.frame.origin = CGPoint(x: intrinsicContentSize.width - indicatorSize - indicatorDistance, y: indicatorDistance)
+        refreshIndicator.backgroundColor = .white
+        refreshIndicator.alpha = 0
+        refreshIndicator.layer.cornerRadius = indicatorSize / 2
+        addSubview(refreshIndicator)
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [.autoreverse, .repeat], animations: {
+            self.refreshIndicator.alpha = 0.75
+        }, completion: nil)
+    }
+    
+    private func removeRefreshIndicator() {
+        refreshIndicator.removeFromSuperview()
     }
 }

@@ -13,6 +13,7 @@ import MessageUI
 class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewControllerDelegate, CLLocationManagerDelegate, TransantiagoAPIErrorDelegate {
     
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var buttonStackView: TouchTransparentStackView!
     @IBOutlet var errorInfoButton: MapButton!
     
     private var selectedAnnotation: TransantiagoAnnotation?
@@ -63,7 +64,7 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         view.layer.insertSublayer(gradientLayer, above: mapView.layer)
         
-        view.addSubview(signView)
+        view.insertSubview(signView, belowSubview: buttonStackView)//addSubview(signView)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
@@ -165,7 +166,8 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     }
     
     // MARK: - Pins and signs
-    private let customProtectedInsets = UIEdgeInsets(top: 10, left: 10, bottom: 80, right: 10)
+    // TODO: switch to layoutMargins?
+    private let customProtectedInsets = UIEdgeInsets(top: 5, left: 8, bottom: 8, right: 8)
     private var protectedInsets: UIEdgeInsets {
         var systemInsets = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height, left: 0, bottom: 0, right: 0)
         if #available(iOS 11.0, *) {

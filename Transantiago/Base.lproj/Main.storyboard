@@ -70,6 +70,7 @@
                         <edgeInsets key="layoutMargins" top="0.0" left="15" bottom="0.0" right="15"/>
                     </view>
                     <connections>
+                        <outlet property="buttonStackView" destination="Rcg-9m-Kt0" id="cEa-vi-HV6"/>
                         <outlet property="errorInfoButton" destination="NmH-Qq-Sm5" id="l5v-JY-uux"/>
                         <outlet property="mapView" destination="At1-li-cYk" id="KgX-z0-Ixc"/>
                     </connections>

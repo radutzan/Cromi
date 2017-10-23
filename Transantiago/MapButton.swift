@@ -20,8 +20,10 @@ class MapButton: UIButton {
         layer.backgroundColor = UIColor.white.cgColor
         layer.cornerRadius = bounds.width / 2
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: layer.cornerRadius).cgPath
-        layer.shadowOffset = CGSize(width: 0, height: 3)
-        layer.shadowRadius = 3
+//        layer.shadowOffset = CGSize(width: 0, height: 3)
+//        layer.shadowRadius = 3
+        layer.shadowOffset = CGSize(width: 0, height: 17)
+        layer.shadowRadius = 11
         layer.shadowOpacity = 0.2
         didSetUpButton = true
     }
