@@ -16,7 +16,7 @@ struct SignConstants {
     struct Color {
         static let bipBlue = UIColor(red: 0, green: 0.416, blue: 1, alpha: 1)
     }
-    static let cornerRadius: CGFloat = 6
+    static let cornerRadius: CGFloat = 8
     static let secondaryOpacity: CGFloat = 0.72
     static let tertiaryOpacity: CGFloat = 0.36
 }

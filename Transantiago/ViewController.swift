@@ -167,7 +167,7 @@ class ViewController: UIViewController, MKMapViewDelegate, MFMailComposeViewCont
     
     // MARK: - Pins and signs
     // TODO: switch to layoutMargins?
-    private let customProtectedInsets = UIEdgeInsets(top: 5, left: 8, bottom: 8, right: 8)
+    private let customProtectedInsets = UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8)
     private var protectedInsets: UIEdgeInsets {
         var systemInsets = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height, left: 0, bottom: 0, right: 0)
         if #available(iOS 11.0, *) {

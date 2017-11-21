@@ -12,19 +12,24 @@ extension TypeStyle {
     static let title     = TypeStyle(
         normalSize: proportionalTypeSize(for: 17),
         weight: .semibold)
+    
     static let titleBold = title.with(fontWeight: .bold)
+    
     static let serviceName = TypeStyle(
-        normalSize: proportionalTypeSize(for: 19),
+        normalSize: proportionalTypeSize(for: 17),
         weight: .bold)
+    
     static let preTitle  = TypeStyle(
         normalSize: proportionalTypeSize(for: 10),
         weight: .heavy,
         fixedSize: false,
         letterSpacing: 0,
         textTransform: .uppercase)
+    
     static let subtitle  = TypeStyle(
         normalSize: proportionalTypeSize(for: 13),
         weight: .bold)
+    
     static let subtitleBold  = subtitle.with(fontWeight: .bold)
 }
 
