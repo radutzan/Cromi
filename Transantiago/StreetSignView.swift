@@ -17,7 +17,7 @@ struct SignConstants {
         static let bipBlue = UIColor(red: 0, green: 0.416, blue: 1, alpha: 1)
     }
     static let cornerRadius: CGFloat = 8
-    static let secondaryOpacity: CGFloat = 0.72
+    static let secondaryOpacity: CGFloat = 0.64
     static let tertiaryOpacity: CGFloat = 0.36
 }
 
@@ -141,7 +141,8 @@ class StreetSignView: NibLoadingView {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 240, height: signView.bounds.height)
+        let width = min(TypeStyle.proportionalContainerSize(for: 246, normalize: false), UIScreen.main.bounds.width - 16)
+        return CGSize(width: width, height: signView.bounds.height)
     }
     
     func present(fromCenter originCenter: CGPoint, targetFrame: CGRect) {
@@ -208,27 +209,9 @@ class StreetSignView: NibLoadingView {
         CFAPI.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
             guard let prediction = prediction else { return }
             for (service, view) in self.serviceViews {
-                mainThread {
-                    view.isServiceSecondary = true
-                }
-                
                 let responses = prediction.serviceResponses.filter { $0.serviceName == service }
-                guard responses.count > 0, let predictions = responses[0].predictions else  { continue }
                 mainThread {
-                    var distance = Double(predictions[0].distance)
-                    var isKilometers = false
-                    if distance >= 1000 {
-                        isKilometers = true
-                        distance = distance / 1000
-                    }
-                    let distanceStringValue = String(format: "%.\(isKilometers ? 1 : 0)f", distance)
-                    
-                    view.isServiceSecondary = false
-                    
-                    UIView.animate(withDuration: 0.24, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-                        view.subtitle = "\(distanceStringValue) \(isKilometers ? "km" : "m")"
-                        view.subtitle2 = predictions[0].predictionString
-                    }, completion: nil)
+                    view.update(withResponse: responses.count > 0 ? responses[0] : nil)
                 }
             }
         }

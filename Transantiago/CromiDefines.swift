@@ -22,7 +22,7 @@ extension TypeStyle {
     static let preTitle  = TypeStyle(
         normalSize: proportionalTypeSize(for: 10),
         weight: .heavy,
-        fixedSize: false,
+        fixedSize: true,
         letterSpacing: 0,
         textTransform: .uppercase)
     

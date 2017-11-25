@@ -11,8 +11,13 @@
 "Not in Santiago alert message" = "Cromi only works in Santiago de Chile.";
 "Not in Santiago alert confirmation" = "Fly Me There";
 
-"Search box placeholder" = "Search for place or address";
+"Search box placeholder" = "Place or address";
 "Place not found" = "Couldn't find place or address";
+
+// Prediction
+"No data" = "No Data";
+"Out of schedule" = "Out Of Schedule";
+"No incoming buses" = "No Incoming Buses";
 
 // API Errors
 "and" = "and";

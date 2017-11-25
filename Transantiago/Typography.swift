@@ -25,8 +25,9 @@ struct TypeStyle {
         return result
     }
     
-    static func proportionalContainerSize(for originalSize: CGFloat) -> CGFloat {
-        let multiplier = max(sizeMultiplier * 0.9, 1)
+    static func proportionalContainerSize(for originalSize: CGFloat, normalize: Bool = true) -> CGFloat {
+        let normalizer: CGFloat = normalize ? 0.9 : 1
+        let multiplier = max(sizeMultiplier * normalizer, 1)
         let result = round(originalSize * multiplier)
         return result
     }
