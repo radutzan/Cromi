@@ -158,7 +158,7 @@ class TransantiagoAPI: NSObject, DataSource {
     private func performTestRequests() {
         background {
             self.annotations(aroundCoordinate: CLLocationCoordinate2DMake(-33.425567, -70.614486)) { (_, _, _) in }
-            self.prediction(forStopCode: "PA420") { (_) in }
+//            self.prediction(forStopCode: "PA420") { (_) in }
             self.service(withName: "503") { (_) in }
         }
     }
