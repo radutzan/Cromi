@@ -20,6 +20,10 @@
 		7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */; };
 		7C35D6201FC9D6F300F01E2D /* ServiceBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */; };
 		7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
+		7C6645671FD0AF53005EF2DF /* ButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645661FD0AF53005EF2DF /* ButtonRow.swift */; };
+		7C66456A1FD33175005EF2DF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645681FD33175005EF2DF /* MapViewController.swift */; };
+		7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456C1FD33392005EF2DF /* LocationServices.swift */; };
+		7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456E1FD33453005EF2DF /* ViewController.swift */; };
 		7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B96311EEA2F2600CAB04E /* Typography.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
 		7CDE4EF11F990BFE0016E75F /* CFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDE4EF01F990BFE0016E75F /* CFAPI.swift */; };
@@ -27,7 +31,6 @@
 		7CE2739E1F97F59E0008A070 /* TSAPI Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE2739D1F97F59E0008A070 /* TSAPI Models.swift */; };
 		7CE4B70F1F09D3260067E5CB /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE4B70E1F09D3260067E5CB /* MapButton.swift */; };
 		7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
-		7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946C11DF8FA3E00F3D29A /* ViewController.swift */; };
 		7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
 		7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */; };
 		7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */; };
@@ -59,6 +62,10 @@
 		7C58CC4D1EA05C3600259F11 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7C58CC511EA05C5500259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7C58CC531EA05C6700259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7C6645661FD0AF53005EF2DF /* ButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRow.swift; sourceTree = "<group>"; };
+		7C6645681FD33175005EF2DF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		7C66456C1FD33392005EF2DF /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
+		7C66456E1FD33453005EF2DF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7C7B96311EEA2F2600CAB04E /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		7CDE4EF01F990BFE0016E75F /* CFAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFAPI.swift; sourceTree = "<group>"; };
@@ -67,7 +74,6 @@
 		7CE4B70E1F09D3260067E5CB /* MapButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButton.swift; sourceTree = "<group>"; };
 		7CE946BC1DF8FA3E00F3D29A /* Cromi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cromi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7CE946C11DF8FA3E00F3D29A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7CE946C41DF8FA3E00F3D29A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CE946C91DF8FA3E00F3D29A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -125,6 +131,30 @@
 			name = "TS API";
 			sourceTree = "<group>";
 		};
+		7C6645701FD33E4C005EF2DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7C6645661FD0AF53005EF2DF /* ButtonRow.swift */,
+				7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */,
+				7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */,
+				7CE4B70E1F09D3260067E5CB /* MapButton.swift */,
+				7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		7C6645711FD33E66005EF2DF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */,
+				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
+				7CE946CB1DF8FA3E00F3D29A /* Info.plist */,
+				7CF818CC1E9EF3A9007F1468 /* Localizable.strings */,
+				7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		7CE273991F97EB5B0008A070 /* RaduKit Lite */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,14 +164,14 @@
 			name = "RaduKit Lite";
 			sourceTree = "<group>";
 		};
-		7CE2739A1F97EB8D0008A070 /* Core */ = {
+		7CE2739A1F97EB8D0008A070 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				7CE946DA1DF9579200F3D29A /* Models.swift */,
 				7CDE4EF01F990BFE0016E75F /* CFAPI.swift */,
 				7C61D3591F97FC2300CE8483 /* TS API */,
 			);
-			name = Core;
+			name = Data;
 			sourceTree = "<group>";
 		};
 		7CE946B31DF8FA3E00F3D29A = {
@@ -168,19 +198,14 @@
 				7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */,
 				7CE273971F97E6940008A070 /* CromiDefines.swift */,
 				7CE273991F97EB5B0008A070 /* RaduKit Lite */,
-				7CE2739A1F97EB8D0008A070 /* Core */,
+				7CE2739A1F97EB8D0008A070 /* Data */,
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
-				7CE946C11DF8FA3E00F3D29A /* ViewController.swift */,
-				7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */,
-				7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */,
-				7CE4B70E1F09D3260067E5CB /* MapButton.swift */,
-				7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */,
+				7C66456E1FD33453005EF2DF /* ViewController.swift */,
+				7C66456C1FD33392005EF2DF /* LocationServices.swift */,
+				7C6645681FD33175005EF2DF /* MapViewController.swift */,
+				7C6645701FD33E4C005EF2DF /* Views */,
 				7C28C6041E9B32FD0012BD19 /* Sign View */,
-				7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */,
-				7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */,
-				7CE946CB1DF8FA3E00F3D29A /* Info.plist */,
-				7CF818CC1E9EF3A9007F1468 /* Localizable.strings */,
-				7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */,
+				7C6645711FD33E66005EF2DF /* Resources */,
 			);
 			name = Cromi;
 			path = Transantiago;
@@ -297,17 +322,20 @@
 			files = (
 				7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */,
 				7CE4B70F1F09D3260067E5CB /* MapButton.swift in Sources */,
+				7C6645671FD0AF53005EF2DF /* ButtonRow.swift in Sources */,
 				7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */,
+				7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */,
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
 				7CE946D71DF94DCB00F3D29A /* TransantiagoAPI.swift in Sources */,
 				7C28C6081E9B37750012BD19 /* SignServiceView.swift in Sources */,
 				7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */,
 				7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */,
+				7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */,
 				7C28C60C1E9B380C0012BD19 /* SignHoursRowView.swift in Sources */,
 				7C28C6031E9B27170012BD19 /* SignHeaderView.swift in Sources */,
+				7C66456A1FD33175005EF2DF /* MapViewController.swift in Sources */,
 				7CE2739E1F97F59E0008A070 /* TSAPI Models.swift in Sources */,
 				7C28C60A1E9B37A30012BD19 /* SignServiceRowView.swift in Sources */,
-				7CE946C21DF8FA3E00F3D29A /* ViewController.swift in Sources */,
 				7CDE4EF11F990BFE0016E75F /* CFAPI.swift in Sources */,
 				7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */,
 				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,

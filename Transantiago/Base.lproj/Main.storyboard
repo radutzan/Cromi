@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,10 +22,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYa-eU-mhC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <segue destination="7Ce-94-rMT" kind="embed" id="p9t-BM-Pot"/>
+                                </connections>
+                            </containerView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="mutedStandard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="At1-li-cYk">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Rcg-9m-Kt0" customClass="TouchTransparentStackView" customModule="Cromi" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Rcg-9m-Kt0" customClass="TouchTransparentStackView" customModule="Cromi" customModuleProvider="target">
                                 <rect key="frame" x="16" y="603" width="343" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NmH-Qq-Sm5" customClass="MapButton" customModule="Cromi" customModuleProvider="target">
@@ -35,7 +41,6 @@
                                             <constraint firstAttribute="height" constant="44" id="s2x-pg-Zj1"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
-                                        <state key="normal" title="?"/>
                                         <connections>
                                             <action selector="infoButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="VK8-46-WnR"/>
                                         </connections>
@@ -60,6 +65,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Rcg-9m-Kt0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2IZ-ZN-lcN"/>
+                            <constraint firstAttribute="trailing" secondItem="iYa-eU-mhC" secondAttribute="trailing" id="6dD-Du-SNp"/>
+                            <constraint firstAttribute="bottom" secondItem="iYa-eU-mhC" secondAttribute="bottom" id="7Eo-VV-oNy"/>
+                            <constraint firstItem="iYa-eU-mhC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="91Z-qE-qpi"/>
+                            <constraint firstItem="iYa-eU-mhC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9JO-p9-0Nr"/>
                             <constraint firstItem="At1-li-cYk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IeG-XC-JPm"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Rcg-9m-Kt0" secondAttribute="bottom" constant="20" id="YzN-LQ-Q8m"/>
                             <constraint firstAttribute="bottom" secondItem="At1-li-cYk" secondAttribute="bottom" id="ehu-7A-lHd"/>
@@ -68,16 +77,48 @@
                             <constraint firstItem="At1-li-cYk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="vkz-j5-2Ih"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="15" bottom="0.0" right="15"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="At1-li-cYk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="buttonStackView" destination="Rcg-9m-Kt0" id="cEa-vi-HV6"/>
-                        <outlet property="errorInfoButton" destination="NmH-Qq-Sm5" id="l5v-JY-uux"/>
                         <outlet property="mapView" destination="At1-li-cYk" id="KgX-z0-Ixc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140" y="138.98050974512745"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="jOq-PW-7kY">
+            <objects>
+                <viewController id="7Ce-94-rMT" customClass="MapViewController" customModule="Cromi" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="X96-DQ-2A9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="l9S-qF-Wnw">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="l9S-qF-Wnw" firstAttribute="top" secondItem="X96-DQ-2A9" secondAttribute="top" id="XYm-ZH-9z4"/>
+                            <constraint firstAttribute="trailing" secondItem="l9S-qF-Wnw" secondAttribute="trailing" id="XbH-3o-mf1"/>
+                            <constraint firstItem="l9S-qF-Wnw" firstAttribute="leading" secondItem="X96-DQ-2A9" secondAttribute="leading" id="hFh-ZU-pqB"/>
+                            <constraint firstAttribute="bottom" secondItem="l9S-qF-Wnw" secondAttribute="bottom" id="uYJ-5s-qdx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="l9S-qF-Wnw" id="mEk-74-Y6n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YVC-PZ-4Il" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1120.8" y="138.98050974512745"/>
         </scene>
     </scenes>
     <resources>

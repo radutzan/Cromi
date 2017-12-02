@@ -8,8 +8,12 @@
 
 import UIKit
 
+struct Constants {
+    
+}
+
 extension TypeStyle {
-    static let title     = TypeStyle(
+    static let title = TypeStyle(
         normalSize: proportionalTypeSize(for: 17),
         weight: .semibold)
     
@@ -19,18 +23,18 @@ extension TypeStyle {
         normalSize: proportionalTypeSize(for: 17),
         weight: .bold)
     
-    static let preTitle  = TypeStyle(
+    static let preTitle = TypeStyle(
         normalSize: proportionalTypeSize(for: 10),
         weight: .heavy,
         fixedSize: true,
         letterSpacing: 0,
         textTransform: .uppercase)
     
-    static let subtitle  = TypeStyle(
+    static let subtitle = TypeStyle(
         normalSize: proportionalTypeSize(for: 13),
         weight: .bold)
     
-    static let subtitleBold  = subtitle.with(fontWeight: .bold)
+    static let subtitleBold = subtitle.with(fontWeight: .bold)
 }
 
 extension UIFont {
