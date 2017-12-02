@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapButton: UIButton {
+class FloatingButton: UIButton {
 
     override func willMove(toSuperview newSuperview: UIView?) {
         setUpButtonIfNeeded()
@@ -17,9 +17,12 @@ class MapButton: UIButton {
     private var didSetUpButton = false
     private func setUpButtonIfNeeded() {
         guard !didSetUpButton else { return }
+        clipsToBounds = false
+        backgroundColor = .clear
+        let size: CGFloat = 44 // 😒
         layer.backgroundColor = UIColor.white.cgColor
-        layer.cornerRadius = bounds.width / 2
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: layer.cornerRadius).cgPath
+        layer.cornerRadius = size / 2
+        layer.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size, height: size), cornerRadius: layer.cornerRadius).cgPath
 //        layer.shadowOffset = CGSize(width: 0, height: 3)
 //        layer.shadowRadius = 3
         layer.shadowOffset = CGSize(width: 0, height: 17)

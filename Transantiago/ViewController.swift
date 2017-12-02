@@ -13,12 +13,12 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     let locationServices = LocationServices()
     var mapController: MapViewController?
     
-    @IBOutlet var mapView: MKMapView!
-    @IBOutlet var buttonStackView: TouchTransparentStackView!
+    @IBOutlet var buttonRow: ButtonRow!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
         locationServices.delegate = self
         
         if let mapViewController = childViewControllers.first as? MapViewController {
@@ -51,7 +51,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         present(stgoAlert, animated: true, completion: nil)
     }
     
-    @IBAction func locationButtonTapped() {
+    @IBAction func locationButtonTapped(button: UIButton) {
         locationServices.updateLocation() {
             self.mapController?.centerMapAroundUserLocation(animated: true)
         }

@@ -7,10 +7,18 @@
 */
 
 "to" = "to";
+
+// Buttons
+"Location button" = "Current Location";
+"Bip button" = "Your Bip Card";
+"Search button" = "Search";
+
+// Not in Santiago
 "Not in Santiago alert title" = "You're Not In Santiago";
 "Not in Santiago alert message" = "Cromi only works in Santiago de Chile.";
 "Not in Santiago alert confirmation" = "Fly Me There";
 
+// Search
 "Search box placeholder" = "Place or address";
 "Place not found" = "Couldn't find place or address";
 

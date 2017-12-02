@@ -28,64 +28,27 @@
                                     <segue destination="7Ce-94-rMT" kind="embed" id="p9t-BM-Pot"/>
                                 </connections>
                             </containerView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="mutedStandard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="At1-li-cYk">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </mapView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Rcg-9m-Kt0" customClass="TouchTransparentStackView" customModule="Cromi" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-n0-9uZ" customClass="ButtonRow" customModule="Cromi" customModuleProvider="target">
                                 <rect key="frame" x="16" y="603" width="343" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NmH-Qq-Sm5" customClass="MapButton" customModule="Cromi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="VPP-0e-rNy"/>
-                                            <constraint firstAttribute="height" constant="44" id="s2x-pg-Zj1"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
-                                        <connections>
-                                            <action selector="infoButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="VK8-46-WnR"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBD-cJ-nR7" customClass="MapButton" customModule="Cromi" customModuleProvider="target">
-                                        <rect key="frame" x="299" y="0.0" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="GD7-EH-VcS"/>
-                                            <constraint firstAttribute="width" constant="44" id="T5J-z6-JwE"/>
-                                        </constraints>
-                                        <state key="normal" image="location"/>
-                                        <connections>
-                                            <action selector="locationButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="OT5-8X-wIU"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="JIQ-E5-Baa"/>
+                                    <constraint firstAttribute="height" constant="44" id="YwY-La-rIm"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Rcg-9m-Kt0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2IZ-ZN-lcN"/>
                             <constraint firstAttribute="trailing" secondItem="iYa-eU-mhC" secondAttribute="trailing" id="6dD-Du-SNp"/>
                             <constraint firstAttribute="bottom" secondItem="iYa-eU-mhC" secondAttribute="bottom" id="7Eo-VV-oNy"/>
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="91Z-qE-qpi"/>
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9JO-p9-0Nr"/>
-                            <constraint firstItem="At1-li-cYk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IeG-XC-JPm"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Rcg-9m-Kt0" secondAttribute="bottom" constant="20" id="YzN-LQ-Q8m"/>
-                            <constraint firstAttribute="bottom" secondItem="At1-li-cYk" secondAttribute="bottom" id="ehu-7A-lHd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Rcg-9m-Kt0" secondAttribute="trailing" id="ivn-Io-Z9v"/>
-                            <constraint firstAttribute="trailing" secondItem="At1-li-cYk" secondAttribute="trailing" id="mqb-95-fSm"/>
-                            <constraint firstItem="At1-li-cYk" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="vkz-j5-2Ih"/>
+                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CI5-Xy-3hj"/>
+                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="TpI-l9-v2c"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3w9-n0-9uZ" secondAttribute="bottom" constant="20" id="lhq-u5-b4P"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="15" bottom="0.0" right="15"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="At1-li-cYk"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="buttonStackView" destination="Rcg-9m-Kt0" id="cEa-vi-HV6"/>
-                        <outlet property="mapView" destination="At1-li-cYk" id="KgX-z0-Ixc"/>
+                        <outlet property="buttonRow" destination="3w9-n0-9uZ" id="D2h-Wz-55B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -96,6 +59,10 @@
         <scene sceneID="jOq-PW-7kY">
             <objects>
                 <viewController id="7Ce-94-rMT" customClass="MapViewController" customModule="Cromi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zve-An-5Ut"/>
+                        <viewControllerLayoutGuide type="bottom" id="lGJ-is-MsH"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="X96-DQ-2A9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,7 +88,4 @@
             <point key="canvasLocation" x="1120.8" y="138.98050974512745"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="location" width="24" height="24"/>
-    </resources>
 </document>
