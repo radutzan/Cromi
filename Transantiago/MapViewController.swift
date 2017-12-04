@@ -8,13 +8,30 @@
 
 import MapKit
 
+protocol MapViewControllerDelegate: StreetSignViewDelegate {
+    
+}
+
 class MapViewController: UIViewController, MKMapViewDelegate {
+    
+    weak var delegate: MapViewControllerDelegate? {
+        didSet {
+            signView.delegate = delegate
+        }
+    }
+    
+    enum Mode {
+        case normal, lineView
+    }
+    private(set) var mode: Mode = .normal
     
     @IBOutlet var mapView: MKMapView!
     var locationServices: LocationServices?
+    private let signView = StreetSignView()
     
     private var selectedAnnotation: TransantiagoAnnotation?
-    private let signView = StreetSignView()
+    private var presentedService: Service?
+    private var currentOverlays: [MKOverlay] = []
     
     private let statusBarGradientLayer = CAGradientLayer()
 
@@ -50,6 +67,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        guard mode == .normal else { return }
         placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
     }
     
@@ -94,6 +112,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         annotationView.image = pinImage(forAnnotation: annotation, selected: false)
         
         return annotationView
+    }
+    
+    private var currentServiceColor: UIColor?
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline {
+            let polylineRenderer = MKPolylineRenderer(polyline: polyline)
+            polylineRenderer.lineWidth = 6
+            polylineRenderer.lineJoin = .round
+            polylineRenderer.lineCap = .round
+            polylineRenderer.strokeColor = currentServiceColor?.withAlphaComponent(0.5) ?? .black
+            return polylineRenderer
+        }
+        return MKOverlayRenderer()
     }
     
     // MARK: - Pins and signs
@@ -170,7 +201,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func placeAnnotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: (() -> ())? = nil) {
-        TransantiagoAPI.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) in
+        SCLTransit.get.annotations(aroundCoordinate: coordinate) { (stops, bipSpots, metroStations) in
             guard let stops = stops, let bipSpots = bipSpots, let metroStations = metroStations else { return }
             mainThread {
                 let currentAnnotationsSet = Set(self.mapView.annotations.filter { $0 is TransantiagoAnnotation } as! [TransantiagoAnnotation])
@@ -203,5 +234,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         guard let nearestStop = stopsByDistance[nearestDistance] else { return }
         mapView.selectAnnotation(nearestStop, animated: true)
     }
+    
+    func display(serviceRoute route: Service.Route, serviceColor: UIColor) {
+        mode = .lineView
+        currentServiceColor = serviceColor
+        mapView.add(route.polyline)
+    }
 
+    func reset() {
+        mode = .normal
+        currentServiceColor = nil
+        for overlay in mapView.overlays {
+            mapView.remove(overlay)
+        }
+        placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
+    }
 }

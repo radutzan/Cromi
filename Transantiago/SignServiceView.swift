@@ -8,8 +8,15 @@
 
 import UIKit
 
-@IBDesignable class SignServiceView: NibLoadingView {
+protocol SignServiceViewDelegate: AnyObject {
+    func signDidSelect(service: Service)
+}
 
+@IBDesignable class SignServiceView: NibLoadingView {
+    weak var delegate: SignServiceViewDelegate?
+
+    private(set) var service: Service? = nil
+    
     @IBInspectable var serviceName: String? {
         didSet {
             serviceLabel.text = serviceName
@@ -50,6 +57,13 @@ import UIKit
         subtitle2Label.font = .subtitle
     }
     
+    func populate(with service: Service) {
+        self.service = service
+        serviceName = service.name
+        serviceColor = service.color
+        subtitle = "\(NSLocalizedString("to", comment: "")) \(service.stopInfo?.headsign ?? "")"
+    }
+    
     func update(withResponse response: StopPrediction.ServiceResponse?) {
         var attrString = NSAttributedString()
         var isSecondary = true
@@ -85,6 +99,11 @@ import UIKit
         isSecondary = false
         shouldUpdateText = true
         attrString = attributedString(fromPredictions: predictions)
+    }
+    
+    @IBAction func buttonTapped() {
+        guard let service = service else { return }
+        delegate?.signDidSelect(service: service)
     }
     
     private func distanceString(from value: Int) -> String {

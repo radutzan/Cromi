@@ -22,9 +22,6 @@
             <rect key="frame" x="0.0" y="0.0" width="95" height="67"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVB-cL-hyK">
-                    <rect key="frame" x="0.0" y="0.0" width="95" height="67"/>
-                </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="FcN-Tx-EFN">
                     <rect key="frame" x="6" y="4" width="85" height="52"/>
                     <subviews>
@@ -51,6 +48,12 @@ Cg
                         </label>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVB-cL-hyK">
+                    <rect key="frame" x="0.0" y="0.0" width="95" height="67"/>
+                    <connections>
+                        <action selector="buttonTapped" destination="-1" eventType="touchUpInside" id="z6e-1i-NxL"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>

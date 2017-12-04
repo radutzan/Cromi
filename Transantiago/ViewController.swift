@@ -8,22 +8,28 @@
 
 import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate {
+    
     
     let locationServices = LocationServices()
     var mapController: MapViewController?
     
     @IBOutlet var buttonRow: ButtonRow!
+    @IBOutlet var serviceBar: ServiceBar!
+    @IBOutlet var serviceBarHorizontalCenterConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
         locationServices.delegate = self
+        serviceBar.delegate = self
+        serviceBarHorizontalCenterConstraint.constant = view.bounds.width
         
         if let mapViewController = childViewControllers.first as? MapViewController {
             mapController = mapViewController
             mapController?.locationServices = locationServices
+            mapController?.delegate = self
         }
     }
     
@@ -55,6 +61,54 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         locationServices.updateLocation() {
             self.mapController?.centerMapAroundUserLocation(animated: true)
         }
+    }
+    
+    // MARK: - Map interaction
+    private var storedCompleteService: Service?
+    func signDidSelect(service: Service) {
+        guard let stopInfo = service.stopInfo else { return }
+        present(service: service, direction: stopInfo.direction)
+    }
+    
+    func serviceBarSelected(direction: Service.Route.Direction, service: Service) {
+        mapController?.reset()
+        present(service: service, direction: direction)
+    }
+    
+    func serviceBarRequestedDismissal() {
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+            self.serviceBarHorizontalCenterConstraint.constant = self.view.bounds.width
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        mapController?.reset()
+    }
+    
+    private func presentServiceBar(service: Service) {
+        serviceBar.service = service
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+            self.serviceBarHorizontalCenterConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    private func present(service: Service, direction: Service.Route.Direction) {
+        if (storedCompleteService == nil || storedCompleteService?.routes == nil) && (service.routes != nil && service.routes!.count > 1) {
+            storedCompleteService = service
+        }
+        guard let completeService = storedCompleteService, completeService.name == service.name, let serviceRoutes = completeService.routes, serviceRoutes.count > 1 else {
+            SCLTransit.get.serviceRoutes(for: service) { (newService) in
+                guard let newService = newService, let serviceRoutes = newService.routes, serviceRoutes.count > 1 else { return }
+                mainThread {
+                    print("got complete service \(newService.name)")
+                    self.storedCompleteService = newService
+                    self.present(service: newService, direction: direction)
+                }
+            }
+            return
+        }
+        
+        presentServiceBar(service: completeService)
+        mapController?.display(serviceRoute: direction == .outbound ? serviceRoutes[0] : serviceRoutes[1], serviceColor: service.color)
     }
 
 }

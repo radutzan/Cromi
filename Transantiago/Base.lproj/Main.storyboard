@@ -28,6 +28,13 @@
                                     <segue destination="7Ce-94-rMT" kind="embed" id="p9t-BM-Pot"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDY-Ma-pdu" customClass="ServiceBar" customModule="Cromi" customModuleProvider="target">
+                                <rect key="frame" x="436" y="533" width="343" height="52"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="Tqi-i0-799"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-n0-9uZ" customClass="ButtonRow" customModule="Cromi" customModuleProvider="target">
                                 <rect key="frame" x="16" y="603" width="343" height="44"/>
                                 <constraints>
@@ -37,18 +44,23 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uDY-Ma-pdu" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-32" id="6Ub-qS-iZ2"/>
                             <constraint firstAttribute="trailing" secondItem="iYa-eU-mhC" secondAttribute="trailing" id="6dD-Du-SNp"/>
                             <constraint firstAttribute="bottom" secondItem="iYa-eU-mhC" secondAttribute="bottom" id="7Eo-VV-oNy"/>
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="91Z-qE-qpi"/>
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9JO-p9-0Nr"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CI5-Xy-3hj"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="TpI-l9-v2c"/>
+                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="top" secondItem="uDY-Ma-pdu" secondAttribute="bottom" constant="18" id="co3-MI-bO1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3w9-n0-9uZ" secondAttribute="bottom" constant="20" id="lhq-u5-b4P"/>
+                            <constraint firstItem="uDY-Ma-pdu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="420" id="xpW-sY-GdV"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="15" bottom="0.0" right="15"/>
                     </view>
                     <connections>
                         <outlet property="buttonRow" destination="3w9-n0-9uZ" id="D2h-Wz-55B"/>
+                        <outlet property="serviceBar" destination="uDY-Ma-pdu" id="Ylf-Jv-b6x"/>
+                        <outlet property="serviceBarHorizontalCenterConstraint" destination="xpW-sY-GdV" id="4jP-Wc-Uci"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -85,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVC-PZ-4Il" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1120.8" y="138.98050974512745"/>
+            <point key="canvasLocation" x="1407" y="139"/>
         </scene>
     </scenes>
 </document>

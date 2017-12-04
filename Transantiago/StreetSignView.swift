@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol StreetSignViewDelegate: SignServiceViewDelegate {
+    
+}
+
 enum SignStyle {
     case dark, light
 }
@@ -23,6 +27,7 @@ struct SignConstants {
 
 class StreetSignView: NibLoadingView {
 
+    weak var delegate: StreetSignViewDelegate?
     var annotation: TransantiagoAnnotation? {
         didSet {
             reloadData()
@@ -51,7 +56,7 @@ class StreetSignView: NibLoadingView {
     
     override func didLoadNibView() {
         alpha = 0
-        isUserInteractionEnabled = false
+//        isUserInteractionEnabled = false
         layer.shadowColor = UIColor.black.cgColor
 //        layer.shadowOffset = CGSize(width: 0, height: 17)
 //        layer.shadowRadius = 11
@@ -92,6 +97,7 @@ class StreetSignView: NibLoadingView {
                     
                     for (index, service) in pendingServices.enumerated() {
                         serviceViews[service.name] = index == 0 ? serviceRowView.serviceView1 : serviceRowView.serviceView2
+                        serviceViews[service.name]?.delegate = delegate
                     }
                     
                     pendingServices = []
@@ -186,6 +192,15 @@ class StreetSignView: NibLoadingView {
         isVisible = false
         endStopPredictions()
     }
+    
+//    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+//        for subview in subviews {
+//            if subview.point(inside: convert(point, to: subview), with: event) && subview is UIButton {
+//                return true
+//            }
+//        }
+//        return false
+//    }
     
     // MARK: - Stop predictions
     private var serviceViews: [String: SignServiceView] = [:]
