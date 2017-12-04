@@ -61,6 +61,30 @@ class Stop: TransantiagoAnnotation {
     }
 }
 
+// MARK: - Stop prediction
+struct StopPrediction {
+    let timestamp: Date
+    let stopCode: String
+    let responseString: String?
+    let serviceResponses: [ServiceResponse]
+    
+    struct ServiceResponse {
+        enum Kind: Int {
+            case twoPredictions = 00, onePrediction = 01, noPrediction = 9, noIncomingBuses = 10, outOfSchedule = 11
+        }
+        
+        let kind: Kind
+        let serviceName: String
+        let predictions: [Prediction]?
+        
+        struct Prediction {
+            let distance: Int
+            let predictionString: String
+            let licensePlate: String?
+        }
+    }
+}
+
 // MARK: - Bip spot
 class BipSpot: TransantiagoAnnotation {
     let address: String?
@@ -90,6 +114,16 @@ class BipSpot: TransantiagoAnnotation {
 class MetroStation: BipSpot {
     let lineNumber: Int = 1
     let lineColor: UIColor = .red
+    var lines: [MetroLine]?
+}
+
+class MetroLine: Service {}
+
+// MARK: - Operation hours
+struct OperationHours {
+    let rangeTitle: String
+    let start: String
+    let end: String
 }
 
 // MARK: - Service
@@ -98,6 +132,12 @@ class Service: NSObject {
     let color: UIColor
     let routes: [Route]?
     let destinationString: String?
+    let stopData: StopData?
+    
+    struct StopData {
+        let headsign: String
+        let direction: Route.Direction
+    }
     
     struct Route {
         enum Direction: Int {
@@ -105,7 +145,7 @@ class Service: NSObject {
         }
         let direction: Direction
         let operationHours: [OperationHours]
-        let destinationString: String
+        let headsign: String
         let polyline: MKPolyline
         let stops: [Stop]
     }
@@ -115,6 +155,17 @@ class Service: NSObject {
         self.color = color
         self.routes = routes
         self.destinationString = destinationString
+        self.stopData = nil
+        super.init()
+    }
+    
+    init(name: String, color: UIColor, routes: [Route]?, stopData: StopData?) {
+        self.name = name
+        self.color = color
+        self.routes = routes
+        self.destinationString = stopData != nil ? "\(NSLocalizedString("to", comment: "")) \(stopData!.headsign)" : nil
+        self.stopData = stopData
+        super.init()
     }
     
     static func ==(lhs: Service, rhs: Service) -> Bool {
@@ -127,33 +178,15 @@ class Service: NSObject {
     }
 }
 
-// MARK: - Operation hours
-struct OperationHours {
-    let rangeTitle: String
-    let start: String
-    let end: String
-}
-
-// MARK: - Stop prediction
-struct StopPrediction {
-    let timestamp: Date
-    let stopCode: String
-    let responseString: String?
-    let serviceResponses: [ServiceResponse]
+class Bus: NSObject {
+    let plateNumber: String
+    let serviceName: String
+    var position: CLLocationCoordinate2D
     
-    struct ServiceResponse {
-        enum Kind: Int {
-            case twoPredictions = 00, onePrediction = 01, noPrediction = 9, noIncomingBuses = 10, outOfSchedule = 11
-        }
-        
-        let kind: Kind
-        let serviceName: String
-        let predictions: [Prediction]?
-        
-        struct Prediction {
-            let distance: Int
-            let predictionString: String
-            let licensePlate: String?
-        }
+    init(plateNumber: String, serviceName: String, position: CLLocationCoordinate2D) {
+        self.plateNumber = plateNumber
+        self.serviceName = serviceName
+        self.position = position
+        super.init()
     }
 }

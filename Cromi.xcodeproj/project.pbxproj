@@ -27,6 +27,7 @@
 		7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6645721FD34EAE005EF2DF /* ButtonRow.xib */; };
 		7C6645751FD351B6005EF2DF /* UIButton+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645741FD351B6005EF2DF /* UIButton+Actions.swift */; };
 		7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645761FD35C7B005EF2DF /* ServiceBar.swift */; };
+		7C6645791FD4B5F5005EF2DF /* SCLTransit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */; };
 		7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B96311EEA2F2600CAB04E /* Typography.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
 		7CDE4EF11F990BFE0016E75F /* CFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDE4EF01F990BFE0016E75F /* CFAPI.swift */; };
@@ -72,6 +73,7 @@
 		7C6645721FD34EAE005EF2DF /* ButtonRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonRow.xib; sourceTree = "<group>"; };
 		7C6645741FD351B6005EF2DF /* UIButton+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Actions.swift"; sourceTree = "<group>"; };
 		7C6645761FD35C7B005EF2DF /* ServiceBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceBar.swift; sourceTree = "<group>"; };
+		7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLTransit.swift; sourceTree = "<group>"; };
 		7C7B96311EEA2F2600CAB04E /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		7CDE4EF01F990BFE0016E75F /* CFAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFAPI.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				7CE946DA1DF9579200F3D29A /* Models.swift */,
+				7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */,
 				7CDE4EF01F990BFE0016E75F /* CFAPI.swift */,
 				7C61D3591F97FC2300CE8483 /* TS API */,
 			);
@@ -350,6 +353,7 @@
 				7CDE4EF11F990BFE0016E75F /* CFAPI.swift in Sources */,
 				7CE946D91DF953ED00F3D29A /* JSONUtilities.swift in Sources */,
 				7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */,
+				7C6645791FD4B5F5005EF2DF /* SCLTransit.swift in Sources */,
 				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,
 				7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */,
 				7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */,
