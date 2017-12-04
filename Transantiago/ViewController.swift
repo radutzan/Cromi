@@ -71,7 +71,6 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     }
     
     func serviceBarSelected(direction: Service.Route.Direction, service: Service) {
-        mapController?.reset()
         present(service: service, direction: direction)
     }
     
@@ -95,7 +94,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         if (storedCompleteService == nil || storedCompleteService?.routes == nil) && (service.routes != nil && service.routes!.count > 1) {
             storedCompleteService = service
         }
-        guard let completeService = storedCompleteService, completeService.name == service.name, let serviceRoutes = completeService.routes, serviceRoutes.count > 1 else {
+        guard let completeService = storedCompleteService, completeService.name == service.name, completeService.outboundRoute != nil, completeService.inboundRoute != nil else {
             SCLTransit.get.serviceRoutes(for: service) { (newService) in
                 guard let newService = newService, let serviceRoutes = newService.routes, serviceRoutes.count > 1 else { return }
                 mainThread {
@@ -108,7 +107,8 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         }
         
         presentServiceBar(service: completeService)
-        mapController?.display(serviceRoute: direction == .outbound ? serviceRoutes[0] : serviceRoutes[1], serviceColor: service.color)
+        mapController?.reset()
+        mapController?.display(service: completeService, direction: direction)
     }
 
 }

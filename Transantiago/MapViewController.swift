@@ -30,8 +30,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private let signView = StreetSignView()
     
     private var selectedAnnotation: TransantiagoAnnotation?
-    private var presentedService: Service?
-    private var currentOverlays: [MKOverlay] = []
+    private var lineViewInfo: LineViewInfo?
+    
+    private struct LineViewInfo {
+        var presentedService: Service
+        var currentDirection: Service.Route.Direction
+    }
     
     private let statusBarGradientLayer = CAGradientLayer()
 
@@ -67,14 +71,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        guard mode == .normal else { return }
+//        guard mode == .normal else { return }
         placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = view.annotation as? TransantiagoAnnotation else { return }
         selectedAnnotation = annotation
-        view.image = pinImage(forAnnotation: annotation, selected: true)
+        if !(annotation is Stop) { view.image = pinImage(forAnnotation: annotation, selected: true) }
         
         signView.annotation = annotation
         signView.present(fromCenter: point(forAnnotation: annotation), targetFrame: signFrame(forAnnotation: annotation))
@@ -82,7 +86,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         guard let oldAnnotation = view.annotation as? TransantiagoAnnotation else { return }
-        view.image = pinImage(forAnnotation: oldAnnotation, selected: false)
+        if !(oldAnnotation is Stop) { view.image = pinImage(forAnnotation: oldAnnotation, selected: false) }
         let transition = CATransition()
         transition.duration = 0.24
         transition.type = kCATransitionFade
@@ -97,8 +101,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         var reuseIdentifier = ""
         switch annotation {
-        case is Stop:
+        case let stop as Stop:
             reuseIdentifier = "Stop pin"
+            let annotationView = (mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? StopAnnotationView) ?? StopAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            annotationView.canShowCallout = false
+            setColor(for: annotationView, with: stop.code)
+            return annotationView
+            
         case is MetroStation:
             reuseIdentifier = "Metro pin"
         case is BipSpot:
@@ -107,27 +116,64 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             return nil
         }
         
-        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
         annotationView.canShowCallout = false
         annotationView.image = pinImage(forAnnotation: annotation, selected: false)
         
         return annotationView
     }
     
-    private var currentServiceColor: UIColor?
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let polyline = overlay as? MKPolyline {
             let polylineRenderer = MKPolylineRenderer(polyline: polyline)
             polylineRenderer.lineWidth = 6
             polylineRenderer.lineJoin = .round
             polylineRenderer.lineCap = .round
-            polylineRenderer.strokeColor = currentServiceColor?.withAlphaComponent(0.5) ?? .black
+            polylineRenderer.strokeColor = lineViewInfo?.presentedService.color.withAlphaComponent(0.5) ?? .black
             return polylineRenderer
         }
         return MKOverlayRenderer()
     }
     
-    // MARK: - Pins and signs
+    // MARK: - Pins
+    private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
+        return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
+    }
+    
+    private func pinImage(forAnnotation annotation: TransantiagoAnnotation, selected: Bool) -> UIImage? {
+        var pinImage: UIImage?
+        switch annotation {
+        case is MetroStation:
+            pinImage = selected ? #imageLiteral(resourceName: "pin metro selected") : #imageLiteral(resourceName: "pin metro")
+        case is BipSpot:
+            pinImage = selected ? #imageLiteral(resourceName: "pin bip selected") : #imageLiteral(resourceName: "pin bip")
+        default:
+            return nil
+        }
+        return pinImage
+    }
+    
+    private func refreshVisibleStops() {
+        let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
+        for annotation in visibleAnnotations {
+            guard let stop = annotation as? Stop, let stopPin = mapView.view(for: stop) as? StopAnnotationView else { continue }
+            setColor(for: stopPin, with: stop.code)
+        }
+    }
+    
+    private func setColor(for annotationView: StopAnnotationView, with stopCode: String) {
+        annotationView.color = .black
+        
+        if let lineViewInfo = lineViewInfo, mode == .lineView {
+            let relevantStopCodes = lineViewInfo.currentDirection == .outbound ? lineViewInfo.presentedService.outboundRoute?.stops.map { $0.code } : lineViewInfo.presentedService.inboundRoute?.stops.map { $0.code }
+            if let codes = relevantStopCodes, codes.contains(stopCode) {
+                // stop contains service!
+                annotationView.color = lineViewInfo.presentedService.color
+            }
+        }
+    }
+    
+    // MARK: - Signs
     // TODO: switch to layoutMargins?
     private let signProtectedInsets = UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8)
     private var protectedInsets: UIEdgeInsets {
@@ -167,25 +213,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         return proposedFrame
-    }
-    
-    private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
-        return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
-    }
-    
-    private func pinImage(forAnnotation annotation: TransantiagoAnnotation, selected: Bool) -> UIImage? {
-        var pinImage: UIImage?
-        switch annotation {
-        case is Stop:
-            pinImage = selected ? #imageLiteral(resourceName: "pin paradero selected") : #imageLiteral(resourceName: "pin paradero")
-        case is MetroStation:
-            pinImage = selected ? #imageLiteral(resourceName: "pin metro selected") : #imageLiteral(resourceName: "pin metro")
-        case is BipSpot:
-            pinImage = selected ? #imageLiteral(resourceName: "pin bip selected") : #imageLiteral(resourceName: "pin bip")
-        default:
-            return nil
-        }
-        return pinImage
     }
     
     // MARK: - Helpers
@@ -235,18 +262,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.selectAnnotation(nearestStop, animated: true)
     }
     
-    func display(serviceRoute route: Service.Route, serviceColor: UIColor) {
+    func display(service: Service, direction: Service.Route.Direction) {
+        guard let outboundRoute = service.outboundRoute, let inboundRoute = service.inboundRoute else { return }
         mode = .lineView
-        currentServiceColor = serviceColor
-        mapView.add(route.polyline)
+        lineViewInfo = LineViewInfo(presentedService: service, currentDirection: direction)
+        mapView.add(direction == .outbound ? outboundRoute.polyline : inboundRoute.polyline)
+        refreshVisibleStops()
     }
 
     func reset() {
         mode = .normal
-        currentServiceColor = nil
+        lineViewInfo = nil
         for overlay in mapView.overlays {
             mapView.remove(overlay)
         }
-        placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
     }
 }
