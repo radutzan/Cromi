@@ -67,6 +67,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     private var storedCompleteService: Service?
     func signDidSelect(service: Service) {
         guard let stopInfo = service.stopInfo else { return }
+        presentServiceBar(service: service)
         present(service: service, direction: stopInfo.direction)
     }
     
@@ -84,7 +85,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     
     private func presentServiceBar(service: Service) {
         serviceBar.service = service
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+        UIView.animate(withDuration: 0.72, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [], animations: {
             self.serviceBarHorizontalCenterConstraint.constant = 0
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -106,7 +107,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
             return
         }
         
-        presentServiceBar(service: completeService)
+        serviceBar.service = completeService
         mapController?.reset()
         mapController?.display(service: completeService, direction: direction)
     }

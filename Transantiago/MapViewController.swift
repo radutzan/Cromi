@@ -273,6 +273,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func reset() {
         mode = .normal
         lineViewInfo = nil
+        refreshVisibleStops()
         for overlay in mapView.overlays {
             mapView.remove(overlay)
         }

@@ -79,7 +79,7 @@ class SCLTransit: NSObject, DataSource {
                     
                     if agency == "TS" {
                         // name
-                        let nameComponents = baseName.replacingOccurrences(of: "\(code)-", with: "").replacingOccurrences(of: "  ", with: " ").replacingOccurrences(of: "(M)", with: "Metro").components(separatedBy: " / ")
+                        let nameComponents = baseName.replacingOccurrences(of: "\(code)-", with: "").replacingOccurrences(of: "   ", with: " ").replacingOccurrences(of: "  ", with: " ").replacingOccurrences(of: "(M)", with: "Metro").components(separatedBy: " / ")
                         guard nameComponents.count > 1 else { continue }
                         
                         var stopNumber: Int?
@@ -144,6 +144,7 @@ class SCLTransit: NSObject, DataSource {
     func serviceRoutes(for service: Service, completion: @escaping (Service?) -> ()) {
         guard let requestURL = URL(string: "https://api.scltrans.it/v1/routes/\(service.name)/directions") else { return }
         let startTime = CACurrentMediaTime()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var newService: Service?
@@ -199,6 +200,7 @@ class SCLTransit: NSObject, DataSource {
                 print("SCLTransit: Service routes request failed with error: \(error)")
             }
             mainThread {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 print("SCLTransit: Delivering service routes after \(CACurrentMediaTime() - startTime) seconds.")
                 completion(newService)
             }
