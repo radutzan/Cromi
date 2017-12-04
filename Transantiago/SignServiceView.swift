@@ -31,30 +31,22 @@ protocol SignServiceViewDelegate: AnyObject {
         didSet {
             subtitleLabel.text = subtitle ?? " "
             subtitleLabel.isHidden = subtitle == nil
-            subtitle2Label.numberOfLines = subtitle == nil ? 2 : 1
         }
     }
-    @IBInspectable var subtitle2: String? {
+    var isSelected: Bool = false {
         didSet {
-            subtitle2Label.text = subtitle2
-        }
-    }
-    @IBInspectable var isServiceSecondary: Bool = false {
-        didSet {
-            serviceLabel.textColor = isServiceSecondary ? UIColor(white: 1, alpha: SignConstants.tertiaryOpacity) : serviceColor
-            subtitle2Label.alpha = isServiceSecondary ? SignConstants.tertiaryOpacity : SignConstants.secondaryOpacity
+            view.layer.backgroundColor = isSelected ? UIColor(white: 1, alpha: 0.15).cgColor : nil
+            view.layer.cornerRadius = 2
         }
     }
     
     @IBOutlet private var serviceLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
-    @IBOutlet private var subtitle2Label: UILabel!
     
     override func updateFonts() {
         serviceLabel.font = .serviceName
         subtitleLabel.font = .subtitle
         subtitleLabel.alpha = SignConstants.secondaryOpacity
-        subtitle2Label.font = .subtitle
     }
     
     func populate(with service: Service) {
@@ -104,6 +96,7 @@ protocol SignServiceViewDelegate: AnyObject {
     @IBAction func buttonTapped() {
         guard let service = service else { return }
         delegate?.signDidSelect(service: service)
+        isSelected = true
     }
     
     private func distanceString(from value: Int) -> String {

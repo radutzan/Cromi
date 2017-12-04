@@ -67,6 +67,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     private var storedCompleteService: Service?
     func signDidSelect(service: Service) {
         guard let stopInfo = service.stopInfo else { return }
+        mapController?.reset()
         presentServiceBar(service: service)
         present(service: service, direction: stopInfo.direction)
     }

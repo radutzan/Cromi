@@ -71,7 +71,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-//        guard mode == .normal else { return }
         placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
     }
     
@@ -81,6 +80,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if !(annotation is Stop) { view.image = pinImage(forAnnotation: annotation, selected: true) }
         
         signView.annotation = annotation
+        updateSignViewServiceSelection()
         signView.present(fromCenter: point(forAnnotation: annotation), targetFrame: signFrame(forAnnotation: annotation))
     }
     
@@ -105,7 +105,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             reuseIdentifier = "Stop pin"
             let annotationView = (mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? StopAnnotationView) ?? StopAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             annotationView.canShowCallout = false
-            setColor(for: annotationView, with: stop.code)
+            setColor(for: annotationView, with: stop)
             return annotationView
             
         case is MetroStation:
@@ -157,19 +157,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
         for annotation in visibleAnnotations {
             guard let stop = annotation as? Stop, let stopPin = mapView.view(for: stop) as? StopAnnotationView else { continue }
-            setColor(for: stopPin, with: stop.code)
+            setColor(for: stopPin, with: stop)
         }
     }
     
-    private func setColor(for annotationView: StopAnnotationView, with stopCode: String) {
+    private func setColor(for annotationView: StopAnnotationView, with stop: Stop) {
         annotationView.color = .black
         
-        if let lineViewInfo = lineViewInfo, mode == .lineView {
-            let relevantStopCodes = lineViewInfo.currentDirection == .outbound ? lineViewInfo.presentedService.outboundRoute?.stops.map { $0.code } : lineViewInfo.presentedService.inboundRoute?.stops.map { $0.code }
-            if let codes = relevantStopCodes, codes.contains(stopCode) {
-                // stop contains service!
-                annotationView.color = lineViewInfo.presentedService.color
-            }
+        if let lineViewInfo = lineViewInfo, mode == .lineView, stopContainsCurrentRoute(stop) {
+            annotationView.color = lineViewInfo.presentedService.color
         }
     }
     
@@ -213,6 +209,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         return proposedFrame
+    }
+    
+    private func updateSignViewServiceSelection() {
+        if let stop = selectedAnnotation as? Stop, let lineViewInfo = lineViewInfo, mode == .lineView, stopContainsCurrentRoute(stop) {
+            signView.selectedService = lineViewInfo.presentedService
+        } else {
+//            signView.selectedService = nil
+        }
     }
     
     // MARK: - Helpers
@@ -274,8 +278,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mode = .normal
         lineViewInfo = nil
         refreshVisibleStops()
+        updateSignViewServiceSelection()
         for overlay in mapView.overlays {
             mapView.remove(overlay)
         }
+    }
+    
+    private func stopContainsCurrentRoute(_ stop: Stop) -> Bool {
+        if let lineViewInfo = lineViewInfo, mode == .lineView {
+            let relevantStopCodes = lineViewInfo.currentDirection == .outbound ? lineViewInfo.presentedService.outboundRoute?.stops.map { $0.code } : lineViewInfo.presentedService.inboundRoute?.stops.map { $0.code }
+            if let codes = relevantStopCodes, codes.contains(stop.code) {
+                return true
+            }
+        }
+        return false
     }
 }

@@ -8,9 +8,7 @@
 
 import UIKit
 
-protocol StreetSignViewDelegate: SignServiceViewDelegate {
-    
-}
+protocol StreetSignViewDelegate: SignServiceViewDelegate {}
 
 enum SignStyle {
     case dark, light
@@ -25,8 +23,7 @@ struct SignConstants {
     static let tertiaryOpacity: CGFloat = 0.36
 }
 
-class StreetSignView: NibLoadingView {
-
+class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     weak var delegate: StreetSignViewDelegate?
     var annotation: TransantiagoAnnotation? {
         didSet {
@@ -38,6 +35,13 @@ class StreetSignView: NibLoadingView {
             let backgroundColor = style == .dark ? UIColor.black : UIColor.white
             signView.backgroundColor = backgroundColor
             headerView.style = style
+        }
+    }
+    var selectedService: Service? {
+        didSet {
+            for (serviceName, view) in serviceViews {
+                view.isSelected = serviceName == selectedService?.name
+            }
         }
     }
     
@@ -97,7 +101,7 @@ class StreetSignView: NibLoadingView {
                     
                     for (index, service) in pendingServices.enumerated() {
                         serviceViews[service.name] = index == 0 ? serviceRowView.serviceView1 : serviceRowView.serviceView2
-                        serviceViews[service.name]?.delegate = delegate
+                        serviceViews[service.name]?.delegate = self
                     }
                     
                     pendingServices = []
@@ -130,6 +134,11 @@ class StreetSignView: NibLoadingView {
         }
         
         layoutIfNeeded()
+    }
+    
+    func signDidSelect(service: Service) {
+        selectedService = service
+        delegate?.signDidSelect(service: service)
     }
     
     override func layoutSubviews() {
