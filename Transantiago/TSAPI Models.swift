@@ -106,7 +106,7 @@ class TSAPIService: Service, CreatableFromJSON {
                 stops.append(stop)
             }
             
-            routes.append(Route(direction: direction, operationHours: operationHours, destinationString: destinationString, polyline: polyline, stops: stops))
+            routes.append(Route(direction: direction, operationHours: operationHours, headsign: destinationString, polyline: polyline, stops: stops))
         }
         
         self.init(name: name, color: UIColor(hexString: colorString), routes: routes, destinationString: nil)

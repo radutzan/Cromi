@@ -132,16 +132,16 @@ class Service: NSObject {
     let color: UIColor
     let routes: [Route]?
     let destinationString: String?
-    let stopData: StopData?
+    let stopInfo: StopInfo?
     
-    struct StopData {
+    struct StopInfo {
         let headsign: String
         let direction: Route.Direction
     }
     
     struct Route {
         enum Direction: Int {
-            case outbound = 1, inbound = 2
+            case outbound = 0, inbound
         }
         let direction: Direction
         let operationHours: [OperationHours]
@@ -155,16 +155,16 @@ class Service: NSObject {
         self.color = color
         self.routes = routes
         self.destinationString = destinationString
-        self.stopData = nil
+        self.stopInfo = nil
         super.init()
     }
     
-    init(name: String, color: UIColor, routes: [Route]?, stopData: StopData?) {
+    init(name: String, color: UIColor, routes: [Route]?, stopInfo: StopInfo?) {
         self.name = name
         self.color = color
         self.routes = routes
-        self.destinationString = stopData != nil ? "\(NSLocalizedString("to", comment: "")) \(stopData!.headsign)" : nil
-        self.stopData = stopData
+        self.destinationString = stopInfo != nil ? "\(NSLocalizedString("to", comment: "")) \(stopInfo!.headsign)" : nil
+        self.stopInfo = stopInfo
         super.init()
     }
     

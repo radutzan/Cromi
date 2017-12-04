@@ -101,7 +101,7 @@ class SCLTransit: NSObject, DataSource {
                                 let direction = directionBase["direction_id"] as? Int, direction < 2,
                                 let colorString = routeBase["route_color"] as? String else { continue }
                             
-                            services.append(Service(name: name, color: UIColor(hexString: colorString), routes: nil, stopData: Service.StopData(headsign: headsign.replacingOccurrences(of: "(M)", with: "Metro"), direction: Service.Route.Direction(rawValue: direction + 1)!)))
+                            services.append(Service(name: name, color: UIColor(hexString: colorString), routes: nil, stopInfo: Service.StopInfo(headsign: headsign.replacingOccurrences(of: "(M)", with: "Metro"), direction: Service.Route.Direction(rawValue: direction)!)))
                         }
                         
                         stops?.append(Stop(code: code, number: stopNumber, services: services, coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: title, subtitle: subtitle, commune: ""))
@@ -147,12 +147,11 @@ class SCLTransit: NSObject, DataSource {
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var newService: Service?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
-                guard let base = jsonObject as? [String: [String: Any]],
+                guard let base = jsonObject as? [String: [[String: Any]]],
                     let results = base["results"], results.count > 1 else { return }
                 var routes = Array<Service.Route>()
-                for routeData in results {
-                    guard let routeBase = routeData as? [String: Any],
-                        let headsign = routeBase["direction_headsign"] as? String,
+                for routeBase in results {
+                    guard let headsign = routeBase["direction_headsign"] as? String,
                         let direction = routeBase["direction_id"] as? Int, direction < 2,
                         let shapeData = routeBase["shape"] as? [[String: Any]],
                         let stopsData = routeBase["stop_times"] as? [[String: Any]] else { continue }
@@ -191,9 +190,9 @@ class SCLTransit: NSObject, DataSource {
                             stops.append(Stop(code: code, number: stopNumber, services: [], coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: title, subtitle: subtitle, commune: ""))
                     }
                     
-                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction + 1)!, operationHours: [], headsign: headsign, polyline: polyline, stops: stops))
+                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction)!, operationHours: [], headsign: headsign, polyline: polyline, stops: stops))
                 }
-                newService = Service(name: service.name, color: service.color, routes: routes, stopData: nil)
+                newService = Service(name: service.name, color: service.color, routes: routes, stopInfo: nil)
             }
             if let error = error {
                 print("SCLTransit: Service routes request failed with error: \(error)")
@@ -206,7 +205,7 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func buses(forService serviceName: String, direction: Service.Route.Direction, completion: @escaping ([Bus]?) -> ()) {
-        guard let requestURL = URL(string: "https://api.scltrans.it/v1/buses?route_id=\(serviceName)&direction_id=\(direction.rawValue - 1)") else { return }
+        guard let requestURL = URL(string: "https://api.scltrans.it/v1/buses?route_id=\(serviceName)&direction_id=\(direction.rawValue)") else { return }
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var buses: [Bus]?

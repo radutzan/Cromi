@@ -128,10 +128,12 @@ class TransantiagoAPI: NSObject, DataSource {
     
     func service(withName serviceName: String, completion: @escaping (Service?) -> ()) {
         guard let requestURL = URL(string: "https://www.transantiago.cl/restservice/rest/getrecorrido/\(serviceName)") else { return }
+        print("TSAPI: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var service: Service?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
                 guard let baseArray = jsonObject as? [[String: Any]] else { return }
+                print("TSAPI: Got service data")
                 
                 self.failingAPIs.remove(.serviceInfo)
                 
@@ -143,7 +145,10 @@ class TransantiagoAPI: NSObject, DataSource {
             if let response = response as? HTTPURLResponse, response.statusCode != 200 {
                 self.registerError(for: .serviceInfo, requestURL: requestURL, code: response.statusCode, error: nil)
             }
-            completion(service)
+            mainThread {
+                completion(service)
+            }
+//            completion(service)
         }
         task.resume()
     }
