@@ -79,13 +79,13 @@ class SCLTransit: NSObject, DataSource {
                     
                     if agency == "TS" {
                         // name
-                        let nameComponents = baseName.replacingOccurrences(of: "\(code)-", with: "").replacingOccurrences(of: "   ", with: " ").replacingOccurrences(of: "  ", with: " ").replacingOccurrences(of: "(M)", with: "Metro").components(separatedBy: " / ")
+                        let nameComponents = baseName.replacingOccurrences(of: "\(code)-", with: "").replacingOccurrences(of: "(M)", with: "Metro").replacingOccurrences(of: "   ", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " / ")
                         guard nameComponents.count > 1 else { continue }
                         
                         var stopNumber: Int?
                         var title = nameComponents[0].replacingOccurrences(of: " Esq.", with: "")
                         var subtitle: String?
-                        if nameComponents[0].hasPrefix("Parada ") {
+                        if nameComponents[0].hasPrefix("Parada") {
                             stopNumber = Int(nameComponents[0].replacingOccurrences(of: "Parada ", with: ""))
                             title = nameComponents[1]
                         } else {

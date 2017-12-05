@@ -29,6 +29,13 @@ class ServiceBar: NibLoadingView {
             setUpBar()
         }
     }
+    var selectedDirection: Service.Route.Direction = .outbound {
+        didSet {
+            directionButton1.isSelected = selectedDirection == .outbound
+            directionButton2.isSelected = selectedDirection == .inbound
+            updateSegmentedControl()
+        }
+    }
     
     private func setUpBar() {
         guard let service = service else { return }
@@ -49,12 +56,12 @@ class ServiceBar: NibLoadingView {
                 self.buttonStackView.alpha = hasRoutes ? 1 : 0
             }
         }
-        guard let serviceRoutes = service.routes else {
+        guard let outboundRoute = service.outboundRoute, let inboundRoute = service.inboundRoute else {
             return
         }
-        directionButton1.setTitle("\(NSLocalizedString("to", comment: "")) \(serviceRoutes[0].headsign)", for: .normal)
+        directionButton1.setTitle("\(NSLocalizedString("to", comment: "")) \(outboundRoute.headsign)", for: .normal)
         directionButton1.titleLabel?.numberOfLines = 2
-        directionButton2.setTitle("\(NSLocalizedString("to", comment: "")) \(serviceRoutes[1].headsign)", for: .normal)
+        directionButton2.setTitle("\(NSLocalizedString("to", comment: "")) \(inboundRoute.headsign)", for: .normal)
         directionButton2.titleLabel?.numberOfLines = 2
         updateSegmentedControl()
     }
@@ -73,11 +80,8 @@ class ServiceBar: NibLoadingView {
     
     @IBAction private func segmentedControlButtonTapped(button: UIButton) {
         guard let service = service else { return }
-        button.isSelected = true
-        directionButton1.isSelected = button == directionButton1
-        directionButton2.isSelected = button == directionButton2
-        updateSegmentedControl()
-        delegate?.serviceBarSelected(direction: button == directionButton1 ? .outbound : .inbound, service: service)
+        selectedDirection = button == directionButton1 ? .outbound : .inbound
+        delegate?.serviceBarSelected(direction: selectedDirection, service: service)
     }
     
     @IBAction private func closeButtonTapped() {

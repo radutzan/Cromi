@@ -109,6 +109,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         }
         
         serviceBar.service = completeService
+        serviceBar.selectedDirection = direction
         mapController?.reset()
         mapController?.display(service: completeService, direction: direction)
     }
