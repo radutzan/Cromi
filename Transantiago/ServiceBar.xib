@@ -59,7 +59,11 @@
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
+                                        <action selector="segmentedControlButtonLiftedWithButton:" destination="-1" eventType="touchDragExit" id="a2y-kd-sSn"/>
+                                        <action selector="segmentedControlButtonLiftedWithButton:" destination="-1" eventType="touchCancel" id="uyq-5k-zWf"/>
                                         <action selector="segmentedControlButtonTappedWithButton:" destination="-1" eventType="touchUpInside" id="eyj-ms-PcM"/>
+                                        <action selector="segmentedControlButtonTouchedWithButton:" destination="-1" eventType="touchDown" id="5eH-bP-mTA"/>
+                                        <action selector="segmentedControlButtonTouchedWithButton:" destination="-1" eventType="touchDragEnter" id="c6L-VI-HOL"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prw-Fd-C86">
@@ -73,7 +77,11 @@
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
+                                        <action selector="segmentedControlButtonLiftedWithButton:" destination="-1" eventType="touchCancel" id="64f-fd-3hA"/>
+                                        <action selector="segmentedControlButtonLiftedWithButton:" destination="-1" eventType="touchDragExit" id="zpd-qZ-Q1Y"/>
                                         <action selector="segmentedControlButtonTappedWithButton:" destination="-1" eventType="touchUpInside" id="mnh-5X-jHo"/>
+                                        <action selector="segmentedControlButtonTouchedWithButton:" destination="-1" eventType="touchDragEnter" id="KKV-1X-Oi5"/>
+                                        <action selector="segmentedControlButtonTouchedWithButton:" destination="-1" eventType="touchDown" id="dYf-py-h1F"/>
                                     </connections>
                                 </button>
                             </subviews>

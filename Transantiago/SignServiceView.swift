@@ -47,6 +47,7 @@ protocol SignServiceViewDelegate: AnyObject {
         serviceLabel.font = .serviceName
         subtitleLabel.font = .subtitle
         subtitleLabel.alpha = SignConstants.secondaryOpacity
+        view.layer.cornerRadius = 2
     }
     
     func populate(with service: Service) {
@@ -97,6 +98,14 @@ protocol SignServiceViewDelegate: AnyObject {
         guard let service = service else { return }
         delegate?.signDidSelect(service: service)
         isSelected = true
+    }
+    
+    @IBAction func buttonTouched() {
+        view.layer.backgroundColor = UIColor(white: 1, alpha: 0.2).cgColor
+    }
+    
+    @IBAction func buttonLifted() {
+        view.layer.backgroundColor = nil
     }
     
     private func distanceString(from value: Int) -> String {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +29,7 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDY-Ma-pdu" customClass="ServiceBar" customModule="Cromi" customModuleProvider="target">
-                                <rect key="frame" x="436" y="533" width="343" height="52"/>
+                                <rect key="frame" x="436" y="535" width="343" height="52"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="Tqi-i0-799"/>
@@ -51,7 +51,7 @@
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9JO-p9-0Nr"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CI5-Xy-3hj"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="TpI-l9-v2c"/>
-                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="top" secondItem="uDY-Ma-pdu" secondAttribute="bottom" constant="18" id="co3-MI-bO1"/>
+                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="top" secondItem="uDY-Ma-pdu" secondAttribute="bottom" constant="16" id="co3-MI-bO1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3w9-n0-9uZ" secondAttribute="bottom" constant="20" id="lhq-u5-b4P"/>
                             <constraint firstItem="uDY-Ma-pdu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="420" id="xpW-sY-GdV"/>
                         </constraints>

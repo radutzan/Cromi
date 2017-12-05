@@ -195,21 +195,33 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     
     private func willAppear() {
         isVisible = true
+//        isHidden = false
+        isUserInteractionEnabled = true
     }
     
     private func willDisappear() {
         isVisible = false
+        isUserInteractionEnabled = false
         endStopPredictions()
     }
     
-//    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-//        for subview in subviews {
-//            if subview.point(inside: convert(point, to: subview), with: event) && subview is UIButton {
-//                return true
-//            }
-//        }
-//        return false
-//    }
+    private func didDisappear() {
+        isHidden = true
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard isUserInteractionEnabled else { return nil }
+        for subview in subviews {
+            let pointInSubview = subview.convert(point, from: self)
+            if subview.bounds.contains(pointInSubview) {
+                let result = subview.hitTest(pointInSubview, with: event)
+                if result is UIButton {
+                    return result
+                }
+            }
+        }
+        return nil
+    }
     
     // MARK: - Stop predictions
     private var serviceViews: [String: SignServiceView] = [:]

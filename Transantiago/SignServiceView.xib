@@ -44,7 +44,11 @@ Cg
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVB-cL-hyK">
                     <rect key="frame" x="0.0" y="0.0" width="95" height="67"/>
                     <connections>
+                        <action selector="buttonLifted" destination="-1" eventType="touchCancel" id="hY4-8w-aiM"/>
+                        <action selector="buttonLifted" destination="-1" eventType="touchDragExit" id="z93-GC-5Vc"/>
                         <action selector="buttonTapped" destination="-1" eventType="touchUpInside" id="z6e-1i-NxL"/>
+                        <action selector="buttonTouched" destination="-1" eventType="touchDown" id="DZv-EO-A0J"/>
+                        <action selector="buttonTouched" destination="-1" eventType="touchDragEnter" id="bu1-9s-q3H"/>
                     </connections>
                 </button>
             </subviews>

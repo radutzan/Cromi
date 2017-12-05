@@ -161,6 +161,22 @@ class ExtraTouchableView: UIView {
     }
 }
 
+class ButtonTouchableView: UIView {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard isUserInteractionEnabled else { return nil }
+        for subview in subviews {
+            let pointInSubview = subview.convert(point, from: self)
+            if subview.bounds.contains(pointInSubview) {
+                let result = subview.hitTest(pointInSubview, with: event)
+                if result is UIButton {
+                    return result
+                }
+            }
+        }
+        return nil
+    }
+}
+
 class ExtraTouchableScrollView: UIScrollView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         for subview in subviews {

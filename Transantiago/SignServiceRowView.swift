@@ -21,6 +21,7 @@ class SignServiceRowView: NibLoadingView {
         }
         if services.count >= 2 {
             let service = services[1]
+            serviceView2.alpha = 1
             serviceView2.populate(with: service)
         }
         if services.count >= 3 {

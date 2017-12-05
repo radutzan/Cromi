@@ -46,4 +46,8 @@ class StopAnnotationView: MKAnnotationView {
         pinContentImageView.backgroundColor = isSelected ? .white : color
     }
     
+    override func prepareForReuse() {
+        color = .black
+    }
+    
 }

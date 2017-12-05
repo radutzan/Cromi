@@ -84,6 +84,16 @@ class ServiceBar: NibLoadingView {
         delegate?.serviceBarSelected(direction: selectedDirection, service: service)
     }
     
+    @IBAction private func segmentedControlButtonTouched(button: UIButton) {
+        guard !button.isSelected else { return }
+        button.backgroundColor = UIColor.black.withAlphaComponent(0.04)
+    }
+    
+    @IBAction private func segmentedControlButtonLifted(button: UIButton) {
+        guard !button.isSelected else { return }
+        button.backgroundColor = .clear
+    }
+    
     @IBAction private func closeButtonTapped() {
         delegate?.serviceBarRequestedDismissal()
     }
