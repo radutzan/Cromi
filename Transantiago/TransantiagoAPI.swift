@@ -22,7 +22,7 @@ class TransantiagoAPI: NSObject, DataSource {
     
     override init() {
         super.init()
-        performTestRequests()
+//        performTestRequests()
     }
     
     // MARK: - Requests

@@ -16,6 +16,57 @@ class SCLTransit: NSObject, DataSource {
         annotations(aroundCoordinate: CLLocationCoordinate2DMake(-33.425567, -70.614486)) { (_, _, _) in }
     }
     
+    private func processStops(from stopsData: [[String : Any]]) -> (stops: [Stop], metroStations: [MetroStation]) {
+        var stops: [Stop] = []
+        var metroStations: [MetroStation] = []
+        for dict in stopsData {
+            guard let lat = dict["stop_lat"] as? String,
+                let latDouble = Double(lat),
+                let lon = dict["stop_lon"] as? String,
+                let lonDouble = Double(lon),
+                let code = dict["stop_code"] as? String,
+                let agency = dict["agency_id"] as? String,
+                let baseName = dict["stop_name"] as? String else { continue }
+            
+            if agency == "TS" {
+                // name
+                let nameComponents = baseName.replacingOccurrences(of: "\(code)-", with: "").replacingOccurrences(of: "(M)", with: "Metro").replacingOccurrences(of: "   ", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " / ")
+                guard nameComponents.count > 1 else { continue }
+                
+                var stopNumber: Int?
+                var title = nameComponents[0].replacingOccurrences(of: " Esq.", with: "")
+                var subtitle: String?
+                if nameComponents[0].hasPrefix("Parada") {
+                    stopNumber = Int(nameComponents[0].replacingOccurrences(of: "Parada ", with: ""))
+                    title = nameComponents[1]
+                } else {
+                    subtitle = nameComponents[1]
+                }
+                
+                var services: [Service] = []
+                if let servicesBase = dict["routes"] as? [[String: [String: Any]]], servicesBase.count > 0 {
+                    for serviceBase in servicesBase {
+                        guard let directionBase = serviceBase["direction"],
+                            let routeBase = serviceBase["route"],
+                            let name = directionBase["route_id"] as? String,
+                            let headsign = directionBase["direction_headsign"] as? String,
+                            let direction = directionBase["direction_id"] as? Int, direction < 2,
+                            let colorString = routeBase["route_color"] as? String else { continue }
+                        
+                        services.append(Service(name: name, color: UIColor(hexString: colorString), routes: nil, stopInfo: Service.StopInfo(headsign: headsign.replacingOccurrences(of: "(M)", with: "Metro"), direction: Service.Route.Direction(rawValue: direction)!)))
+                    }
+                }
+                
+                stops.append(Stop(code: code, number: stopNumber, services: services, coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: title, subtitle: subtitle, commune: ""))
+                
+            } else if agency == "M" {
+                metroStations.append(MetroStation(coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: baseName, subtitle: nil, commune: "", address: nil, operationHours: []))
+            }
+        }
+        
+        return (stops, metroStations)
+    }
+    
     func annotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping ([Stop]?, [BipSpot]?, [MetroStation]?) -> ()) {
         guard let requestURL = URL(string: "https://api.scltrans.it/v1/map?center_lat=\(coordinate.latitude)&center_lon=\(coordinate.longitude)&include_bip_spots=1&include_stop_routes=1") else { return }
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
@@ -65,51 +116,9 @@ class SCLTransit: NSObject, DataSource {
                     bipSpots?.append(BipSpot(coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: name, subtitle: nil, commune: "", address: address.localizedCapitalized, operationHours: operationHours))
                 }
                 
-                stops = []
-                metroStations = []
-                for dict in stopsData {
-                    guard let lat = dict["stop_lat"] as? String,
-                        let latDouble = Double(lat),
-                        let lon = dict["stop_lon"] as? String,
-                        let lonDouble = Double(lon),
-                        let code = dict["stop_code"] as? String,
-                        let servicesBase = dict["routes"] as? [[String: [String: Any]]], servicesBase.count > 0,
-                        let firstRoute = servicesBase[0]["route"], let agency = firstRoute["agency_id"] as? String,
-                        let baseName = dict["stop_name"] as? String else { continue }
-                    
-                    if agency == "TS" {
-                        // name
-                        let nameComponents = baseName.replacingOccurrences(of: "\(code)-", with: "").replacingOccurrences(of: "(M)", with: "Metro").replacingOccurrences(of: "   ", with: " ").replacingOccurrences(of: "  ", with: " ").components(separatedBy: " / ")
-                        guard nameComponents.count > 1 else { continue }
-                        
-                        var stopNumber: Int?
-                        var title = nameComponents[0].replacingOccurrences(of: " Esq.", with: "")
-                        var subtitle: String?
-                        if nameComponents[0].hasPrefix("Parada") {
-                            stopNumber = Int(nameComponents[0].replacingOccurrences(of: "Parada ", with: ""))
-                            title = nameComponents[1]
-                        } else {
-                            subtitle = nameComponents[1]
-                        }
-                        
-                        var services: [Service] = []
-                        for serviceBase in servicesBase {
-                            guard let directionBase = serviceBase["direction"],
-                                let routeBase = serviceBase["route"],
-                                let name = directionBase["route_id"] as? String,
-                                let headsign = directionBase["direction_headsign"] as? String,
-                                let direction = directionBase["direction_id"] as? Int, direction < 2,
-                                let colorString = routeBase["route_color"] as? String else { continue }
-                            
-                            services.append(Service(name: name, color: UIColor(hexString: colorString), routes: nil, stopInfo: Service.StopInfo(headsign: headsign.replacingOccurrences(of: "(M)", with: "Metro"), direction: Service.Route.Direction(rawValue: direction)!)))
-                        }
-                        
-                        stops?.append(Stop(code: code, number: stopNumber, services: services, coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: title, subtitle: subtitle, commune: ""))
-                        
-                    } else if agency == "M" {
-                        metroStations?.append(MetroStation(coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: baseName, subtitle: nil, commune: "", address: nil, operationHours: []))
-                    }
-                }
+                let stopsResult = self.processStops(from: stopsData)
+                stops = stopsResult.stops
+                metroStations = stopsResult.metroStations
             }
             if let error = error {
                 print("SCLTransit: Map annotations request failed with error: \(error)")
@@ -120,7 +129,18 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> ()) {
-        
+        guard let requestURL = URL(string: "http://api.scltrans.it/v1/stops/\(code)/next_arrivals") else { return }
+        print("SCLTransit: Requesting \(requestURL.absoluteString)")
+        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
+            var prediction: StopPrediction?
+            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
+            }
+            if let error = error {
+                print("SCLTransit: Prediction  request failed with error: \(error)")
+            }
+            completion(prediction)
+        }
+        task.resume()
     }
     
     func service(withName serviceName: String, completion: @escaping (Service?) -> ()) {
@@ -156,7 +176,7 @@ class SCLTransit: NSObject, DataSource {
                     guard let headsign = routeBase["direction_headsign"] as? String,
                         let direction = routeBase["direction_id"] as? Int, direction < 2,
                         let shapeData = routeBase["shape"] as? [[String: Any]],
-                        let stopsData = routeBase["stop_times"] as? [[String: Any]] else { continue }
+                        let stopTimesData = routeBase["stop_times"] as? [[String: Any]] else { continue }
                     
                     var coordinates: [CLLocationCoordinate2D] = []
                     for data in shapeData {
@@ -165,34 +185,13 @@ class SCLTransit: NSObject, DataSource {
                     }
                     let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
                     
-                    var stops: [Stop] = []
-                    for data in stopsData {
-                        // TODO: merge with above when agency_id is fixed on API
-                        guard let stopData = data["stop"] as? [String: Any],
-                            let lat = stopData["stop_lat"] as? String,
-                            let latDouble = Double(lat),
-                            let lon = stopData["stop_lon"] as? String,
-                            let lonDouble = Double(lon),
-                            let code = stopData["stop_code"] as? String,
-                            let baseName = stopData["stop_name"] as? String else { continue }
-                        
-                            let nameComponents = baseName.replacingOccurrences(of: "\(code)-", with: "").replacingOccurrences(of: "  ", with: " ").replacingOccurrences(of: "(M)", with: "Metro").components(separatedBy: " / ")
-                            guard nameComponents.count > 1 else { continue }
-                            
-                            var stopNumber: Int?
-                            var title = nameComponents[0].replacingOccurrences(of: " Esq.", with: "")
-                            var subtitle: String?
-                            if nameComponents[0].hasPrefix("Parada ") {
-                                stopNumber = Int(nameComponents[0].replacingOccurrences(of: "Parada ", with: ""))
-                                title = nameComponents[1]
-                            } else {
-                                subtitle = nameComponents[1]
-                            }
-                            
-                            stops.append(Stop(code: code, number: stopNumber, services: [], coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble), title: title, subtitle: subtitle, commune: ""))
+                    var stopsData: [[String: Any]] = []
+                    for data in stopTimesData {
+                        guard let stopData = data["stop"] as? [String: Any] else { continue }
+                        stopsData.append(stopData)
                     }
-                    
-                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction)!, operationHours: [], headsign: headsign, polyline: polyline, stops: stops))
+                    let stopsResult = self.processStops(from: stopsData)
+                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction)!, operationHours: [], headsign: headsign, polyline: polyline, stops: stopsResult.stops))
                 }
                 newService = Service(name: service.name, color: service.color, routes: routes, stopInfo: nil)
             }
@@ -221,6 +220,5 @@ class SCLTransit: NSObject, DataSource {
             completion(buses)
         }
         task.resume()
-        
     }
 }
