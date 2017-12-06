@@ -154,8 +154,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func refreshVisibleStops() {
-        let visibleAnnotations = mapView.annotations(in: mapView.visibleMapRect)
-        for annotation in visibleAnnotations {
+        for annotation in mapView.annotations {
             guard let stop = annotation as? Stop, let stopPin = mapView.view(for: stop) as? StopAnnotationView else { continue }
             setColor(for: stopPin, with: stop)
         }
@@ -171,7 +170,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Signs
     // TODO: switch to layoutMargins?
-    private let signProtectedInsets = UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8)
+    private let signProtectedInsets = UIEdgeInsets(top: -1000, left: 8, bottom: -1000, right: 8)
     private var protectedInsets: UIEdgeInsets {
         var systemInsets = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height, left: 0, bottom: 0, right: 0)
         if #available(iOS 11.0, *) {
@@ -215,7 +214,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if let stop = selectedAnnotation as? Stop, let lineViewInfo = lineViewInfo, mode == .lineView, stopContainsCurrentRoute(stop) {
             signView.selectedService = lineViewInfo.presentedService
         } else {
-//            signView.selectedService = nil
+            signView.selectedService = nil
         }
     }
     
@@ -272,6 +271,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         lineViewInfo = LineViewInfo(presentedService: service, currentDirection: direction)
         mapView.add(direction == .outbound ? outboundRoute.polyline : inboundRoute.polyline)
         refreshVisibleStops()
+        updateSignViewServiceSelection()
     }
 
     func reset() {

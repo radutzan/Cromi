@@ -25,6 +25,7 @@ protocol SignServiceViewDelegate: AnyObject {
     @IBInspectable var serviceColor: UIColor? {
         didSet {
             serviceLabel.textColor = serviceColor
+//            if subtitleLabel.alpha < 1 { subtitleLabel.textColor = serviceColor }
         }
     }
     @IBInspectable var subtitle: String? {
@@ -35,8 +36,11 @@ protocol SignServiceViewDelegate: AnyObject {
     }
     var isSelected: Bool = false {
         didSet {
-            view.layer.backgroundColor = isSelected ? UIColor(white: 1, alpha: 0.15).cgColor : nil
-            view.layer.cornerRadius = 2
+//            view.layer.backgroundColor = isSelected ? UIColor(white: 1, alpha: 0.15).cgColor : nil
+            view.layer.backgroundColor = isSelected ? serviceColor?.withAlphaComponent(0.24).cgColor : nil
+//            view.layer.backgroundColor = isSelected ? serviceColor?.cgColor : nil
+//            serviceLabel.textColor = serviceColor//isSelected ? .black : serviceColor
+//            if subtitleLabel.alpha < 1 { subtitleLabel.textColor = serviceColor }//isSelected ? .black : serviceColor
         }
     }
     
@@ -47,7 +51,7 @@ protocol SignServiceViewDelegate: AnyObject {
         serviceLabel.font = .serviceName
         subtitleLabel.font = .subtitle
         subtitleLabel.alpha = SignConstants.secondaryOpacity
-        view.layer.cornerRadius = 2
+        view.layer.cornerRadius = 3
     }
     
     func populate(with service: Service) {
@@ -101,11 +105,13 @@ protocol SignServiceViewDelegate: AnyObject {
     }
     
     @IBAction func buttonTouched() {
-        view.layer.backgroundColor = UIColor(white: 1, alpha: 0.2).cgColor
+        view.layer.backgroundColor = serviceColor?.withAlphaComponent(0.32).cgColor//UIColor(white: 1, alpha: 0.2).cgColor
     }
     
     @IBAction func buttonLifted() {
-        view.layer.backgroundColor = nil
+//        view.layer.backgroundColor = nil
+        let selected = isSelected
+        isSelected = selected
     }
     
     private func distanceString(from value: Int) -> String {

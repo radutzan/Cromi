@@ -24,6 +24,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
         locationServices.delegate = self
         serviceBar.delegate = self
+        serviceBar.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handle(serviceBarPan:))))
         serviceBarHorizontalCenterConstraint.constant = view.bounds.width
         
         if let mapViewController = childViewControllers.first as? MapViewController {
@@ -77,7 +78,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     }
     
     func serviceBarRequestedDismissal() {
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [.allowUserInteraction], animations: {
             self.serviceBarHorizontalCenterConstraint.constant = self.view.bounds.width
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -112,6 +113,27 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         serviceBar.selectedDirection = direction
         mapController?.reset()
         mapController?.display(service: completeService, direction: direction)
+    }
+    
+    private var initialBarConstant: CGFloat = 0
+    @objc private func handle(serviceBarPan pan: UIPanGestureRecognizer) {
+        switch pan.state {
+        case .began:
+            initialBarConstant = serviceBarHorizontalCenterConstraint.constant
+        case .changed:
+            var proposedTranslation = pan.translation(in: self.view).x
+            if proposedTranslation < 0 {
+                proposedTranslation /= 4
+            }
+            serviceBarHorizontalCenterConstraint.constant = initialBarConstant + proposedTranslation
+        default:
+            if serviceBarHorizontalCenterConstraint.constant > 80 || pan.velocity(in: self.view).x > 820 {
+                serviceBarRequestedDismissal()
+            } else {
+                presentServiceBar(service: serviceBar.service!)
+            }
+            return
+        }
     }
 
 }
