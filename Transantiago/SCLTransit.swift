@@ -129,11 +129,49 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> ()) {
-        guard let requestURL = URL(string: "http://api.scltrans.it/v1/stops/\(code)/next_arrivals") else { return }
+        guard let requestURL = URL(string: "https://api.scltrans.it/v1/stops/\(code)/next_arrivals") else { return }
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var prediction: StopPrediction?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
+                guard let base = jsonObject as? [String: [[String: Any]]],
+                    let results = base["results"], results.count > 0 else { return }
+                
+                var serviceResponses: [StopPrediction.ServiceResponse] = []
+                
+                var orderedEstimations: [String: [[String: Any]]] = [:]
+                for result in results {
+                    guard let serviceName = result["route_id"] as? String else { continue }
+                    if orderedEstimations[serviceName] != nil {
+                        orderedEstimations[serviceName]!.append(result)
+                    } else {
+                        orderedEstimations[serviceName] = [result]
+                    }
+                }
+                print(orderedEstimations)
+                
+                for (serviceName, estimations) in orderedEstimations {
+                    var responseKind: StopPrediction.ServiceResponse.Kind = .noPrediction
+                    var predictions: [StopPrediction.ServiceResponse.Prediction]?
+                    for estimation in estimations {
+                        guard let predictionString = estimation["arrival_estimation"]as? String else { continue }
+                        guard let distanceString = estimation["bus_distance"] as? String, let distance = Int(distanceString) else {
+                            if predictionString.contains("Servicio fuera de horario") {
+                                responseKind = .outOfSchedule
+                            }
+                            continue
+                        }
+                        if predictions == nil { predictions = [] }
+                        predictions?.append(StopPrediction.ServiceResponse.Prediction(distance: distance, predictionString: self.sanitize(prediction: predictionString), licensePlate: estimation["bus_plate_number"] as? String))
+                    }
+                   
+                    if let predictions = predictions, predictions.count > 0 {
+                        responseKind = predictions.count == 1 ? .onePrediction : .twoPredictions
+                    }
+                    serviceResponses.append(StopPrediction.ServiceResponse(kind: responseKind, serviceName: serviceName, predictions: predictions))
+                }
+                
+                prediction = StopPrediction(timestamp: Date(), stopCode: code, responseString: nil, serviceResponses: serviceResponses)
             }
             if let error = error {
                 print("SCLTransit: Prediction  request failed with error: \(error)")
@@ -220,5 +258,13 @@ class SCLTransit: NSObject, DataSource {
             completion(buses)
         }
         task.resume()
+    }
+    
+    private func sanitize(prediction string: String) -> String {
+        var string = string
+        if string.contains(" Y ") {
+            string.append(" min")
+        }
+        return string.replacingOccurrences(of: " 0", with: " ").replacingOccurrences(of: "Entre ", with: "").replacingOccurrences(of: "En menos de ", with: "~").replacingOccurrences(of: "Menos de ", with: "~").replacingOccurrences(of: "~ ", with: "~").replacingOccurrences(of: "Mas de ", with: ">").replacingOccurrences(of: ". ", with: "").replacingOccurrences(of: ".", with: "").replacingOccurrences(of: " Y ", with: "–").replacingOccurrences(of: " min", with: "'")
     }
 }

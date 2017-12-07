@@ -242,10 +242,10 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     
     @objc private func getCurrentStopPrediction() {
         guard let stop = annotation as? Stop else { return }
-        CFAPI.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
+        SCLTransit.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
             guard let prediction = prediction else { return }
             for (service, view) in self.serviceViews {
-                let responses = prediction.serviceResponses.filter { $0.serviceName == service }
+                let responses = prediction.serviceResponses.filter { $0.serviceName.lowercased() == service.lowercased() }
                 mainThread {
                     view.update(withResponse: responses.count > 0 ? responses[0] : nil)
                 }

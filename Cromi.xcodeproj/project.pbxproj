@@ -130,14 +130,15 @@
 			name = "Sign View";
 			sourceTree = "<group>";
 		};
-		7C61D3591F97FC2300CE8483 /* TS API */ = {
+		7C61D3591F97FC2300CE8483 /* Archived Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7CDE4EF01F990BFE0016E75F /* CFAPI.swift */,
 				7CE946D61DF94DCB00F3D29A /* TransantiagoAPI.swift */,
 				7CE2739D1F97F59E0008A070 /* TSAPI Models.swift */,
 				7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */,
 			);
-			name = "TS API";
+			name = "Archived Sources";
 			sourceTree = "<group>";
 		};
 		7C6645701FD33E4C005EF2DF /* Views */ = {
@@ -183,8 +184,7 @@
 			children = (
 				7CE946DA1DF9579200F3D29A /* Models.swift */,
 				7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */,
-				7CDE4EF01F990BFE0016E75F /* CFAPI.swift */,
-				7C61D3591F97FC2300CE8483 /* TS API */,
+				7C61D3591F97FC2300CE8483 /* Archived Sources */,
 			);
 			name = Data;
 			sourceTree = "<group>";
