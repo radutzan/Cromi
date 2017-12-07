@@ -18,6 +18,11 @@
 "Not in Santiago alert message" = "Cromi only works in Santiago de Chile.";
 "Not in Santiago alert confirmation" = "Fly Me There";
 
+// Feature Spotlight
+"Feature Spotlight alert title" = "New: Bus Line Routes";
+"Feature Spotlight alert message" = "Tap on a service in a stop sign to see its stops and routes.";
+"Feature Spotlight alert confirmation" = "Nice";
+
 // Search
 "Search box placeholder" = "Place or address";
 "Place not found" = "Couldn't find place or address";

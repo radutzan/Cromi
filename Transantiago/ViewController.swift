@@ -38,22 +38,40 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         super.viewDidAppear(animated)
     }
     
+    private func presentFeatureSpotlightIfNeeded() {
+        let spotlightKey = "Line View Spotlight"
+        guard !UserDefaults.standard.bool(forKey: spotlightKey) else { return }
+        
+        let spotlightAlert = UIAlertController(title: NSLocalizedString("Feature Spotlight alert title", comment: ""), message: NSLocalizedString("Feature Spotlight alert message", comment: ""), preferredStyle: .alert)
+        spotlightAlert.addAction(UIAlertAction(title: NSLocalizedString("Feature Spotlight alert confirmation", comment: ""), style: .default, handler: nil))
+        present(spotlightAlert, animated: true, completion: nil)
+        
+        UserDefaults.standard.set(true, forKey: spotlightKey)
+    }
+    
     // MARK: - LocationServicesDelegate
+    private var isNotInSantiago = false
     func locationServicesAuthorizedLocation() {
         locationServices.updateLocation() {
             self.mapController?.centerMapAroundUserLocation(animated: false)
             self.mapController?.placeAnnotations(aroundCoordinate: self.locationServices.userLocation) {
                 self.mapController?.selectNearestStop()
             }
+            delay(3) {
+                guard !self.isNotInSantiago else { return }
+                self.presentFeatureSpotlightIfNeeded()
+            }
         }
     }
     
     func locationServicesUserOutsideSantiago() {
+        isNotInSantiago = true
         let stgoAlert = UIAlertController(title: NSLocalizedString("Not in Santiago alert title", comment: ""), message: NSLocalizedString("Not in Santiago alert message", comment: ""), preferredStyle: .alert)
         stgoAlert.addAction(UIAlertAction(title: NSLocalizedString("Not in Santiago alert confirmation", comment: ""), style: .default, handler: { (action) in
             self.locationServices.forceSantiago = true
             self.mapController?.centerMapAroundUserLocation(animated: true)
             self.mapController?.placeAnnotations(aroundCoordinate: self.locationServices.userLocation)
+            self.presentFeatureSpotlightIfNeeded()
         }))
         present(stgoAlert, animated: true, completion: nil)
     }

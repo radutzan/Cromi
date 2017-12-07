@@ -186,7 +186,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @objc private func updateSignFrameIfNeeded() {
         guard let selectedAnnotation = selectedAnnotation else { return }
-        signView.frame = signFrame(forAnnotation: selectedAnnotation)
+        let frame = signFrame(forAnnotation: selectedAnnotation)
+        if (frame.minY > view.bounds.height || frame.minY + frame.height < -40) &&
+            (signView.frame.minY > view.bounds.height || signView.frame.minY + frame.height < -40) { return }
+        signView.frame = frame
     }
     
     private func signFrame(forAnnotation annotation: MKAnnotation) -> CGRect {

@@ -67,7 +67,7 @@ class LocationServices: NSObject, CLLocationManagerDelegate {
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             guard let placemark = placemarks?.first, let administrativeArea = placemark.administrativeArea else { return }
             if !administrativeArea.localizedCaseInsensitiveContains("santiago") {
-            self.delegate?.locationServicesUserOutsideSantiago()
+                self.delegate?.locationServicesUserOutsideSantiago()
             }
         }
     }

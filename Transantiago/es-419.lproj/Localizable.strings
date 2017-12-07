@@ -18,6 +18,11 @@
 "Not in Santiago alert message" = "Cromi sólo funciona en Santiago de Chile.";
 "Not in Santiago alert confirmation" = "Volemos allá";
 
+// Feature Spotlight
+"Feature Spotlight alert title" = "Nuevo: Recorridos de buses";
+"Feature Spotlight alert message" = "Toca los servicios en los carteles de parada para ver sus recorridos.";
+"Feature Spotlight alert confirmation" = "Buena";
+
 // Search
 "Search box placeholder" = "Lugar o dirección";
 "Place not found" = "No se encontró la dirección o lugar";
