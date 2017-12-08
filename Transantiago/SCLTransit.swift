@@ -159,6 +159,9 @@ class SCLTransit: NSObject, DataSource {
                             if predictionString.contains("Servicio fuera de horario") {
                                 responseKind = .outOfSchedule
                             }
+                            if predictionString.contains("No hay buses") {
+                                responseKind = .noIncomingBuses
+                            }
                             continue
                         }
                         if predictions == nil { predictions = [] }
@@ -229,7 +232,7 @@ class SCLTransit: NSObject, DataSource {
                         stopsData.append(stopData)
                     }
                     let stopsResult = self.processStops(from: stopsData)
-                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction)!, operationHours: [], headsign: headsign, polyline: polyline, stops: stopsResult.stops))
+                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction)!, operationHours: [], headsign: headsign.replacingOccurrences(of: "(M)", with: "Metro"), polyline: polyline, stops: stopsResult.stops))
                 }
                 newService = Service(name: service.name, color: service.color, routes: routes, stopInfo: nil)
             }
