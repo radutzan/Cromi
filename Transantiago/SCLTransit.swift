@@ -254,6 +254,18 @@ class SCLTransit: NSObject, DataSource {
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var buses: [Bus]?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
+                guard let base = jsonObject as? [String: Any],
+                    let results = base["results"] as? [[String: Any]] else { return }
+                buses = []
+                for result in results {
+                    guard let lat = result["bus_lat"] as? String,
+                        let latDouble = Double(lat),
+                        let lon = result["bus_lon"] as? String,
+                        let lonDouble = Double(lon),
+                        let plateNumber = result["bus_plate_number"] as? String,
+                        let service = result["route_id"] as? String else { continue }
+                    buses?.append(Bus(plateNumber: plateNumber, serviceName: service, coordinate: CLLocationCoordinate2D(latitude: latDouble, longitude: lonDouble)))
+                }
             }
             if let error = error {
                 print("SCLTransit: Live buses request failed with error: \(error)")

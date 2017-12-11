@@ -1,0 +1,85 @@
+//
+//  BusAnnotationView.swift
+//  Cromi
+//
+//  Created by Radu Dutzan on 12/11/17.
+//  Copyright © 2017 Radu Dutzan. All rights reserved.
+//
+
+import MapKit
+
+class BusAnnotationView: MKAnnotationView {
+
+    var color: UIColor = .black {
+        didSet {
+            updateColor()
+        }
+    }
+    var bus: Bus? {
+        didSet {
+            updateBus()
+        }
+    }
+    
+    private var serviceLabel = UILabel()
+    private var plateLabel = UILabel()
+    
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        commonInit()
+        if let bus = annotation as? Bus {
+            self.bus = bus
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        frame.size = CGSize(width: 40, height: 38)
+        clipsToBounds = false
+        
+        serviceLabel.frame = CGRect(x: 4, y: 0, width: 32, height: 24)
+        serviceLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        serviceLabel.textColor = .white
+        serviceLabel.textAlignment = .center
+        serviceLabel.adjustsFontSizeToFitWidth = true
+        serviceLabel.allowsDefaultTighteningForTruncation = true
+        serviceLabel.layer.cornerRadius = 8
+        serviceLabel.layer.shadowPath = UIBezierPath(roundedRect: serviceLabel.bounds, cornerRadius: serviceLabel.layer.cornerRadius).cgPath
+        serviceLabel.layer.shadowOffset = CGSize(width: 0, height: 3)
+        serviceLabel.layer.shadowRadius = 3
+        serviceLabel.layer.shadowOpacity = 0.12
+        addSubview(serviceLabel)
+        
+        plateLabel.frame = CGRect(x: 0, y: 26, width: 40, height: 12)
+        plateLabel.font = UIFont.systemFont(ofSize: 8, weight: .heavy)
+        plateLabel.textAlignment = .center
+        plateLabel.layer.cornerRadius = 3
+        plateLabel.layer.backgroundColor = UIColor(white: 1, alpha: 0.5).cgColor
+        insertSubview(plateLabel, aboveSubview: serviceLabel)
+    }
+    
+    private func updateBus() {
+        guard let bus = bus else { return }
+        serviceLabel.text = bus.serviceName
+        plateLabel.frame.size.width = 60
+        plateLabel.text = bus.plateNumber
+        plateLabel.sizeToFit()
+        plateLabel.frame.size.width += 6
+        plateLabel.frame.size.height = 12
+        plateLabel.frame.origin.x = (bounds.width - plateLabel.bounds.width) / 2
+    }
+    
+    private func updateColor() {
+        serviceLabel.layer.backgroundColor = color.cgColor
+        plateLabel.textColor = color
+    }
+    
+    override func prepareForReuse() {
+        color = .black
+    }
+
+}

@@ -56,6 +56,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         statusBarGradientLayer.endPoint = CGPoint(x: 0, y: 1)
         view.layer.insertSublayer(statusBarGradientLayer, above: mapView.layer)
         
+        signView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signView)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
@@ -97,6 +98,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let bus = annotation as? Bus {
+            let reuseIdentifier = "Bus pin"
+            let busView = (mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? BusAnnotationView) ?? BusAnnotationView(annotation: bus, reuseIdentifier: reuseIdentifier)
+            busView.bus = bus
+            busView.color = lineViewInfo?.presentedService.color ?? .black
+            if #available(iOS 11.0, *) {
+                busView.displayPriority = .required
+                busView.collisionMode = .circle
+            }
+            return busView
+        }
         guard let annotation = annotation as? TransantiagoAnnotation else { return nil }
         
         var reuseIdentifier = ""
@@ -106,6 +118,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let annotationView = (mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? StopAnnotationView) ?? StopAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             annotationView.canShowCallout = false
             setColor(for: annotationView, with: stop)
+            if #available(iOS 11.0, *) {
+                annotationView.displayPriority = .required
+                annotationView.collisionMode = .rectangle
+            }
             return annotationView
             
         case is MetroStation:
@@ -119,6 +135,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
         annotationView.canShowCallout = false
         annotationView.image = pinImage(forAnnotation: annotation, selected: false)
+        if #available(iOS 11.0, *) {
+            annotationView.displayPriority = .defaultHigh
+            annotationView.collisionMode = .circle
+        }
         
         return annotationView
     }
@@ -273,6 +293,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mode = .lineView
         lineViewInfo = LineViewInfo(presentedService: service, currentDirection: direction)
         mapView.add(direction == .outbound ? outboundRoute.polyline : inboundRoute.polyline)
+        startUpdatingLiveBuses()
         refreshVisibleStops()
         updateSignViewServiceSelection()
     }
@@ -295,5 +316,45 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
         return false
+    }
+    
+    // MARK: - Live buses
+    private var busAnnotations: [Bus] = []
+    private var liveBusesUpdateTimer: Timer?
+    
+    private func startUpdatingLiveBuses() {
+        guard mode == .lineView else { return }
+        getCurrentLiveBuses()
+        startLiveBusesTimer()
+    }
+    
+    private func stopUpdatingLiveBuses() {
+        cancelLiveBusesTimer()
+        mapView.removeAnnotations(busAnnotations)
+        busAnnotations = []
+    }
+    
+    @objc private func getCurrentLiveBuses() {
+        guard let lineViewInfo = lineViewInfo else { return }
+        SCLTransit.get.buses(forService: lineViewInfo.presentedService.name, direction: lineViewInfo.currentDirection) { (buses) in
+            guard let buses = buses else { return }
+            mainThread {
+                guard buses != self.busAnnotations else { return }
+                self.mapView.removeAnnotations(self.busAnnotations)
+                self.busAnnotations = buses
+                self.mapView.addAnnotations(self.busAnnotations)
+            }
+        }
+    }
+    
+    private func startLiveBusesTimer() {
+        guard mode == .lineView else { return }
+        cancelLiveBusesTimer()
+        liveBusesUpdateTimer = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(getCurrentLiveBuses), userInfo: nil, repeats: true)
+    }
+    
+    private func cancelLiveBusesTimer() {
+        liveBusesUpdateTimer?.invalidate()
+        liveBusesUpdateTimer = nil
     }
 }

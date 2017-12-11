@@ -184,15 +184,24 @@ class Service: NSObject {
     }
 }
 
-class Bus: NSObject {
+class Bus: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
     let plateNumber: String
     let serviceName: String
-    var position: CLLocationCoordinate2D
     
-    init(plateNumber: String, serviceName: String, position: CLLocationCoordinate2D) {
+    init(plateNumber: String, serviceName: String, coordinate: CLLocationCoordinate2D) {
         self.plateNumber = plateNumber
         self.serviceName = serviceName
-        self.position = position
+        self.coordinate = coordinate
         super.init()
+    }
+    
+    static func ==(lhs: Bus, rhs: Bus) -> Bool {
+        return lhs.plateNumber == rhs.plateNumber && lhs.serviceName == rhs.serviceName && lhs.coordinate.latitude == rhs.coordinate.latitude && lhs.coordinate.longitude == rhs.coordinate.longitude
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let otherBus = object as? Bus else { return false }
+        return self == otherBus
     }
 }
