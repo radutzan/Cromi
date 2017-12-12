@@ -31,6 +31,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     private var selectedAnnotation: TransantiagoAnnotation?
     private var lineViewInfo: LineViewInfo?
+    private let stopPinReuseIdentifier = "Stop pin"
     
     private struct LineViewInfo {
         var presentedService: Service
@@ -45,6 +46,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         if #available(iOS 11.0, *) {
             mapView.mapType = .mutedStandard
+        }
+        if #available(iOS 11.0, *) {
+            mapView.register(StopAnnotationView.self, forAnnotationViewWithReuseIdentifier: stopPinReuseIdentifier)
         }
     }
     
@@ -79,6 +83,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         guard let annotation = view.annotation as? TransantiagoAnnotation else { return }
         selectedAnnotation = annotation
         if !(annotation is Stop) { view.image = pinImage(forAnnotation: annotation, selected: true) }
+        if view.transform != .identity {
+            view.transform = .identity
+        }
         
         signView.annotation = annotation
         updateSignViewServiceSelection()
@@ -88,6 +95,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         guard let oldAnnotation = view.annotation as? TransantiagoAnnotation else { return }
         if !(oldAnnotation is Stop) { view.image = pinImage(forAnnotation: oldAnnotation, selected: false) }
+        if mode == .lineView {
+            process(annotationView: view, annotation: oldAnnotation)
+        }
         let transition = CATransition()
         transition.duration = 0.24
         transition.type = kCATransitionFade
@@ -139,8 +149,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotationView.displayPriority = .defaultHigh
             annotationView.collisionMode = .circle
         }
+        process(annotationView: annotationView, annotation: annotation)
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        for view in views {
+            if view is BusAnnotationView || (view is StopAnnotationView && (view as! StopAnnotationView).color != .black) {
+                view.superview?.bringSubview(toFront: view)
+            } else {
+                view.superview?.sendSubview(toBack: view)
+            }
+        }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -180,11 +201,38 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    private func updateAnnotationViews() {
+        for annotation in mapView.annotations {
+            guard let annotationView = mapView.view(for: annotation) else { continue }
+            process(annotationView: annotationView, annotation: annotation)
+        }
+    }
+    
+    private func process(annotationView: MKAnnotationView, annotation: MKAnnotation) {
+        if let stop = annotation as? Stop, let stopPin = annotationView as? StopAnnotationView {
+            setColor(for: stopPin, with: stop)
+        }
+        if (annotation is BipSpot || annotation is MetroStation) {
+            annotationView.transform = mode != .lineView ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
+        }
+    }
+    
+    let lineViewNormalStopScale: CGFloat = 0.72
     private func setColor(for annotationView: StopAnnotationView, with stop: Stop) {
         annotationView.color = .black
+        annotationView.transform = .identity
+        annotationView.isinverted = false
         
-        if let lineViewInfo = lineViewInfo, mode == .lineView, stopContainsCurrentRoute(stop) {
-            annotationView.color = lineViewInfo.presentedService.color
+        if let lineViewInfo = lineViewInfo, mode == .lineView {
+            if stopContainsCurrentRoute(stop) {
+                annotationView.color = lineViewInfo.presentedService.color
+                annotationView.superview?.bringSubview(toFront: annotationView)
+            }
+            if #available(iOS 11.0, *) {
+                annotationView.displayPriority = stopContainsCurrentRoute(stop) ? .required : .defaultHigh
+            }
+            annotationView.isinverted = !stopContainsCurrentRoute(stop)
+            annotationView.transform = stopContainsCurrentRoute(stop) ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
         }
     }
     
@@ -265,6 +313,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 self.mapView.removeAnnotations(annotationsToRemove)
                 self.mapView.addAnnotations(annotationsToAdd)
                 
+                for annotation in self.mapView.annotations {
+                    guard let view = self.mapView.view(for: annotation) else { continue }
+                    if view is BusAnnotationView || (view is StopAnnotationView && (view as! StopAnnotationView).color != .black) {
+                        view.superview?.bringSubview(toFront: view)
+                    } else {
+                        view.superview?.sendSubview(toBack: view)
+                    }
+                }
+                
                 completion?()
             }
         }
@@ -294,15 +351,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         lineViewInfo = LineViewInfo(presentedService: service, currentDirection: direction)
         mapView.add(direction == .outbound ? outboundRoute.polyline : inboundRoute.polyline)
         startUpdatingLiveBuses()
-        refreshVisibleStops()
+//        refreshVisibleStops()
+        UIView.animate(withDuration: 0.24) {
+            self.updateAnnotationViews()
+        }
         updateSignViewServiceSelection()
     }
 
     func reset() {
         mode = .normal
         lineViewInfo = nil
-        refreshVisibleStops()
+        UIView.animate(withDuration: 0.24) {
+            self.updateAnnotationViews()
+        }
         updateSignViewServiceSelection()
+        stopUpdatingLiveBuses()
         for overlay in mapView.overlays {
             mapView.remove(overlay)
         }

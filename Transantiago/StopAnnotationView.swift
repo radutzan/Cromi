@@ -20,6 +20,11 @@ class StopAnnotationView: MKAnnotationView {
             updateColor()
         }
     }
+    var isinverted: Bool = false {
+        didSet {
+            updateColor()
+        }
+    }
     private var pinContentImageView = UIImageView(image: #imageLiteral(resourceName: "pin stop bus icon"))
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
@@ -42,8 +47,9 @@ class StopAnnotationView: MKAnnotationView {
     }
     
     private func updateColor() {
-        pinContentImageView.tintColor = isSelected ? color : .white
-        pinContentImageView.backgroundColor = isSelected ? .white : color
+        let shouldInvert = (!isinverted && isSelected) || (isinverted && !isSelected)
+        pinContentImageView.tintColor = shouldInvert ? color : .white
+        pinContentImageView.backgroundColor = shouldInvert ? .white : color
     }
     
     override func prepareForReuse() {

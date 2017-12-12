@@ -41,17 +41,19 @@ class BusAnnotationView: MKAnnotationView {
         frame.size = CGSize(width: 40, height: 38)
         clipsToBounds = false
         
-        serviceLabel.frame = CGRect(x: 4, y: 0, width: 32, height: 24)
+        serviceLabel.frame = CGRect(x: 0, y: 0, width: 40, height: 24)
         serviceLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        serviceLabel.textColor = .white
+        serviceLabel.textColor = .black
         serviceLabel.textAlignment = .center
         serviceLabel.adjustsFontSizeToFitWidth = true
         serviceLabel.allowsDefaultTighteningForTruncation = true
+        serviceLabel.layer.backgroundColor = UIColor.white.cgColor
         serviceLabel.layer.cornerRadius = 8
         serviceLabel.layer.shadowPath = UIBezierPath(roundedRect: serviceLabel.bounds, cornerRadius: serviceLabel.layer.cornerRadius).cgPath
         serviceLabel.layer.shadowOffset = CGSize(width: 0, height: 3)
         serviceLabel.layer.shadowRadius = 3
         serviceLabel.layer.shadowOpacity = 0.12
+        serviceLabel.layer.borderWidth = 2
         addSubview(serviceLabel)
         
         plateLabel.frame = CGRect(x: 0, y: 26, width: 40, height: 12)
@@ -64,7 +66,7 @@ class BusAnnotationView: MKAnnotationView {
     
     private func updateBus() {
         guard let bus = bus else { return }
-        serviceLabel.text = bus.serviceName
+        serviceLabel.text = bus.serviceName.lowercased()
         plateLabel.frame.size.width = 60
         plateLabel.text = bus.plateNumber
         plateLabel.sizeToFit()
@@ -74,7 +76,8 @@ class BusAnnotationView: MKAnnotationView {
     }
     
     private func updateColor() {
-        serviceLabel.layer.backgroundColor = color.cgColor
+        serviceLabel.layer.borderColor = color.cgColor
+        serviceLabel.textColor = color
         plateLabel.textColor = color
     }
     
