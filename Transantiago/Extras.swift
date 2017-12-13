@@ -126,6 +126,21 @@ extension CGRect {
     }
 }
 
+extension String {
+    var isNumeric: Bool {
+        guard self.count > 0 else { return false }
+        let nums: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        return Set(self).isSubset(of: nums)
+    }
+}
+
+extension Character {
+    var isDigit: Bool {
+        let digits: [Character] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        return digits.contains(self)
+    }
+}
+
 // MARK: - Subclasses
 class TouchTransparentView: UIView {
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

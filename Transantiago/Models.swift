@@ -132,10 +132,12 @@ class Service: NSObject {
     let color: UIColor
     let routes: [Route]?
     var outboundRoute: Route? {
-        return routes?.filter { $0.direction == .outbound }[0]
+        let results = routes?.filter { $0.direction == .outbound } ?? []
+        return results.count > 0 ? results[0] : nil
     }
     var inboundRoute: Route? {
-        return routes?.filter { $0.direction == .inbound }[0]
+        let results = routes?.filter { $0.direction == .inbound } ?? []
+        return results.count > 0 ? results[0] : nil
     }
     let destinationString: String?
     let stopInfo: StopInfo?

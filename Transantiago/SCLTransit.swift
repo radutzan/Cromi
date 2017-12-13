@@ -211,7 +211,7 @@ class SCLTransit: NSObject, DataSource {
             var newService: Service?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
                 guard let base = jsonObject as? [String: [[String: Any]]],
-                    let results = base["results"], results.count > 1 else { return }
+                    let results = base["results"], results.count > 0 else { return }
                 var routes = Array<Service.Route>()
                 for routeBase in results {
                     guard let headsign = routeBase["direction_headsign"] as? String,

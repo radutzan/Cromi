@@ -49,6 +49,9 @@ class ServiceBar: NibLoadingView {
         layer.shadowRadius = 11
         layer.shadowOpacity = 0.2
         
+        directionButton1.titleLabel?.numberOfLines = 2
+        directionButton2.titleLabel?.numberOfLines = 2
+        
         defer {
             let hasRoutes = service.routes != nil
             UIView.animate(withDuration: 0.16) {
@@ -56,13 +59,11 @@ class ServiceBar: NibLoadingView {
                 self.buttonStackView.alpha = hasRoutes ? 1 : 0
             }
         }
-        guard let outboundRoute = service.outboundRoute, let inboundRoute = service.inboundRoute else {
-            return
-        }
-        directionButton1.setTitle("\(NSLocalizedString("to", comment: "")) \(outboundRoute.headsign)", for: .normal)
-        directionButton1.titleLabel?.numberOfLines = 2
-        directionButton2.setTitle("\(NSLocalizedString("to", comment: "")) \(inboundRoute.headsign)", for: .normal)
-        directionButton2.titleLabel?.numberOfLines = 2
+        
+        directionButton1.isHidden = service.outboundRoute == nil
+        directionButton1.setTitle("\(NSLocalizedString("to", comment: "")) \(service.outboundRoute?.headsign ?? "nowhere")", for: .normal)
+        directionButton2.isHidden = service.inboundRoute == nil
+        directionButton2.setTitle("\(NSLocalizedString("to", comment: "")) \(service.inboundRoute?.headsign ?? "nowhere")", for: .normal)
         updateSegmentedControl()
     }
     

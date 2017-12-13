@@ -60,7 +60,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         statusBarGradientLayer.endPoint = CGPoint(x: 0, y: 1)
         view.layer.insertSublayer(statusBarGradientLayer, above: mapView.layer)
         
-        signView.translatesAutoresizingMaskIntoConstraints = false
+//        signView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signView)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
@@ -75,8 +75,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     // MARK: - MKMapViewDelegate
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        if mode == .lineView { updateAnnotationViews() }
+    }
+    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        placeAnnotations(aroundCoordinate: mapView.centerCoordinate)
+        if mode == .lineView { updateAnnotationViews() }
+        placeAnnotations(aroundCoordinate: mapView.centerCoordinate) {
+            if self.mode == .lineView { self.updateAnnotationViews() }
+        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -117,21 +124,25 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 busView.displayPriority = .required
                 busView.collisionMode = .circle
             }
+            busView.layer.zPosition = 1000
+            process(annotationView: busView, annotation: annotation)
             return busView
         }
+        
         guard let annotation = annotation as? TransantiagoAnnotation else { return nil }
         
         var reuseIdentifier = ""
         switch annotation {
         case let stop as Stop:
-            reuseIdentifier = "Stop pin"
-            let annotationView = (mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? StopAnnotationView) ?? StopAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            let annotationView = (mapView.dequeueReusableAnnotationView(withIdentifier: stopPinReuseIdentifier) as? StopAnnotationView) ?? StopAnnotationView(annotation: annotation, reuseIdentifier: stopPinReuseIdentifier)
             annotationView.canShowCallout = false
-            setColor(for: annotationView, with: stop)
+            setStyle(for: annotationView, with: stop)
             if #available(iOS 11.0, *) {
                 annotationView.displayPriority = .required
                 annotationView.collisionMode = .rectangle
             }
+            process(annotationView: annotationView, annotation: annotation)
+            annotationView.layer.zPosition = 90
             return annotationView
             
         case is MetroStation:
@@ -150,18 +161,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotationView.collisionMode = .circle
         }
         process(annotationView: annotationView, annotation: annotation)
+        annotationView.layer.zPosition = 10
         
         return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        for view in views {
-            if view is BusAnnotationView || (view is StopAnnotationView && (view as! StopAnnotationView).color != .black) {
-                view.superview?.bringSubview(toFront: view)
-            } else {
-                view.superview?.sendSubview(toBack: view)
-            }
-        }
+        if mode == .lineView { updateAnnotationViews() }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -194,13 +200,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinImage
     }
     
-    private func refreshVisibleStops() {
-        for annotation in mapView.annotations {
-            guard let stop = annotation as? Stop, let stopPin = mapView.view(for: stop) as? StopAnnotationView else { continue }
-            setColor(for: stopPin, with: stop)
-        }
-    }
-    
     private func updateAnnotationViews() {
         for annotation in mapView.annotations {
             guard let annotationView = mapView.view(for: annotation) else { continue }
@@ -208,17 +207,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func process(annotationView: MKAnnotationView, annotation: MKAnnotation) {
-        if let stop = annotation as? Stop, let stopPin = annotationView as? StopAnnotationView {
-            setColor(for: stopPin, with: stop)
-        }
+    private func process(annotationView view: MKAnnotationView, annotation: MKAnnotation) {
+        let zLow: CGFloat = 10, zMid: CGFloat = 100, zHigh: CGFloat = 1000
         if (annotation is BipSpot || annotation is MetroStation) {
-            annotationView.transform = mode != .lineView ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
+            view.transform = mode != .lineView ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
+            view.layer.zPosition = zLow
+        }
+        if annotation is Bus {
+            view.layer.zPosition = zHigh
+        }
+        if let stop = annotation as? Stop, let stopPin = view as? StopAnnotationView {
+            setStyle(for: stopPin, with: stop)
+            if mode == .lineView {
+                if stopContainsCurrentRoute(stop) {
+                    stopPin.layer.zPosition = zMid
+                } else {
+                    stopPin.layer.zPosition = zLow
+                }
+            }
         }
     }
     
     let lineViewNormalStopScale: CGFloat = 0.72
-    private func setColor(for annotationView: StopAnnotationView, with stop: Stop) {
+    private func setStyle(for annotationView: StopAnnotationView, with stop: Stop) {
         annotationView.color = .black
         annotationView.transform = .identity
         annotationView.isinverted = false
@@ -227,9 +238,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if stopContainsCurrentRoute(stop) {
                 annotationView.color = lineViewInfo.presentedService.color
                 annotationView.superview?.bringSubview(toFront: annotationView)
-            }
-            if #available(iOS 11.0, *) {
-                annotationView.displayPriority = stopContainsCurrentRoute(stop) ? .required : .defaultHigh
             }
             annotationView.isinverted = !stopContainsCurrentRoute(stop)
             annotationView.transform = stopContainsCurrentRoute(stop) ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
@@ -252,8 +260,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     private let signDistance: CGFloat = 25
     
+    private var previousMapRect = MKMapRect()
     @objc private func updateSignFrameIfNeeded() {
         guard let selectedAnnotation = selectedAnnotation else { return }
+        guard !MKMapRectEqualToRect(mapView.visibleMapRect, previousMapRect) else { return }
+        previousMapRect = mapView.visibleMapRect
         let frame = signFrame(forAnnotation: selectedAnnotation)
         if (frame.minY > view.bounds.height || frame.minY + frame.height < -40) &&
             (signView.frame.minY > view.bounds.height || signView.frame.minY + frame.height < -40) { return }
@@ -290,8 +301,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     // MARK: - Helpers
-    func centerMap(around coordinate: CLLocationCoordinate2D, animated: Bool) {
-        let allowedSpan: CLLocationDegrees = 0.0025
+    func centerMap(around coordinate: CLLocationCoordinate2D, animated: Bool, allowedSpan: CLLocationDegrees = 0.0025) {
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))
         mapView.setRegion(region, animated: animated)
     }
@@ -312,15 +322,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 self.mapView.removeAnnotations(annotationsToRemove)
                 self.mapView.addAnnotations(annotationsToAdd)
-                
-                for annotation in self.mapView.annotations {
-                    guard let view = self.mapView.view(for: annotation) else { continue }
-                    if view is BusAnnotationView || (view is StopAnnotationView && (view as! StopAnnotationView).color != .black) {
-                        view.superview?.bringSubview(toFront: view)
-                    } else {
-                        view.superview?.sendSubview(toBack: view)
-                    }
-                }
                 
                 completion?()
             }
@@ -346,16 +347,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func display(service: Service, direction: Service.Route.Direction) {
-        guard let outboundRoute = service.outboundRoute, let inboundRoute = service.inboundRoute else { return }
+        guard let polyline = direction == .outbound ? service.outboundRoute?.polyline : service.inboundRoute?.polyline else { return }
         mode = .lineView
         lineViewInfo = LineViewInfo(presentedService: service, currentDirection: direction)
-        mapView.add(direction == .outbound ? outboundRoute.polyline : inboundRoute.polyline)
+        mapView.add(polyline)
         startUpdatingLiveBuses()
-//        refreshVisibleStops()
         UIView.animate(withDuration: 0.24) {
             self.updateAnnotationViews()
         }
         updateSignViewServiceSelection()
+        centerMap(around: mapView.centerCoordinate, animated: true, allowedSpan: 0.0084)
     }
 
     func reset() {
@@ -368,6 +369,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         stopUpdatingLiveBuses()
         for overlay in mapView.overlays {
             mapView.remove(overlay)
+        }
+        if selectedAnnotation == nil {
+            centerMap(around: mapView.centerCoordinate, animated: true)
         }
     }
     

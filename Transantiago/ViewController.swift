@@ -39,7 +39,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     }
     
     private func presentFeatureSpotlightIfNeeded() {
-        let spotlightKey = "Line View Spotlight"
+        let spotlightKey = "Live Buses Spotlight"//"Line View Spotlight"
         guard !UserDefaults.standard.bool(forKey: spotlightKey) else { return }
         
         let spotlightAlert = UIAlertController(title: NSLocalizedString("Feature Spotlight alert title", comment: ""), message: NSLocalizedString("Feature Spotlight alert message", comment: ""), preferredStyle: .alert)
@@ -112,12 +112,12 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     }
     
     private func present(service: Service, direction: Service.Route.Direction) {
-        if (storedCompleteService == nil || storedCompleteService?.routes == nil) && (service.routes != nil && service.routes!.count > 1) {
+        if (storedCompleteService == nil || storedCompleteService?.routes == nil) && (service.routes != nil && service.routes!.count > 0) {
             storedCompleteService = service
         }
-        guard let completeService = storedCompleteService, completeService.name == service.name, completeService.outboundRoute != nil, completeService.inboundRoute != nil else {
+        guard let completeService = storedCompleteService, completeService.name == service.name, (completeService.routes ?? []).count > 0 else {
             SCLTransit.get.serviceRoutes(for: service) { (newService) in
-                guard let newService = newService, let serviceRoutes = newService.routes, serviceRoutes.count > 1 else { return }
+                guard let newService = newService, let serviceRoutes = newService.routes, serviceRoutes.count > 0 else { return }
                 mainThread {
                     print("got complete service \(newService.name)")
                     self.storedCompleteService = newService

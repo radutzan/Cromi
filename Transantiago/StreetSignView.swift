@@ -143,7 +143,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        view.frame.origin = CGPoint.zero
+//        view.frame.origin = CGPoint.zero
     }
     
     private func clearContentStack() {

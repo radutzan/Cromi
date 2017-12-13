@@ -59,14 +59,14 @@ class BusAnnotationView: MKAnnotationView {
         plateLabel.frame = CGRect(x: 0, y: 26, width: 40, height: 12)
         plateLabel.font = UIFont.systemFont(ofSize: 8, weight: .heavy)
         plateLabel.textAlignment = .center
+        plateLabel.textColor = .white
         plateLabel.layer.cornerRadius = 3
-        plateLabel.layer.backgroundColor = UIColor(white: 1, alpha: 0.5).cgColor
         insertSubview(plateLabel, aboveSubview: serviceLabel)
     }
     
     private func updateBus() {
         guard let bus = bus else { return }
-        serviceLabel.text = bus.serviceName.lowercased()
+        serviceLabel.text = bus.serviceName.last!.isDigit ? bus.serviceName : bus.serviceName.lowercased() // C20 vs 405c
         plateLabel.frame.size.width = 60
         plateLabel.text = bus.plateNumber
         plateLabel.sizeToFit()
@@ -78,11 +78,10 @@ class BusAnnotationView: MKAnnotationView {
     private func updateColor() {
         serviceLabel.layer.borderColor = color.cgColor
         serviceLabel.textColor = color
-        plateLabel.textColor = color
+        plateLabel.layer.backgroundColor = color.cgColor
     }
     
     override func prepareForReuse() {
         color = .black
     }
-
 }
