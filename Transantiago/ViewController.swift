@@ -83,10 +83,18 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     }
     
     // MARK: - Map interaction
+    func signDidTapHeader(_ signView: StreetSignView) {
+        guard let annotation = signView.annotation else { return }
+        var coordinate = annotation.coordinate
+        let spanMultiplier = signView.intrinsicContentSize.height / 580
+        coordinate.latitude += Double(spanMultiplier) * 0.0014
+        mapController?.centerMap(around: coordinate, animated: true)
+    }
+    
     private var storedCompleteService: Service?
     func signDidSelect(service: Service) {
         guard let stopInfo = service.stopInfo else { return }
-        mapController?.reset()
+        mapController?.reset(holdForNextService: true)
         presentServiceBar(service: service)
         present(service: service, direction: stopInfo.direction)
     }
@@ -99,7 +107,9 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [.allowUserInteraction], animations: {
             self.serviceBarHorizontalCenterConstraint.constant = self.view.bounds.width
             self.view.layoutIfNeeded()
-        }, completion: nil)
+        }) { finished in
+            self.serviceBar.service = nil
+        }
         mapController?.reset()
     }
     
@@ -121,6 +131,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
                 mainThread {
                     print("got complete service \(newService.name)")
                     self.storedCompleteService = newService
+                    guard self.serviceBar.service != nil else { return }
                     self.present(service: newService, direction: direction)
                 }
             }
@@ -129,7 +140,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         
         serviceBar.service = completeService
         serviceBar.selectedDirection = direction
-        mapController?.reset()
+        mapController?.reset(holdForNextService: true)
         mapController?.display(service: completeService, direction: direction)
     }
     

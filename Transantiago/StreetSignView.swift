@@ -8,7 +8,9 @@
 
 import UIKit
 
-protocol StreetSignViewDelegate: SignServiceViewDelegate {}
+protocol StreetSignViewDelegate: SignServiceViewDelegate {
+    func signDidTapHeader(_ signView: StreetSignView)
+}
 
 enum SignStyle {
     case dark, light
@@ -58,6 +60,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     
     private let bipBlueColor = SignConstants.Color.bipBlue
     
+    // MARK: - Setup
     override func didLoadNibView() {
         alpha = 0
 //        isUserInteractionEnabled = false
@@ -74,6 +77,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
         maskerView.backgroundColor = .blue
         maskerView.layer.cornerRadius = 12
 //        addSubview(maskerView) // masking debug
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handle(headerViewTap:))))
     }
     
     private func reloadData() {
@@ -81,6 +85,14 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
         view.backgroundColor = UIColor.clear
         view.layer.borderColor = UIColor.clear.cgColor
         mainStackView.spacing = 0
+        
+        defer {
+            mainStackView.layoutIfNeeded()
+            signView.setNeedsLayout()
+            signView.layoutIfNeeded()
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
         
         headerView.annotation = annotation
         
@@ -97,7 +109,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
                 if pendingServices.count == 2 || service == annotation.services.last! {
                     let serviceRowView = SignServiceRowView(services: pendingServices)
                     mainStackView.addArrangedSubview(serviceRowView)
-                    mainStackView.layoutIfNeeded()
+                    mainStackView.setNeedsLayout()
                     
                     for (index, service) in pendingServices.enumerated() {
                         serviceViews[service.name] = index == 0 ? serviceRowView.serviceView1 : serviceRowView.serviceView2
@@ -116,6 +128,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
                 signView.backgroundColor = bipBlueColor
                 mainStackView.spacing = 5
             }
+            mainStackView.setNeedsLayout()
             
             guard annotation.operationHours.count > 0 else { return }
             let timetableView = SignTimetableView()
@@ -127,23 +140,28 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
                 timetableView.add(hoursRow: hoursRow)
             }
             mainStackView.addArrangedSubview(timetableView)
-            mainStackView.layoutIfNeeded()
+            mainStackView.setNeedsLayout()
             
         default:
             return
         }
-        
-        layoutIfNeeded()
     }
     
-    func signDidSelect(service: Service) {
-        selectedService = service
-        delegate?.signDidSelect(service: service)
+    
+    // TouchTransparentView
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        for subview in subviews {
+            if !subview.isHidden && subview.alpha > 0 && subview.isUserInteractionEnabled && subview.point(inside: convert(point, to: subview), with: event) {
+                return true
+            }
+        }
+        return false
     }
     
+    // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-//        view.frame.origin = CGPoint.zero
+        view.frame.origin = CGPoint.zero
     }
     
     private func clearContentStack() {
@@ -160,6 +178,17 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
         return CGSize(width: width, height: signView.bounds.height)
     }
     
+    // MARK: - Actions
+    func signDidSelect(service: Service) {
+        selectedService = service
+        delegate?.signDidSelect(service: service)
+    }
+    
+    @objc private func handle(headerViewTap: UITapGestureRecognizer) {
+        delegate?.signDidTapHeader(self)
+    }
+    
+    // MARK: - Lifecycle
     func present(fromCenter originCenter: CGPoint, targetFrame: CGRect) {
         frame = CGRect(size: targetFrame.size, center: originCenter)
         let targetMaskSize = frame.insetBy(dx: -12, dy: -12).size
@@ -207,20 +236,6 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     
     private func didDisappear() {
         isHidden = true
-    }
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard isUserInteractionEnabled else { return nil }
-        for subview in subviews {
-            let pointInSubview = subview.convert(point, from: self)
-            if subview.bounds.contains(pointInSubview) {
-                let result = subview.hitTest(pointInSubview, with: event)
-                if result is UIButton {
-                    return result
-                }
-            }
-        }
-        return nil
     }
     
     // MARK: - Stop predictions

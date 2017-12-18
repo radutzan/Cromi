@@ -20,7 +20,7 @@
 
 // Feature Spotlight
 "Feature Spotlight alert title" = "Nuevo: Buses en el mapa";
-"Feature Spotlight alert message" = "Ahora, cuando veas el recorrido de un servicio, también podrás ver los buses que estén en circulación.\n\nOjo: La ubicación de los buses tiene hasta 2 minutos de retraso. La distancia del cartel es más confiable.";
+"Feature Spotlight alert message" = "Ahora, cuando veas el recorrido de un servicio, también podrás ver los buses que estén en circulación.\n\nOjo: La ubicación de los buses tiene alrededor de 2 minutos de retraso. La distancia del cartel es más confiable.";
 "Feature Spotlight alert confirmation" = "Buena";
 
 // Search

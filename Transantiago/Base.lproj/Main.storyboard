@@ -29,14 +29,14 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDY-Ma-pdu" customClass="ServiceBar" customModule="Cromi" customModuleProvider="target">
-                                <rect key="frame" x="436" y="535" width="343" height="52"/>
+                                <rect key="frame" x="436" y="539" width="343" height="52"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="Tqi-i0-799"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-n0-9uZ" customClass="ButtonRow" customModule="Cromi" customModuleProvider="target">
-                                <rect key="frame" x="16" y="603" width="343" height="44"/>
+                                <rect key="frame" x="16" y="607" width="343" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="YwY-La-rIm"/>
                                 </constraints>
@@ -52,7 +52,7 @@
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CI5-Xy-3hj"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="TpI-l9-v2c"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="top" secondItem="uDY-Ma-pdu" secondAttribute="bottom" constant="16" id="co3-MI-bO1"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3w9-n0-9uZ" secondAttribute="bottom" constant="20" id="lhq-u5-b4P"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3w9-n0-9uZ" secondAttribute="bottom" constant="16" id="lhq-u5-b4P"/>
                             <constraint firstItem="uDY-Ma-pdu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="420" id="xpW-sY-GdV"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="15" bottom="0.0" right="15"/>
@@ -79,7 +79,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9S-qF-Wnw">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9S-qF-Wnw">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                         </subviews>

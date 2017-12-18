@@ -317,8 +317,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             mainThread {
                 let currentAnnotationsSet = Set(self.mapView.annotations.filter { $0 is TransantiagoAnnotation } as! [TransantiagoAnnotation])
                 let newAnnotationsSet = Set((stops as [TransantiagoAnnotation]) + (bipSpots as [TransantiagoAnnotation]) + (metroStations as [TransantiagoAnnotation]))
-                let annotationsToRemove = Array(currentAnnotationsSet.subtracting(newAnnotationsSet))
+                var annotationsToRemove = Array(currentAnnotationsSet.subtracting(newAnnotationsSet))
                 let annotationsToAdd = Array(newAnnotationsSet.subtracting(currentAnnotationsSet))
+                
+                if let selectedAnnotation = self.selectedAnnotation, let indexOfSelected = annotationsToRemove.index(of: selectedAnnotation) {
+                    annotationsToRemove.remove(at: indexOfSelected)
+                }
                 
                 self.mapView.removeAnnotations(annotationsToRemove)
                 self.mapView.addAnnotations(annotationsToAdd)
@@ -359,7 +363,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         centerMap(around: mapView.centerCoordinate, animated: true, allowedSpan: 0.0084)
     }
 
-    func reset() {
+    func reset(holdForNextService: Bool = false) {
         mode = .normal
         lineViewInfo = nil
         UIView.animate(withDuration: 0.24) {
@@ -370,7 +374,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         for overlay in mapView.overlays {
             mapView.remove(overlay)
         }
-        if selectedAnnotation == nil {
+        if !holdForNextService {
             centerMap(around: mapView.centerCoordinate, animated: true)
         }
     }

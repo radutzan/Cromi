@@ -18,7 +18,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="Jem-DC-S0Q" customClass="ButtonTouchableView" customModule="Cromi" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="Jem-DC-S0Q" customClass="TouchTransparentView" customModule="Cromi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="246" height="320"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
