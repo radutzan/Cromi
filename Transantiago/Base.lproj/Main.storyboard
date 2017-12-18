@@ -41,6 +41,13 @@
                                     <constraint firstAttribute="height" constant="44" id="YwY-La-rIm"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdM-eU-o5j" customClass="InfoBanner" customModule="Cromi" customModuleProvider="target">
+                                <rect key="frame" x="391" y="26" width="343" height="78.5"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Créele al paradero"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="message" value="La posición de los buses en el mapa tiene al menos 2 minutos de retraso."/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -50,15 +57,20 @@
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="91Z-qE-qpi"/>
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9JO-p9-0Nr"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CI5-Xy-3hj"/>
+                            <constraint firstItem="tdM-eU-o5j" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="6" id="JBC-JF-QLV"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="TpI-l9-v2c"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="top" secondItem="uDY-Ma-pdu" secondAttribute="bottom" constant="16" id="co3-MI-bO1"/>
+                            <constraint firstItem="tdM-eU-o5j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="375" id="evK-hl-eAc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3w9-n0-9uZ" secondAttribute="bottom" constant="16" id="lhq-u5-b4P"/>
+                            <constraint firstItem="tdM-eU-o5j" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-32" id="wuH-N4-C71"/>
                             <constraint firstItem="uDY-Ma-pdu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="420" id="xpW-sY-GdV"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="15" bottom="0.0" right="15"/>
                     </view>
                     <connections>
                         <outlet property="buttonRow" destination="3w9-n0-9uZ" id="D2h-Wz-55B"/>
+                        <outlet property="infoBanner" destination="tdM-eU-o5j" id="v7t-3n-JKM"/>
+                        <outlet property="infoBannerHorizontalCenterConstraint" destination="evK-hl-eAc" id="x6Q-9I-8zT"/>
                         <outlet property="serviceBar" destination="uDY-Ma-pdu" id="Ylf-Jv-b6x"/>
                         <outlet property="serviceBarHorizontalCenterConstraint" destination="xpW-sY-GdV" id="4jP-Wc-Uci"/>
                     </connections>

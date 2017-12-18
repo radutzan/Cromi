@@ -22,13 +22,13 @@
             <rect key="frame" x="0.0" y="0.0" width="246" height="320"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view clipsSubviews="YES" tag="2" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-jd-Wnv">
+                <view clipsSubviews="YES" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-jd-Wnv">
                     <rect key="frame" x="0.0" y="0.0" width="246" height="64"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="s65-Pt-tBP">
+                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="s65-Pt-tBP">
                             <rect key="frame" x="0.0" y="0.0" width="246" height="64"/>
                             <subviews>
-                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcT-uD-syX" customClass="SignHeaderView" customModule="Cromi" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcT-uD-syX" customClass="SignHeaderView" customModule="Cromi" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="246" height="64"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>

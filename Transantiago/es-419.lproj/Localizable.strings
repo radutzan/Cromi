@@ -18,6 +18,10 @@
 "Not in Santiago alert message" = "Cromi sólo funciona en Santiago de Chile.";
 "Not in Santiago alert confirmation" = "Volemos allá";
 
+// Info Banner
+"Info Banner title" = "Créele al paradero";
+"Info Banner message" = "La posición de los buses en el mapa tiene al menos 2 minutos de retraso.";
+
 // Feature Spotlight
 "Feature Spotlight alert title" = "Nuevo: Buses en el mapa";
 "Feature Spotlight alert message" = "Ahora, cuando veas el recorrido de un servicio, también podrás ver los buses que estén en circulación.\n\nOjo: La ubicación de los buses tiene alrededor de 2 minutos de retraso. La distancia del cartel es más confiable.";

@@ -8,24 +8,32 @@
 
 import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate {
-    
+class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate {
     
     let locationServices = LocationServices()
     var mapController: MapViewController?
     
     @IBOutlet var buttonRow: ButtonRow!
     @IBOutlet var serviceBar: ServiceBar!
+    @IBOutlet var infoBanner: InfoBanner!
     @IBOutlet var serviceBarHorizontalCenterConstraint: NSLayoutConstraint!
+    @IBOutlet var infoBannerHorizontalCenterConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
         locationServices.delegate = self
+        
         serviceBar.delegate = self
         serviceBar.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handle(serviceBarPan:))))
         serviceBarHorizontalCenterConstraint.constant = view.bounds.width
+        
+        infoBanner.delegate = self
+        infoBanner.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handle(infoBannerPan:))))
+        infoBannerHorizontalCenterConstraint.constant = view.bounds.width
+        infoBanner.title = NSLocalizedString("Info Banner title", comment: "")
+        infoBanner.message = NSLocalizedString("Info Banner message", comment: "")
         
         if let mapViewController = childViewControllers.first as? MapViewController {
             mapController = mapViewController
@@ -97,6 +105,9 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         mapController?.reset(holdForNextService: true)
         presentServiceBar(service: service)
         present(service: service, direction: stopInfo.direction)
+        delay(0.42) {
+            self.presentInfoBannerIfNeeded()
+        }
     }
     
     func serviceBarSelected(direction: Service.Route.Direction, service: Service) {
@@ -109,6 +120,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
             self.view.layoutIfNeeded()
         }) { finished in
             self.serviceBar.service = nil
+            self.infoBannerRequestedDismissal()
         }
         mapController?.reset()
     }
@@ -160,6 +172,46 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
                 serviceBarRequestedDismissal()
             } else {
                 presentServiceBar(service: serviceBar.service!)
+            }
+            return
+        }
+    }
+    
+    // MARK: - Info banner
+    private let liveBusesInfoBannerKey = "Did Present Live Buses Info Banner"
+    private func presentInfoBannerIfNeeded(force: Bool = false) {
+        guard !UserDefaults.standard.bool(forKey: liveBusesInfoBannerKey) else { return }
+        UIView.animate(withDuration: 0.72, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [], animations: {
+            self.infoBannerHorizontalCenterConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func infoBannerRequestedDismissal() {
+        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [.allowUserInteraction], animations: {
+            self.infoBannerHorizontalCenterConstraint.constant = self.view.bounds.width
+            self.view.layoutIfNeeded()
+        }) { finished in
+            UserDefaults.standard.set(true, forKey: self.liveBusesInfoBannerKey)
+        }
+    }
+    
+    private var initialInfoBannerBarConstant: CGFloat = 0
+    @objc private func handle(infoBannerPan pan: UIPanGestureRecognizer) {
+        switch pan.state {
+        case .began:
+            initialInfoBannerBarConstant = infoBannerHorizontalCenterConstraint.constant
+        case .changed:
+            var proposedTranslation = pan.translation(in: self.view).x
+            if proposedTranslation < 0 {
+                proposedTranslation /= 4
+            }
+            infoBannerHorizontalCenterConstraint.constant = initialInfoBannerBarConstant + proposedTranslation
+        default:
+            if infoBannerHorizontalCenterConstraint.constant > 80 || pan.velocity(in: self.view).x > 820 {
+                infoBannerRequestedDismissal()
+            } else {
+                presentInfoBannerIfNeeded(force: true)
             }
             return
         }
