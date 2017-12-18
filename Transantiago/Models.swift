@@ -177,7 +177,7 @@ class Service: NSObject {
     }
     
     static func ==(lhs: Service, rhs: Service) -> Bool {
-        return lhs.name == rhs.name && lhs.destinationString == rhs.destinationString
+        return lhs.name == rhs.name
     }
     
     override func isEqual(_ object: Any?) -> Bool {

@@ -230,17 +230,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     let lineViewNormalStopScale: CGFloat = 0.72
     private func setStyle(for annotationView: StopAnnotationView, with stop: Stop) {
-        annotationView.color = .black
-        annotationView.transform = .identity
-        annotationView.isinverted = false
-        
         if let lineViewInfo = lineViewInfo, mode == .lineView {
             if stopContainsCurrentRoute(stop) {
-                annotationView.color = lineViewInfo.presentedService.color
                 annotationView.superview?.bringSubview(toFront: annotationView)
             }
+            annotationView.color = stopContainsCurrentRoute(stop) ? lineViewInfo.presentedService.color : .black
             annotationView.isinverted = !stopContainsCurrentRoute(stop)
             annotationView.transform = stopContainsCurrentRoute(stop) ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
+        } else {
+            annotationView.color = .black
+            annotationView.isinverted = false
+            annotationView.transform = .identity
         }
     }
     
@@ -360,14 +360,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             self.updateAnnotationViews()
         }
         updateSignViewServiceSelection()
-        centerMap(around: mapView.centerCoordinate, animated: true, allowedSpan: 0.0084)
+        if mapView.region.span.latitudeDelta < 0.008 {
+            centerMap(around: mapView.centerCoordinate, animated: true, allowedSpan: 0.0084)
+        }
     }
 
-    func reset(holdForNextService: Bool = false) {
+    func reset(holdForNextService: Bool = false, immediateServiceSwitch: Bool = false) {
         mode = .normal
         lineViewInfo = nil
-        UIView.animate(withDuration: 0.24) {
-            self.updateAnnotationViews()
+        if !immediateServiceSwitch {
+            UIView.animate(withDuration: 0.24) {
+                self.updateAnnotationViews()
+            }
         }
         updateSignViewServiceSelection()
         stopUpdatingLiveBuses()
@@ -375,7 +379,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.remove(overlay)
         }
         if !holdForNextService {
-            centerMap(around: mapView.centerCoordinate, animated: true)
+            centerMap(around: selectedAnnotation?.coordinate ?? mapView.centerCoordinate, animated: true, allowedSpan: 0.0042)
         }
     }
     

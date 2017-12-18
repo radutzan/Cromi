@@ -99,10 +99,9 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         mapController?.centerMap(around: coordinate, animated: true)
     }
     
-    private var storedCompleteService: Service?
     func signDidSelect(service: Service) {
         guard let stopInfo = service.stopInfo else { return }
-        mapController?.reset(holdForNextService: true)
+        mapController?.reset(holdForNextService: true, immediateServiceSwitch: storedCompleteServices[service.name] != nil)
         presentServiceBar(service: service)
         present(service: service, direction: stopInfo.direction)
         delay(0.42) {
@@ -127,22 +126,31 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     
     private func presentServiceBar(service: Service) {
         serviceBar.service = service
+        guard serviceBarHorizontalCenterConstraint.constant != 0 else { return }
         UIView.animate(withDuration: 0.72, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [], animations: {
             self.serviceBarHorizontalCenterConstraint.constant = 0
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
     
+    private var storedCompleteServices: [String: Service] = [:]
+    private var completePresentedService: Service?
     private func present(service: Service, direction: Service.Route.Direction) {
-        if (storedCompleteService == nil || storedCompleteService?.routes == nil) && (service.routes != nil && service.routes!.count > 0) {
-            storedCompleteService = service
+        var immediateServiceSwitch = false
+        if let storedService = storedCompleteServices[service.name] {
+            completePresentedService = storedService
+            immediateServiceSwitch = true
         }
-        guard let completeService = storedCompleteService, completeService.name == service.name, (completeService.routes ?? []).count > 0 else {
+        if (completePresentedService == nil || completePresentedService?.routes == nil) && (service.routes != nil && service.routes!.count > 0) {
+            completePresentedService = service
+        }
+        guard let completeService = completePresentedService, completeService.name == service.name, (completeService.routes ?? []).count > 0 else {
             SCLTransit.get.serviceRoutes(for: service) { (newService) in
                 guard let newService = newService, let serviceRoutes = newService.routes, serviceRoutes.count > 0 else { return }
                 mainThread {
                     print("got complete service \(newService.name)")
-                    self.storedCompleteService = newService
+                    self.storedCompleteServices[newService.name] = newService
+                    self.completePresentedService = newService
                     guard self.serviceBar.service != nil else { return }
                     self.present(service: newService, direction: direction)
                 }
@@ -152,7 +160,7 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         
         serviceBar.service = completeService
         serviceBar.selectedDirection = direction
-        mapController?.reset(holdForNextService: true)
+        mapController?.reset(holdForNextService: true, immediateServiceSwitch: immediateServiceSwitch)
         mapController?.display(service: completeService, direction: direction)
     }
     
