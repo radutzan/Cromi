@@ -155,7 +155,8 @@ class Service: NSObject {
         let operationHours: [OperationHours]
         let headsign: String
         let polyline: MKPolyline
-        let stops: [Stop]
+        let stops: [Stop]?
+        let stopCodes: [String]
     }
     
     init(name: String, color: UIColor, routes: [Route]?, destinationString: String?) {

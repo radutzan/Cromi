@@ -385,7 +385,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     private func stopContainsCurrentRoute(_ stop: Stop) -> Bool {
         if let lineViewInfo = lineViewInfo, mode == .lineView {
-            let relevantStopCodes = lineViewInfo.currentDirection == .outbound ? lineViewInfo.presentedService.outboundRoute?.stops.map { $0.code } : lineViewInfo.presentedService.inboundRoute?.stops.map { $0.code }
+            let relevantStopCodes = lineViewInfo.currentDirection == .outbound ? lineViewInfo.presentedService.outboundRoute?.stopCodes : lineViewInfo.presentedService.inboundRoute?.stopCodes
             if let codes = relevantStopCodes, codes.contains(stop.code) {
                 return true
             }

@@ -203,7 +203,7 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func serviceRoutes(for service: Service, completion: @escaping (Service?) -> ()) {
-        guard let requestURL = URL(string: "https://api.scltrans.it/v1/routes/\(service.name)/directions") else { return }
+        guard let requestURL = URL(string: "https://api.scltrans.it/v2/routes/\(service.name)/directions") else { return }
         let startTime = CACurrentMediaTime()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
@@ -226,13 +226,12 @@ class SCLTransit: NSObject, DataSource {
                     }
                     let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
                     
-                    var stopsData: [[String: Any]] = []
+                    var stopCodes: [String] = []
                     for data in stopTimesData {
-                        guard let stopData = data["stop"] as? [String: Any] else { continue }
-                        stopsData.append(stopData)
+                        guard let stopCode = data["stop_id"] as? String else { continue }
+                        stopCodes.append(stopCode)
                     }
-                    let stopsResult = self.processStops(from: stopsData)
-                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction)!, operationHours: [], headsign: headsign.replacingOccurrences(of: "(M)", with: "Metro"), polyline: polyline, stops: stopsResult.stops))
+                    routes.append(Service.Route(direction: Service.Route.Direction(rawValue: direction)!, operationHours: [], headsign: headsign.replacingOccurrences(of: "(M)", with: "Metro"), polyline: polyline, stops: nil, stopCodes: stopCodes))
                 }
                 newService = Service(name: service.name, color: service.color, routes: routes, stopInfo: nil)
             }
