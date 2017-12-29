@@ -157,7 +157,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         annotationView.canShowCallout = false
         annotationView.image = pinImage(forAnnotation: annotation, selected: false)
         if #available(iOS 11.0, *) {
-            annotationView.displayPriority = .defaultHigh
+            annotationView.displayPriority = .required
             annotationView.collisionMode = .circle
         }
         process(annotationView: annotationView, annotation: annotation)

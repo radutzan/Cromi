@@ -30,6 +30,7 @@
 		7C6645751FD351B6005EF2DF /* UIButton+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645741FD351B6005EF2DF /* UIButton+Actions.swift */; };
 		7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645761FD35C7B005EF2DF /* ServiceBar.swift */; };
 		7C6645791FD4B5F5005EF2DF /* SCLTransit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */; };
+		7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F77E1FF42C6500934BED /* BipCard.swift */; };
 		7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B96311EEA2F2600CAB04E /* Typography.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
 		7CCDF21D1FDF1A3C00E8C0BC /* BusAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */; };
@@ -76,6 +77,7 @@
 		7C6645741FD351B6005EF2DF /* UIButton+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Actions.swift"; sourceTree = "<group>"; };
 		7C6645761FD35C7B005EF2DF /* ServiceBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceBar.swift; sourceTree = "<group>"; };
 		7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLTransit.swift; sourceTree = "<group>"; };
+		7C77F77E1FF42C6500934BED /* BipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipCard.swift; sourceTree = "<group>"; };
 		7C7B96311EEA2F2600CAB04E /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusAnnotationView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				7CE946DA1DF9579200F3D29A /* Models.swift */,
+				7C77F77E1FF42C6500934BED /* BipCard.swift */,
 				7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */,
 				7C61D3591F97FC2300CE8483 /* Archived Sources */,
 			);
@@ -345,6 +348,7 @@
 				7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */,
 				7CE4B70F1F09D3260067E5CB /* FloatingButton.swift in Sources */,
 				7C6645671FD0AF53005EF2DF /* ButtonRow.swift in Sources */,
+				7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */,
 				7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */,
 				7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */,
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
