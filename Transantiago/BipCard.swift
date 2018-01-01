@@ -8,36 +8,93 @@
 
 import UIKit
 
-class BipCard: NSObject {
-    var id: Int
+class BipCard: NSObject, NSCoding {
+    
+    let id: Int
     var name: String
     var color: UIColor
-    var balance: Int = 0
+    private(set) var lastUpdated: Date
+    private(set) var balance: Int = 0
+    enum Kind {
+        case normal, student
+    }
+    var kind: Kind {
+        let stringID = String(id)
+        if stringID.count == 8 && (stringID.hasPrefix("8") || stringID.hasPrefix("7")) { return .student }
+        return .normal
+    }
     
-    init?(id: Int, name: String, color: UIColor) {
-        guard BipCard.isCardValid(id: id) else { return nil }
+    init(id: Int, name: String, color: UIColor) {
         self.id = id
         self.name = name
         self.color = color
+        self.lastUpdated = Date.distantPast
         super.init()
+        updateBalance()
     }
     
-    static func isCardValid(id: Int) -> Bool {
-        return false
+    // MARK: - Coding
+    required init?(coder decoder: NSCoder) {
+        guard let name = decoder.decodeObject(forKey: "name") as? String,
+            let color = decoder.decodeObject(forKey: "color") as? UIColor,
+            let lastUpdated = decoder.decodeObject(forKey: "lastUpdated") as? Date else { return nil }
+        self.id = decoder.decodeInteger(forKey: "id")
+        self.name = name
+        self.color = color
+        self.lastUpdated = lastUpdated
+        self.balance = decoder.decodeInteger(forKey: "balance")
+        super.init()
+        updateBalance()
     }
     
-    func updateBalance() {
-        guard let requestURL = URL(string: "http://www.metrosantiago.cl/contents/guia-viajero/includes/consultarTarjeta/6\(id)") else { return }
-        print("BipCard: Updating balance - \(requestURL.absoluteString)")
+    func encode(with coder: NSCoder) {
+        coder.encode(id, forKey: "id")
+        coder.encode(name, forKey: "name")
+        coder.encode(color, forKey: "color")
+        coder.encode(lastUpdated, forKey: "lastUpdated")
+        coder.encode(balance, forKey: "balance")
+    }
+    
+    // MARK: - Requests
+    static func requestURL(for id: Int) -> URL? {
+        return URL(string: "http://www.metrosantiago.cl/contents/guia-viajero/includes/consultarTarjeta/\(id)")
+    }
+    
+    static func isCardValid(id: Int, result: @escaping (Bool?, Error?) -> ()) {
+        guard let requestURL = BipCard.requestURL(for: id) else { result(nil, nil); return }
+        print("BipCard: Checking validity - \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
-            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
-                
+            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []), let rootData = jsonObject as? [[String: Any]] {
+                guard rootData.count > 0, let status = rootData[0]["estado"] as? Int, status == 0 else { result(false, nil); return }
+                result(true, nil)
             }
             if let error = error {
-                print("BipCard: Balance request failed with error: \(error)")
+                print("BipCard: Validity request failed with error: \(error)")
+                result(nil, error)
             }
         }
         task.resume()
     }
     
+    func updateBalance() {
+        guard let requestURL = BipCard.requestURL(for: id) else { return }
+        print("BipCard: Updating balance - \(requestURL.absoluteString)")
+        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
+            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []), let rootData = jsonObject as? [[String: Any]] {
+                guard rootData.count > 1, let status = rootData[0]["estado"] as? Int, status == 0 else { return }
+                let cardData = rootData[1]
+                guard let dateString = cardData["fecha"] as? String, let balanceString = cardData["saldo"] as? String, let balanceInt = Int(balanceString) else { return }
+                self.balance = balanceInt
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone(identifier: "America/Santiago")
+                formatter.dateFormat = "dd/MM/yyyy HH:mm"
+                self.lastUpdated = formatter.date(from: dateString) ?? Date.distantPast
+            }
+            if let error = error {
+                print("BipCard: Balance request failed with error: \(error)")
+            }
+            User.current.setNeedsSave()
+        }
+        task.resume()
+    }
 }
