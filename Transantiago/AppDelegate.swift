@@ -21,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         initSharedObjects()
         
+        if User.current.bipCards.count == 0 {
+            User.current.bipCards.append(BipCard(id: 80718965, name: "Antipase", color: .orange))
+        }
+        
         BipCard.isCardValid(id: 80718965) { (result, error) in
             print("bip result: \(result ?? false)")
             let card = BipCard(id: 80718965, name: "antipase", color: .yellow)

@@ -182,6 +182,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return MKOverlayRenderer()
     }
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        mapView.userLocation.title = nil
+    }
+    
     // MARK: - Pins
     private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
         return mapView.convert(annotation.coordinate, toPointTo: view).rounded()

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BipEntryView" customModule="Cromi" customModuleProvider="target">
+            <connections>
+                <outlet property="addButton" destination="T00-ik-isq" id="pxZ-eq-x08"/>
+                <outlet property="cancelButton" destination="FrX-MV-MVQ" id="Xxi-Re-l20"/>
+                <outlet property="colorSelectionArea" destination="Q4o-sY-MAR" id="11o-wV-Ch7"/>
+                <outlet property="entryView" destination="1yb-9o-QsS" id="PRz-7r-D85"/>
+                <outlet property="nameField" destination="CQs-0X-mJU" id="21Y-iB-Yoo"/>
+                <outlet property="numberField" destination="xDR-1o-eWq" id="iD7-dh-KtT"/>
+                <outlet property="titleLabel" destination="voF-uv-zzG" id="dy6-6y-pOl"/>
+                <outlet property="view" destination="iN0-l3-epB" id="QI8-Lf-AJy"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="351"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yb-9o-QsS">
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="282"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2g1-xD-9Xg">
+                            <rect key="frame" x="12" y="0.0" width="256" height="282"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agrega una tarjeta Bip!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voF-uv-zzG">
+                                    <rect key="frame" x="0.0" y="0.0" width="256" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="7HG-sZ-xfY"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Número de tarjeta" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xDR-1o-eWq">
+                                    <rect key="frame" x="0.0" y="58" width="256" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="Fpm-SI-vpE"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CQs-0X-mJU">
+                                    <rect key="frame" x="0.0" y="116" width="256" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="EID-Qt-tkb"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4o-sY-MAR">
+                                    <rect key="frame" x="0.0" y="174" width="256" height="50"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="d9s-7D-dMt"/>
+                                    </constraints>
+                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Zge-DB-yHp">
+                                    <rect key="frame" x="0.0" y="232" width="256" height="50"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrX-MV-MVQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="122" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="pco-lL-vWZ"/>
+                                            </constraints>
+                                            <state key="normal" title="Cancelar"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T00-ik-isq">
+                                            <rect key="frame" x="134" y="0.0" width="122" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="G2m-U3-zC6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                            <state key="normal" title="Agregar"/>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="2g1-xD-9Xg" secondAttribute="bottom" id="FWQ-Ga-cAO"/>
+                        <constraint firstItem="2g1-xD-9Xg" firstAttribute="leading" secondItem="1yb-9o-QsS" secondAttribute="leading" constant="12" id="Fj5-Kh-0ZP"/>
+                        <constraint firstAttribute="trailing" secondItem="2g1-xD-9Xg" secondAttribute="trailing" constant="12" id="Uyl-qb-r3G"/>
+                        <constraint firstItem="2g1-xD-9Xg" firstAttribute="top" secondItem="1yb-9o-QsS" secondAttribute="top" id="irI-Fj-Nq2"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="1yb-9o-QsS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="7N7-Ea-0mZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1yb-9o-QsS" secondAttribute="trailing" id="812-ha-jt9"/>
+                <constraint firstItem="1yb-9o-QsS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="P1t-EX-TP1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-15" y="212.5"/>
+        </view>
+    </objects>
+</document>

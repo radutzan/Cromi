@@ -8,7 +8,7 @@
 
 import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate, CromiModalDelegate {
     
     let locationServices = LocationServices()
     var mapController: MapViewController?
@@ -22,7 +22,8 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
+        buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button bip"), title: NSLocalizedString("Bip button", comment: ""), action: bipButtonTapped(button:)),
+                             Button(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
         locationServices.delegate = self
         
         serviceBar.delegate = self
@@ -84,10 +85,24 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         present(stgoAlert, animated: true, completion: nil)
     }
     
-    @IBAction func locationButtonTapped(button: UIButton) {
+    @objc private func locationButtonTapped(button: UIButton) {
         locationServices.updateLocation() {
             self.mapController?.centerMapAroundUserLocation(animated: true)
         }
+    }
+    
+    @objc private func bipButtonTapped(button: UIButton) {
+        let bipVC = BipViewController()
+        bipVC.delegate = self
+        bipVC.present(on: self)
+        buttonRow.dismiss()
+    }
+    
+    func modalWillDismiss() {
+        buttonRow.present()
+    }
+    
+    func modalDidDismiss() {
     }
     
     // MARK: - Map interaction

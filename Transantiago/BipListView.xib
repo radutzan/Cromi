@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BipListView" customModule="Cromi" customModuleProvider="target">
+            <connections>
+                <outlet property="infoLabel" destination="IPi-Kx-43p" id="EOZ-NJ-tSu"/>
+                <outlet property="listView" destination="7Rw-uu-UBM" id="N13-pb-M6B"/>
+                <outlet property="stackView" destination="ix9-HE-vJH" id="3of-bi-bUa"/>
+                <outlet property="view" destination="iN0-l3-epB" id="4Bl-za-Nhc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="315" height="258"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Rw-uu-UBM">
+                    <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ix9-HE-vJH">
+                            <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMy-sv-i6v" customClass="BipListInfoContainerView" customModule="Cromi" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Los datos de carga Bip! tienen al menos 24 horas de desfase. ¯\_(ツ)_/¯" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPi-Kx-43p">
+                                            <rect key="frame" x="12" y="0.0" width="291" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="IPi-Kx-43p" firstAttribute="leading" secondItem="UMy-sv-i6v" secondAttribute="leading" constant="12" id="82v-2a-x3D"/>
+                                        <constraint firstAttribute="trailing" secondItem="IPi-Kx-43p" secondAttribute="trailing" constant="12" id="AS4-g0-tQk"/>
+                                        <constraint firstAttribute="height" constant="44" id="CuQ-Og-sRo"/>
+                                        <constraint firstAttribute="bottom" secondItem="IPi-Kx-43p" secondAttribute="bottom" id="k1O-4N-LWi"/>
+                                        <constraint firstItem="IPi-Kx-43p" firstAttribute="top" secondItem="UMy-sv-i6v" secondAttribute="top" id="yIt-J5-zcc"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="ix9-HE-vJH" secondAttribute="bottom" id="810-Ml-cgd"/>
+                        <constraint firstAttribute="trailing" secondItem="ix9-HE-vJH" secondAttribute="trailing" id="Fzp-7h-3Zr"/>
+                        <constraint firstItem="ix9-HE-vJH" firstAttribute="top" secondItem="7Rw-uu-UBM" secondAttribute="top" id="tMx-Jp-BJ7"/>
+                        <constraint firstItem="ix9-HE-vJH" firstAttribute="leading" secondItem="7Rw-uu-UBM" secondAttribute="leading" id="uBi-SM-fF7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="7Rw-uu-UBM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Dtb-oy-nG4"/>
+                <constraint firstItem="7Rw-uu-UBM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="J2l-fX-7G6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="7Rw-uu-UBM" secondAttribute="trailing" id="spb-sJ-LaG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="3.5" y="-150"/>
+        </view>
+    </objects>
+</document>

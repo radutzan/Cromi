@@ -45,15 +45,23 @@ class ButtonRow: NibLoadingView {
         }
     }
     
-    private var isPresented = false
+    private let hiddenYOffset: CGFloat = 80
     func present() {
-        guard !isPresented else { return }
-        
+        for (index, button) in stackView.arrangedSubviews.enumerated() {
+            button.transform = CGAffineTransform(translationX: 0, y: hiddenYOffset)
+            UIView.animate(withDuration: 0.36, delay: 0.12 * Double(index), usingSpringWithDamping: 0.76, initialSpringVelocity: 1, options: [], animations: {
+                button.transform = CGAffineTransform.identity
+            }, completion: nil)
+        }
     }
     
     func dismiss(from: Int? = nil) {
-        guard isPresented else { return }
-        
+        for (index, button) in stackView.arrangedSubviews.enumerated() {
+            UIView.animate(withDuration: 0.42, delay: 0.12 * Double(index), usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
+                button.transform = CGAffineTransform(translationX: 0, y: self.hiddenYOffset)
+            }) { finished in
+            }
+        }
     }
     
     // Touch transparency

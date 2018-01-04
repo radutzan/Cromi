@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyBipView" customModule="Cromi" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="5l0-RJ-xEZ" id="NWi-zd-Kch"/>
+                <outlet property="view" destination="iN0-l3-epB" id="uSe-7E-hUQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="315" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5l0-RJ-xEZ">
+                    <rect key="frame" x="0.0" y="0.0" width="315" height="80"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137254901957" blue="1" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
+                    <state key="normal" title="Agrega una tarjeta Bip!" image="button add"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="5l0-RJ-xEZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="11F-RC-rkl"/>
+                <constraint firstItem="5l0-RJ-xEZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ShZ-bZ-z3G"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="5l0-RJ-xEZ" secondAttribute="bottom" id="jjp-mF-Ew4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5l0-RJ-xEZ" secondAttribute="trailing" id="juf-b5-mDE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="button add" width="24" height="24"/>
+    </resources>
+</document>
