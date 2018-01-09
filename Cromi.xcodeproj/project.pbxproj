@@ -19,6 +19,8 @@
 		7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */; };
 		7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */; };
 		7C35D6201FC9D6F300F01E2D /* ServiceBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */; };
+		7C58BC6A2005464600319092 /* CromiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C58BC692005464600319092 /* CromiViewController.swift */; };
+		7C58BC6C2005472100319092 /* CromiOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */; };
 		7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
 		7C5D180A1FE783D300E153FE /* InfoBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C5D18091FE783D300E153FE /* InfoBanner.xib */; };
 		7C5D180C1FE7864D00E153FE /* InfoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5D180B1FE7864D00E153FE /* InfoBanner.swift */; };
@@ -33,7 +35,7 @@
 		7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F77E1FF42C6500934BED /* BipCard.swift */; };
 		7C77F7811FFA754D00934BED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7801FFA754D00934BED /* User.swift */; };
 		7C77F7841FFA7EEA00934BED /* CromiModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */; };
-		7C77F7851FFA7EEA00934BED /* CromiModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7831FFA7EEA00934BED /* CromiModalViewController.xib */; };
+		7C77F7851FFA7EEA00934BED /* CromiOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */; };
 		7C77F7871FFDD86F00934BED /* BipCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7861FFDD86F00934BED /* BipCardView.xib */; };
 		7C77F7891FFDDA0000934BED /* BipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7881FFDDA0000934BED /* BipCardView.swift */; };
 		7C77F78B1FFDDA8100934BED /* BipEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F78A1FFDDA8100934BED /* BipEntryView.xib */; };
@@ -48,6 +50,7 @@
 		7CB781202004768D005A9464 /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7811F2004768D005A9464 /* Shadows.swift */; };
 		7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781232004896A005A9464 /* CromiDialogViewController.swift */; };
 		7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB781242004896A005A9464 /* CromiDialogViewController.xib */; };
+		7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781272005388B005A9464 /* ColorOptionPickerView.swift */; };
 		7CCDF21D1FDF1A3C00E8C0BC /* BusAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */; };
 		7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE273971F97E6940008A070 /* CromiDefines.swift */; };
 		7CE4B70F1F09D3260067E5CB /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE4B70E1F09D3260067E5CB /* FloatingButton.swift */; };
@@ -79,6 +82,8 @@
 		7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignTimetableView.swift; sourceTree = "<group>"; };
 		7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceBar.xib; sourceTree = "<group>"; };
+		7C58BC692005464600319092 /* CromiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiViewController.swift; sourceTree = "<group>"; };
+		7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiOverlayViewController.swift; sourceTree = "<group>"; };
 		7C58CC4D1EA05C3600259F11 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7C58CC511EA05C5500259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7C58CC531EA05C6700259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -95,7 +100,7 @@
 		7C77F77E1FF42C6500934BED /* BipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipCard.swift; sourceTree = "<group>"; };
 		7C77F7801FFA754D00934BED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiModalViewController.swift; sourceTree = "<group>"; };
-		7C77F7831FFA7EEA00934BED /* CromiModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiModalViewController.xib; sourceTree = "<group>"; };
+		7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiOverlayViewController.xib; sourceTree = "<group>"; };
 		7C77F7861FFDD86F00934BED /* BipCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BipCardView.xib; sourceTree = "<group>"; };
 		7C77F7881FFDDA0000934BED /* BipCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipCardView.swift; sourceTree = "<group>"; };
 		7C77F78A1FFDDA8100934BED /* BipEntryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BipEntryView.xib; sourceTree = "<group>"; };
@@ -110,6 +115,7 @@
 		7CB7811F2004768D005A9464 /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
 		7CB781232004896A005A9464 /* CromiDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDialogViewController.swift; sourceTree = "<group>"; };
 		7CB781242004896A005A9464 /* CromiDialogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiDialogViewController.xib; sourceTree = "<group>"; };
+		7CB781272005388B005A9464 /* ColorOptionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionPickerView.swift; sourceTree = "<group>"; };
 		7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusAnnotationView.swift; sourceTree = "<group>"; };
 		7CDE4EF01F990BFE0016E75F /* CFAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFAPI.swift; sourceTree = "<group>"; };
 		7CE273971F97E6940008A070 /* CromiDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDefines.swift; sourceTree = "<group>"; };
@@ -164,6 +170,18 @@
 			name = "Sign View";
 			sourceTree = "<group>";
 		};
+		7C58BC6D2005505A00319092 /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */,
+				7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */,
+				7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */,
+				7CB781232004896A005A9464 /* CromiDialogViewController.swift */,
+				7CB781242004896A005A9464 /* CromiDialogViewController.xib */,
+			);
+			name = Modals;
+			sourceTree = "<group>";
+		};
 		7C61D3591F97FC2300CE8483 /* Archived Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +207,7 @@
 				7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */,
 				7C5D180B1FE7864D00E153FE /* InfoBanner.swift */,
 				7C5D18091FE783D300E153FE /* InfoBanner.xib */,
+				7CB781272005388B005A9464 /* ColorOptionPickerView.swift */,
 				7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */,
 				7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */,
 			);
@@ -271,13 +290,11 @@
 				7CE273991F97EB5B0008A070 /* RaduKit Lite */,
 				7CE2739A1F97EB8D0008A070 /* Data */,
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
+				7C58BC692005464600319092 /* CromiViewController.swift */,
 				7C66456E1FD33453005EF2DF /* ViewController.swift */,
 				7C66456C1FD33392005EF2DF /* LocationServices.swift */,
 				7C6645681FD33175005EF2DF /* MapViewController.swift */,
-				7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */,
-				7C77F7831FFA7EEA00934BED /* CromiModalViewController.xib */,
-				7CB781232004896A005A9464 /* CromiDialogViewController.swift */,
-				7CB781242004896A005A9464 /* CromiDialogViewController.xib */,
+				7C58BC6D2005505A00319092 /* Modals */,
 				7C6645701FD33E4C005EF2DF /* Views */,
 				7C28C6041E9B32FD0012BD19 /* Sign View */,
 				7C77F78E1FFDE05000934BED /* Bip Views */,
@@ -368,7 +385,7 @@
 				7C77F7941FFDE42600934BED /* EmptyBipView.xib in Resources */,
 				7C28C6011E9B26E00012BD19 /* SignHeaderView.xib in Resources */,
 				7C77F78B1FFDDA8100934BED /* BipEntryView.xib in Resources */,
-				7C77F7851FFA7EEA00934BED /* CromiModalViewController.xib in Resources */,
+				7C77F7851FFA7EEA00934BED /* CromiOverlayViewController.xib in Resources */,
 				7C28C6121E9B38EF0012BD19 /* SignHoursRowView.xib in Resources */,
 				7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */,
 				7C28C6101E9B38570012BD19 /* SignServiceRowView.xib in Resources */,
@@ -410,6 +427,7 @@
 				7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */,
 				7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */,
 				7C77F7811FFA754D00934BED /* User.swift in Sources */,
+				7C58BC6C2005472100319092 /* CromiOverlayViewController.swift in Sources */,
 				7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */,
 				7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */,
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
@@ -421,8 +439,10 @@
 				7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */,
 				7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */,
 				7C77F7921FFDE2D000934BED /* BipListView.swift in Sources */,
+				7C58BC6A2005464600319092 /* CromiViewController.swift in Sources */,
 				7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */,
 				7CE53B061FD5F69C00D8DC85 /* StopAnnotationView.swift in Sources */,
+				7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */,
 				7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */,
 				7CB781202004768D005A9464 /* Shadows.swift in Sources */,
 				7C77F7841FFA7EEA00934BED /* CromiModalViewController.swift in Sources */,

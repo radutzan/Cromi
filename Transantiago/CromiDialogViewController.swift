@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CromiDialogViewController: UIViewController {
+class CromiDialogViewController: CromiModalViewController {
 
     @IBOutlet private var backgroundBlur: UIVisualEffectView!
     @IBOutlet private var containerView: UIView!
@@ -29,7 +29,6 @@ class CromiDialogViewController: UIViewController {
             self.updateForKeyboard(with: userInfo)
         }
         
-        view.frame = UIScreen.main.bounds
         containerView.apply(shadow: Shadow.floatingHigh)
     }
     
@@ -37,12 +36,15 @@ class CromiDialogViewController: UIViewController {
         contentView?.frame = containerView.bounds
     }
     
-    func present(on parentVC: UIViewController) {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func present(on parentVC: UIViewController) {
         guard let contentView = contentView else { return }
+        super.present(on: parentVC)
         
         backgroundBlur.effect = nil
-        parentVC.addChildViewController(self)
-        parentVC.view.addSubview(view)
         
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 12
@@ -55,26 +57,34 @@ class CromiDialogViewController: UIViewController {
         
         containerView.transform = CGAffineTransform(rotationAngle: -1).concatenating(CGAffineTransform(translationX: view.bounds.width, y: -view.bounds.height / 2))
         UIView.animate(withDuration: 0.64, delay: 0, usingSpringWithDamping: 0.86, initialSpringVelocity: 1, options: [], animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
             self.backgroundBlur.effect = UIBlurEffect(style: .dark)
             self.containerView.transform = CGAffineTransform.identity
-        }, completion: nil)
+        }) { finished in
+            self.presentationCompletionActions(self)
+        }
     }
     
     enum InteractionResult {
         case success, cancelled
     }
     
+    override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+        dismiss(with: .cancelled)
+    }
+    
     func dismiss(with result: InteractionResult) {
+        delegate?.modalWillDismiss(modal: self)
         let targetTransform = result == .cancelled ? CGAffineTransform(rotationAngle: 1).concatenating(CGAffineTransform(translationX: 128, y: view.bounds.height)) : CGAffineTransform(rotationAngle: -0.5).concatenating(CGAffineTransform(translationX: 128, y: -view.bounds.height))
         
         UIView.animate(withDuration: 0.58, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 0, options: [], animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
             self.backgroundBlur.effect = nil
             self.containerView.transform = targetTransform
         }) { finished in
             self.contentView?.removeFromSuperview()
             self.contentView = nil
-            self.removeFromParentViewController()
-            self.view.removeFromSuperview()
+            self.dismissalCompletionActions(self)
         }
     }
     

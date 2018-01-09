@@ -12,9 +12,9 @@
 "Location button" = "Current Location";
 "Bip button" = "Your Bip Card";
 "Search button" = "Search";
-"Add" = "Agregar";
-"Done" = "Listo";
-"Cancel" = "Cancelar";
+"Add" = "Add";
+"Done" = "Done";
+"Cancel" = "Cancel";
 
 // Bip Cards
 "Add Card Title" = "Add a Bip Card";

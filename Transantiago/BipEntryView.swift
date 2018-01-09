@@ -17,6 +17,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
     @IBOutlet private var colorSelectionArea: UIView!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var addButton: UIButton!
+    private var colorOptionPicker: ColorOptionPickerView!
     var addAction: ((Int, String, UIColor) -> ())?
     var cancelAction: (() -> ())?
     
@@ -55,8 +56,26 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                 return
             }
-            self.addAction?(number, title, .blue)
+            self.addAction?(number, title, self.colorOptionPicker.selectedOption.color)
         }
+        
+        let colorOptions = [ColorOption(localizedName: "Rojo", color: UIColor(hexString: "FF3B30")),
+                            ColorOption(localizedName: "Naranjo", color: UIColor(hexString: "FF7300")),
+                            ColorOption(localizedName: "Verde", color: UIColor(hexString: "4CD964")),
+                            ColorOption(localizedName: "Celeste", color: UIColor(hexString: "5AC8FA")),
+                            ColorOption(localizedName: "Azul", color: UIColor(hexString: "007AFF")),
+                            ColorOption(localizedName: "Morado", color: UIColor(hexString: "5B54E8")),
+                            ColorOption(localizedName: "Frutilla", color: UIColor(hexString: "FF2D55"))]
+        colorOptionPicker = ColorOptionPickerView(options: colorOptions)
+        colorOptionPicker.selectedIndex = 4
+        colorOptionPicker.optionSpacing = 6
+        colorOptionPicker.frame = colorSelectionArea.bounds
+        colorOptionPicker.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        colorSelectionArea.addSubview(colorOptionPicker)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

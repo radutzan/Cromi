@@ -36,7 +36,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-n0-9uZ" customClass="ButtonRow" customModule="Cromi" customModuleProvider="target">
-                                <rect key="frame" x="16" y="607" width="343" height="44"/>
+                                <rect key="frame" x="24" y="607" width="327" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="YwY-La-rIm"/>
                                 </constraints>
@@ -56,9 +56,9 @@
                             <constraint firstAttribute="bottom" secondItem="iYa-eU-mhC" secondAttribute="bottom" id="7Eo-VV-oNy"/>
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="91Z-qE-qpi"/>
                             <constraint firstItem="iYa-eU-mhC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9JO-p9-0Nr"/>
-                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CI5-Xy-3hj"/>
+                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="CI5-Xy-3hj"/>
                             <constraint firstItem="tdM-eU-o5j" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="6" id="JBC-JF-QLV"/>
-                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="TpI-l9-v2c"/>
+                            <constraint firstItem="3w9-n0-9uZ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-8" id="TpI-l9-v2c"/>
                             <constraint firstItem="3w9-n0-9uZ" firstAttribute="top" secondItem="uDY-Ma-pdu" secondAttribute="bottom" constant="16" id="co3-MI-bO1"/>
                             <constraint firstItem="tdM-eU-o5j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="375" id="evK-hl-eAc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3w9-n0-9uZ" secondAttribute="bottom" constant="16" id="lhq-u5-b4P"/>

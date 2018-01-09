@@ -9,101 +9,44 @@
 import UIKit
 
 protocol CromiModalDelegate: AnyObject {
-    func modalWillDismiss()
-    func modalDidDismiss()
+    func modalWillPresent(modal: CromiModalViewController)
+    func modalDidPresent(modal: CromiModalViewController)
+    func modalWillDismiss(modal: CromiModalViewController)
+    func modalDidDismiss(modal: CromiModalViewController)
 }
 
-class CromiModalViewController: UIViewController {
+class CromiModalViewController: CromiViewController {
     
     weak var delegate: CromiModalDelegate?
-
-    @IBOutlet private var backgroundBlur: UIVisualEffectView!
-    @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet var buttonRow: ButtonRow!
-    var doneButtonItem: ButtonItem {
-        return ButtonItem(image: #imageLiteral(resourceName: "button done"), title: NSLocalizedString("Done", comment: ""), action: { _ in
-            self.close()
-        })
+    let presentationActions: (CromiModalViewController) -> () = { weakSelf in
+        weakSelf.setNeedsStatusBarAppearanceUpdate()
     }
-    var contentView = UIView() {
-        didSet {
-            for view in scrollView.subviews {
-                view.removeFromSuperview()
-            }
-            scrollView.addSubview(contentView)
-        }
+    let presentationCompletionActions: (CromiModalViewController) -> () = { weakSelf in
+        weakSelf.delegate?.modalDidPresent(modal: weakSelf)
     }
-    
-    init() {
-        super.init(nibName: "CromiModalViewController", bundle: nil)
-        view.alpha = 1
+    let dismissalActions: (CromiModalViewController) -> () = { weakSelf in
+        weakSelf.setNeedsStatusBarAppearanceUpdate()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    let dismissalCompletionActions: (CromiModalViewController) -> () = { weakSelf in
+        weakSelf.delegate?.modalDidDismiss(modal: weakSelf)
+        weakSelf.removeFromParentViewController()
+        weakSelf.view.removeFromSuperview()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.frame = UIScreen.main.bounds
-        backgroundBlur.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(close)))
-        scrollView.clipsToBounds = false
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        contentView.frame.size.width = scrollView.bounds.width
-        contentView.frame.size.height = contentView.intrinsicContentSize.height
-        scrollView.contentInset.top = scrollView.bounds.height > contentView.intrinsicContentSize.height ? scrollView.bounds.height - contentView.intrinsicContentSize.height : 0
     }
     
     // MARK: - Presentation
-    private var hiddenScrollViewYOffset: CGFloat {
-        var bottomMargin: CGFloat = 0
-        if #available(iOS 11.0, *) {
-            bottomMargin = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-        }
-        return min(contentView.intrinsicContentSize.height, scrollView.bounds.height) + 80 + bottomMargin
-    }
-    
     func present(on parentVC: UIViewController) {
-        backgroundBlur.effect = nil
+        delegate?.modalWillPresent(modal: self)
         parentVC.addChildViewController(self)
         parentVC.view.addSubview(view)
-        
-//        view.heightAnchor.constraint(equalTo: parentVC.view.heightAnchor, multiplier: 1).isActive = true
-//        view.widthAnchor.constraint(equalTo: parentVC.view.widthAnchor, multiplier: 1).isActive = true
-//        view.setNeedsLayout()
-//        view.layoutIfNeeded()
-        
-        scrollView.transform = CGAffineTransform(translationX: 0, y: hiddenScrollViewYOffset)
-        UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1, options: [], animations: {
-            self.backgroundBlur.effect = UIBlurEffect(style: .light)
-            self.scrollView.transform = CGAffineTransform.identity
-        }, completion: nil)
-        buttonRow.present()
-    }
-    
-    @objc private func close() {
-        dismiss(animated: true, completion: nil)
     }
     
     @objc override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        delegate?.modalWillDismiss()
-        buttonRow.dismiss()
-        
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
-            self.backgroundBlur.effect = nil
-            self.scrollView.transform = CGAffineTransform(translationX: 0, y: self.hiddenScrollViewYOffset)
-        }) { finished in
-            self.delegate?.modalDidDismiss()
-            self.scrollView.transform = CGAffineTransform.identity
-//            for constraint in self.view.constraints {
-//                self.view.removeConstraint(constraint)
-//            }
-            self.removeFromParentViewController()
-            self.view.removeFromSuperview()
-        }
+        delegate?.modalWillDismiss(modal: self)
     }
 
 }

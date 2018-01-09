@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CromiModalViewController" customModule="Cromi" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CromiOverlayViewController" customModule="Cromi" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundBlur" destination="r1c-kJ-7TR" id="aHz-e6-I51"/>
                 <outlet property="buttonRow" destination="tdT-vH-ygI" id="m0b-a3-FTV"/>

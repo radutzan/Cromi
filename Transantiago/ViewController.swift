@@ -8,7 +8,7 @@
 
 import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate, CromiModalDelegate {
+class ViewController: CromiViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate {
     
     let locationServices = LocationServices()
     var mapController: MapViewController?
@@ -98,11 +98,10 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
         buttonRow.dismiss()
     }
     
-    func modalWillDismiss() {
+    // MARK: - Modals
+    override func modalWillDismiss(modal: CromiModalViewController) {
+        super.modalWillDismiss(modal: modal)
         buttonRow.present()
-    }
-    
-    func modalDidDismiss() {
     }
     
     // MARK: - Map interaction

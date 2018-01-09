@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BipViewController: CromiModalViewController {
+class BipViewController: CromiOverlayViewController {
     
     private let listView = BipListView()
     private var cards: [BipCard] {
@@ -48,14 +48,15 @@ class BipViewController: CromiModalViewController {
             emptyView.button.tapAction = presentEntryView(from:)
             listView.views = [emptyView]
         }
-        listView.infoLabel.text = NSLocalizedString("Bip Info Label Text", comment: "")
+        listView.infoLabel.text = cards.count > 0 ? NSLocalizedString("Bip Info Label Text", comment: "") : ""
     }
     
     private func presentEntryView(from button: UIButton) {
         let entryView = BipEntryView()
         let dialogController = CromiDialogViewController(dialogView: entryView)
+        dialogController.delegate = self
         dialogController.present(on: self)
-        entryView.becomeFirstResponder()
+        _ = entryView.becomeFirstResponder()
         
         entryView.cancelAction = {
             dialogController.dismiss(with: .cancelled)
@@ -69,7 +70,7 @@ class BipViewController: CromiModalViewController {
     private func lastUpdatedString(from date: Date) -> String {
         let hoursAgo = round((Date().timeIntervalSince(date) / 60) / 60)
         if hoursAgo <= 24 {
-            return "hace \(hoursAgo) horas"
+            return "hace \(Int(hoursAgo)) horas"
         } else {
             let formatter = DateFormatter()
             formatter.dateStyle = .short
