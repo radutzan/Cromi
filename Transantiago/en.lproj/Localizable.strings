@@ -12,20 +12,16 @@
 "Location button" = "Current Location";
 "Bip button" = "Your Bip Card";
 "Search button" = "Search";
+"Add" = "Agregar";
+"Done" = "Listo";
+"Cancel" = "Cancelar";
 
-// Not in Santiago
-"Not in Santiago alert title" = "You're Not In Santiago";
-"Not in Santiago alert message" = "Cromi only works in Santiago de Chile.";
-"Not in Santiago alert confirmation" = "Fly Me There";
-
-// Info Banner
-"Info Banner title" = "Trust The Stop Estimations";
-"Info Banner message" = "Bus positions on the map are at least 2 minutes old.";
-
-// Feature Spotlight
-"Feature Spotlight alert title" = "New: Live Buses";
-"Feature Spotlight alert message" = "When viewing a service route, the map will now also show the buses currently in circulation.\n\nBear in mind that the bus locations are at least 2 minutes old. The distance reported in the stop sign is more accurate.";
-"Feature Spotlight alert confirmation" = "Cool";
+// Bip Cards
+"Add Card Title" = "Add a Bip Card";
+"Card Number Placeholder" = "Card Number";
+"Card Name Placeholder" = "Name Your Card";
+"Student Card" = "Student Pass";
+"Bip Info Label Text" = "Bip card balance data is at least 24 hours old. Use with caution.";
 
 // Search
 "Search box placeholder" = "Place or address";
@@ -49,3 +45,17 @@
 "Email Transantiago" = "Email Transantiago";
 "Follow Cromi" = "Follow @cromi_app";
 "Done" = "Done";
+
+// Not in Santiago
+"Not in Santiago alert title" = "You're Not In Santiago";
+"Not in Santiago alert message" = "Cromi only works in Santiago de Chile.";
+"Not in Santiago alert confirmation" = "Fly Me There";
+
+// Info Banner
+"Info Banner title" = "Trust The Stop Estimations";
+"Info Banner message" = "Bus positions on the map are at least 2 minutes old.";
+
+// Feature Spotlight
+"Feature Spotlight alert title" = "New: Live Buses";
+"Feature Spotlight alert message" = "When viewing a service route, the map will now also show the buses currently in circulation.\n\nBear in mind that the bus locations are at least 2 minutes old. The distance reported in the stop sign is more accurate.";
+"Feature Spotlight alert confirmation" = "Cool";

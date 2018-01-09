@@ -8,8 +8,17 @@
 
 import UIKit
 
-struct Constants {
+struct CornerRadius {
+    let container: CGFloat = 8
+    let bar: CGFloat = 12
+}
+
+extension Shadow {
+    static let floatingHigh = Shadow(radius: 11, offsetHeight: 17, opacity: 0.2)
+    static let floatingMed = Shadow(radius: 9, offsetHeight: 14.5, opacity: 0.2)
+    static let floatingLow = Shadow(radius: 5.5, offsetHeight: 6, opacity: 0.2)
     
+    static let restingHigh = Shadow(radius: 3, offsetHeight: 3, opacity: 0.12)
 }
 
 extension TypeStyle {

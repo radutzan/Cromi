@@ -11,7 +11,7 @@ import UIKit
 class BipListView: NibLoadingView {
 
     @IBOutlet private var listView: UIView!
-    @IBOutlet private var infoLabel: UILabel!
+    @IBOutlet var infoLabel: UILabel!
     @IBOutlet private var stackView: UIStackView!
     var views: [UIView] = [] {
         didSet {
@@ -19,6 +19,7 @@ class BipListView: NibLoadingView {
             for view in views {
                 stackView.addArrangedSubview(view)
                 view.heightAnchor.constraint(equalToConstant: 80).isActive = true
+                view.apply(shadow: Shadow.floatingHigh)
             }
             stackView.layoutIfNeeded()
         }

@@ -50,9 +50,7 @@ class BusAnnotationView: MKAnnotationView {
         serviceLabel.layer.backgroundColor = UIColor.white.cgColor
         serviceLabel.layer.cornerRadius = 8
         serviceLabel.layer.shadowPath = UIBezierPath(roundedRect: serviceLabel.bounds, cornerRadius: serviceLabel.layer.cornerRadius).cgPath
-        serviceLabel.layer.shadowOffset = CGSize(width: 0, height: 3)
-        serviceLabel.layer.shadowRadius = 3
-        serviceLabel.layer.shadowOpacity = 0.12
+        serviceLabel.apply(shadow: Shadow.restingHigh)
         serviceLabel.layer.borderWidth = 2
         addSubview(serviceLabel)
         

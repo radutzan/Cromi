@@ -33,9 +33,7 @@ class InfoBanner: NibLoadingView {
     @IBOutlet private var doneButton: UIButton!
     
     override func didLoadNibView() {
-        layer.shadowOffset = CGSize(width: 0, height: 6)
-        layer.shadowRadius = 5.5
-        layer.shadowOpacity = 0.2
+        apply(shadow: Shadow.floatingLow)
         doneButton.tapAction = { button in
             self.delegate?.infoBannerRequestedDismissal()
         }

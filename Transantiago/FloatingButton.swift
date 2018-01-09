@@ -23,9 +23,7 @@ class FloatingButton: UIButton {
         layer.backgroundColor = UIColor.white.cgColor
         layer.cornerRadius = size / 2
         layer.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size, height: size), cornerRadius: layer.cornerRadius).cgPath
-        layer.shadowOffset = CGSize(width: 0, height: 17)
-        layer.shadowRadius = 11
-        layer.shadowOpacity = 0.2
+        apply(shadow: Shadow.floatingHigh)
         didSetUpButton = true
     }
 

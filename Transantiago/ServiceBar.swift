@@ -45,9 +45,7 @@ class ServiceBar: NibLoadingView {
         backgroundColor = .clear
         layer.backgroundColor = UIColor.white.cgColor
         layer.cornerRadius = 12
-        layer.shadowOffset = CGSize(width: 0, height: 17)
-        layer.shadowRadius = 11
-        layer.shadowOpacity = 0.2
+        apply(shadow: Shadow.floatingHigh)
         
         directionButton1.titleLabel?.numberOfLines = 2
         directionButton2.titleLabel?.numberOfLines = 2

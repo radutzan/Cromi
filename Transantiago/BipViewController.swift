@@ -32,7 +32,7 @@ class BipViewController: CromiModalViewController {
             for card in cards {
                 let view = BipCardView()
                 view.nameLabel.text = card.name
-                view.metadataLabel.text = "\(card.id) \(card.kind == .student ? NSLocalizedString("Student Card", comment: "") : "")"
+                view.metadataLabel.text = "\(card.id) \(card.kind == .student ? "• \(NSLocalizedString("Student Card", comment: ""))" : "")"
                 view.balanceLabel.text = formatter.string(from: card.balance as NSNumber) ?? "Error"
                 view.updatedDateLabel.text = lastUpdatedString(from: card.lastUpdated)
                 view.color = card.color
@@ -44,6 +44,7 @@ class BipViewController: CromiModalViewController {
             emptyView.button.tapAction = presentEntryView(from:)
             listView.views = [emptyView]
         }
+        listView.infoLabel.text = NSLocalizedString("Bip Info Label Text", comment: "")
     }
     
     private func presentEntryView(from button: UIButton) {
@@ -51,7 +52,7 @@ class BipViewController: CromiModalViewController {
     }
     
     private func lastUpdatedString(from date: Date) -> String {
-        let hoursAgo = round((date.timeIntervalSinceNow / 60) / 60)
+        let hoursAgo = round((Date().timeIntervalSince(date) / 60) / 60)
         if hoursAgo <= 24 {
             return "hace \(hoursAgo) horas"
         } else {

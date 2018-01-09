@@ -64,12 +64,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     override func didLoadNibView() {
         alpha = 0
 //        isUserInteractionEnabled = false
-        layer.shadowColor = UIColor.black.cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 17)
-//        layer.shadowRadius = 11
-        layer.shadowOffset = CGSize(width: 0, height: 14.5)
-        layer.shadowRadius = 9
-        layer.shadowOpacity = 0.2
+        apply(shadow: Shadow.floatingMed)
         signView.layer.cornerRadius = SignConstants.cornerRadius
         signView.layer.masksToBounds = true
         signView.mask = maskerView

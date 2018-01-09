@@ -45,11 +45,18 @@ class ButtonRow: NibLoadingView {
         }
     }
     
-    private let hiddenYOffset: CGFloat = 80
+    private var hiddenYOffset: CGFloat {
+        var bottomMargin: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            bottomMargin = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        }
+        return 80 + bottomMargin
+    }
+    
     func present() {
         for (index, button) in stackView.arrangedSubviews.enumerated() {
             button.transform = CGAffineTransform(translationX: 0, y: hiddenYOffset)
-            UIView.animate(withDuration: 0.36, delay: 0.12 * Double(index), usingSpringWithDamping: 0.76, initialSpringVelocity: 1, options: [], animations: {
+            UIView.animate(withDuration: 0.42, delay: 0.06 * Double(index + 1), usingSpringWithDamping: 0.76, initialSpringVelocity: 1, options: [], animations: {
                 button.transform = CGAffineTransform.identity
             }, completion: nil)
         }
@@ -57,7 +64,7 @@ class ButtonRow: NibLoadingView {
     
     func dismiss(from: Int? = nil) {
         for (index, button) in stackView.arrangedSubviews.enumerated() {
-            UIView.animate(withDuration: 0.42, delay: 0.12 * Double(index), usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
+            UIView.animate(withDuration: 0.52, delay: 0.08 * Double(index), usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
                 button.transform = CGAffineTransform(translationX: 0, y: self.hiddenYOffset)
             }) { finished in
             }

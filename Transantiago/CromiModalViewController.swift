@@ -40,7 +40,9 @@ class CromiModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.frame = UIScreen.main.bounds
         backgroundBlur.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
+        scrollView.clipsToBounds = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -52,7 +54,11 @@ class CromiModalViewController: UIViewController {
     
     // MARK: - Presentation
     private var hiddenScrollViewYOffset: CGFloat {
-        return min(contentView.intrinsicContentSize.height, scrollView.bounds.height) + 80
+        var bottomMargin: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            bottomMargin = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        }
+        return min(contentView.intrinsicContentSize.height, scrollView.bounds.height) + 80 + bottomMargin
     }
     
     func present(on parentVC: UIViewController) {
@@ -60,8 +66,13 @@ class CromiModalViewController: UIViewController {
         parentVC.addChildViewController(self)
         parentVC.view.addSubview(view)
         
+//        view.heightAnchor.constraint(equalTo: parentVC.view.heightAnchor, multiplier: 1).isActive = true
+//        view.widthAnchor.constraint(equalTo: parentVC.view.widthAnchor, multiplier: 1).isActive = true
+//        view.setNeedsLayout()
+//        view.layoutIfNeeded()
+        
         scrollView.transform = CGAffineTransform(translationX: 0, y: hiddenScrollViewYOffset)
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1, options: [], animations: {
             self.backgroundBlur.effect = UIBlurEffect(style: .light)
             self.scrollView.transform = CGAffineTransform.identity
         }, completion: nil)
@@ -77,9 +88,12 @@ class CromiModalViewController: UIViewController {
             self.scrollView.transform = CGAffineTransform(translationX: 0, y: self.hiddenScrollViewYOffset)
         }) { finished in
             self.delegate?.modalDidDismiss()
+            self.scrollView.transform = CGAffineTransform.identity
+//            for constraint in self.view.constraints {
+//                self.view.removeConstraint(constraint)
+//            }
             self.removeFromParentViewController()
             self.view.removeFromSuperview()
-            self.scrollView.transform = CGAffineTransform.identity
         }
     }
 

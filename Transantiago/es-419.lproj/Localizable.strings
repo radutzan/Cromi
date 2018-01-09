@@ -12,20 +12,16 @@
 "Location button" = "Ubicación actual";
 "Bip button" = "Tu tarjeta Bip";
 "Search button" = "Buscar";
+"Add" = "Agregar";
+"Done" = "Listo";
+"Cancel" = "Cancelar";
 
-// Not in Santiago
-"Not in Santiago alert title" = "No estás en Santiago";
-"Not in Santiago alert message" = "Cromi sólo funciona en Santiago de Chile.";
-"Not in Santiago alert confirmation" = "Volemos allá";
-
-// Info Banner
-"Info Banner title" = "Créele al paradero";
-"Info Banner message" = "La posición de los buses en el mapa tiene al menos 2 minutos de retraso.";
-
-// Feature Spotlight
-"Feature Spotlight alert title" = "Nuevo: Buses en el mapa";
-"Feature Spotlight alert message" = "Ahora, cuando veas el recorrido de un servicio, también podrás ver los buses que estén en circulación.\n\nOjo: La ubicación de los buses tiene alrededor de 2 minutos de retraso. La distancia del cartel es más confiable.";
-"Feature Spotlight alert confirmation" = "Buena";
+// Bip Cards
+"Add Card Title" = "Agrega una tarjeta Bip";
+"Card Number Placeholder" = "Número de tarjeta";
+"Card Name Placeholder" = "Ponle un nombre";
+"Student Card" = "Pase Escolar";
+"Bip Info Label Text" = "Ojo: Los datos de carga Bip! tienen al menos 24 horas de desfase.";
 
 // Search
 "Search box placeholder" = "Lugar o dirección";
@@ -49,3 +45,17 @@
 "Email Transantiago" = "Enviar correo a Transantiago";
 "Follow Cromi" = "Sigue a @cromi_app";
 "Done" = "Cerrar";
+
+// Not in Santiago
+"Not in Santiago alert title" = "No estás en Santiago";
+"Not in Santiago alert message" = "Cromi sólo funciona en Santiago de Chile.";
+"Not in Santiago alert confirmation" = "Volemos allá";
+
+// Info Banner
+"Info Banner title" = "Créele al paradero";
+"Info Banner message" = "La posición de los buses en el mapa tiene al menos 2 minutos de retraso.";
+
+// Feature Spotlight
+"Feature Spotlight alert title" = "Nuevo: Buses en el mapa";
+"Feature Spotlight alert message" = "Ahora, cuando veas el recorrido de un servicio, también podrás ver los buses que estén en circulación.\n\nOjo: La ubicación de los buses tiene alrededor de 2 minutos de retraso. La distancia del cartel es más confiable.";
+"Feature Spotlight alert confirmation" = "Buena";

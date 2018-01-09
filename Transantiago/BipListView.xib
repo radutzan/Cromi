@@ -32,7 +32,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMy-sv-i6v" customClass="BipListInfoContainerView" customModule="Cromi" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Los datos de carga Bip! tienen al menos 24 horas de desfase. ¯\_(ツ)_/¯" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPi-Kx-43p">
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.41999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Los datos de carga Bip! tienen al menos 24 horas de desfase." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPi-Kx-43p">
                                             <rect key="frame" x="12" y="0.0" width="291" height="44"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                             <nil key="textColor"/>

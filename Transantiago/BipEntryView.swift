@@ -21,5 +21,13 @@ class BipEntryView: NibLoadingView {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 280, height: entryView.bounds.height)
     }
+    
+    override func didLoadNibView() {
+        titleLabel.text = NSLocalizedString("Add Card Title", comment: "")
+        numberField.placeholder = NSLocalizedString("Card Number Placeholder", comment: "")
+        nameField.placeholder = NSLocalizedString("Card Name Placeholder", comment: "")
+        cancelButton.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
+        addButton.setTitle(NSLocalizedString("Add", comment: ""), for: .normal)
+    }
 
 }
