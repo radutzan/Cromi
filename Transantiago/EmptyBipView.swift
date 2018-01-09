@@ -11,5 +11,9 @@ import UIKit
 class EmptyBipView: NibLoadingView {
 
     @IBOutlet var button: UIButton!
+    
+    override func didLoadNibView() {
+        button.setTitle(NSLocalizedString("Add Card Title", comment: ""), for: .normal)
+    }
 
 }

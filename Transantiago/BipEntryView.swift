@@ -49,8 +49,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
             guard let numberText = self.numberField.text, let number = Int(numberText) else { return }
             guard let title = self.nameField.text else {
                 print("BipEntryView: Attempted to complete without name")
-                let alert = UIAlertController(title: "NO NAME TITLE", message: "NO NAME MESSAGE", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OKAY", style: .default, handler: { _ in
+                let alert = UIAlertController(title: NSLocalizedString("No Bip Name Alert Title", comment: ""), message: NSLocalizedString("No Bip Name Alert Message", comment: ""), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     self.nameField.becomeFirstResponder()
                 }))
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -101,8 +101,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
                 if let result = result {
                     if !result {
                         print("BipEntryView: Card is invalid")
-                        let alert = UIAlertController(title: "INVALID CARD TITLE", message: "INVALID CARD MESSAGE", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "RETRY", style: .default, handler: { _ in
+                        let alert = UIAlertController(title: NSLocalizedString("Invalid Bip Card Alert Title", comment: ""), message: NSLocalizedString("Invalid Bip Card Alert Message", comment: ""), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .default, handler: { _ in
                             self.numberField.becomeFirstResponder()
                         }))
                         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -111,7 +111,10 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
                     }
                 } else {
                     print("BipEntryView: Card validity check error")
-                    // error
+                    let alert = UIAlertController(title: NSLocalizedString("Bip Validity Check Error Alert Title", comment: ""), message: NSLocalizedString("Bip Validity Check Error Alert Message", comment: ""), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    }))
+                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                 }
             }
         }

@@ -48,7 +48,7 @@ class ViewController: CromiViewController, MKMapViewDelegate, LocationServicesDe
     }
     
     private func presentFeatureSpotlightIfNeeded() {
-        let spotlightKey = "Live Buses Spotlight"//"Line View Spotlight"
+        let spotlightKey = "Bip Cards Spotlight"//"Live Buses Spotlight"//"Line View Spotlight"
         guard !UserDefaults.standard.bool(forKey: spotlightKey) else { return }
         
         let spotlightAlert = UIAlertController(title: NSLocalizedString("Feature Spotlight alert title", comment: ""), message: NSLocalizedString("Feature Spotlight alert message", comment: ""), preferredStyle: .alert)

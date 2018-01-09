@@ -15,6 +15,8 @@
 "Add" = "Add";
 "Done" = "Done";
 "Cancel" = "Cancel";
+"OK" = "OK";
+"Retry" = "Try Again";
 
 // Bip Cards
 "Add Card Title" = "Add a Bip Card";
@@ -22,6 +24,12 @@
 "Card Name Placeholder" = "Name Your Card";
 "Student Card" = "Student Pass";
 "Bip Info Label Text" = "Bip card balance data is at least 24 hours old. Use with caution.";
+"No Bip Name Alert Title" = "You Didn't Add a Name";
+"No Bip Name Alert Message" = "Your card needs a name to be saved.";
+"Invalid Bip Card Alert Title" = "Invalid Card Number";
+"Invalid Bip Card Alert Message" = "Check if you entered it correctly.";
+"Bip Validity Check Error Alert Title" = "Couldn't Check Card Number Validity";
+"Bip Validity Check Error Alert Message" = "There might be an issue with your internet connection. Try again later.";
 
 // Search
 "Search box placeholder" = "Place or address";
@@ -56,6 +64,6 @@
 "Info Banner message" = "Bus positions on the map are at least 2 minutes old.";
 
 // Feature Spotlight
-"Feature Spotlight alert title" = "New: Live Buses";
-"Feature Spotlight alert message" = "When viewing a service route, the map will now also show the buses currently in circulation.\n\nBear in mind that the bus locations are at least 2 minutes old. The distance reported in the stop sign is more accurate.";
+"Feature Spotlight alert title" = "New: Bip Card Balance";
+"Feature Spotlight alert message" = "You can now add your Bip cards and see their balance. Tap on the Bip button below.";
 "Feature Spotlight alert confirmation" = "Cool";

@@ -15,6 +15,8 @@
 "Add" = "Agregar";
 "Done" = "Listo";
 "Cancel" = "Cancelar";
+"OK" = "Bueno";
+"Retry" = "Intentar de nuevo";
 
 // Bip Cards
 "Add Card Title" = "Agrega una tarjeta Bip";
@@ -22,6 +24,12 @@
 "Card Name Placeholder" = "Ponle un nombre";
 "Student Card" = "Pase Escolar";
 "Bip Info Label Text" = "Ojo: Los datos de carga Bip! tienen al menos 24 horas de desfase.";
+"No Bip Name Alert Title" = "No pusiste un nombre";
+"No Bip Name Alert Message" = "Es necesario para guardar tu tarjeta.";
+"Invalid Bip Card Alert Title" = "Número de tarjeta inválido";
+"Invalid Bip Card Alert Message" = "Revisa si lo ingresaste bien.";
+"Bip Validity Check Error Alert Title" = "No se pudo revisar la validez de tu tarjeta";
+"Bip Validity Check Error Alert Message" = "Quizá haya un problema con tu conexión a internet. Intenta de nuevo más tarde.";
 
 // Search
 "Search box placeholder" = "Lugar o dirección";
@@ -56,6 +64,6 @@
 "Info Banner message" = "La posición de los buses en el mapa tiene al menos 2 minutos de retraso.";
 
 // Feature Spotlight
-"Feature Spotlight alert title" = "Nuevo: Buses en el mapa";
-"Feature Spotlight alert message" = "Ahora, cuando veas el recorrido de un servicio, también podrás ver los buses que estén en circulación.\n\nOjo: La ubicación de los buses tiene alrededor de 2 minutos de retraso. La distancia del cartel es más confiable.";
+"Feature Spotlight alert title" = "Nuevo: Saldo de tarjetas Bip";
+"Feature Spotlight alert message" = "Ahora puedes agregar tus tarjetas Bip y ver su saldo. Toca el botón Bip de abajo.";
 "Feature Spotlight alert confirmation" = "Buena";
