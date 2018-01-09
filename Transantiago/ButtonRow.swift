@@ -8,17 +8,16 @@
 
 import UIKit
 
-struct Button {
+struct ButtonItem {
     var image: UIImage
     var title: String
     var action: (UIButton) -> ()
 }
 
 class ButtonRow: NibLoadingView {
-    
     @IBOutlet private var stackView: UIStackView!
 
-    var buttons: [Button] = [] {
+    var buttonItems: [ButtonItem] = [] {
         didSet {
             clearStackView()
             createAndAddButtons()
@@ -33,12 +32,12 @@ class ButtonRow: NibLoadingView {
     }
     
     private func createAndAddButtons() {
-        stackView.axis = buttons.count > 1 ? .horizontal : .vertical
-        for buttonDefinition in buttons {
+        stackView.axis = buttonItems.count > 1 ? .horizontal : .vertical
+        for buttonItem in buttonItems {
             let button = FloatingButton(type: .system)
-            button.setImage(buttonDefinition.image, for: .normal)
-            button.accessibilityLabel = buttonDefinition.title
-            button.tapAction = buttonDefinition.action
+            button.setImage(buttonItem.image, for: .normal)
+            button.accessibilityLabel = buttonItem.title
+            button.tapAction = buttonItem.action
             button.heightAnchor.constraint(equalToConstant: 44).isActive = true
             button.widthAnchor.constraint(equalToConstant: 44).isActive = true
             stackView.addArrangedSubview(button)

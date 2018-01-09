@@ -93,7 +93,7 @@ class BipCard: NSObject, NSCoding {
             if let error = error {
                 print("BipCard: Balance request failed with error: \(error)")
             }
-            User.current.setNeedsSave()
+            User.current.didUpdateData()
         }
         task.resume()
     }

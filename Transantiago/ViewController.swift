@@ -22,8 +22,8 @@ class ViewController: UIViewController, MKMapViewDelegate, LocationServicesDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button bip"), title: NSLocalizedString("Bip button", comment: ""), action: bipButtonTapped(button:)),
-                             Button(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
+        buttonRow.buttonItems = [ButtonItem(image: #imageLiteral(resourceName: "button bip"), title: NSLocalizedString("Bip button", comment: ""), action: bipButtonTapped(button:)),
+                             ButtonItem(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
         locationServices.delegate = self
         
         serviceBar.delegate = self

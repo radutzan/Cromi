@@ -16,7 +16,7 @@ class User: NSObject, NSCoding {
     }
     
     struct Notifications {
-        static let updated = Notification.Name("User data has been updated.")
+        static let dataUpdated = Notification.Name("User data has been updated.")
         struct Internal {
             fileprivate static let saveRequested = Notification.Name("User data save requested.")
         }
@@ -25,7 +25,7 @@ class User: NSObject, NSCoding {
     // MARK: - Data
     var bipCards: [BipCard] = [] {
         didSet {
-            setNeedsSave()
+            didUpdateData()
         }
     }
     
@@ -55,7 +55,7 @@ class User: NSObject, NSCoding {
     
     private var needsSave = false
     
-    func setNeedsSave() {
+    private func setNeedsSave() {
         guard !needsSave else { return }
         needsSave = true
         delay(3) {
@@ -72,6 +72,20 @@ class User: NSObject, NSCoding {
             print("User: Archiving root object")
             let didSave = NSKeyedArchiver.archiveRootObject(self, toFile: User.filePath)
             if !didSave { print("User: Failed to archive root object") }
+        }
+    }
+    
+    // MARK: - Updating
+    func didUpdateData() {
+        setNeedsSave()
+        notifyDataUpdate()
+    }
+    
+    private func notifyDataUpdate() {
+        print("User: Notifying data update")
+        mainThread {
+            let notification = Notification(name: Notifications.dataUpdated)
+            NotificationQueue.default.enqueue(notification, postingStyle: .asap, coalesceMask: .onName, forModes: nil)
         }
     }
 

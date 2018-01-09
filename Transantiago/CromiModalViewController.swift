@@ -20,6 +20,11 @@ class CromiModalViewController: UIViewController {
     @IBOutlet private var backgroundBlur: UIVisualEffectView!
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet var buttonRow: ButtonRow!
+    var doneButtonItem: ButtonItem {
+        return ButtonItem(image: #imageLiteral(resourceName: "button done"), title: NSLocalizedString("Done", comment: ""), action: { _ in
+            self.close()
+        })
+    }
     var contentView = UIView() {
         didSet {
             for view in scrollView.subviews {
@@ -41,7 +46,7 @@ class CromiModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.frame = UIScreen.main.bounds
-        backgroundBlur.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
+        backgroundBlur.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(close)))
         scrollView.clipsToBounds = false
     }
     
@@ -79,7 +84,11 @@ class CromiModalViewController: UIViewController {
         buttonRow.present()
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    @objc private func close() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         delegate?.modalWillDismiss()
         buttonRow.dismiss()
         

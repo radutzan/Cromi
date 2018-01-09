@@ -46,6 +46,8 @@
 		7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B96311EEA2F2600CAB04E /* Typography.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
 		7CB781202004768D005A9464 /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7811F2004768D005A9464 /* Shadows.swift */; };
+		7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781232004896A005A9464 /* CromiDialogViewController.swift */; };
+		7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB781242004896A005A9464 /* CromiDialogViewController.xib */; };
 		7CCDF21D1FDF1A3C00E8C0BC /* BusAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */; };
 		7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE273971F97E6940008A070 /* CromiDefines.swift */; };
 		7CE4B70F1F09D3260067E5CB /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE4B70E1F09D3260067E5CB /* FloatingButton.swift */; };
@@ -106,6 +108,8 @@
 		7C7B96311EEA2F2600CAB04E /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		7CB7811F2004768D005A9464 /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
+		7CB781232004896A005A9464 /* CromiDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDialogViewController.swift; sourceTree = "<group>"; };
+		7CB781242004896A005A9464 /* CromiDialogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiDialogViewController.xib; sourceTree = "<group>"; };
 		7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusAnnotationView.swift; sourceTree = "<group>"; };
 		7CDE4EF01F990BFE0016E75F /* CFAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFAPI.swift; sourceTree = "<group>"; };
 		7CE273971F97E6940008A070 /* CromiDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDefines.swift; sourceTree = "<group>"; };
@@ -272,6 +276,8 @@
 				7C6645681FD33175005EF2DF /* MapViewController.swift */,
 				7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */,
 				7C77F7831FFA7EEA00934BED /* CromiModalViewController.xib */,
+				7CB781232004896A005A9464 /* CromiDialogViewController.swift */,
+				7CB781242004896A005A9464 /* CromiDialogViewController.xib */,
 				7C6645701FD33E4C005EF2DF /* Views */,
 				7C28C6041E9B32FD0012BD19 /* Sign View */,
 				7C77F78E1FFDE05000934BED /* Bip Views */,
@@ -355,6 +361,7 @@
 				7C77F7871FFDD86F00934BED /* BipCardView.xib in Resources */,
 				7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */,
 				7C5D180A1FE783D300E153FE /* InfoBanner.xib in Resources */,
+				7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */,
 				7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */,
 				7C77F7901FFDE08D00934BED /* BipListView.xib in Resources */,
 				7C35D6201FC9D6F300F01E2D /* ServiceBar.xib in Resources */,
@@ -403,6 +410,7 @@
 				7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */,
 				7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */,
 				7C77F7811FFA754D00934BED /* User.swift in Sources */,
+				7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */,
 				7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */,
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
 				7C6645751FD351B6005EF2DF /* UIButton+Actions.swift in Sources */,

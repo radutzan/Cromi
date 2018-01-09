@@ -28,53 +28,59 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yb-9o-QsS">
-                    <rect key="frame" x="0.0" y="0.0" width="280" height="282"/>
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="272"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2g1-xD-9Xg">
-                            <rect key="frame" x="12" y="0.0" width="256" height="282"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2g1-xD-9Xg">
+                            <rect key="frame" x="12" y="0.0" width="256" height="272"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agrega una tarjeta Bip!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voF-uv-zzG">
-                                    <rect key="frame" x="0.0" y="0.0" width="256" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="256" height="56"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="7HG-sZ-xfY"/>
+                                        <constraint firstAttribute="height" constant="56" id="7HG-sZ-xfY"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Número de tarjeta" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xDR-1o-eWq">
-                                    <rect key="frame" x="0.0" y="58" width="256" height="50"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="Fpm-SI-vpE"/>
-                                    </constraints>
-                                    <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CQs-0X-mJU">
-                                    <rect key="frame" x="0.0" y="116" width="256" height="50"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="EID-Qt-tkb"/>
-                                    </constraints>
-                                    <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4o-sY-MAR">
-                                    <rect key="frame" x="0.0" y="174" width="256" height="50"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="d9s-7D-dMt"/>
-                                    </constraints>
-                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="v97-ug-W1p">
+                                    <rect key="frame" x="0.0" y="56" width="256" height="166"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Número de tarjeta" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xDR-1o-eWq">
+                                            <rect key="frame" x="0.0" y="0.0" width="256" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="Fpm-SI-vpE"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="next"/>
+                                        </textField>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CQs-0X-mJU">
+                                            <rect key="frame" x="0.0" y="58" width="256" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="EID-Qt-tkb"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        </textField>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4o-sY-MAR">
+                                            <rect key="frame" x="0.0" y="116" width="256" height="50"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="d9s-7D-dMt"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Zge-DB-yHp">
-                                    <rect key="frame" x="0.0" y="232" width="256" height="50"/>
+                                    <rect key="frame" x="0.0" y="222" width="256" height="50"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrX-MV-MVQ">
                                             <rect key="frame" x="0.0" y="0.0" width="122" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="pco-lL-vWZ"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Cancelar"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T00-ik-isq">
@@ -82,7 +88,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="G2m-U3-zC6"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <state key="normal" title="Agregar"/>
                                         </button>
                                     </subviews>

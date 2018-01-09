@@ -17,9 +17,13 @@ class BipViewController: CromiModalViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(forName: User.Notifications.dataUpdated, object: nil, queue: nil) { (notification) in
+            self.updateData()
+        }
+        
         contentView = listView
-        buttonRow.buttons = [Button(image: #imageLiteral(resourceName: "button add"), title: NSLocalizedString("Add", comment: ""), action: presentEntryView(from:)),
-                             Button(image: #imageLiteral(resourceName: "button done"), title: NSLocalizedString("Done", comment: ""), action: { _ in self.dismiss(animated: true) })]
+        buttonRow.buttonItems = [ButtonItem(image: #imageLiteral(resourceName: "button add"), title: NSLocalizedString("Add", comment: ""), action: presentEntryView(from:)), doneButtonItem]
         updateData()
     }
     
@@ -48,7 +52,18 @@ class BipViewController: CromiModalViewController {
     }
     
     private func presentEntryView(from button: UIButton) {
+        let entryView = BipEntryView()
+        let dialogController = CromiDialogViewController(dialogView: entryView)
+        dialogController.present(on: self)
+        entryView.becomeFirstResponder()
         
+        entryView.cancelAction = {
+            dialogController.dismiss(with: .cancelled)
+        }
+        entryView.addAction = { (number, name, color) in
+            dialogController.dismiss(with: .success)
+            User.current.bipCards.append(BipCard(id: number, name: name, color: color))
+        }
     }
     
     private func lastUpdatedString(from date: Date) -> String {
