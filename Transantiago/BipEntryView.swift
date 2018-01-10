@@ -46,26 +46,16 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         addButton.setTitle(NSLocalizedString("Add", comment: ""), for: .normal)
         addButton.isEnabled = false
         addButton.tapAction = { _ in
-            guard let numberText = self.numberField.text, let number = Int(numberText) else { return }
-            guard let title = self.nameField.text else {
-                print("BipEntryView: Attempted to complete without name")
-                let alert = UIAlertController(title: NSLocalizedString("No Bip Name Alert Title", comment: ""), message: NSLocalizedString("No Bip Name Alert Message", comment: ""), preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-                    self.nameField.becomeFirstResponder()
-                }))
-                UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                return
-            }
-            self.addAction?(number, title, self.colorOptionPicker.selectedOption.color)
+            guard let validated = self.validateInputs() else { return }
+            self.addAction?(validated.number, validated.name, self.colorOptionPicker.selectedOption.color)
         }
         
-        let colorOptions = [ColorOption(localizedName: "Rojo", color: UIColor(hexString: "FF3B30")),
-                            ColorOption(localizedName: "Naranjo", color: UIColor(hexString: "FF7300")),
-                            ColorOption(localizedName: "Verde", color: UIColor(hexString: "4CD964")),
-                            ColorOption(localizedName: "Celeste", color: UIColor(hexString: "5AC8FA")),
-                            ColorOption(localizedName: "Azul", color: UIColor(hexString: "007AFF")),
+        let colorOptions = [ColorOption(localizedName: "Verde", color: UIColor(hexString: "1FCF5A")),
+                            ColorOption(localizedName: "Amarillo", color: UIColor(hexString: "FFCC00")),
+                            ColorOption(localizedName: "Naranjo", color: UIColor(hexString: "FF8800")),
+                            ColorOption(localizedName: "Frutilla", color: UIColor(hexString: "FF2D55")),
                             ColorOption(localizedName: "Morado", color: UIColor(hexString: "5B54E8")),
-                            ColorOption(localizedName: "Frutilla", color: UIColor(hexString: "FF2D55"))]
+                            ColorOption(localizedName: "Azul", color: UIColor(hexString: "007AFF"))]
         colorOptionPicker = ColorOptionPickerView(options: colorOptions)
         colorOptionPicker.selectedIndex = 4
         colorOptionPicker.optionSpacing = 6
@@ -74,8 +64,124 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         colorSelectionArea.addSubview(colorOptionPicker)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func editWith(number: Int, name: String, color: UIColor, completion: (() -> ())?) {
+        currentCardNumber = number
+        didValidateCurrentCardNumber = true
+        isCurrentCardNumberValid = true
+        
+        titleLabel.text = NSLocalizedString("Edit Card Title", comment: "")
+        numberField.text = String(number)
+        nameField.text = name
+        
+        var didSelectColorOption = false
+        for (index, option) in colorOptionPicker.options.enumerated() {
+            if option.color == color {
+                colorOptionPicker.selectedIndex = index
+                didSelectColorOption = true
+                break
+            }
+        }
+        if !didSelectColorOption {
+            colorOptionPicker.selectedIndex = 4
+        }
+        
+        addButton.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
+        addButton.tapAction = { _ in
+            guard let validated = self.validateInputs() else { return }
+            completion?()
+            self.addAction?(validated.number, validated.name, self.colorOptionPicker.selectedOption.color)
+        }
+    }
+    
+    private func validateInputs() -> (number: Int, name: String)? {
+        guard isCurrentCardNumberValid else { return nil }
+        guard let name = self.nameField.text, name.count > 0 else {
+            print("BipEntryView: Attempted to complete without name")
+            let alert = UIAlertController(title: NSLocalizedString("No Bip Name Alert Title", comment: ""), message: NSLocalizedString("No Bip Name Alert Message", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                self.nameField.becomeFirstResponder()
+            }))
+            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+            return nil
+        }
+        return (currentCardNumber, name)
+    }
+    
+    // MARK: - Card number validation
+    private var isCurrentCardNumberValid = false {
+        didSet {
+            addButton.isEnabled = (nameField.text?.count ?? 0) > 0 && isCurrentCardNumberValid
+        }
+    }
+    
+    private var isValidatingCardNumber = false
+    private var didValidateCurrentCardNumber = false
+    private var currentCardNumber: Int = 0 {
+        didSet {
+            guard oldValue != currentCardNumber else { return }
+            didValidateCurrentCardNumber = false
+            isCurrentCardNumberValid = false
+        }
+    }
+    
+    private func validate(cardNumber number: Int, failSilently: Bool = false) {
+        currentCardNumber = number
+        
+        if String(currentCardNumber).count > 8 {
+            isCurrentCardNumberValid = false
+            didValidateCurrentCardNumber = true
+            return
+        }
+        
+        guard !didValidateCurrentCardNumber, !isValidatingCardNumber else { return }
+        isValidatingCardNumber = true
+        
+        BipCard.isCardValid(id: number) { (result, error) in
+            mainThread {
+                self.isValidatingCardNumber = false
+                guard number == self.currentCardNumber else {
+                    self.validate(cardNumber: number)
+                    return
+                }
+                if let isValid = result {
+                    self.didValidateCurrentCardNumber = true
+                    if isValid {
+                        print("BipEntryView: Card is valid")
+                        self.isCurrentCardNumberValid = true
+                    } else {
+                        print("BipEntryView: Card is invalid")
+                        guard !failSilently else { return }
+                        let alert = UIAlertController(title: NSLocalizedString("Invalid Bip Card Alert Title", comment: ""), message: NSLocalizedString("Invalid Bip Card Alert Message", comment: ""), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .default, handler: { _ in
+                            self.numberField.becomeFirstResponder()
+                        }))
+                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                    }
+                } else {
+                    print("BipEntryView: Card validity check error")
+                    guard !failSilently else { return }
+                    let alert = UIAlertController(title: NSLocalizedString("Bip Validity Check Error Alert Title", comment: ""), message: NSLocalizedString("Bip Validity Check Error Alert Message", comment: ""), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    }))
+                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Text field
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text as NSString? else { return false }
+        let finalString = text.replacingCharacters(in: range, with: string)
+        
+        if textField == numberField {
+            if string != "" && !string.isNumeric { return false }
+            if let number = Int(finalString), finalString.count == 8 { validate(cardNumber: number) }
+        } else if textField == nameField {
+            let shouldEnable = finalString.count > 0 && isCurrentCardNumberValid
+            if addButton.isEnabled != shouldEnable { addButton.isEnabled = shouldEnable }
+        }
+        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -87,48 +193,10 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         return true
     }
     
-    private var isCardValid = false {
-        didSet {
-            if (nameField.text?.count ?? 0) > 0 && isCardValid { addButton.isEnabled = true }
-        }
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard textField == numberField else { return }
         guard let numberText = textField.text, let number = Int(numberText) else { return }
-        BipCard.isCardValid(id: number) { (result, error) in
-            mainThread {
-                if let result = result {
-                    if !result {
-                        print("BipEntryView: Card is invalid")
-                        let alert = UIAlertController(title: NSLocalizedString("Invalid Bip Card Alert Title", comment: ""), message: NSLocalizedString("Invalid Bip Card Alert Message", comment: ""), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .default, handler: { _ in
-                            self.numberField.becomeFirstResponder()
-                        }))
-                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                    } else {
-                        self.isCardValid = true
-                    }
-                } else {
-                    print("BipEntryView: Card validity check error")
-                    let alert = UIAlertController(title: NSLocalizedString("Bip Validity Check Error Alert Title", comment: ""), message: NSLocalizedString("Bip Validity Check Error Alert Message", comment: ""), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-                    }))
-                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == numberField {
-            if !string.isNumeric { return false }
-        } else if textField == nameField, let text = textField.text as NSString?  {
-            let finalString = text.replacingCharacters(in: range, with: string)
-            let shouldEnable = finalString.count > 0 && isCardValid
-            if addButton.isEnabled != shouldEnable { addButton.isEnabled = shouldEnable }
-        }
-        return true
+        validate(cardNumber: number)
     }
 
 }

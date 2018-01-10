@@ -17,6 +17,12 @@ class BipCardView: NibLoadingView {
     var color: UIColor = UIColor.blue {
         didSet {
             view.backgroundColor = color
+            let isLight = color.isLight()
+            let textColor: UIColor = isLight ? .black : .white
+            nameLabel.textColor = textColor
+            metadataLabel.textColor = textColor
+            balanceLabel.textColor = textColor
+            updatedDateLabel.textColor = textColor
         }
     }
 

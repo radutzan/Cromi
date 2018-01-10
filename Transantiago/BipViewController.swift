@@ -23,7 +23,7 @@ class BipViewController: CromiOverlayViewController {
         }
         
         contentView = listView
-        buttonRow.buttonItems = [ButtonItem(image: #imageLiteral(resourceName: "button add"), title: NSLocalizedString("Add", comment: ""), action: presentEntryView(from:)), doneButtonItem]
+        buttonRow.buttonItems = [doneButtonItem, ButtonItem(image: #imageLiteral(resourceName: "button add"), title: NSLocalizedString("Add", comment: ""), action: presentEntryView(from:))]
         updateData()
     }
     
