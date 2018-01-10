@@ -29,7 +29,7 @@ class CromiDialogViewController: CromiModalViewController {
             self.updateForKeyboard(with: userInfo)
         }
         
-        containerView.apply(shadow: Shadow.floatingHigh)
+        containerView.apply(shadow: .floatingHigh)
     }
     
     override func viewWillLayoutSubviews() {

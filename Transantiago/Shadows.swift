@@ -27,6 +27,8 @@ struct Shadow {
         self.opacity = opacity
         self.color = color
     }
+    
+    static let none = Shadow(radius: 0, offsetHeight: 0, opacity: 0)
 }
 
 extension UIView {

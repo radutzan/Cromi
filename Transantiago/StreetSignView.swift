@@ -64,7 +64,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     override func didLoadNibView() {
         alpha = 0
 //        isUserInteractionEnabled = false
-        apply(shadow: Shadow.floatingMed)
+        apply(shadow: .floatingMed)
         signView.layer.cornerRadius = SignConstants.cornerRadius
         signView.layer.masksToBounds = true
         signView.mask = maskerView

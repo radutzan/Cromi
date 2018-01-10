@@ -35,6 +35,7 @@ class BipViewController: CromiOverlayViewController {
             formatter.numberStyle = .currency
             for card in cards {
                 let view = BipCardView()
+                view.cardNumber = card.id
                 view.nameLabel.text = card.name
                 view.metadataLabel.text = "\(card.id) \(card.kind == .student ? "• \(NSLocalizedString("Student Card", comment: ""))" : "")"
                 view.balanceLabel.text = formatter.string(from: card.balance as NSNumber) ?? "Error"

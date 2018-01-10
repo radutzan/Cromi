@@ -19,7 +19,7 @@ class BipListView: NibLoadingView {
             for view in views {
                 stackView.addArrangedSubview(view)
                 view.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                view.apply(shadow: Shadow.floatingHigh)
+                view.apply(shadow: .floatingHigh)
             }
             stackView.layoutIfNeeded()
         }

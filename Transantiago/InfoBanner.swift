@@ -33,7 +33,7 @@ class InfoBanner: NibLoadingView {
     @IBOutlet private var doneButton: UIButton!
     
     override func didLoadNibView() {
-        apply(shadow: Shadow.floatingLow)
+        apply(shadow: .floatingLow)
         doneButton.tapAction = { button in
             self.delegate?.infoBannerRequestedDismissal()
         }
