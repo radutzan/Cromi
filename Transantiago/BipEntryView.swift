@@ -18,6 +18,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var addButton: UIButton!
     private var colorOptionPicker: ColorOptionPickerView!
+    private var isEditing = false
+    private var isVisible = true
     var addAction: ((Int, String, UIColor) -> ())?
     var cancelAction: (() -> ())?
     
@@ -40,6 +42,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         nameField.delegate = self
         cancelButton.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
         cancelButton.tapAction = { _ in
+            self.isVisible = false
             self.endEditing(true)
             self.cancelAction?()
         }
@@ -47,6 +50,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         addButton.isEnabled = false
         addButton.tapAction = { _ in
             guard let validated = self.validateInputs() else { return }
+            self.isVisible = false
+            self.endEditing(true)
             self.addAction?(validated.number, validated.name, self.colorOptionPicker.selectedOption.color)
         }
         
@@ -57,20 +62,23 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
                             ColorOption(localizedName: "Morado", color: UIColor(hexString: "5B54E8")),
                             ColorOption(localizedName: "Azul", color: UIColor(hexString: "007AFF"))]
         colorOptionPicker = ColorOptionPickerView(options: colorOptions)
-        colorOptionPicker.selectedIndex = 4
+        colorOptionPicker.selectedIndex = 5
         colorOptionPicker.optionSpacing = 6
         colorOptionPicker.frame = colorSelectionArea.bounds
         colorOptionPicker.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         colorSelectionArea.addSubview(colorOptionPicker)
     }
     
-    func editWith(number: Int, name: String, color: UIColor, completion: (() -> ())?) {
+    func editWith(number: Int, name: String, color: UIColor, completion: (() -> ())? = nil) {
+        isEditing = true
         currentCardNumber = number
         didValidateCurrentCardNumber = true
         isCurrentCardNumberValid = true
         
         titleLabel.text = NSLocalizedString("Edit Card Title", comment: "")
         numberField.text = String(number)
+        numberField.isEnabled = false
+        numberField.textColor = UIColor.black.withAlphaComponent(0.5)
         nameField.text = name
         
         var didSelectColorOption = false
@@ -82,9 +90,10 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
             }
         }
         if !didSelectColorOption {
-            colorOptionPicker.selectedIndex = 4
+            colorOptionPicker.selectedIndex = 5
         }
         
+        addButton.isEnabled = true
         addButton.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
         addButton.tapAction = { _ in
             guard let validated = self.validateInputs() else { return }
@@ -100,6 +109,16 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
             let alert = UIAlertController(title: NSLocalizedString("No Bip Name Alert Title", comment: ""), message: NSLocalizedString("No Bip Name Alert Message", comment: ""), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                 self.nameField.becomeFirstResponder()
+            }))
+            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+            return nil
+        }
+        let storedNumbers = User.current.bipCards.map { $0.id }
+        if storedNumbers.contains(currentCardNumber) && !isEditing {
+            print("BipEntryView: Attempted to add already added card")
+            let alert = UIAlertController(title: NSLocalizedString("Card Already Added Alert Title", comment: ""), message: NSLocalizedString("Card Already Added Alert Message", comment: ""), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                self.numberField.becomeFirstResponder()
             }))
             UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
             return nil
@@ -138,6 +157,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         
         BipCard.isCardValid(id: number) { (result, error) in
             mainThread {
+                guard self.isVisible else { return }
                 self.isValidatingCardNumber = false
                 guard number == self.currentCardNumber else {
                     self.validate(cardNumber: number)

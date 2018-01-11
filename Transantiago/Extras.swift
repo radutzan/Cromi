@@ -73,7 +73,7 @@ extension UIColor {
         let blueBrightness  = ((components?[2])! * 114)
         let brightness = (redBrightness + greenBrightness + blueBrightness) / 1000
         
-        if brightness < 0.5 {
+        if brightness < 0.7 {
             return false
         } else {
             return true

@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol BipCardViewDelegate: AnyObject {
+    func bipCardViewWillRevealOptions(cardView: BipCardView)
+    func bipCardViewWillHideOptions(cardView: BipCardView)
+}
+
 class BipCardView: NibLoadingView {
+    
+    weak var delegate: BipCardViewDelegate?
 
     var cardNumber: Int = 0
     @IBOutlet var nameLabel: UILabel!
@@ -36,11 +43,19 @@ class BipCardView: NibLoadingView {
         })]
     }
     private let optionsContainerView = UIView()
+    private var closeOptionsTapRecognizer: UITapGestureRecognizer!
+    private(set) var heightConstraint: NSLayoutConstraint!
     
     private let buttonSize: CGFloat = 40
     private let buttonSeparation: CGFloat = 12
     override func didLoadNibView() {
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handle(pan:))))
+        closeOptionsTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(closeOptions))
+        closeOptionsTapRecognizer.isEnabled = false
+        addGestureRecognizer(closeOptionsTapRecognizer)
+        
+        heightConstraint = view.heightAnchor.constraint(equalToConstant: 80)
+        heightConstraint.isActive = true
         
         for buttonItem in optionItems {
             let button = FloatingButton(type: .system)
@@ -52,6 +67,7 @@ class BipCardView: NibLoadingView {
             button.tapAction = buttonItem.action
             if buttonItem.title == NSLocalizedString("Delete", comment: "") {
                 button.tintColor = .red
+                button.isEnabled = false // temp
             }
             optionsContainerView.addSubview(button)
         }
@@ -69,7 +85,11 @@ class BipCardView: NibLoadingView {
         }
     }
     
-    private var isPresentingOptions = false
+    private var isPresentingOptions = false {
+        didSet {
+            closeOptionsTapRecognizer.isEnabled = isPresentingOptions
+        }
+    }
     private var initialTransformTX: CGFloat = 0
     private var minTranslationX: CGFloat {
         return -(optionsContainerView.bounds.width + buttonSeparation)
@@ -112,13 +132,26 @@ class BipCardView: NibLoadingView {
                 }
             }
             
-            let animator = UIViewPropertyAnimator(duration: 0.32, dampingRatio: 0.8, animations: {
-                self.transform = shouldPresentOptions ? CGAffineTransform(translationX: self.minTranslationX, y: 0) : .identity
-                self.optionsContainerView.alpha = shouldPresentOptions ? 1 : 0
-                self.isPresentingOptions = shouldPresentOptions
-            })
-            animator.startAnimation()
+            toggleOptions(open: shouldPresentOptions)
         }
+    }
+    
+    @objc func closeOptions() {
+        toggleOptions(open: false)
+    }
+    
+    private func toggleOptions(open: Bool) {
+        if open {
+            delegate?.bipCardViewWillRevealOptions(cardView: self)
+        } else {
+            delegate?.bipCardViewWillHideOptions(cardView: self)
+        }
+        let animator = UIViewPropertyAnimator(duration: 0.32, dampingRatio: 0.8, animations: {
+            self.transform = open ? CGAffineTransform(translationX: self.minTranslationX, y: 0) : .identity
+            self.optionsContainerView.alpha = open ? 1 : 0
+            self.isPresentingOptions = open
+        })
+        animator.startAnimation()
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

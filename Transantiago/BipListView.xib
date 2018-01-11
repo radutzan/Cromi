@@ -26,7 +26,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Rw-uu-UBM">
                     <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ix9-HE-vJH">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ix9-HE-vJH">
                             <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMy-sv-i6v" customClass="BipListInfoContainerView" customModule="Cromi" customModuleProvider="target">

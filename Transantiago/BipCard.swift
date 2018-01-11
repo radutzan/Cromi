@@ -11,8 +11,16 @@ import UIKit
 class BipCard: NSObject, NSCoding {
     
     let id: Int
-    var name: String
-    var color: UIColor
+    var name: String {
+        didSet {
+            User.current.didUpdateData()
+        }
+    }
+    var color: UIColor {
+        didSet {
+            User.current.didUpdateData()
+        }
+    }
     private(set) var lastUpdated: Date
     private(set) var balance: Int = 0
     enum Kind {

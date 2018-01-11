@@ -12,6 +12,16 @@ struct ButtonItem {
     var image: UIImage
     var title: String
     var action: (UIButton) -> ()
+    var isPrimary: Bool = false
+    var isDestructive: Bool = false
+    
+    init(image: UIImage, title: String, action: @escaping (UIButton) -> (), isPrimary: Bool = false, isDestructive: Bool = false) {
+        self.image = image
+        self.title = title
+        self.action = action
+        self.isPrimary = isPrimary
+        self.isDestructive = isDestructive
+    }
 }
 
 class ButtonRow: NibLoadingView {
@@ -67,6 +77,14 @@ class ButtonRow: NibLoadingView {
                 button.transform = CGAffineTransform(translationX: 0, y: self.hiddenYOffset)
             }) { finished in
             }
+        }
+    }
+    
+    func setIsEnabled(on indices: [Int], to enabled: Bool) {
+        for index in indices {
+            if index >= stackView.arrangedSubviews.count { continue }
+            guard let button = stackView.arrangedSubviews[index] as? FloatingButton else { continue }
+            button.isEnabled = enabled
         }
     }
     

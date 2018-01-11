@@ -17,9 +17,12 @@
 "Cancel" = "Cancelar";
 "OK" = "Bueno";
 "Retry" = "Intentar de nuevo";
+"Edit" = "Editar";
+"Delete" = "Borrar";
 
 // Bip Cards
 "Add Card Title" = "Agrega una tarjeta Bip";
+"Edit Card Title" = "Edita tu tarjeta";
 "Card Number Placeholder" = "Número de tarjeta";
 "Card Name Placeholder" = "Ponle un nombre";
 "Student Card" = "Pase Escolar";
@@ -30,6 +33,9 @@
 "Invalid Bip Card Alert Message" = "Revisa si lo ingresaste bien.";
 "Bip Validity Check Error Alert Title" = "No se pudo revisar la validez de tu tarjeta";
 "Bip Validity Check Error Alert Message" = "Quizá haya un problema con tu conexión a internet. Intenta de nuevo más tarde.";
+"Card Already Added Alert Title" = "Ya agregaste esta tarjeta";
+"Card Already Added Alert Message" = "No puedes agregarla de nuevo. Si quieres editarla, deslízala hacia la izquierda en la lista.";
+"Hours Ago Format" = "hace %i horas";
 
 // Search
 "Search box placeholder" = "Lugar o dirección";

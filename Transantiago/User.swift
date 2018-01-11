@@ -18,6 +18,7 @@ class User: NSObject, NSCoding {
     struct Notifications {
         static let dataUpdated = Notification.Name("User data has been updated.")
         struct Internal {
+            fileprivate static let updateActionsRequested = Notification.Name("User data update actions requested.")
             fileprivate static let saveRequested = Notification.Name("User data save requested.")
         }
     }
@@ -42,6 +43,10 @@ class User: NSObject, NSCoding {
     }
     
     private func commonInit() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(performUpdateActions),
+                                               name: Notifications.Internal.updateActionsRequested,
+                                               object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(saveUserDataIfNeeded),
                                                name: Notifications.Internal.saveRequested,
@@ -77,6 +82,15 @@ class User: NSObject, NSCoding {
     
     // MARK: - Updating
     func didUpdateData() {
+        print("User: Data reported as updated")
+        mainThread {
+            let notification = Notification(name: Notifications.Internal.updateActionsRequested)
+            NotificationQueue.default.enqueue(notification, postingStyle: .asap, coalesceMask: .onName, forModes: nil)
+        }
+    }
+    
+    @objc private func performUpdateActions() {
+        print("User: Performing update actions")
         setNeedsSave()
         notifyDataUpdate()
     }

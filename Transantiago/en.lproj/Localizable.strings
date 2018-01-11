@@ -17,9 +17,12 @@
 "Cancel" = "Cancel";
 "OK" = "OK";
 "Retry" = "Try Again";
+"Edit" = "Edit";
+"Delete" = "Delete";
 
 // Bip Cards
 "Add Card Title" = "Add a Bip Card";
+"Edit Card Title" = "Edit Card";
 "Card Number Placeholder" = "Card Number";
 "Card Name Placeholder" = "Name Your Card";
 "Student Card" = "Student Pass";
@@ -30,6 +33,9 @@
 "Invalid Bip Card Alert Message" = "Check if you entered it correctly.";
 "Bip Validity Check Error Alert Title" = "Couldn't Check Card Number Validity";
 "Bip Validity Check Error Alert Message" = "There might be an issue with your internet connection. Try again later.";
+"Card Already Added Alert Title" = "Card Already Added";
+"Card Already Added Alert Message" = "You can't add it again. If you'd like to edit it, slide it to the right on the list.";
+"Hours Ago Format" = "%i hours ago";
 
 // Search
 "Search box placeholder" = "Place or address";

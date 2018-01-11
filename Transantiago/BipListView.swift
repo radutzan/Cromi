@@ -13,15 +13,19 @@ class BipListView: NibLoadingView {
     @IBOutlet private var listView: UIView!
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet private var stackView: UIStackView!
+    private var preventClearing = false
     var views: [UIView] = [] {
         didSet {
-            clearStackView()
-            for view in views {
-                stackView.addArrangedSubview(view)
-                view.heightAnchor.constraint(equalToConstant: 80).isActive = true
-                view.apply(shadow: .floatingHigh)
+            if !preventClearing {
+                clearStackView()
+                for view in views {
+                    view.translatesAutoresizingMaskIntoConstraints = false
+                    stackView.addArrangedSubview(view)
+                    view.apply(shadow: .floatingHigh)
+                }
+                stackView.layoutIfNeeded()
             }
-            stackView.layoutIfNeeded()
+            preventClearing = false
         }
     }
     
@@ -30,6 +34,23 @@ class BipListView: NibLoadingView {
             if view is BipListInfoContainerView { continue }
             stackView.removeArrangedSubview(view)
             view.removeFromSuperview()
+        }
+    }
+    
+    func removeView(with cardNumber: Int, animateAlongside: (() -> ())? = nil) {
+        for (index, view) in views.enumerated() {
+            guard let view = view as? BipCardView, view.cardNumber == cardNumber else { continue }
+            UIView.animate(withDuration: 2.36, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+                view.isHidden = true//heightConstraint.constant = 0
+                view.alpha = 0
+//                self.stackView.layoutIfNeeded()
+                animateAlongside?()
+            }) { finished in
+                self.preventClearing = true
+                self.stackView.removeArrangedSubview(view)
+                view.removeFromSuperview()
+                self.views.remove(at: index)
+            }
         }
     }
     
