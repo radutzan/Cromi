@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BipViewController: CromiOverlayViewController, BipCardViewDelegate {
+class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGestureRecognizerDelegate {
     
     private let listView = BipListView()
     private var cards: [BipCard] = [] {
@@ -20,6 +20,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         formatter.locale = Locale(identifier: "es_CL")
         formatter.numberStyle = .currency
         
@@ -74,13 +75,14 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate {
             for card in cards {
                 let view = BipCardView()
                 view.delegate = self
-                update(cardView: view, with: card)
                 view.deleteAction = { (number, _, _) in
                     self.deleteCard(with: number)
                 }
                 view.editAction = { (number, name, color) in
                     self.presentEntryView(editingData: (number, name, color))
                 }
+                view.optionsPanRecognizer.delegate = self
+                update(cardView: view, with: card)
                 views.append(view)
             }
             listView.views = views
@@ -173,6 +175,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate {
         }
     }
     
+    // MARK: - Card options handling
     private var optionRevealingBipCardView: BipCardView?
     func bipCardViewWillRevealOptions(cardView: BipCardView) {
         optionRevealingBipCardView = cardView
@@ -180,5 +183,19 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate {
     
     func bipCardViewWillHideOptions(cardView: BipCardView) {
         optionRevealingBipCardView = nil
+    }
+    
+    func bipCardViewTapped(cardView: BipCardView) {
+        optionRevealingBipCardView?.closeOptions()
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let cardRecognizer = gestureRecognizer as? UIPanGestureRecognizer, cardRecognizer.view is BipCardView else { return true }
+        if let revealingCard = optionRevealingBipCardView, cardRecognizer.view != revealingCard {
+            revealingCard.closeOptions()
+            return false
+        }
+        let velocity = cardRecognizer.velocity(in: self.view)
+        return abs(velocity.y) < abs(velocity.x)
     }
 }

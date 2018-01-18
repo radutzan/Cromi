@@ -11,6 +11,7 @@ import UIKit
 protocol BipCardViewDelegate: AnyObject {
     func bipCardViewWillRevealOptions(cardView: BipCardView)
     func bipCardViewWillHideOptions(cardView: BipCardView)
+    func bipCardViewTapped(cardView: BipCardView)
 }
 
 class BipCardView: NibLoadingView {
@@ -35,6 +36,8 @@ class BipCardView: NibLoadingView {
     }
     var editAction: ((Int, String, UIColor) -> ())?
     var deleteAction: ((Int, String, UIColor) -> ())?
+    
+    // MARK: - Internal properties
     private var optionItems: [ButtonItem] {
         return [ButtonItem(image: #imageLiteral(resourceName: "button edit"), title: NSLocalizedString("Edit", comment: ""), action: { button in
             self.editAction?(self.cardNumber, self.nameLabel.text ?? "", self.color)
@@ -43,22 +46,24 @@ class BipCardView: NibLoadingView {
         })]
     }
     private let optionsContainerView = UIView()
-    private var closeOptionsTapRecognizer: UITapGestureRecognizer!
+    private(set) var optionsPanRecognizer: UIPanGestureRecognizer!
+    private var tapRecognizer: UITapGestureRecognizer!
     private(set) var heightConstraint: NSLayoutConstraint!
     
+    // MARK: - Setup
     private let buttonSize: CGFloat = 40
     private let buttonSeparation: CGFloat = 12
     override func didLoadNibView() {
-        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handle(pan:))))
-        closeOptionsTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(closeOptions))
-        closeOptionsTapRecognizer.isEnabled = false
-        addGestureRecognizer(closeOptionsTapRecognizer)
+        optionsPanRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handle(pan:)))
+        addGestureRecognizer(optionsPanRecognizer)
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handle(tap:)))
+        addGestureRecognizer(tapRecognizer)
         
         heightConstraint = view.heightAnchor.constraint(equalToConstant: 80)
         heightConstraint.isActive = true
         
         for buttonItem in optionItems {
-            let button = FloatingButton(type: .system)
+            let button = FloatingButton(type: .custom)
             button.size = buttonSize
             button.shadow = .none
             button.frame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
@@ -67,7 +72,6 @@ class BipCardView: NibLoadingView {
             button.tapAction = buttonItem.action
             if buttonItem.title == NSLocalizedString("Delete", comment: "") {
                 button.tintColor = .red
-                button.isEnabled = false // temp
             }
             optionsContainerView.addSubview(button)
         }
@@ -85,16 +89,34 @@ class BipCardView: NibLoadingView {
         }
     }
     
-    private var isPresentingOptions = false {
-        didSet {
-            closeOptionsTapRecognizer.isEnabled = isPresentingOptions
-        }
+    // MARK: - Options
+    @objc func closeOptions() {
+        toggleOptions(open: false)
     }
-    private var initialTransformTX: CGFloat = 0
+    
+    private var isPresentingOptions = false
     private var minTranslationX: CGFloat {
         return -(optionsContainerView.bounds.width + buttonSeparation)
     }
     
+    private func toggleOptions(open: Bool) {
+        if open {
+            delegate?.bipCardViewWillRevealOptions(cardView: self)
+        } else {
+            delegate?.bipCardViewWillHideOptions(cardView: self)
+        }
+        let duration: TimeInterval = open ? 0.32 : 0.42
+        let damping: CGFloat = open ? 0.82 : 0.8
+        let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: damping, animations: {
+            self.transform = open ? CGAffineTransform(translationX: self.minTranslationX, y: 0) : .identity
+            self.optionsContainerView.alpha = open ? 1 : 0
+            self.isPresentingOptions = open
+        })
+        animator.startAnimation()
+    }
+    
+    // MARK: - Touches
+    private var initialTransformTX: CGFloat = 0
     @objc private func handle(pan: UIPanGestureRecognizer) {
         switch pan.state {
         case .began:
@@ -136,22 +158,11 @@ class BipCardView: NibLoadingView {
         }
     }
     
-    @objc func closeOptions() {
-        toggleOptions(open: false)
-    }
-    
-    private func toggleOptions(open: Bool) {
-        if open {
-            delegate?.bipCardViewWillRevealOptions(cardView: self)
-        } else {
-            delegate?.bipCardViewWillHideOptions(cardView: self)
+    @objc private func handle(tap: UITapGestureRecognizer) {
+        delegate?.bipCardViewTapped(cardView: self)
+        if isPresentingOptions {
+            closeOptions()
         }
-        let animator = UIViewPropertyAnimator(duration: 0.32, dampingRatio: 0.8, animations: {
-            self.transform = open ? CGAffineTransform(translationX: self.minTranslationX, y: 0) : .identity
-            self.optionsContainerView.alpha = open ? 1 : 0
-            self.isPresentingOptions = open
-        })
-        animator.startAnimation()
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

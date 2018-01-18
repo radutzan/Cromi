@@ -92,9 +92,12 @@ class ViewController: CromiViewController, MKMapViewDelegate, LocationServicesDe
     }
     
     @objc private func bipButtonTapped(button: UIButton) {
+        button.isSelected = true
         let bipVC = BipViewController()
         bipVC.delegate = self
-        bipVC.present(on: self)
+        bipVC.present(on: self) {
+            button.isSelected = false
+        }
         buttonRow.dismiss()
     }
     

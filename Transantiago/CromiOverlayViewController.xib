@@ -31,7 +31,7 @@
                     </view>
                     <blurEffect style="light"/>
                 </visualEffectView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gzc-S9-KGp">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzc-S9-KGp" customClass="TouchTransparentScrollView" customModule="Cromi" customModuleProvider="target">
                     <rect key="frame" x="30" y="20" width="315" height="567"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdT-vH-ygI" customClass="ButtonRow" customModule="Cromi" customModuleProvider="target">

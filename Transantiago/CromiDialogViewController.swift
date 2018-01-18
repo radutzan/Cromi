@@ -40,7 +40,7 @@ class CromiDialogViewController: CromiModalViewController {
         return .lightContent
     }
     
-    override func present(on parentVC: UIViewController) {
+    override func present(on parentVC: UIViewController, completion: (() -> ())? = nil) {
         guard let contentView = contentView else { return }
         super.present(on: parentVC)
         
@@ -61,6 +61,7 @@ class CromiDialogViewController: CromiModalViewController {
             self.backgroundBlur.effect = UIBlurEffect(style: .dark)
             self.containerView.transform = CGAffineTransform.identity
         }) { finished in
+            completion?()
             self.presentationCompletionActions(self)
         }
     }

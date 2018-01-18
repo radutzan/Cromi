@@ -14,6 +14,7 @@ class EmptyBipView: NibLoadingView {
     
     override func didLoadNibView() {
         button.setTitle(NSLocalizedString("Add Card Title", comment: ""), for: .normal)
+        heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
 
 }

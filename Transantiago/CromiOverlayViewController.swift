@@ -8,13 +8,14 @@
 
 import UIKit
 
-class CromiOverlayViewController: CromiModalViewController {
+class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate {
     
     @IBOutlet private var backgroundBlur: UIVisualEffectView!
-    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var scrollView: TouchTransparentScrollView!
     @IBOutlet var buttonRow: ButtonRow!
     var doneButtonItem: ButtonItem {
-        return ButtonItem(image: #imageLiteral(resourceName: "button done"), title: NSLocalizedString("Done", comment: ""), action: { _ in
+        return ButtonItem(image: #imageLiteral(resourceName: "button done"), title: NSLocalizedString("Done", comment: ""), action: { button in
+            button.isSelected = true
             self.close()
         })
     }
@@ -45,6 +46,7 @@ class CromiOverlayViewController: CromiModalViewController {
         super.viewDidLoad()
         backgroundBlur.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(close)))
         scrollView.clipsToBounds = false
+        scrollView.delegate = self
     }
     
     override func viewWillLayoutSubviews() {
@@ -63,18 +65,21 @@ class CromiOverlayViewController: CromiModalViewController {
         return min(contentView.intrinsicContentSize.height, scrollView.bounds.height) + 80 + bottomMargin
     }
     
-    override func present(on parentVC: UIViewController) {
+    override func present(on parentVC: UIViewController, completion: (() -> ())? = nil) {
         super.present(on: parentVC)
         backgroundBlur.effect = nil
         
         scrollView.transform = CGAffineTransform(translationX: 0, y: hiddenScrollViewYOffset)
-        UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1, options: [], animations: {
+        let animator = UIViewPropertyAnimator(duration: 0.48, dampingRatio: 0.76) {
             self.presentationActions(self)
             self.backgroundBlur.effect = UIBlurEffect(style: .light)
             self.scrollView.transform = CGAffineTransform.identity
-        }) { finished in
+        }
+        animator.addCompletion { (position) in
+            completion?()
             self.presentationCompletionActions(self)
         }
+        animator.startAnimation()
         buttonRow.present()
     }
     
@@ -86,14 +91,42 @@ class CromiOverlayViewController: CromiModalViewController {
         super.dismiss(animated: flag, completion: completion)
         buttonRow.dismiss()
         
-        UIView.animate(withDuration: 0.42, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 0.36, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: [], animations: {
             self.dismissalActions(self)
             self.backgroundBlur.effect = nil
             self.scrollView.transform = CGAffineTransform(translationX: 0, y: self.hiddenScrollViewYOffset)
         }) { finished in
+            completion?()
             self.dismissalCompletionActions(self)
             self.scrollView.transform = CGAffineTransform.identity
         }
     }
-
+    
+    // MARK: - Scroll dismissal
+    private var feedbackGenerator = UISelectionFeedbackGenerator()
+    private var shouldDismissThroughScroll = false {
+        didSet {
+            guard !isBeingPresented, !isBeingDismissed else { return }
+            guard shouldDismissThroughScroll != oldValue else { return }
+            buttonRow.setIsHighlighted(on: [0], to: shouldDismissThroughScroll) // TODO: set to dismiss button dynamically
+            feedbackGenerator.selectionChanged()
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        feedbackGenerator.prepare()
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let dismissThreshold: CGFloat = 58
+        let normalizedOffsetY = scrollView.contentOffset.y + scrollView.contentInset.top
+        shouldDismissThroughScroll = normalizedOffsetY < -dismissThreshold
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if shouldDismissThroughScroll {
+            dismiss(animated: true)
+            shouldDismissThroughScroll = false
+        }
+    }
 }
