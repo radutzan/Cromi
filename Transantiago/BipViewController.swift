@@ -40,24 +40,24 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         cards = User.current.bipCards
         print("BipViewController: updateData - oldData.count: \(oldData.count), cards.count: \(cards.count)")
         
-        let shouldAnimate = !isFirstLoad
+//        let shouldAnimate = !isFirstLoad
         
         if oldData.count == 0 && cards.count > 0 {
-            // initial load or first add
             print("BipViewController: updateData - initial load or first add")
             performFullListReload()
             
         } else if oldData.count == (cards.count - 1) && cards.count > 0 {
-            // addition
-            performFullListReload() // temp
             print("BipViewController: updateData - addition")
+            if let newCard = cards.last {
+                listView.append(cardView: createCardView(with: newCard))
+            }
+//            performFullListReload() // temp
             
         } else if oldData.count == (cards.count + 1) && cards.count > 0 {
-            // removal
             print("BipViewController: updateData - removal")
+            // intentionally left blank
             
         } else if oldData.count == cards.count && cards.count > 0 {
-            // data refresh
             print("BipViewController: updateData - data refresh")
             performDataRefresh()
             
@@ -73,16 +73,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         if cards.count > 0 {
             var views: [BipCardView] = []
             for card in cards {
-                let view = BipCardView()
-                view.delegate = self
-                view.deleteAction = { (number, _, _) in
-                    self.deleteCard(with: number)
-                }
-                view.editAction = { (number, name, color) in
-                    self.presentEntryView(editingData: (number, name, color))
-                }
-                view.optionsPanRecognizer.delegate = self
-                update(cardView: view, with: card)
+                let view = createCardView(with: card)
                 views.append(view)
             }
             listView.views = views
@@ -105,6 +96,20 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
     }
     
     // MARK: - Data display
+    private func createCardView(with card: BipCard) -> BipCardView {
+        let view = BipCardView()
+        view.delegate = self
+        view.deleteAction = { (number, _, _) in
+            self.deleteCard(with: number)
+        }
+        view.editAction = { (number, name, color) in
+            self.presentEntryView(editingData: (number, name, color))
+        }
+        view.optionsPanRecognizer.delegate = self
+        update(cardView: view, with: card)
+        return view
+    }
+    
     private func update(cardView: BipCardView, with card: BipCard) {
         cardView.cardNumber = card.id
         cardView.nameLabel.text = card.name
@@ -139,9 +144,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         guard let index = indexToDelete else { return }
         preventFullRefresh = true
         User.current.bipCards.remove(at: index)
-        //        self.view.setNeedsLayout()
         listView.removeView(with: number) {
-            //            self.view.layoutIfNeeded()
         }
     }
     
@@ -158,6 +161,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         if !isEditing { _ = entryView.becomeFirstResponder() }
         
         entryView.cancelAction = {
+            self.optionRevealingBipCardView?.closeOptions()
             dialogController.dismiss(with: .cancelled)
         }
         entryView.addAction = { (number, name, color) in

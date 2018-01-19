@@ -15,7 +15,7 @@ class CromiViewController: UIViewController, CromiModalDelegate {
     }
     
     // MARK: - Modals
-    private var presentedModal: CromiModalViewController?
+    private(set) var presentedModal: CromiModalViewController?
     func modalWillPresent(modal: CromiModalViewController) {
         presentedModal = modal
     }

@@ -304,6 +304,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func toggleStopPredictions(paused: Bool) {
+        if paused {
+            signView.pauseStopPredictions()
+        } else {
+            signView.beginStopPredictions()
+        }
+    }
+    
     // MARK: - Helpers
     func centerMap(around coordinate: CLLocationCoordinate2D, animated: Bool, allowedSpan: CLLocationDegrees = 0.0025) {
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: allowedSpan, longitudeDelta: allowedSpan))

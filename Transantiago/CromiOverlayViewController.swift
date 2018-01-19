@@ -70,16 +70,16 @@ class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate
         backgroundBlur.effect = nil
         
         scrollView.transform = CGAffineTransform(translationX: 0, y: hiddenScrollViewYOffset)
-        let animator = UIViewPropertyAnimator(duration: 0.48, dampingRatio: 0.76) {
+        let presentAnimator = UIViewPropertyAnimator(duration: 0.48, dampingRatio: 0.76) {
             self.presentationActions(self)
             self.backgroundBlur.effect = UIBlurEffect(style: .light)
             self.scrollView.transform = CGAffineTransform.identity
         }
-        animator.addCompletion { (position) in
+        presentAnimator.addCompletion { (position) in
             completion?()
             self.presentationCompletionActions(self)
         }
-        animator.startAnimation()
+        presentAnimator.startAnimation()
         buttonRow.present()
     }
     
@@ -91,14 +91,25 @@ class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate
         super.dismiss(animated: flag, completion: completion)
         buttonRow.dismiss()
         
-        UIView.animate(withDuration: 0.36, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: [], animations: {
+        prepareBackgroundBlurAnimatorIfNeeded()
+        backgroundBlurDismissAnimator?.startAnimation()
+        let dismissAnimator = UIViewPropertyAnimator(duration: 0.36, dampingRatio: 1) {
             self.dismissalActions(self)
-            self.backgroundBlur.effect = nil
             self.scrollView.transform = CGAffineTransform(translationX: 0, y: self.hiddenScrollViewYOffset)
-        }) { finished in
+        }
+        dismissAnimator.addCompletion { (position) in
             completion?()
             self.dismissalCompletionActions(self)
             self.scrollView.transform = CGAffineTransform.identity
+        }
+        dismissAnimator.startAnimation()
+    }
+    
+    private var backgroundBlurDismissAnimator: UIViewPropertyAnimator?
+    private func prepareBackgroundBlurAnimatorIfNeeded() {
+        guard backgroundBlurDismissAnimator == nil || backgroundBlurDismissAnimator?.state == .inactive else { return }
+        backgroundBlurDismissAnimator = UIViewPropertyAnimator(duration: 0.32, dampingRatio: 1) {
+            self.backgroundBlur.effect = nil
         }
     }
     
@@ -115,12 +126,19 @@ class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         feedbackGenerator.prepare()
+        prepareBackgroundBlurAnimatorIfNeeded()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let dismissThreshold: CGFloat = 58
         let normalizedOffsetY = scrollView.contentOffset.y + scrollView.contentInset.top
         shouldDismissThroughScroll = normalizedOffsetY < -dismissThreshold
+        guard !isBeingDismissed else { return }
+        guard normalizedOffsetY <= 0 else {
+            backgroundBlurDismissAnimator?.fractionComplete = 0
+            return
+        }
+        backgroundBlurDismissAnimator?.fractionComplete = min(normalizedOffsetY / -220, 0.8)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

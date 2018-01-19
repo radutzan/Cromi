@@ -102,8 +102,14 @@ class ViewController: CromiViewController, MKMapViewDelegate, LocationServicesDe
     }
     
     // MARK: - Modals
+    override func modalWillPresent(modal: CromiModalViewController) {
+        super.modalWillPresent(modal: modal)
+        mapController?.toggleStopPredictions(paused: true)
+    }
+    
     override func modalWillDismiss(modal: CromiModalViewController) {
         super.modalWillDismiss(modal: modal)
+        mapController?.toggleStopPredictions(paused: false)
         buttonRow.present()
     }
     

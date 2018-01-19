@@ -13,12 +13,32 @@ class CromiDialogViewController: CromiModalViewController {
     @IBOutlet private var backgroundBlur: UIVisualEffectView!
     @IBOutlet private var containerView: UIView!
     @IBOutlet private var containerViewVerticalCenterConstraint: NSLayoutConstraint!
-    var contentView: UIView?
+    var contentView: UIView? {
+        didSet {
+            if oldValue != nil {
+                oldValue?.removeFromSuperview()
+            }
+            setUpContentView()
+        }
+    }
     
     convenience init(dialogView: UIView) {
         self.init(nibName: nil, bundle: nil)
         self.view.alpha = 1
         self.contentView = dialogView
+        setUpContentView()
+    }
+    
+    private func setUpContentView() {
+        guard let contentView = contentView else { return }
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 12
+        containerView.addSubview(contentView)
+        contentView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
     override func viewDidLoad() {
@@ -32,26 +52,21 @@ class CromiDialogViewController: CromiModalViewController {
         containerView.apply(shadow: .floatingHigh)
     }
     
-    override func viewWillLayoutSubviews() {
-        contentView?.frame = containerView.bounds
-    }
+//    override func viewWillLayoutSubviews() {
+//        contentView?.frame = containerView.bounds
+//    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     override func present(on parentVC: UIViewController, completion: (() -> ())? = nil) {
-        guard let contentView = contentView else { return }
+        guard contentView != nil else { return }
         super.present(on: parentVC)
         
         backgroundBlur.effect = nil
-        
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 12
-        containerView.addSubview(contentView)
-        
-        containerView.heightAnchor.constraint(equalToConstant: contentView.intrinsicContentSize.height).isActive = true
-        containerView.widthAnchor.constraint(equalToConstant: contentView.intrinsicContentSize.width).isActive = true
+//        containerView.heightAnchor.constraint(equalToConstant: contentView.intrinsicContentSize.height).isActive = true
+//        containerView.widthAnchor.constraint(equalToConstant: contentView.intrinsicContentSize.width).isActive = true
         view.setNeedsLayout()
         view.layoutIfNeeded()
         

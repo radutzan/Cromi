@@ -24,7 +24,7 @@
 "Add Card Title" = "Add a Bip Card";
 "Edit Card Title" = "Edit Card";
 "Card Number Placeholder" = "Card Number";
-"Card Name Placeholder" = "Name Your Card";
+"Card Name Placeholder" = "Card Name";
 "Student Card" = "Student Pass";
 "Bip Info Label Text" = "Bip card balance data is at least 24 hours old. Use with caution.";
 "No Bip Name Alert Title" = "You Didn't Add a Name";

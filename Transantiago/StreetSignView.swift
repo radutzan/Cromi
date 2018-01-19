@@ -237,11 +237,15 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     private var serviceViews: [String: SignServiceView] = [:]
     private var predictionUpdateTimer: Timer?
     
-    private func beginStopPredictions() {
+    func beginStopPredictions() {
         guard annotation is Stop else { return }
         getCurrentStopPrediction()
         startPredictionTimer()
         addRefreshIndicator()
+    }
+    
+    func pauseStopPredictions() {
+        cancelPredictionTimer()
     }
     
     private func endStopPredictions() {

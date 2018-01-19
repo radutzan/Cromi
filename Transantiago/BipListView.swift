@@ -19,9 +19,7 @@ class BipListView: NibLoadingView {
             if !preventClearing {
                 clearStackView()
                 for view in views {
-                    view.translatesAutoresizingMaskIntoConstraints = false
-                    stackView.addArrangedSubview(view)
-                    view.apply(shadow: .floatingHigh)
+                    add(view: view)
                 }
                 stackView.layoutIfNeeded()
             }
@@ -37,19 +35,44 @@ class BipListView: NibLoadingView {
         }
     }
     
+    private func add(view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(view)
+        view.apply(shadow: .floatingHigh)
+    }
+    
+    func append(cardView: BipCardView) {
+        preventClearing = true
+        views.append(cardView)
+        cardView.isHidden = true
+        add(view: cardView)
+        let appendAnimator = UIViewPropertyAnimator(duration: 0.52, dampingRatio: 1) {
+            cardView.isHidden = false
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
+        appendAnimator.startAnimation()
+    }
+    
     func removeView(with cardNumber: Int, animateAlongside: (() -> ())? = nil) {
         for (index, view) in views.enumerated() {
             guard let view = view as? BipCardView, view.cardNumber == cardNumber else { continue }
-            UIView.animate(withDuration: 2.36, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-                view.isHidden = true//heightConstraint.constant = 0
+//            view.closeOptions()
+            view.setAnchorPoint(CGPoint(x: 0.5, y: 0))
+            UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+                view.isHidden = true
                 view.alpha = 0
-//                self.stackView.layoutIfNeeded()
+                view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                self.setNeedsLayout()
+                self.layoutIfNeeded()
                 animateAlongside?()
             }) { finished in
                 self.preventClearing = true
                 self.stackView.removeArrangedSubview(view)
                 view.removeFromSuperview()
                 self.views.remove(at: index)
+                self.setNeedsLayout()
+                self.layoutIfNeeded()
             }
         }
     }

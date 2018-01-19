@@ -24,7 +24,7 @@
 "Add Card Title" = "Agrega una tarjeta Bip";
 "Edit Card Title" = "Edita tu tarjeta";
 "Card Number Placeholder" = "Número de tarjeta";
-"Card Name Placeholder" = "Ponle un nombre";
+"Card Name Placeholder" = "Nombre de tarjeta";
 "Student Card" = "Pase Escolar";
 "Bip Info Label Text" = "Ojo: Los datos de carga Bip! tienen al menos 24 horas de desfase.";
 "No Bip Name Alert Title" = "No pusiste un nombre";

@@ -25,6 +25,7 @@ class ColorOptionPickerView: UIView {
             for (index, view) in optionViews.enumerated() {
                 view.isSelected = selectedIndex == index
             }
+            optionChangeAction?(selectedOption)
         }
     }
     var selectedOption: ColorOption {
@@ -94,7 +95,6 @@ class ColorOptionPickerView: UIView {
     @objc private func option(tapped tap: UITapGestureRecognizer) {
         guard let optionView = tap.view as? ColorOptionView, let selectedIndex = optionViews.index(of: optionView) else { return }
         self.selectedIndex = selectedIndex
-        optionChangeAction?(selectedOption)
     }
 }
 
