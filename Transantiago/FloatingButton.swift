@@ -11,7 +11,7 @@ import UIKit
 class FloatingButton: UIButton {
     var size: CGFloat = 44
     var shadow = Shadow.floatingHigh
-    private var selectedScale: CGFloat = 1.333
+    private var selectedScale: CGFloat = 1.32
     
     override func setImage(_ image: UIImage?, for state: UIControlState) {
         super.setImage(image?.withRenderingMode(.alwaysTemplate), for: state)

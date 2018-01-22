@@ -94,6 +94,7 @@ class CromiDialogViewController: CromiModalViewController {
         let targetTransform = result == .cancelled ? CGAffineTransform(rotationAngle: 1).concatenating(CGAffineTransform(translationX: 128, y: view.bounds.height)) : CGAffineTransform(rotationAngle: -0.5).concatenating(CGAffineTransform(translationX: 128, y: -view.bounds.height))
         
         UIView.animate(withDuration: 0.58, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 0, options: [], animations: {
+            self.view.endEditing(true)
             self.setNeedsStatusBarAppearanceUpdate()
             self.backgroundBlur.effect = nil
             self.containerView.transform = targetTransform

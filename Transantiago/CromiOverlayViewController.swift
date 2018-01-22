@@ -47,6 +47,8 @@ class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate
         backgroundBlur.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(close)))
         scrollView.clipsToBounds = false
         scrollView.delegate = self
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.scrollIndicatorInsets.right = -10
     }
     
     override func viewWillLayoutSubviews() {
@@ -54,6 +56,7 @@ class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate
         contentView.frame.size.width = scrollView.bounds.width
         contentView.frame.size.height = contentView.intrinsicContentSize.height
         scrollView.contentInset.top = scrollView.bounds.height > contentView.intrinsicContentSize.height ? scrollView.bounds.height - contentView.intrinsicContentSize.height : 0
+        scrollView.contentSize = contentView.intrinsicContentSize
     }
     
     // MARK: - Presentation

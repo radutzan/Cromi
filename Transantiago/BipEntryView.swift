@@ -67,10 +67,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         isAddingEnabled = false
         addButton.setTitle(NSLocalizedString("Add", comment: ""), for: .normal)
         addButton.tapAction = { _ in
-            guard let validated = self.validateInputs() else { return }
-            self.isVisible = false
-            self.endEditing(true)
-            self.addAction?(validated.number, validated.name, self.colorOptionPicker.selectedOption.color)
+            guard self.finishEditing() else { return }
         }
         activityIndicator.isHidden = true
         
@@ -148,10 +145,16 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         isAddingEnabled = true
         addButton.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
         addButton.tapAction = { _ in
-            guard let validated = self.validateInputs() else { return }
+            guard self.finishEditing() else { return }
             completion?()
-            self.addAction?(validated.number, validated.name, self.colorOptionPicker.selectedOption.color)
         }
+    }
+    
+    @discardableResult private func finishEditing() -> Bool {
+        guard let validated = self.validateInputs() else { return false }
+        self.endEditing(true)
+        self.addAction?(validated.number, validated.name, self.colorOptionPicker.selectedOption.color)
+        return true
     }
     
     private func validateInputs() -> (number: Int, name: String)? {
@@ -195,7 +198,10 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
     }
     
     private func validate(cardNumber number: Int, silently: Bool = false) {
-        currentCardNumber = number
+        guard number == currentCardNumber else {
+            validate(cardNumber: currentCardNumber, silently: silently)
+            return
+        }
         
         if String(currentCardNumber).count > 8 {
             isCurrentCardNumberValid = false
@@ -203,7 +209,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
             return
         }
         
-        guard !didValidateCurrentCardNumber, !isValidatingCardNumber else { return }
+        guard !didValidateCurrentCardNumber else { return }//, !isValidatingCardNumber else { return }
         isValidatingCardNumber = true
         
         BipCard.isCardValid(id: number) { (result, error) in
@@ -211,7 +217,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
                 guard self.isVisible else { return }
                 self.isValidatingCardNumber = false
                 guard number == self.currentCardNumber else {
-                    self.validate(cardNumber: number)
+//                    self.validate(cardNumber: self.currentCardNumber, silently: silently)
                     return
                 }
                 if let isValid = result {
@@ -247,7 +253,10 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         
         if textField == numberField {
             if string != "" && !string.isNumeric { return false }
-            if let number = Int(finalString), finalString.count == 8 { validate(cardNumber: number, silently: true) }
+            if finalString.count > 8 { return false }
+            guard let number = Int(finalString) else { return false }
+            currentCardNumber = number
+            if finalString.count >= 7 { validate(cardNumber: number, silently: true) }
         } else if textField == nameField {
             let shouldEnable = finalString.count > 0 && isCurrentCardNumberValid
             if isAddingEnabled != shouldEnable { isAddingEnabled = shouldEnable }
@@ -259,7 +268,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         if textField == nameField {
             numberField.becomeFirstResponder()
         } else if textField == numberField {
-            view.endEditing(true)
+            finishEditing()
         }
         return true
     }

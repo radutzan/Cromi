@@ -18,6 +18,7 @@
 "OK" = "Bueno";
 "Retry" = "Intentar de nuevo";
 "Edit" = "Editar";
+"Save" = "Guardar";
 "Delete" = "Borrar";
 
 // Bip Cards
@@ -25,8 +26,8 @@
 "Edit Card Title" = "Edita tu tarjeta";
 "Card Number Placeholder" = "Número de tarjeta";
 "Card Name Placeholder" = "Nombre de tarjeta";
-"Student Card" = "Pase Escolar";
-"Bip Info Label Text" = "Ojo: Los datos de carga Bip! tienen al menos 24 horas de desfase.";
+"Student Card" = "TNE";
+"Bip Info Label Text" = "¡Ojo! El saldo de tu tarjeta Bip no considera ningún viaje hecho hoy.";
 "No Bip Name Alert Title" = "No pusiste un nombre";
 "No Bip Name Alert Message" = "Es necesario para guardar tu tarjeta.";
 "Invalid Bip Card Alert Title" = "Número de tarjeta inválido";

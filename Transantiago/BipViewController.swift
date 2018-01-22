@@ -13,7 +13,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
     private let listView = BipListView()
     private var cards: [BipCard] = [] {
         didSet {
-            buttonRow.setIsEnabled(on: [1], to: cards.count < 5)
+//            buttonRow.setIsEnabled(on: [1], to: cards.count < 5)
         }
     }
     private let formatter = NumberFormatter()
@@ -91,7 +91,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
             let matchingCards = cards.filter { $0.id == cardView.cardNumber }
             guard matchingCards.count > 0 else { continue }
             let card = matchingCards[0]
-            update(cardView: cardView, with: card)
+            update(cardView: cardView, with: card, animated: true)
         }
     }
     
@@ -110,13 +110,15 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         return view
     }
     
-    private func update(cardView: BipCardView, with card: BipCard) {
-        cardView.cardNumber = card.id
-        cardView.nameLabel.text = card.name
-        cardView.metadataLabel.text = "\(card.id) \(card.kind == .student ? "• \(NSLocalizedString("Student Card", comment: ""))" : "")"
-        cardView.balanceLabel.text = formatter.string(from: card.balance as NSNumber) ?? "Error"
-        cardView.updatedDateLabel.text = lastUpdatedString(from: card.lastUpdated)
-        cardView.color = card.color
+    private func update(cardView: BipCardView, with card: BipCard, animated: Bool = false) {
+        UIView.transition(with: cardView, duration: animated ? 0.24 : 0, options: [.transitionCrossDissolve], animations: {
+            cardView.cardNumber = card.id
+            cardView.nameLabel.text = card.name
+            cardView.metadataLabel.text = "\(card.id) \(card.kind == .student ? "• \(NSLocalizedString("Student Card", comment: ""))" : "")"
+            cardView.balanceLabel.text = self.formatter.string(from: card.balance as NSNumber) ?? "Error"
+            cardView.updatedDateLabel.text = card.lastUpdated != nil ? self.lastUpdatedString(from: card.lastUpdated!) : ""
+            cardView.color = card.color
+        }, completion: nil)
     }
     
     private func lastUpdatedString(from date: Date) -> String {
@@ -132,7 +134,6 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
     }
     
     // MARK: - Data editing
-    private var preventFullRefresh = false
     private func deleteCard(with number: Int) {
         var indexToDelete: Int?
         for (index, card) in User.current.bipCards.enumerated() {
@@ -142,7 +143,6 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
             }
         }
         guard let index = indexToDelete else { return }
-        preventFullRefresh = true
         User.current.bipCards.remove(at: index)
         listView.removeView(with: number) {
         }
@@ -166,15 +166,15 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         }
         entryView.addAction = { (number, name, color) in
             dialogController.dismiss(with: .success)
-            if !isEditing {
-                User.current.bipCards.append(BipCard(id: number, name: name, color: color))
-            } else {
+            if isEditing {
+                self.optionRevealingBipCardView?.closeOptions()
                 let cardNumbers = User.current.bipCards.map { $0.id }
                 if let index = cardNumbers.index(of: number) {
                     User.current.bipCards[index].name = name
                     User.current.bipCards[index].color = color
-                    self.optionRevealingBipCardView?.closeOptions()
                 }
+            } else {
+                User.current.bipCards.append(BipCard(id: number, name: name, color: color))
             }
         }
     }

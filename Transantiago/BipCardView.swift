@@ -115,28 +115,52 @@ class BipCardView: NibLoadingView {
         animator.startAnimation()
     }
     
+    private var feedbackGenerator = UISelectionFeedbackGenerator()
+    private func toggleProposeDeleteSwipe(on: Bool) {
+        guard isProposingDeleteSwipe != on else { return }
+        for view in optionsContainerView.subviews {
+            guard let button = view as? FloatingButton, button.accessibilityLabel == NSLocalizedString("Delete", comment: "") else { continue }
+            isProposingDeleteSwipe = on
+            button.isSelected = on
+            feedbackGenerator.selectionChanged()
+        }
+    }
+    
     // MARK: - Touches
     private var initialTransformTX: CGFloat = 0
+    private var deleteSwipeExtraThreshold: CGFloat = 32
+    private var isProposingDeleteSwipe = false
     @objc private func handle(pan: UIPanGestureRecognizer) {
         switch pan.state {
         case .began:
+            feedbackGenerator.prepare()
             initialTransformTX = transform.tx
             
         case .changed:
             let gestureTranslationX = pan.translation(in: self.view).x
             var proposedTranslation = initialTransformTX + gestureTranslationX
+            let resistanceDivider: CGFloat = 3
             
             if proposedTranslation < minTranslationX {
                 let baseTranslation = !isPresentingOptions ? minTranslationX : 0
-                proposedTranslation = minTranslationX + ((gestureTranslationX - baseTranslation) / 4)
+                proposedTranslation = minTranslationX + ((gestureTranslationX - baseTranslation) / resistanceDivider)
             } else if proposedTranslation > 0 {
                 let baseTranslation = isPresentingOptions ? minTranslationX : 0
-                proposedTranslation = (gestureTranslationX + baseTranslation) / 4
+                proposedTranslation = (gestureTranslationX + baseTranslation) / resistanceDivider
             }
             transform = CGAffineTransform(translationX: proposedTranslation, y: 0)
             optionsContainerView.alpha = proposedTranslation / minTranslationX
+            if proposedTranslation < minTranslationX - deleteSwipeExtraThreshold && !isProposingDeleteSwipe {
+                toggleProposeDeleteSwipe(on: true)
+            } else if isProposingDeleteSwipe && proposedTranslation >= minTranslationX - deleteSwipeExtraThreshold {
+                toggleProposeDeleteSwipe(on: false)
+            }
             
         default:
+            guard !isProposingDeleteSwipe else {
+                deleteAction?(cardNumber, nameLabel.text ?? "", color)
+                return
+            }
             var shouldPresentOptions = false
             let minVelocity: CGFloat = 820
             let currentVelocity = pan.velocity(in: self.view).x
@@ -162,6 +186,8 @@ class BipCardView: NibLoadingView {
         delegate?.bipCardViewTapped(cardView: self)
         if isPresentingOptions {
             closeOptions()
+        } else {
+            editAction?(cardNumber, nameLabel.text ?? "", color)
         }
     }
     

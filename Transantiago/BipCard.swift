@@ -21,7 +21,7 @@ class BipCard: NSObject, NSCoding {
             User.current.didUpdateData()
         }
     }
-    private(set) var lastUpdated: Date
+    private(set) var lastUpdated: Date? = nil
     private(set) var balance: Int = 0
     enum Kind {
         case normal, student
@@ -36,7 +36,6 @@ class BipCard: NSObject, NSCoding {
         self.id = id
         self.name = name
         self.color = color
-        self.lastUpdated = Date.distantPast
         super.init()
         updateBalance()
     }
@@ -44,12 +43,11 @@ class BipCard: NSObject, NSCoding {
     // MARK: - Coding
     required init?(coder decoder: NSCoder) {
         guard let name = decoder.decodeObject(forKey: "name") as? String,
-            let color = decoder.decodeObject(forKey: "color") as? UIColor,
-            let lastUpdated = decoder.decodeObject(forKey: "lastUpdated") as? Date else { return nil }
+            let color = decoder.decodeObject(forKey: "color") as? UIColor else { return nil }
         self.id = decoder.decodeInteger(forKey: "id")
         self.name = name
         self.color = color
-        self.lastUpdated = lastUpdated
+        self.lastUpdated = decoder.decodeObject(forKey: "lastUpdated") as? Date
         self.balance = decoder.decodeInteger(forKey: "balance")
         super.init()
         updateBalance()
@@ -91,12 +89,16 @@ class BipCard: NSObject, NSCoding {
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []), let rootData = jsonObject as? [[String: Any]] {
                 guard rootData.count > 1, let status = rootData[0]["estado"] as? Int, status == 0 else { return }
                 let cardData = rootData[1]
-                guard let dateString = cardData["fecha"] as? String, let balanceString = cardData["saldo"] as? String, let balanceInt = Int(balanceString) else { return }
+                guard let balanceString = cardData["saldo"] as? String, let balanceInt = Int(balanceString) else { return }
                 self.balance = balanceInt
-                let formatter = DateFormatter()
-                formatter.timeZone = TimeZone(identifier: "America/Santiago")
-                formatter.dateFormat = "dd/MM/yyyy HH:mm"
-                self.lastUpdated = formatter.date(from: dateString) ?? Date.distantPast
+                if let dateString = cardData["fecha"] as? String {
+                    let formatter = DateFormatter()
+                    formatter.timeZone = TimeZone(identifier: "America/Santiago")
+                    formatter.dateFormat = "dd/MM/yyyy HH:mm"
+                    self.lastUpdated = formatter.date(from: dateString)
+                } else {
+                    self.lastUpdated = nil
+                }
             }
             if let error = error {
                 print("BipCard: Balance request failed with error: \(error)")

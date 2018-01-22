@@ -18,6 +18,7 @@
 "OK" = "OK";
 "Retry" = "Try Again";
 "Edit" = "Edit";
+"Save" = "Save";
 "Delete" = "Delete";
 
 // Bip Cards
@@ -25,8 +26,8 @@
 "Edit Card Title" = "Edit Card";
 "Card Number Placeholder" = "Card Number";
 "Card Name Placeholder" = "Card Name";
-"Student Card" = "Student Pass";
-"Bip Info Label Text" = "Bip card balance data is at least 24 hours old. Use with caution.";
+"Student Card" = "Student Card";
+"Bip Info Label Text" = "Your Bip card balance doesn't include money spent today. Use with caution.";
 "No Bip Name Alert Title" = "You Didn't Add a Name";
 "No Bip Name Alert Message" = "Your card needs a name to be saved.";
 "Invalid Bip Card Alert Title" = "Invalid Card Number";

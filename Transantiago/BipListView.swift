@@ -21,7 +21,8 @@ class BipListView: NibLoadingView {
                 for view in views {
                     add(view: view)
                 }
-                stackView.layoutIfNeeded()
+                self.setNeedsLayout()
+                self.layoutIfNeeded()
             }
             preventClearing = false
         }
@@ -44,12 +45,17 @@ class BipListView: NibLoadingView {
     func append(cardView: BipCardView) {
         preventClearing = true
         views.append(cardView)
-        cardView.isHidden = true
         add(view: cardView)
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
+
+        cardView.isHidden = true
+        cardView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1).translatedBy(x: 0, y: 200)
+        cardView.alpha = 0
         let appendAnimator = UIViewPropertyAnimator(duration: 0.52, dampingRatio: 1) {
             cardView.isHidden = false
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
+            cardView.transform = .identity
+            cardView.alpha = 1
         }
         appendAnimator.startAnimation()
     }
@@ -57,12 +63,10 @@ class BipListView: NibLoadingView {
     func removeView(with cardNumber: Int, animateAlongside: (() -> ())? = nil) {
         for (index, view) in views.enumerated() {
             guard let view = view as? BipCardView, view.cardNumber == cardNumber else { continue }
-//            view.closeOptions()
-            view.setAnchorPoint(CGPoint(x: 0.5, y: 0))
-            UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+            UIView.animate(withDuration: 0.52, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [.beginFromCurrentState], animations: {
                 view.isHidden = true
                 view.alpha = 0
-                view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                view.transform = CGAffineTransform(translationX: -self.view.bounds.width - 256, y: 0)
                 self.setNeedsLayout()
                 self.layoutIfNeeded()
                 animateAlongside?()
