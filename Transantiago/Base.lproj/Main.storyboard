@@ -94,11 +94,20 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9S-qF-Wnw">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nZ6-6f-bil">
+                                <rect key="frame" x="0.0" y="643" width="76" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="72r-H8-Umk"/>
+                                    <constraint firstAttribute="height" constant="24" id="B1z-aT-efq"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="nZ6-6f-bil" firstAttribute="leading" secondItem="X96-DQ-2A9" secondAttribute="leading" id="8BD-wy-may"/>
                             <constraint firstItem="l9S-qF-Wnw" firstAttribute="top" secondItem="X96-DQ-2A9" secondAttribute="top" id="XYm-ZH-9z4"/>
                             <constraint firstAttribute="trailing" secondItem="l9S-qF-Wnw" secondAttribute="trailing" id="XbH-3o-mf1"/>
+                            <constraint firstAttribute="bottom" secondItem="nZ6-6f-bil" secondAttribute="bottom" id="aS7-7r-yfk"/>
                             <constraint firstItem="l9S-qF-Wnw" firstAttribute="leading" secondItem="X96-DQ-2A9" secondAttribute="leading" id="hFh-ZU-pqB"/>
                             <constraint firstAttribute="bottom" secondItem="l9S-qF-Wnw" secondAttribute="bottom" id="uYJ-5s-qdx"/>
                         </constraints>
@@ -109,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVC-PZ-4Il" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1407" y="139"/>
+            <point key="canvasLocation" x="1405.5999999999999" y="138.98050974512745"/>
         </scene>
     </scenes>
 </document>

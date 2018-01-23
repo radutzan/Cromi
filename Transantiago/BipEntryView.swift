@@ -199,6 +199,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
     
     private func validate(cardNumber number: Int, silently: Bool = false) {
         guard number == currentCardNumber else {
+            guard String(currentCardNumber).count == 8 else { return }
             validate(cardNumber: currentCardNumber, silently: silently)
             return
         }
@@ -256,7 +257,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
             if finalString.count > 8 { return false }
             guard let number = Int(finalString) else { return false }
             currentCardNumber = number
-            if finalString.count >= 7 { validate(cardNumber: number, silently: true) }
+            if finalString.count == 8 { validate(cardNumber: number, silently: false) }
         } else if textField == nameField {
             let shouldEnable = finalString.count > 0 && isCurrentCardNumberValid
             if isAddingEnabled != shouldEnable { isAddingEnabled = shouldEnable }

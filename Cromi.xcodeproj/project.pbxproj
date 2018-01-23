@@ -24,6 +24,7 @@
 		7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
 		7C5D180A1FE783D300E153FE /* InfoBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C5D18091FE783D300E153FE /* InfoBanner.xib */; };
 		7C5D180C1FE7864D00E153FE /* InfoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5D180B1FE7864D00E153FE /* InfoBanner.swift */; };
+		7C5E1706201660B40099C8F2 /* Providencia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 7C5E1705201660B40099C8F2 /* Providencia.gpx */; };
 		7C6645671FD0AF53005EF2DF /* ButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645661FD0AF53005EF2DF /* ButtonRow.swift */; };
 		7C66456A1FD33175005EF2DF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645681FD33175005EF2DF /* MapViewController.swift */; };
 		7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456C1FD33392005EF2DF /* LocationServices.swift */; };
@@ -89,6 +90,7 @@
 		7C58CC531EA05C6700259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C5D18091FE783D300E153FE /* InfoBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBanner.xib; sourceTree = "<group>"; };
 		7C5D180B1FE7864D00E153FE /* InfoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBanner.swift; sourceTree = "<group>"; };
+		7C5E1705201660B40099C8F2 /* Providencia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Providencia.gpx; sourceTree = "<group>"; };
 		7C6645661FD0AF53005EF2DF /* ButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRow.swift; sourceTree = "<group>"; };
 		7C6645681FD33175005EF2DF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7C66456C1FD33392005EF2DF /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				7C100DA11E8C32E7005EC7B1 /* PokeWalk.gpx */,
+				7C5E1705201660B40099C8F2 /* Providencia.gpx */,
 				7CE946BE1DF8FA3E00F3D29A /* Cromi */,
 				7CE946BD1DF8FA3E00F3D29A /* Products */,
 				7CE946D11DF8FB0600F3D29A /* Frameworks */,
@@ -375,6 +378,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C5E1706201660B40099C8F2 /* Providencia.gpx in Resources */,
 				7C77F7871FFDD86F00934BED /* BipCardView.xib in Resources */,
 				7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */,
 				7C5D180A1FE783D300E153FE /* InfoBanner.xib in Resources */,

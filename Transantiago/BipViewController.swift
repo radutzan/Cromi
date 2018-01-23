@@ -40,8 +40,6 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         cards = User.current.bipCards
         print("BipViewController: updateData - oldData.count: \(oldData.count), cards.count: \(cards.count)")
         
-//        let shouldAnimate = !isFirstLoad
-        
         if oldData.count == 0 && cards.count > 0 {
             print("BipViewController: updateData - initial load or first add")
             performFullListReload()
@@ -51,7 +49,6 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
             if let newCard = cards.last {
                 listView.append(cardView: createCardView(with: newCard))
             }
-//            performFullListReload() // temp
             
         } else if oldData.count == (cards.count + 1) && cards.count > 0 {
             print("BipViewController: updateData - removal")
@@ -114,7 +111,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         UIView.transition(with: cardView, duration: animated ? 0.24 : 0, options: [.transitionCrossDissolve], animations: {
             cardView.cardNumber = card.id
             cardView.nameLabel.text = card.name
-            cardView.metadataLabel.text = "\(card.id) \(card.kind == .student ? "• \(NSLocalizedString("Student Card", comment: ""))" : "")"
+            cardView.metadataLabel.text = "\(String(format: "%08d", card.id)) \(card.kind == .student ? "• \(NSLocalizedString("Student Card", comment: ""))" : "")"
             cardView.balanceLabel.text = self.formatter.string(from: card.balance as NSNumber) ?? "Error"
             cardView.updatedDateLabel.text = card.lastUpdated != nil ? self.lastUpdatedString(from: card.lastUpdated!) : ""
             cardView.color = card.color
