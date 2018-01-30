@@ -67,43 +67,50 @@ class BipCard: NSObject, NSCoding {
     }
     
     static func isCardValid(id: Int, result: @escaping (Bool?, Error?) -> ()) {
-        guard let requestURL = BipCard.requestURL(for: id) else { result(nil, nil); return }
-        print("BipCard: Checking validity - \(requestURL.absoluteString)")
-        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
-            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []), let rootData = jsonObject as? [[String: Any]] {
-                guard rootData.count > 0, let status = rootData[0]["estado"] as? Int, status == 0 else { result(false, nil); return }
-                result(true, nil)
-            }
-            if let error = error {
-                print("BipCard: Validity request failed with error: \(error)")
-                result(nil, error)
+        print("BipCard: Updating balance for \(id)")
+        BipCard.getData(for: id) { cardData, error in
+            if cardData == nil {
+                result(false, error)
+            } else {
+                result(true, error)
             }
         }
-        task.resume()
     }
     
     func updateBalance() {
-        guard let requestURL = BipCard.requestURL(for: id) else { return }
-        print("BipCard: Updating balance - \(requestURL.absoluteString)")
+        print("BipCard: Updating balance for \(id)")
+        BipCard.getData(for: id) { cardData, _ in
+            guard let cardData = cardData else { return }
+            self.balance = cardData.balance
+            self.lastUpdated = cardData.lastUpdated
+            User.current.didUpdateData()
+        }
+    }
+    
+    fileprivate static func getData(for number: Int, result: @escaping ((id: Int, status: Int, balance: Int, lastUpdated: Date?)?, Error?) -> ()) {
+        guard let requestURL = BipCard.requestURL(for: number) else { return }
+        print("BipCard: Getting data - \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
+            var finalData: (id: Int, status: Int, balance: Int, lastUpdated: Date?)? = nil
+            defer {
+                result(finalData, error)
+            }
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []), let rootData = jsonObject as? [[String: Any]] {
-                guard rootData.count > 1, let status = rootData[0]["estado"] as? Int, status == 0 else { return }
+                guard rootData.count > 1, let status = rootData[0]["estado"] as? Int else { return }
                 let cardData = rootData[1]
                 guard let balanceString = cardData["saldo"] as? String, let balanceInt = Int(balanceString) else { return }
-                self.balance = balanceInt
+                var lastUpdated: Date?
                 if let dateString = cardData["fecha"] as? String {
                     let formatter = DateFormatter()
                     formatter.timeZone = TimeZone(identifier: "America/Santiago")
                     formatter.dateFormat = "dd/MM/yyyy HH:mm"
-                    self.lastUpdated = formatter.date(from: dateString)
-                } else {
-                    self.lastUpdated = nil
+                    lastUpdated = formatter.date(from: dateString)
                 }
+                finalData = (id: number, status: status, balance: balanceInt, lastUpdated: lastUpdated)
             }
             if let error = error {
                 print("BipCard: Balance request failed with error: \(error)")
             }
-            User.current.didUpdateData()
         }
         task.resume()
     }
