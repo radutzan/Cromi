@@ -62,13 +62,9 @@ class BipCard: NSObject, NSCoding {
     }
     
     // MARK: - Requests
-    static func requestURL(for id: Int) -> URL? {
-        return URL(string: "http://www.metrosantiago.cl/contents/guia-viajero/includes/consultarTarjeta/\(id)")
-    }
-    
     static func isCardValid(id: Int, result: @escaping (Bool?, Error?) -> ()) {
         print("BipCard: Updating balance for \(id)")
-        BipCard.getData(for: id) { cardData, error in
+        BipAPI.get.data(for: id) { cardData, error in
             if cardData == nil {
                 result(false, error)
             } else {
@@ -79,39 +75,77 @@ class BipCard: NSObject, NSCoding {
     
     func updateBalance() {
         print("BipCard: Updating balance for \(id)")
-        BipCard.getData(for: id) { cardData, _ in
+        BipAPI.get.data(for: id) { cardData, _ in
             guard let cardData = cardData else { return }
             self.balance = cardData.balance
             self.lastUpdated = cardData.lastUpdated
             User.current.didUpdateData()
         }
     }
+}
+
+class BipAPI: NSObject {
+    static let get = BipAPI()
     
-    fileprivate static func getData(for number: Int, result: @escaping ((id: Int, status: Int, balance: Int, lastUpdated: Date?)?, Error?) -> ()) {
-        guard let requestURL = BipCard.requestURL(for: number) else { return }
+    private enum APIServer: String {
+        case metroDead = "http://www.metrosantiago.cl/contents/guia-viajero/includes/consultarTarjeta/"
+        case bipServicio = "https://bip-servicio.herokuapp.com/api/v1/solicitudes.json?bip="
+    }
+    
+    private let currentServer: APIServer = .bipServicio
+    private let dateFormatter: DateFormatter
+    
+    override init() {
+        dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(identifier: "America/Santiago")
+        super.init()
+    }
+    
+    private func requestURL(for id: Int) -> URL? {
+        return URL(string: "\(currentServer.rawValue)\(id)")
+    }
+    
+    func data(for number: Int, result: @escaping ((id: Int, balance: Int, lastUpdated: Date?)?, Error?) -> ()) {
+        guard let requestURL = requestURL(for: number) else { return }
         print("BipCard: Getting data - \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
-            var finalData: (id: Int, status: Int, balance: Int, lastUpdated: Date?)? = nil
+            var finalData: (id: Int, balance: Int, lastUpdated: Date?)? = nil
             defer {
                 result(finalData, error)
             }
-            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []), let rootData = jsonObject as? [[String: Any]] {
-                guard rootData.count > 1, let status = rootData[0]["estado"] as? Int else { return }
-                let cardData = rootData[1]
-                guard let balanceString = cardData["saldo"] as? String, let balanceInt = Int(balanceString) else { return }
-                var lastUpdated: Date?
-                if let dateString = cardData["fecha"] as? String {
-                    let formatter = DateFormatter()
-                    formatter.timeZone = TimeZone(identifier: "America/Santiago")
-                    formatter.dateFormat = "dd/MM/yyyy HH:mm"
-                    lastUpdated = formatter.date(from: dateString)
-                }
-                finalData = (id: number, status: status, balance: balanceInt, lastUpdated: lastUpdated)
+            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
+                finalData = self.process(jsonData: jsonObject, cardNumber: number)
             }
             if let error = error {
                 print("BipCard: Balance request failed with error: \(error)")
             }
         }
         task.resume()
+    }
+    
+    private func process(jsonData: Any, cardNumber: Int) -> (id: Int, balance: Int, lastUpdated: Date?)? {
+        switch currentServer {
+        case .metroDead:
+            guard let rootData = jsonData as? [[String: Any]], rootData.count > 1 else { return nil }
+            let cardData = rootData[1]
+            guard let balanceString = cardData["saldo"] as? String, let balanceInt = Int(balanceString) else { return nil }
+            var lastUpdated: Date?
+            if let dateString = cardData["fecha"] as? String {
+                dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+                lastUpdated = dateFormatter.date(from: dateString)
+            }
+            return (id: cardNumber, balance: balanceInt, lastUpdated: lastUpdated)
+            
+        case .bipServicio:
+            guard let rootData = jsonData as? [String: String],
+                let statusString = rootData["estadoContrato"], statusString == "Contrato Activo",
+                let idString = rootData["id"],
+                let balanceString = rootData["saldoTarjeta"],
+                let dateString = rootData["fechaSaldo"] else { return nil }
+            let cleanBalanceString = balanceString.replacingOccurrences(of: "$", with: "").replacingOccurrences(of: ".", with: "")
+            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            guard let id = Int(idString), let balance = Int(cleanBalanceString), let lastUpdated = dateFormatter.date(from: dateString) else { return nil }
+            return (id: id, balance: balance, lastUpdated: lastUpdated)
+        }
     }
 }
