@@ -6,7 +6,7 @@
 //  Copyright © 2017 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
+import RaduKit
 
 protocol ServiceBarDelegate: AnyObject {
     func serviceBarSelected(direction: Service.Route.Direction, service: Service)

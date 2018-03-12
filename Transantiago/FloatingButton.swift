@@ -6,7 +6,7 @@
 //  Copyright © 2017 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
+import RaduKit
 
 class FloatingButton: UIButton {
     var size: CGFloat = 44

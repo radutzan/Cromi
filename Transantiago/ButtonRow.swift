@@ -6,7 +6,7 @@
 //  Copyright © 2017 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
+import RaduKit
 
 struct ButtonItem {
     var image: UIImage

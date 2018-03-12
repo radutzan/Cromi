@@ -6,6 +6,7 @@
 //  Copyright © 2017 Radu Dutzan. All rights reserved.
 //
 
+import RaduKit
 import MapKit
 
 class SCLTransit: NSObject, DataSource {

@@ -6,9 +6,10 @@
 //  Copyright © 2016 Radu Dutzan. All rights reserved.
 //
 
+import RaduKit
 import MapKit
 
-class ViewController: CromiViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate {
+class ViewController: ModalSupportingViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate {
     
     let locationServices = LocationServices()
     var mapController: MapViewController?
@@ -102,12 +103,12 @@ class ViewController: CromiViewController, MKMapViewDelegate, LocationServicesDe
     }
     
     // MARK: - Modals
-    override func modalWillPresent(modal: CromiModalViewController) {
+    override func modalWillPresent(modal: AbstractModalViewController) {
         super.modalWillPresent(modal: modal)
         mapController?.toggleStopPredictions(paused: true)
     }
     
-    override func modalWillDismiss(modal: CromiModalViewController) {
+    override func modalWillDismiss(modal: AbstractModalViewController) {
         super.modalWillDismiss(modal: modal)
         mapController?.toggleStopPredictions(paused: false)
         buttonRow.present()

@@ -90,6 +90,7 @@ class BipAPI: NSObject {
     private enum APIServer: String {
         case metroDead = "http://www.metrosantiago.cl/contents/guia-viajero/includes/consultarTarjeta/"
         case bipServicio = "https://bip-servicio.herokuapp.com/api/v1/solicitudes.json?bip="
+        case franciscoCapone = "http://bip.franciscocapone.com/api/getSaldo/"
     }
     
     private let currentServer: APIServer = .bipServicio
@@ -146,6 +147,9 @@ class BipAPI: NSObject {
             dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
             guard let id = Int(idString), let balance = Int(cleanBalanceString), let lastUpdated = dateFormatter.date(from: dateString) else { return nil }
             return (id: id, balance: balance, lastUpdated: lastUpdated)
+            
+        default:
+            return nil
         }
     }
 }

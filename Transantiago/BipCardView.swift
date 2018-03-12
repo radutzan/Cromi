@@ -6,7 +6,7 @@
 //  Copyright © 2018 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
+import RaduKit
 
 protocol BipCardViewDelegate: AnyObject {
     func bipCardViewWillRevealOptions(cardView: BipCardView)

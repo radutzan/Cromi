@@ -18,8 +18,9 @@
 		7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */; };
 		7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */; };
 		7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */; };
+		7C2E16AD2054E5B000B33292 /* RaduKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2E16AA2054E50E00B33292 /* RaduKit.framework */; };
+		7C2E16AE2054E5B000B33292 /* RaduKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2E16AA2054E50E00B33292 /* RaduKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7C35D6201FC9D6F300F01E2D /* ServiceBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */; };
-		7C58BC6A2005464600319092 /* CromiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C58BC692005464600319092 /* CromiViewController.swift */; };
 		7C58BC6C2005472100319092 /* CromiOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */; };
 		7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
 		7C5D180A1FE783D300E153FE /* InfoBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C5D18091FE783D300E153FE /* InfoBanner.xib */; };
@@ -30,12 +31,10 @@
 		7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456C1FD33392005EF2DF /* LocationServices.swift */; };
 		7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456E1FD33453005EF2DF /* ViewController.swift */; };
 		7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6645721FD34EAE005EF2DF /* ButtonRow.xib */; };
-		7C6645751FD351B6005EF2DF /* UIButton+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645741FD351B6005EF2DF /* UIButton+Actions.swift */; };
 		7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645761FD35C7B005EF2DF /* ServiceBar.swift */; };
 		7C6645791FD4B5F5005EF2DF /* SCLTransit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */; };
 		7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F77E1FF42C6500934BED /* BipCard.swift */; };
 		7C77F7811FFA754D00934BED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7801FFA754D00934BED /* User.swift */; };
-		7C77F7841FFA7EEA00934BED /* CromiModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */; };
 		7C77F7851FFA7EEA00934BED /* CromiOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */; };
 		7C77F7871FFDD86F00934BED /* BipCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7861FFDD86F00934BED /* BipCardView.xib */; };
 		7C77F7891FFDDA0000934BED /* BipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7881FFDDA0000934BED /* BipCardView.swift */; };
@@ -46,9 +45,7 @@
 		7C77F7941FFDE42600934BED /* EmptyBipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7931FFDE42600934BED /* EmptyBipView.xib */; };
 		7C77F7961FFDE6F700934BED /* BipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7951FFDE6F700934BED /* BipViewController.swift */; };
 		7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7971FFDE80200934BED /* EmptyBipView.swift */; };
-		7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B96311EEA2F2600CAB04E /* Typography.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
-		7CB781202004768D005A9464 /* Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7811F2004768D005A9464 /* Shadows.swift */; };
 		7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781232004896A005A9464 /* CromiDialogViewController.swift */; };
 		7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB781242004896A005A9464 /* CromiDialogViewController.xib */; };
 		7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781272005388B005A9464 /* ColorOptionPickerView.swift */; };
@@ -61,13 +58,42 @@
 		7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */; };
 		7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */; };
 		7CE946D31DF8FB0600F3D29A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE946D21DF8FB0600F3D29A /* MapKit.framework */; };
-		7CE946D51DF93F1200F3D29A /* Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946D41DF93F1200F3D29A /* Extras.swift */; };
 		7CE946DB1DF9579200F3D29A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
 		7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */; };
 		7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */; };
-		7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946E01DFA366100F3D29A /* NibLoadingView.swift */; };
 		7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7C2E16A92054E50E00B33292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C2E16A52054E50E00B33292 /* RaduKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7C2E16722054D96F00B33292;
+			remoteInfo = RaduKit;
+		};
+		7C2E16AF2054E5B000B33292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C2E16A52054E50E00B33292 /* RaduKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C2E16712054D96F00B33292;
+			remoteInfo = RaduKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7C2E16B12054E5B000B33292 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7C2E16AE2054E5B000B33292 /* RaduKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7C100DA11E8C32E7005EC7B1 /* PokeWalk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PokeWalk.gpx; sourceTree = "<group>"; };
@@ -82,8 +108,8 @@
 		7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignTimetableView.xib; sourceTree = "<group>"; };
 		7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignTimetableView.swift; sourceTree = "<group>"; };
 		7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		7C2E16A52054E50E00B33292 /* RaduKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RaduKit.xcodeproj; path = ../RaduKit/RaduKit.xcodeproj; sourceTree = "<group>"; };
 		7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceBar.xib; sourceTree = "<group>"; };
-		7C58BC692005464600319092 /* CromiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiViewController.swift; sourceTree = "<group>"; };
 		7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiOverlayViewController.swift; sourceTree = "<group>"; };
 		7C58CC4D1EA05C3600259F11 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7C58CC511EA05C5500259F11 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -96,12 +122,10 @@
 		7C66456C1FD33392005EF2DF /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
 		7C66456E1FD33453005EF2DF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7C6645721FD34EAE005EF2DF /* ButtonRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonRow.xib; sourceTree = "<group>"; };
-		7C6645741FD351B6005EF2DF /* UIButton+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Actions.swift"; sourceTree = "<group>"; };
 		7C6645761FD35C7B005EF2DF /* ServiceBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceBar.swift; sourceTree = "<group>"; };
 		7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLTransit.swift; sourceTree = "<group>"; };
 		7C77F77E1FF42C6500934BED /* BipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipCard.swift; sourceTree = "<group>"; };
 		7C77F7801FFA754D00934BED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiModalViewController.swift; sourceTree = "<group>"; };
 		7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiOverlayViewController.xib; sourceTree = "<group>"; };
 		7C77F7861FFDD86F00934BED /* BipCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BipCardView.xib; sourceTree = "<group>"; };
 		7C77F7881FFDDA0000934BED /* BipCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipCardView.swift; sourceTree = "<group>"; };
@@ -112,9 +136,7 @@
 		7C77F7931FFDE42600934BED /* EmptyBipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyBipView.xib; sourceTree = "<group>"; };
 		7C77F7951FFDE6F700934BED /* BipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipViewController.swift; sourceTree = "<group>"; };
 		7C77F7971FFDE80200934BED /* EmptyBipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBipView.swift; sourceTree = "<group>"; };
-		7C7B96311EEA2F2600CAB04E /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		7CB7811F2004768D005A9464 /* Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadows.swift; sourceTree = "<group>"; };
 		7CB781232004896A005A9464 /* CromiDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDialogViewController.swift; sourceTree = "<group>"; };
 		7CB781242004896A005A9464 /* CromiDialogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiDialogViewController.xib; sourceTree = "<group>"; };
 		7CB781272005388B005A9464 /* ColorOptionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionPickerView.swift; sourceTree = "<group>"; };
@@ -131,13 +153,11 @@
 		7CE946C91DF8FA3E00F3D29A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CE946CB1DF8FA3E00F3D29A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CE946D21DF8FB0600F3D29A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		7CE946D41DF93F1200F3D29A /* Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extras.swift; sourceTree = "<group>"; };
 		7CE946D61DF94DCB00F3D29A /* TransantiagoAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransantiagoAPI.swift; sourceTree = "<group>"; };
 		7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilities.swift; sourceTree = "<group>"; };
 		7CE946DA1DF9579200F3D29A /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetSignView.swift; sourceTree = "<group>"; };
 		7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreetSignView.xib; sourceTree = "<group>"; };
-		7CE946E01DFA366100F3D29A /* NibLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadingView.swift; sourceTree = "<group>"; };
 		7CF818CD1E9EF3D2007F1468 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CE946D31DF8FB0600F3D29A /* MapKit.framework in Frameworks */,
+				7C2E16AD2054E5B000B33292 /* RaduKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,10 +193,17 @@
 			name = "Sign View";
 			sourceTree = "<group>";
 		};
+		7C2E16A62054E50E00B33292 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7C2E16AA2054E50E00B33292 /* RaduKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7C58BC6D2005505A00319092 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
-				7C77F7821FFA7EEA00934BED /* CromiModalViewController.swift */,
 				7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */,
 				7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */,
 				7CB781232004896A005A9464 /* CromiDialogViewController.swift */,
@@ -198,8 +226,6 @@
 		7C6645701FD33E4C005EF2DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7CB7811F2004768D005A9464 /* Shadows.swift */,
-				7CE946E01DFA366100F3D29A /* NibLoadingView.swift */,
 				7C6645661FD0AF53005EF2DF /* ButtonRow.swift */,
 				7C6645721FD34EAE005EF2DF /* ButtonRow.xib */,
 				7CE4B70E1F09D3260067E5CB /* FloatingButton.swift */,
@@ -244,16 +270,6 @@
 			name = "Bip Views";
 			sourceTree = "<group>";
 		};
-		7CE273991F97EB5B0008A070 /* RaduKit Lite */ = {
-			isa = PBXGroup;
-			children = (
-				7C6645741FD351B6005EF2DF /* UIButton+Actions.swift */,
-				7C7B96311EEA2F2600CAB04E /* Typography.swift */,
-				7CE946D41DF93F1200F3D29A /* Extras.swift */,
-			);
-			name = "RaduKit Lite";
-			sourceTree = "<group>";
-		};
 		7CE2739A1F97EB8D0008A070 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,9 +285,10 @@
 		7CE946B31DF8FA3E00F3D29A = {
 			isa = PBXGroup;
 			children = (
+				7C2E16A52054E50E00B33292 /* RaduKit.xcodeproj */,
+				7CE946BE1DF8FA3E00F3D29A /* Cromi */,
 				7C100DA11E8C32E7005EC7B1 /* PokeWalk.gpx */,
 				7C5E1705201660B40099C8F2 /* Providencia.gpx */,
-				7CE946BE1DF8FA3E00F3D29A /* Cromi */,
 				7CE946BD1DF8FA3E00F3D29A /* Products */,
 				7CE946D11DF8FB0600F3D29A /* Frameworks */,
 			);
@@ -288,12 +305,10 @@
 		7CE946BE1DF8FA3E00F3D29A /* Cromi */ = {
 			isa = PBXGroup;
 			children = (
-				7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */,
 				7CE273971F97E6940008A070 /* CromiDefines.swift */,
-				7CE273991F97EB5B0008A070 /* RaduKit Lite */,
+				7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */,
 				7CE2739A1F97EB8D0008A070 /* Data */,
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
-				7C58BC692005464600319092 /* CromiViewController.swift */,
 				7C66456E1FD33453005EF2DF /* ViewController.swift */,
 				7C66456C1FD33392005EF2DF /* LocationServices.swift */,
 				7C6645681FD33175005EF2DF /* MapViewController.swift */,
@@ -326,10 +341,12 @@
 				7CE946B91DF8FA3E00F3D29A /* Frameworks */,
 				7CE946BA1DF8FA3E00F3D29A /* Resources */,
 				7CF818CE1EA050E4007F1468 /* ShellScript */,
+				7C2E16B12054E5B000B33292 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7C2E16B02054E5B000B33292 /* PBXTargetDependency */,
 			);
 			name = Cromi;
 			productName = Transantiago;
@@ -366,12 +383,28 @@
 			mainGroup = 7CE946B31DF8FA3E00F3D29A;
 			productRefGroup = 7CE946BD1DF8FA3E00F3D29A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7C2E16A62054E50E00B33292 /* Products */;
+					ProjectRef = 7C2E16A52054E50E00B33292 /* RaduKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7CE946BB1DF8FA3E00F3D29A /* Cromi */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7C2E16AA2054E50E00B33292 /* RaduKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RaduKit.framework;
+			remoteRef = 7C2E16A92054E50E00B33292 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7CE946BA1DF8FA3E00F3D29A /* Resources */ = {
@@ -429,27 +462,21 @@
 				7CE4B70F1F09D3260067E5CB /* FloatingButton.swift in Sources */,
 				7C6645671FD0AF53005EF2DF /* ButtonRow.swift in Sources */,
 				7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */,
-				7C7B96321EEA2F2600CAB04E /* Typography.swift in Sources */,
 				7C77F7811FFA754D00934BED /* User.swift in Sources */,
 				7C58BC6C2005472100319092 /* CromiOverlayViewController.swift in Sources */,
 				7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */,
 				7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */,
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
-				7C6645751FD351B6005EF2DF /* UIButton+Actions.swift in Sources */,
 				7C5D180C1FE7864D00E153FE /* InfoBanner.swift in Sources */,
 				7C28C6081E9B37750012BD19 /* SignServiceView.swift in Sources */,
 				7C77F7891FFDDA0000934BED /* BipCardView.swift in Sources */,
 				7C77F7961FFDE6F700934BED /* BipViewController.swift in Sources */,
 				7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */,
-				7CE946E11DFA366100F3D29A /* NibLoadingView.swift in Sources */,
 				7C77F7921FFDE2D000934BED /* BipListView.swift in Sources */,
-				7C58BC6A2005464600319092 /* CromiViewController.swift in Sources */,
 				7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */,
 				7CE53B061FD5F69C00D8DC85 /* StopAnnotationView.swift in Sources */,
 				7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */,
 				7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */,
-				7CB781202004768D005A9464 /* Shadows.swift in Sources */,
-				7C77F7841FFA7EEA00934BED /* CromiModalViewController.swift in Sources */,
 				7C77F78D1FFDE03E00934BED /* BipEntryView.swift in Sources */,
 				7C28C60C1E9B380C0012BD19 /* SignHoursRowView.swift in Sources */,
 				7CCDF21D1FDF1A3C00E8C0BC /* BusAnnotationView.swift in Sources */,
@@ -461,12 +488,19 @@
 				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,
 				7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */,
 				7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */,
-				7CE946D51DF93F1200F3D29A /* Extras.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7C2E16B02054E5B000B33292 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RaduKit;
+			targetProxy = 7C2E16AF2054E5B000B33292 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */ = {
@@ -614,6 +648,7 @@
 		7CE946CF1DF8FA3E00F3D29A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7VT456V4Y2;
 				INFOPLIST_FILE = Transantiago/Info.plist;
@@ -629,6 +664,7 @@
 		7CE946D01DF8FA3E00F3D29A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7VT456V4Y2;
 				INFOPLIST_FILE = Transantiago/Info.plist;

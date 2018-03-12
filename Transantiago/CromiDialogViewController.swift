@@ -6,9 +6,9 @@
 //  Copyright © 2018 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
+import RaduKit
 
-class CromiDialogViewController: CromiModalViewController {
+class CromiDialogViewController: AbstractModalViewController {
 
     @IBOutlet private var backgroundBlur: UIVisualEffectView!
     @IBOutlet private var containerView: UIView!
@@ -52,21 +52,15 @@ class CromiDialogViewController: CromiModalViewController {
         containerView.apply(shadow: .floatingHigh)
     }
     
-//    override func viewWillLayoutSubviews() {
-//        contentView?.frame = containerView.bounds
-//    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    override func present(on parentVC: UIViewController, completion: (() -> ())? = nil) {
+    override func present(on parentVC: ModalSupportingViewController, completion: (() -> ())? = nil) {
         guard contentView != nil else { return }
         super.present(on: parentVC)
         
         backgroundBlur.effect = nil
-//        containerView.heightAnchor.constraint(equalToConstant: contentView.intrinsicContentSize.height).isActive = true
-//        containerView.widthAnchor.constraint(equalToConstant: contentView.intrinsicContentSize.width).isActive = true
         view.setNeedsLayout()
         view.layoutIfNeeded()
         

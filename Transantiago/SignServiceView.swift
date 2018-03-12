@@ -6,7 +6,7 @@
 //  Copyright © 2017 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
+import RaduKit
 
 protocol SignServiceViewDelegate: AnyObject {
     func signDidSelect(service: Service)
@@ -131,8 +131,8 @@ protocol SignServiceViewDelegate: AnyObject {
             if index > 0 {
                 attrString.append(NSAttributedString(string: "\n"))
             }
-            let distance = Cromi.attributedString(from: distanceString(from: prediction.distance), style: .subtitle, textColor: .white)
-            let time = Cromi.attributedString(from: " \(prediction.predictionString)", style: .subtitle, textColor: UIColor(white: 1, alpha: SignConstants.secondaryOpacity))
+            let distance = RaduKit.attributedString(from: distanceString(from: prediction.distance), style: .subtitle, textColor: .white)
+            let time = RaduKit.attributedString(from: " \(prediction.predictionString)", style: .subtitle, textColor: UIColor(white: 1, alpha: SignConstants.secondaryOpacity))
             attrString.append(distance)
             attrString.append(time)
         }

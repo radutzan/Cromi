@@ -6,9 +6,9 @@
 //  Copyright © 2018 Radu Dutzan. All rights reserved.
 //
 
-import UIKit
+import RaduKit
 
-class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate {
+class CromiOverlayViewController: AbstractModalViewController, UIScrollViewDelegate {
     
     @IBOutlet private var backgroundBlur: UIVisualEffectView!
     @IBOutlet private var scrollView: TouchTransparentScrollView!
@@ -68,7 +68,7 @@ class CromiOverlayViewController: CromiModalViewController, UIScrollViewDelegate
         return min(contentView.intrinsicContentSize.height, scrollView.bounds.height) + 80 + bottomMargin
     }
     
-    override func present(on parentVC: UIViewController, completion: (() -> ())? = nil) {
+    override func present(on parentVC: ModalSupportingViewController, completion: (() -> ())? = nil) {
         super.present(on: parentVC)
         backgroundBlur.effect = nil
         
