@@ -23,13 +23,13 @@
             <rect key="frame" x="0.0" y="0.0" width="220" height="386"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7js-qo-EsJ" userLabel="Header View" customClass="TappableView" customModule="RaduKit">
+                <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="7js-qo-EsJ" userLabel="Header View" customClass="TappableView" customModule="RaduKit">
                     <rect key="frame" x="0.0" y="0.0" width="220" height="54"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" placeholder="YES" id="t8W-pW-PEn"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-es-ysK">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="250" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ibg-es-ysK">
                     <rect key="frame" x="0.0" y="54" width="220" height="332"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7XZ-uI-b1d">
@@ -40,7 +40,7 @@
                         <constraint firstItem="7XZ-uI-b1d" firstAttribute="leading" secondItem="Ibg-es-ysK" secondAttribute="leading" id="3Qd-4Z-WTr"/>
                         <constraint firstAttribute="trailing" secondItem="7XZ-uI-b1d" secondAttribute="trailing" id="K6v-Gm-bxI"/>
                         <constraint firstItem="7XZ-uI-b1d" firstAttribute="top" secondItem="Ibg-es-ysK" secondAttribute="top" id="ayI-ts-k5Z"/>
-                        <constraint firstItem="7XZ-uI-b1d" firstAttribute="height" secondItem="Ibg-es-ysK" secondAttribute="height" priority="999" id="bAt-b5-wu9"/>
+                        <constraint firstItem="7XZ-uI-b1d" firstAttribute="height" secondItem="Ibg-es-ysK" secondAttribute="height" priority="750" id="bAt-b5-wu9"/>
                         <constraint firstAttribute="bottom" secondItem="7XZ-uI-b1d" secondAttribute="bottom" id="lB5-m5-Jwq"/>
                         <constraint firstItem="7XZ-uI-b1d" firstAttribute="width" secondItem="Ibg-es-ysK" secondAttribute="width" id="qsk-78-ClB"/>
                     </constraints>

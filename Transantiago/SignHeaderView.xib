@@ -26,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="246" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ajY-mH-IjD">
+                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ajY-mH-IjD">
                     <rect key="frame" x="16" y="9" width="214" height="38"/>
                     <subviews>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign accessory metro" translatesAutoresizingMaskIntoConstraints="NO" id="wwR-xo-iJO">

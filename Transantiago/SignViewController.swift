@@ -28,6 +28,7 @@ class SignViewController: UIViewController {
                 return
             }
             signMinHeightConstraint = signViewContainer.heightAnchor.constraint(greaterThanOrEqualTo: headerView.heightAnchor, multiplier: 1)
+            signMinHeightConstraint?.priority = .required
             signMinHeightConstraint?.isActive = true
         }
     }
@@ -39,6 +40,12 @@ class SignViewController: UIViewController {
     var originRect: CGRect = .zero {
         didSet {
             guard originRect != oldValue else { return }
+            originRectUpdated()
+        }
+    }
+    var distanceFromOrigin: CGFloat = 8 {
+        didSet {
+            guard distanceFromOrigin != oldValue else { return }
             originRectUpdated()
         }
     }
@@ -62,7 +69,7 @@ class SignViewController: UIViewController {
         guard isViewLoaded, let signView = signView else { return }
         let originCenter = originRect.minX + (originRect.width / 2)
         signLeadingConstraint.constant = max(layoutInsets.left, originCenter - (signView.bounds.width / 2))
-        signBottomConstraint.constant = max(layoutInsets.bottom, (view.bounds.height - originRect.minY) + layoutInsets.bottom)
+        signBottomConstraint.constant = max(layoutInsets.bottom + safeAreaInsets.bottom, (view.bounds.height - originRect.minY) + distanceFromOrigin)
     }
     
     private func layoutInsetsUpdated() {

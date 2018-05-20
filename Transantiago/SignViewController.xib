@@ -25,7 +25,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pcy-Fw-xOt" customClass="SignView" customModule="Cromi" customModuleProvider="target">
+                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pcy-Fw-xOt" customClass="TouchTransparentView" customModule="RaduKit">
                     <rect key="frame" x="42" y="62" width="240" height="370"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDI-sq-EQW">
@@ -37,7 +37,6 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="aDI-sq-EQW" secondAttribute="trailing" id="1kS-IX-QA5"/>
                         <constraint firstAttribute="bottom" secondItem="aDI-sq-EQW" secondAttribute="bottom" id="Yww-un-DI7"/>
@@ -48,7 +47,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="pcy-Fw-xOt" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" id="8n5-LD-TdV"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="pcy-Fw-xOt" secondAttribute="bottom" constant="235" id="KiL-Bm-Hv9"/>
+                <constraint firstAttribute="bottom" secondItem="pcy-Fw-xOt" secondAttribute="bottom" priority="999" constant="235" id="KiL-Bm-Hv9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pcy-Fw-xOt" secondAttribute="trailing" id="dMi-Xp-OAK"/>
                 <constraint firstItem="pcy-Fw-xOt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" priority="999" constant="42" id="xJ8-Gn-Ca7"/>
             </constraints>

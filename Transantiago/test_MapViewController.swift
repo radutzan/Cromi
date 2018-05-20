@@ -62,9 +62,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         statusBarGradientLayer.endPoint = CGPoint(x: 0, y: 1)
         view.layer.insertSublayer(statusBarGradientLayer, above: mapView.layer)
         
-        signViewController.layoutInsets = UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8)
+        signViewController.layoutInsets = UIEdgeInsets(top: 0, left: 8, bottom: 64, right: 8)
         addChildViewController(signViewController)
         view.addSubview(signViewController.view)
+        signViewController.view.generateConstraintsToFillSuperview()
         
         let displayLink = CADisplayLink(target: self, selector: #selector(updateSignOriginRectIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
@@ -198,7 +199,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Pins
     private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
-        return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
+        return mapView.convert(annotation.coordinate, toPointTo: nil)//.rounded()
     }
     
     private func pinImage(forAnnotation annotation: TransantiagoAnnotation, selected: Bool) -> UIImage? {

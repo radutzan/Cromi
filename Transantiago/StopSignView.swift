@@ -36,7 +36,9 @@ class StopSignView: SignView, SignServiceViewDelegate {
         
         headerView = signHeaderView
         signHeaderView.widthAnchor.constraint(equalToConstant: TypeStyle.proportionalContainerSize(for: 246, normalize: false)).isActive = true
-        signHeaderView.heightAnchor.constraint(equalToConstant: TypeStyle.proportionalContainerSize(for: 56, normalize: true)).isActive = true
+        let headerHeightConstraint = signHeaderView.heightAnchor.constraint(equalToConstant: TypeStyle.proportionalContainerSize(for: 56, normalize: true))
+        headerHeightConstraint.priority = .required
+        headerHeightConstraint.isActive = true
         signHeaderView.style = .dark
         
         contentView = mainStackView

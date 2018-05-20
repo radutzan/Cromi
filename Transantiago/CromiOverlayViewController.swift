@@ -59,6 +59,22 @@ class CromiOverlayViewController: AbstractModalViewController, UIScrollViewDeleg
         scrollView.contentSize = contentView.intrinsicContentSize
     }
     
+    private func setUpContentView() {
+//        let transitionDuration: TimeInterval = 0.24
+//        UIView.transition(with: contentViewContainer, duration: transitionDuration, options: .transitionCrossDissolve, animations: {
+//            for view in self.contentViewContainer.subviews {
+//                view.removeFromSuperview()
+//            }
+//            self.contentViewContainer.addSubview(self.contentView)
+//            self.contentView.generateConstraintsToFillSuperview(relativeToMargins: true)
+//        }, completion: nil)
+//        let animator = UIViewPropertyAnimator(duration: transitionDuration, dampingRatio: 1) {
+//            self.view.setNeedsLayout()
+//            self.view.layoutIfNeeded()
+//        }
+//        animator.startAnimation()
+    }
+    
     // MARK: - Presentation
     private var hiddenScrollViewYOffset: CGFloat {
         var bottomMargin: CGFloat = 0
