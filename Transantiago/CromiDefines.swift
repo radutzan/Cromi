@@ -9,8 +9,8 @@
 import RaduKit
 
 struct CornerRadius {
-    let container: CGFloat = 8
-    let bar: CGFloat = 12
+    static let container: CGFloat = 8
+    static let bar: CGFloat = 12
 }
 
 extension Shadow {

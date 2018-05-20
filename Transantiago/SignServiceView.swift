@@ -50,7 +50,7 @@ protocol SignServiceViewDelegate: AnyObject {
     override func updateFonts() {
         serviceLabel.font = .serviceName
         subtitleLabel.font = .subtitle
-        subtitleLabel.alpha = SignConstants.secondaryOpacity
+        subtitleLabel.alpha = CromiSignConstants.secondaryOpacity
         view.layer.cornerRadius = 3
     }
     
@@ -68,7 +68,7 @@ protocol SignServiceViewDelegate: AnyObject {
         
         defer {
             UIView.animate(withDuration: 0.24, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-                self.subtitleLabel.alpha = isSecondary ? SignConstants.tertiaryOpacity : 1
+                self.subtitleLabel.alpha = isSecondary ? CromiSignConstants.tertiaryOpacity : 1
                 if shouldUpdateText {
                     self.subtitleLabel.text = attrString.string
                     self.subtitleLabel.attributedText = attrString
@@ -132,7 +132,7 @@ protocol SignServiceViewDelegate: AnyObject {
                 attrString.append(NSAttributedString(string: "\n"))
             }
             let distance = RaduKit.attributedString(from: distanceString(from: prediction.distance), style: .subtitle, textColor: .white)
-            let time = RaduKit.attributedString(from: " \(prediction.predictionString)", style: .subtitle, textColor: UIColor(white: 1, alpha: SignConstants.secondaryOpacity))
+            let time = RaduKit.attributedString(from: " \(prediction.predictionString)", style: .subtitle, textColor: UIColor(white: 1, alpha: CromiSignConstants.secondaryOpacity))
             attrString.append(distance)
             attrString.append(time)
         }

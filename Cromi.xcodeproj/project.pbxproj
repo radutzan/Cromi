@@ -46,6 +46,7 @@
 		7C77F7961FFDE6F700934BED /* BipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7951FFDE6F700934BED /* BipViewController.swift */; };
 		7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7971FFDE80200934BED /* EmptyBipView.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
+		7CAD57D820B0ACA30088743D /* test_MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D720B0ACA30088743D /* test_MapViewController.swift */; };
 		7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781232004896A005A9464 /* CromiDialogViewController.swift */; };
 		7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB781242004896A005A9464 /* CromiDialogViewController.xib */; };
 		7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781272005388B005A9464 /* ColorOptionPickerView.swift */; };
@@ -62,6 +63,78 @@
 		7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */; };
 		7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */; };
 		7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
+		7CFCCB8920AFFA2A00232040 /* ForkModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */; };
+		7CFCCB8A20AFFA2A00232040 /* ForkModalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */; };
+		7CFCCB8B20AFFA2A00232040 /* ForkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */; };
+		7CFCCB8C20AFFA2A00232040 /* ForkModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */; };
+		7CFCCB8F20AFFB1500232040 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8D20AFFB1500232040 /* SignViewController.swift */; };
+		7CFCCB9020AFFB1500232040 /* SignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8E20AFFB1500232040 /* SignViewController.xib */; };
+		7CFCCB9720AFFBEB00232040 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */; };
+		7CFCCB9820AFFBEB00232040 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE4B70E1F09D3260067E5CB /* FloatingButton.swift */; };
+		7CFCCB9920AFFBEB00232040 /* ButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645661FD0AF53005EF2DF /* ButtonRow.swift */; };
+		7CFCCB9A20AFFBEB00232040 /* BipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F77E1FF42C6500934BED /* BipCard.swift */; };
+		7CFCCB9B20AFFBEB00232040 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7801FFA754D00934BED /* User.swift */; };
+		7CFCCB9C20AFFBEB00232040 /* CromiOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */; };
+		7CFCCB9D20AFFBEB00232040 /* CromiDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781232004896A005A9464 /* CromiDialogViewController.swift */; };
+		7CFCCB9E20AFFBEB00232040 /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456C1FD33392005EF2DF /* LocationServices.swift */; };
+		7CFCCB9F20AFFBEB00232040 /* SignTimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */; };
+		7CFCCBA020AFFBEB00232040 /* InfoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5D180B1FE7864D00E153FE /* InfoBanner.swift */; };
+		7CFCCBA120AFFBEB00232040 /* SignServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6071E9B37750012BD19 /* SignServiceView.swift */; };
+		7CFCCBA220AFFBEB00232040 /* BipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7881FFDDA0000934BED /* BipCardView.swift */; };
+		7CFCCBA320AFFBEB00232040 /* BipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7951FFDE6F700934BED /* BipViewController.swift */; };
+		7CFCCBA420AFFBEB00232040 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
+		7CFCCBA520AFFBEB00232040 /* BipListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7911FFDE2D000934BED /* BipListView.swift */; };
+		7CFCCBA620AFFBEB00232040 /* EmptyBipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7971FFDE80200934BED /* EmptyBipView.swift */; };
+		7CFCCBA720AFFBEB00232040 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB9120AFFB7F00232040 /* SignView.swift */; };
+		7CFCCBA820AFFBEB00232040 /* ForkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */; };
+		7CFCCBA920AFFBEB00232040 /* StopAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE53B051FD5F69C00D8DC85 /* StopAnnotationView.swift */; };
+		7CFCCBAA20AFFBEB00232040 /* ColorOptionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781272005388B005A9464 /* ColorOptionPickerView.swift */; };
+		7CFCCBAB20AFFBEB00232040 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456E1FD33453005EF2DF /* ViewController.swift */; };
+		7CFCCBAC20AFFBEB00232040 /* BipEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F78C1FFDE03E00934BED /* BipEntryView.swift */; };
+		7CFCCBAD20AFFBEB00232040 /* SignHoursRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C60B1E9B380C0012BD19 /* SignHoursRowView.swift */; };
+		7CFCCBAE20AFFBEB00232040 /* BusAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */; };
+		7CFCCBAF20AFFBEB00232040 /* SignHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6021E9B27170012BD19 /* SignHeaderView.swift */; };
+		7CFCCBB020AFFBEB00232040 /* ForkModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */; };
+		7CFCCBB220AFFBEB00232040 /* SignServiceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6091E9B37A30012BD19 /* SignServiceRowView.swift */; };
+		7CFCCBB320AFFBEB00232040 /* ServiceBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645761FD35C7B005EF2DF /* ServiceBar.swift */; };
+		7CFCCBB420AFFBEB00232040 /* SCLTransit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */; };
+		7CFCCBB520AFFBEB00232040 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
+		7CFCCBB620AFFBEB00232040 /* StreetSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */; };
+		7CFCCBB720AFFBEB00232040 /* CromiDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE273971F97E6940008A070 /* CromiDefines.swift */; };
+		7CFCCBB820AFFBEB00232040 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
+		7CFCCBB920AFFBEB00232040 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8D20AFFB1500232040 /* SignViewController.swift */; };
+		7CFCCBBB20AFFBEB00232040 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE946D21DF8FB0600F3D29A /* MapKit.framework */; };
+		7CFCCBBC20AFFBEB00232040 /* RaduKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2E16AA2054E50E00B33292 /* RaduKit.framework */; };
+		7CFCCBBE20AFFBEB00232040 /* Providencia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 7C5E1705201660B40099C8F2 /* Providencia.gpx */; };
+		7CFCCBBF20AFFBEB00232040 /* BipCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7861FFDD86F00934BED /* BipCardView.xib */; };
+		7CFCCBC020AFFBEB00232040 /* ButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6645721FD34EAE005EF2DF /* ButtonRow.xib */; };
+		7CFCCBC120AFFBEB00232040 /* ForkModalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */; };
+		7CFCCBC220AFFBEB00232040 /* ForkModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */; };
+		7CFCCBC320AFFBEB00232040 /* InfoBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C5D18091FE783D300E153FE /* InfoBanner.xib */; };
+		7CFCCBC420AFFBEB00232040 /* CromiDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB781242004896A005A9464 /* CromiDialogViewController.xib */; };
+		7CFCCBC520AFFBEB00232040 /* SignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8E20AFFB1500232040 /* SignViewController.xib */; };
+		7CFCCBC620AFFBEB00232040 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */; };
+		7CFCCBC720AFFBEB00232040 /* BipListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F78F1FFDE08D00934BED /* BipListView.xib */; };
+		7CFCCBC820AFFBEB00232040 /* ServiceBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */; };
+		7CFCCBC920AFFBEB00232040 /* EmptyBipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7931FFDE42600934BED /* EmptyBipView.xib */; };
+		7CFCCBCA20AFFBEB00232040 /* SignHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6001E9B26E00012BD19 /* SignHeaderView.xib */; };
+		7CFCCBCB20AFFBEB00232040 /* BipEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F78A1FFDDA8100934BED /* BipEntryView.xib */; };
+		7CFCCBCC20AFFBEB00232040 /* CromiOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */; };
+		7CFCCBCD20AFFBEB00232040 /* SignHoursRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */; };
+		7CFCCBCE20AFFBEB00232040 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */; };
+		7CFCCBCF20AFFBEB00232040 /* SignServiceRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C60F1E9B38570012BD19 /* SignServiceRowView.xib */; };
+		7CFCCBD020AFFBEB00232040 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
+		7CFCCBD120AFFBEB00232040 /* SignTimetableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */; };
+		7CFCCBD220AFFBEB00232040 /* StreetSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */; };
+		7CFCCBD320AFFBEB00232040 /* SignServiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6051E9B35250012BD19 /* SignServiceView.xib */; };
+		7CFCCBD420AFFBEB00232040 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
+		7CFCCBD520AFFBEB00232040 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
+		7CFCCBD820AFFBEB00232040 /* RaduKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2E16AA2054E50E00B33292 /* RaduKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7CFCCBDE20AFFFBD00232040 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB9120AFFB7F00232040 /* SignView.swift */; };
+		7CFCCBE020B0029800232040 /* SignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCBDF20B0029800232040 /* SignView.xib */; };
+		7CFCCBE120B0029800232040 /* SignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCBDF20B0029800232040 /* SignView.xib */; };
+		7CFCCBE320B00FE600232040 /* StopSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCBE220B00FE600232040 /* StopSignView.swift */; };
+		7CFCCBE420B00FE600232040 /* StopSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCBE220B00FE600232040 /* StopSignView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +152,13 @@
 			remoteGlobalIDString = 7C2E16712054D96F00B33292;
 			remoteInfo = RaduKit;
 		};
+		7CFCCB9520AFFBEB00232040 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7C2E16A52054E50E00B33292 /* RaduKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C2E16712054D96F00B33292;
+			remoteInfo = RaduKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +169,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7C2E16AE2054E5B000B33292 /* RaduKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CFCCBD720AFFBEB00232040 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7CFCCBD820AFFBEB00232040 /* RaduKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +228,7 @@
 		7C77F7951FFDE6F700934BED /* BipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipViewController.swift; sourceTree = "<group>"; };
 		7C77F7971FFDE80200934BED /* EmptyBipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBipView.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		7CAD57D720B0ACA30088743D /* test_MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test_MapViewController.swift; sourceTree = "<group>"; };
 		7CB781232004896A005A9464 /* CromiDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDialogViewController.swift; sourceTree = "<group>"; };
 		7CB781242004896A005A9464 /* CromiDialogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiDialogViewController.xib; sourceTree = "<group>"; };
 		7CB781272005388B005A9464 /* ColorOptionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionPickerView.swift; sourceTree = "<group>"; };
@@ -159,6 +251,17 @@
 		7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetSignView.swift; sourceTree = "<group>"; };
 		7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreetSignView.xib; sourceTree = "<group>"; };
 		7CF818CD1E9EF3D2007F1468 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForkModalHeaderView.swift; sourceTree = "<group>"; };
+		7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForkModalHeaderView.xib; sourceTree = "<group>"; };
+		7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForkModalViewController.swift; sourceTree = "<group>"; };
+		7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForkModalViewController.xib; sourceTree = "<group>"; };
+		7CFCCB8D20AFFB1500232040 /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
+		7CFCCB8E20AFFB1500232040 /* SignViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignViewController.xib; sourceTree = "<group>"; };
+		7CFCCB9120AFFB7F00232040 /* SignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
+		7CFCCBDC20AFFBEB00232040 /* Cromi Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cromi Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CFCCBDD20AFFBEB00232040 /* Cromi copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Cromi copy-Info.plist"; path = "/Users/radutzan/Proyectos/repos/Cromi/Cromi copy-Info.plist"; sourceTree = "<absolute>"; };
+		7CFCCBDF20B0029800232040 /* SignView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignView.xib; sourceTree = "<group>"; };
+		7CFCCBE220B00FE600232040 /* StopSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopSignView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,12 +274,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7CFCCBBA20AFFBEB00232040 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CFCCBBB20AFFBEB00232040 /* MapKit.framework in Frameworks */,
+				7CFCCBBC20AFFBEB00232040 /* RaduKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7C28C6041E9B32FD0012BD19 /* Sign View */ = {
+		7C28C6041E9B32FD0012BD19 /* Sign */ = {
 			isa = PBXGroup;
 			children = (
+				7CFCCB8D20AFFB1500232040 /* SignViewController.swift */,
+				7CFCCB8E20AFFB1500232040 /* SignViewController.xib */,
+				7CFCCB9120AFFB7F00232040 /* SignView.swift */,
+				7CFCCBDF20B0029800232040 /* SignView.xib */,
+				7CFCCBE220B00FE600232040 /* StopSignView.swift */,
 				7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */,
 				7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */,
 				7C28C6021E9B27170012BD19 /* SignHeaderView.swift */,
@@ -190,7 +307,7 @@
 				7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */,
 				7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */,
 			);
-			name = "Sign View";
+			name = Sign;
 			sourceTree = "<group>";
 		};
 		7C2E16A62054E50E00B33292 /* Products */ = {
@@ -204,6 +321,13 @@
 		7C58BC6D2005505A00319092 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				7C6645661FD0AF53005EF2DF /* ButtonRow.swift */,
+				7C6645721FD34EAE005EF2DF /* ButtonRow.xib */,
+				7CE4B70E1F09D3260067E5CB /* FloatingButton.swift */,
+				7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */,
+				7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */,
+				7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */,
+				7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */,
 				7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */,
 				7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */,
 				7CB781232004896A005A9464 /* CromiDialogViewController.swift */,
@@ -223,23 +347,13 @@
 			name = "Archived Sources";
 			sourceTree = "<group>";
 		};
-		7C6645701FD33E4C005EF2DF /* Views */ = {
+		7C6645701FD33E4C005EF2DF /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				7C6645661FD0AF53005EF2DF /* ButtonRow.swift */,
-				7C6645721FD34EAE005EF2DF /* ButtonRow.xib */,
-				7CE4B70E1F09D3260067E5CB /* FloatingButton.swift */,
-				7C6645761FD35C7B005EF2DF /* ServiceBar.swift */,
-				7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */,
-				7CE53B051FD5F69C00D8DC85 /* StopAnnotationView.swift */,
-				7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */,
-				7C5D180B1FE7864D00E153FE /* InfoBanner.swift */,
-				7C5D18091FE783D300E153FE /* InfoBanner.xib */,
-				7CB781272005388B005A9464 /* ColorOptionPickerView.swift */,
 				7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */,
 				7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */,
 			);
-			name = Views;
+			name = Search;
 			sourceTree = "<group>";
 		};
 		7C6645711FD33E66005EF2DF /* Resources */ = {
@@ -254,9 +368,10 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		7C77F78E1FFDE05000934BED /* Bip Views */ = {
+		7C77F78E1FFDE05000934BED /* Bip */ = {
 			isa = PBXGroup;
 			children = (
+				7CB781272005388B005A9464 /* ColorOptionPickerView.swift */,
 				7C77F7951FFDE6F700934BED /* BipViewController.swift */,
 				7C77F7911FFDE2D000934BED /* BipListView.swift */,
 				7C77F78F1FFDE08D00934BED /* BipListView.xib */,
@@ -267,7 +382,22 @@
 				7C77F7971FFDE80200934BED /* EmptyBipView.swift */,
 				7C77F7931FFDE42600934BED /* EmptyBipView.xib */,
 			);
-			name = "Bip Views";
+			name = Bip;
+			sourceTree = "<group>";
+		};
+		7C7F482E2089A32800C61856 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				7CE53B051FD5F69C00D8DC85 /* StopAnnotationView.swift */,
+				7CCDF21C1FDF1A3C00E8C0BC /* BusAnnotationView.swift */,
+				7C6645761FD35C7B005EF2DF /* ServiceBar.swift */,
+				7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */,
+				7C5D180B1FE7864D00E153FE /* InfoBanner.swift */,
+				7C5D18091FE783D300E153FE /* InfoBanner.xib */,
+				7C6645681FD33175005EF2DF /* MapViewController.swift */,
+				7CAD57D720B0ACA30088743D /* test_MapViewController.swift */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		7CE2739A1F97EB8D0008A070 /* Data */ = {
@@ -291,6 +421,7 @@
 				7C5E1705201660B40099C8F2 /* Providencia.gpx */,
 				7CE946BD1DF8FA3E00F3D29A /* Products */,
 				7CE946D11DF8FB0600F3D29A /* Frameworks */,
+				7CFCCBDD20AFFBEB00232040 /* Cromi copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -298,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				7CE946BC1DF8FA3E00F3D29A /* Cromi.app */,
+				7CFCCBDC20AFFBEB00232040 /* Cromi Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,11 +443,11 @@
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
 				7C66456E1FD33453005EF2DF /* ViewController.swift */,
 				7C66456C1FD33392005EF2DF /* LocationServices.swift */,
-				7C6645681FD33175005EF2DF /* MapViewController.swift */,
+				7C7F482E2089A32800C61856 /* Map */,
+				7C28C6041E9B32FD0012BD19 /* Sign */,
 				7C58BC6D2005505A00319092 /* Modals */,
-				7C6645701FD33E4C005EF2DF /* Views */,
-				7C28C6041E9B32FD0012BD19 /* Sign View */,
-				7C77F78E1FFDE05000934BED /* Bip Views */,
+				7C77F78E1FFDE05000934BED /* Bip */,
+				7C6645701FD33E4C005EF2DF /* Search */,
 				7C6645711FD33E66005EF2DF /* Resources */,
 			);
 			name = Cromi;
@@ -353,6 +485,26 @@
 			productReference = 7CE946BC1DF8FA3E00F3D29A /* Cromi.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7CFCCB9320AFFBEB00232040 /* Cromi Dev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CFCCBD920AFFBEB00232040 /* Build configuration list for PBXNativeTarget "Cromi Dev" */;
+			buildPhases = (
+				7CFCCB9620AFFBEB00232040 /* Sources */,
+				7CFCCBBA20AFFBEB00232040 /* Frameworks */,
+				7CFCCBBD20AFFBEB00232040 /* Resources */,
+				7CFCCBD620AFFBEB00232040 /* ShellScript */,
+				7CFCCBD720AFFBEB00232040 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7CFCCB9420AFFBEB00232040 /* PBXTargetDependency */,
+			);
+			name = "Cromi Dev";
+			productName = Transantiago;
+			productReference = 7CFCCBDC20AFFBEB00232040 /* Cromi Dev.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -360,7 +512,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Radu Dutzan";
 				TargetAttributes = {
 					7CE946BB1DF8FA3E00F3D29A = {
@@ -368,6 +520,9 @@
 						DevelopmentTeam = 7VT456V4Y2;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
+					};
+					7CFCCB9320AFFBEB00232040 = {
+						DevelopmentTeam = 7VT456V4Y2;
 					};
 				};
 			};
@@ -392,6 +547,7 @@
 			projectRoot = "";
 			targets = (
 				7CE946BB1DF8FA3E00F3D29A /* Cromi */,
+				7CFCCB9320AFFBEB00232040 /* Cromi Dev */,
 			);
 		};
 /* End PBXProject section */
@@ -414,8 +570,11 @@
 				7C5E1706201660B40099C8F2 /* Providencia.gpx in Resources */,
 				7C77F7871FFDD86F00934BED /* BipCardView.xib in Resources */,
 				7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */,
+				7CFCCB8A20AFFA2A00232040 /* ForkModalHeaderView.xib in Resources */,
+				7CFCCB8C20AFFA2A00232040 /* ForkModalViewController.xib in Resources */,
 				7C5D180A1FE783D300E153FE /* InfoBanner.xib in Resources */,
 				7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */,
+				7CFCCB9020AFFB1500232040 /* SignViewController.xib in Resources */,
 				7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */,
 				7C77F7901FFDE08D00934BED /* BipListView.xib in Resources */,
 				7C35D6201FC9D6F300F01E2D /* ServiceBar.xib in Resources */,
@@ -425,6 +584,7 @@
 				7C77F7851FFA7EEA00934BED /* CromiOverlayViewController.xib in Resources */,
 				7C28C6121E9B38EF0012BD19 /* SignHoursRowView.xib in Resources */,
 				7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */,
+				7CFCCBE020B0029800232040 /* SignView.xib in Resources */,
 				7C28C6101E9B38570012BD19 /* SignServiceRowView.xib in Resources */,
 				7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */,
 				7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */,
@@ -435,10 +595,55 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7CFCCBBD20AFFBEB00232040 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CFCCBBE20AFFBEB00232040 /* Providencia.gpx in Resources */,
+				7CFCCBBF20AFFBEB00232040 /* BipCardView.xib in Resources */,
+				7CFCCBC020AFFBEB00232040 /* ButtonRow.xib in Resources */,
+				7CFCCBC120AFFBEB00232040 /* ForkModalHeaderView.xib in Resources */,
+				7CFCCBC220AFFBEB00232040 /* ForkModalViewController.xib in Resources */,
+				7CFCCBC320AFFBEB00232040 /* InfoBanner.xib in Resources */,
+				7CFCCBC420AFFBEB00232040 /* CromiDialogViewController.xib in Resources */,
+				7CFCCBC520AFFBEB00232040 /* SignViewController.xib in Resources */,
+				7CFCCBC620AFFBEB00232040 /* LaunchScreen.storyboard in Resources */,
+				7CFCCBC720AFFBEB00232040 /* BipListView.xib in Resources */,
+				7CFCCBC820AFFBEB00232040 /* ServiceBar.xib in Resources */,
+				7CFCCBC920AFFBEB00232040 /* EmptyBipView.xib in Resources */,
+				7CFCCBCA20AFFBEB00232040 /* SignHeaderView.xib in Resources */,
+				7CFCCBCB20AFFBEB00232040 /* BipEntryView.xib in Resources */,
+				7CFCCBCC20AFFBEB00232040 /* CromiOverlayViewController.xib in Resources */,
+				7CFCCBCD20AFFBEB00232040 /* SignHoursRowView.xib in Resources */,
+				7CFCCBCE20AFFBEB00232040 /* Assets.xcassets in Resources */,
+				7CFCCBE120B0029800232040 /* SignView.xib in Resources */,
+				7CFCCBCF20AFFBEB00232040 /* SignServiceRowView.xib in Resources */,
+				7CFCCBD020AFFBEB00232040 /* Localizable.strings in Resources */,
+				7CFCCBD120AFFBEB00232040 /* SignTimetableView.xib in Resources */,
+				7CFCCBD220AFFBEB00232040 /* StreetSignView.xib in Resources */,
+				7CFCCBD320AFFBEB00232040 /* SignServiceView.xib in Resources */,
+				7CFCCBD420AFFBEB00232040 /* InfoPlist.strings in Resources */,
+				7CFCCBD520AFFBEB00232040 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		7CF818CE1EA050E4007F1468 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "git=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list HEAD --count`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"\nfi";
+		};
+		7CFCCBD620AFFBEB00232040 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (
@@ -469,11 +674,14 @@
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
 				7C5D180C1FE7864D00E153FE /* InfoBanner.swift in Sources */,
 				7C28C6081E9B37750012BD19 /* SignServiceView.swift in Sources */,
+				7CFCCBE320B00FE600232040 /* StopSignView.swift in Sources */,
 				7C77F7891FFDDA0000934BED /* BipCardView.swift in Sources */,
 				7C77F7961FFDE6F700934BED /* BipViewController.swift in Sources */,
 				7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */,
 				7C77F7921FFDE2D000934BED /* BipListView.swift in Sources */,
 				7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */,
+				7CFCCBDE20AFFFBD00232040 /* SignView.swift in Sources */,
+				7CFCCB8B20AFFA2A00232040 /* ForkModalViewController.swift in Sources */,
 				7CE53B061FD5F69C00D8DC85 /* StopAnnotationView.swift in Sources */,
 				7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */,
 				7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */,
@@ -481,6 +689,7 @@
 				7C28C60C1E9B380C0012BD19 /* SignHoursRowView.swift in Sources */,
 				7CCDF21D1FDF1A3C00E8C0BC /* BusAnnotationView.swift in Sources */,
 				7C28C6031E9B27170012BD19 /* SignHeaderView.swift in Sources */,
+				7CFCCB8920AFFA2A00232040 /* ForkModalHeaderView.swift in Sources */,
 				7C66456A1FD33175005EF2DF /* MapViewController.swift in Sources */,
 				7C28C60A1E9B37A30012BD19 /* SignServiceRowView.swift in Sources */,
 				7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */,
@@ -489,6 +698,50 @@
 				7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */,
 				7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
+				7CFCCB8F20AFFB1500232040 /* SignViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CFCCB9620AFFBEB00232040 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CFCCB9720AFFBEB00232040 /* SearchViewController.swift in Sources */,
+				7CFCCB9820AFFBEB00232040 /* FloatingButton.swift in Sources */,
+				7CFCCB9920AFFBEB00232040 /* ButtonRow.swift in Sources */,
+				7CFCCB9A20AFFBEB00232040 /* BipCard.swift in Sources */,
+				7CFCCB9B20AFFBEB00232040 /* User.swift in Sources */,
+				7CFCCB9C20AFFBEB00232040 /* CromiOverlayViewController.swift in Sources */,
+				7CFCCB9D20AFFBEB00232040 /* CromiDialogViewController.swift in Sources */,
+				7CFCCB9E20AFFBEB00232040 /* LocationServices.swift in Sources */,
+				7CFCCB9F20AFFBEB00232040 /* SignTimetableView.swift in Sources */,
+				7CFCCBA020AFFBEB00232040 /* InfoBanner.swift in Sources */,
+				7CFCCBA120AFFBEB00232040 /* SignServiceView.swift in Sources */,
+				7CFCCBE420B00FE600232040 /* StopSignView.swift in Sources */,
+				7CFCCBA220AFFBEB00232040 /* BipCardView.swift in Sources */,
+				7CFCCBA320AFFBEB00232040 /* BipViewController.swift in Sources */,
+				7CFCCBA420AFFBEB00232040 /* SearchBar.swift in Sources */,
+				7CFCCBA520AFFBEB00232040 /* BipListView.swift in Sources */,
+				7CFCCBA620AFFBEB00232040 /* EmptyBipView.swift in Sources */,
+				7CFCCBA720AFFBEB00232040 /* SignView.swift in Sources */,
+				7CFCCBA820AFFBEB00232040 /* ForkModalViewController.swift in Sources */,
+				7CFCCBA920AFFBEB00232040 /* StopAnnotationView.swift in Sources */,
+				7CFCCBAA20AFFBEB00232040 /* ColorOptionPickerView.swift in Sources */,
+				7CFCCBAB20AFFBEB00232040 /* ViewController.swift in Sources */,
+				7CFCCBAC20AFFBEB00232040 /* BipEntryView.swift in Sources */,
+				7CFCCBAD20AFFBEB00232040 /* SignHoursRowView.swift in Sources */,
+				7CFCCBAE20AFFBEB00232040 /* BusAnnotationView.swift in Sources */,
+				7CFCCBAF20AFFBEB00232040 /* SignHeaderView.swift in Sources */,
+				7CFCCBB020AFFBEB00232040 /* ForkModalHeaderView.swift in Sources */,
+				7CFCCBB220AFFBEB00232040 /* SignServiceRowView.swift in Sources */,
+				7CFCCBB320AFFBEB00232040 /* ServiceBar.swift in Sources */,
+				7CFCCBB420AFFBEB00232040 /* SCLTransit.swift in Sources */,
+				7CFCCBB520AFFBEB00232040 /* Models.swift in Sources */,
+				7CFCCBB620AFFBEB00232040 /* StreetSignView.swift in Sources */,
+				7CAD57D820B0ACA30088743D /* test_MapViewController.swift in Sources */,
+				7CFCCBB720AFFBEB00232040 /* CromiDefines.swift in Sources */,
+				7CFCCBB820AFFBEB00232040 /* AppDelegate.swift in Sources */,
+				7CFCCBB920AFFBEB00232040 /* SignViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +752,11 @@
 			isa = PBXTargetDependency;
 			name = RaduKit;
 			targetProxy = 7C2E16AF2054E5B000B33292 /* PBXContainerItemProxy */;
+		};
+		7CFCCB9420AFFBEB00232040 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RaduKit;
+			targetProxy = 7CFCCB9520AFFBEB00232040 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -554,6 +812,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -561,6 +820,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -610,6 +870,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -617,6 +878,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -677,6 +939,38 @@
 			};
 			name = Release;
 		};
+		7CFCCBDA20AFFBEB00232040 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7VT456V4Y2;
+				INFOPLIST_FILE = "Cromi copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		7CFCCBDB20AFFBEB00232040 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7VT456V4Y2;
+				INFOPLIST_FILE = "Cromi copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -694,6 +988,15 @@
 			buildConfigurations = (
 				7CE946CF1DF8FA3E00F3D29A /* Debug */,
 				7CE946D01DF8FA3E00F3D29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CFCCBD920AFFBEB00232040 /* Build configuration list for PBXNativeTarget "Cromi Dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CFCCBDA20AFFBEB00232040 /* Debug */,
+				7CFCCBDB20AFFBEB00232040 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

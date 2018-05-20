@@ -16,7 +16,7 @@ enum SignStyle {
     case dark, light
 }
 
-struct SignConstants {
+struct CromiSignConstants {
     struct Color {
         static let bipBlue = UIColor(red: 0, green: 0.416, blue: 1, alpha: 1)
     }
@@ -58,7 +58,7 @@ class StreetSignView: NibLoadingView, SignServiceViewDelegate {
     
     private(set) var isVisible = false
     
-    private let bipBlueColor = SignConstants.Color.bipBlue
+    private let bipBlueColor = CromiSignConstants.Color.bipBlue
     
     // MARK: - Setup
     override func didLoadNibView() {

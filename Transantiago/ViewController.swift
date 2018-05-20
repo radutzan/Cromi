@@ -48,9 +48,10 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
         super.viewDidAppear(animated)
     }
     
+    private let shouldPresentFeatureSpotlight = false
     private func presentFeatureSpotlightIfNeeded() {
         let spotlightKey = "Bip Cards Spotlight"//"Live Buses Spotlight"//"Line View Spotlight"
-        guard !UserDefaults.standard.bool(forKey: spotlightKey) else { return }
+        guard !UserDefaults.standard.bool(forKey: spotlightKey), shouldPresentFeatureSpotlight else { return }
         
         let spotlightAlert = UIAlertController(title: NSLocalizedString("Feature Spotlight alert title", comment: ""), message: NSLocalizedString("Feature Spotlight alert message", comment: ""), preferredStyle: .alert)
         spotlightAlert.addAction(UIAlertAction(title: NSLocalizedString("Feature Spotlight alert confirmation", comment: ""), style: .default, handler: nil))

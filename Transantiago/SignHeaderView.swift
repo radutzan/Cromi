@@ -53,7 +53,7 @@ class SignHeaderView: NibLoadingView {
     }
     var isSubtitleSecondary: Bool = false {
         didSet {
-            subtitleLabel.alpha = isSubtitleSecondary ? SignConstants.secondaryOpacity : 1
+            subtitleLabel.alpha = isSubtitleSecondary ? CromiSignConstants.secondaryOpacity : 1
         }
     }
     
@@ -64,7 +64,7 @@ class SignHeaderView: NibLoadingView {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
     
-    private let bipBlueColor = SignConstants.Color.bipBlue
+    private let bipBlueColor = CromiSignConstants.Color.bipBlue
     
     override func didLoadNibView() {
         view.layer.cornerRadius = SignConstants.cornerRadius

@@ -8,18 +8,11 @@
 
 import RaduKit
 
-class User: NSObject, NSCoding {
-    // MARK: - Definitions
-    static var filePath: String {
-        let basePath = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Cromi User Data", isDirectory: false)
-        return basePath.path
-    }
-    
+class User: NSObject, Storable {
     struct Notifications {
         static let dataUpdated = Notification.Name("User data has been updated.")
         struct Internal {
             fileprivate static let updateActionsRequested = Notification.Name("User data update actions requested.")
-            fileprivate static let saveRequested = Notification.Name("User data save requested.")
         }
     }
     
@@ -29,6 +22,7 @@ class User: NSObject, NSCoding {
             didUpdateData()
         }
     }
+    private var storageManager: StorageManager!
     
     // MARK: - Initializing
     override init() {
@@ -43,13 +37,11 @@ class User: NSObject, NSCoding {
     }
     
     private func commonInit() {
+        storageManager = StorageManager(storable: self)
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(performUpdateActions),
                                                name: Notifications.Internal.updateActionsRequested,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(saveUserDataIfNeeded),
-                                               name: Notifications.Internal.saveRequested,
                                                object: nil)
     }
     
@@ -58,26 +50,8 @@ class User: NSObject, NSCoding {
         coder.encode(bipCards, forKey: "bipCards")
     }
     
-    private var needsSave = false
-    
     private func setNeedsSave() {
-        guard !needsSave else { return }
-        needsSave = true
-        delay(3) {
-            let saveNotification = Notification(name: Notifications.Internal.saveRequested)
-            NotificationQueue.default.enqueue(saveNotification, postingStyle: .whenIdle, coalesceMask: .onName, forModes: nil)
-        }
-        print("User: Save needed set")
-    }
-    
-    @objc private func saveUserDataIfNeeded() {
-        guard needsSave else { return }
-        needsSave = false
-        background {
-            print("User: Archiving root object")
-            let didSave = NSKeyedArchiver.archiveRootObject(self, toFile: User.filePath)
-            if !didSave { print("User: Failed to archive root object") }
-        }
+        storageManager.setNeedsSave()
     }
     
     // MARK: - Updating
