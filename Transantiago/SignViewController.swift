@@ -18,18 +18,7 @@ class SignViewController: UIViewController {
     var signMinHeightConstraint: NSLayoutConstraint?
     var signView: SignView? {
         didSet {
-            setUp(containerView: signViewContainer, with: signView)
-            
-            guard let headerView = signView?.headerView else {
-                if let heightConstraint = signMinHeightConstraint {
-                    signViewContainer.removeConstraint(heightConstraint)
-                    signMinHeightConstraint = nil
-                }
-                return
-            }
-            signMinHeightConstraint = signViewContainer.heightAnchor.constraint(greaterThanOrEqualTo: headerView.heightAnchor, multiplier: 1)
-            signMinHeightConstraint?.priority = .required
-            signMinHeightConstraint?.isActive = true
+            setUpSignView()
         }
     }
     var layoutInsets: UIEdgeInsets = .zero {
@@ -43,26 +32,48 @@ class SignViewController: UIViewController {
             originRectUpdated()
         }
     }
+    var originCornerRadius: CGFloat = 2
     var distanceFromOrigin: CGFloat = 8 {
         didSet {
             guard distanceFromOrigin != oldValue else { return }
             originRectUpdated()
         }
     }
+    private var translationX: CGFloat {
+        return (originRect.minX + (originRect.width / 2)) - (signViewContainer.frame.minX + (signViewContainer.frame.width / 2))
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp(containerView: signViewContainer, with: signView)
         layoutInsetsUpdated()
+        setUpSignView()
+    }
+    
+    private func setUpSignView() {
+        setUp(containerView: signViewContainer, with: signView)
+        defer { originRectUpdated() }
+        
+        guard let headerView = signView?.headerView else {
+            if let heightConstraint = signMinHeightConstraint {
+                signViewContainer.removeConstraint(heightConstraint)
+                signMinHeightConstraint = nil
+            }
+            return
+        }
+        signMinHeightConstraint = signViewContainer.heightAnchor.constraint(greaterThanOrEqualTo: headerView.heightAnchor, multiplier: 1)
+        signMinHeightConstraint?.priority = .required
+        signMinHeightConstraint?.isActive = true
     }
     
     func showSign() {
         originRectUpdated()
-        signView?.present(originSize: originRect.size, bottomOffset: layoutInsets.bottom)
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        signView?.present(originSize: originRect.size, translationX: translationX, cornerRadius: originCornerRadius, bottomOffset: distanceFromOrigin)
     }
     
     func hideSign() {
-        signView?.dismiss(targetSize: originRect.size, bottomOffset: layoutInsets.bottom)
+        signView?.dismiss(targetSize: originRect.size, translationX: translationX, cornerRadius: originCornerRadius, bottomOffset: distanceFromOrigin)
     }
     
     private func originRectUpdated() {

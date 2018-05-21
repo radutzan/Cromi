@@ -12,7 +12,7 @@ protocol SignServiceViewDelegate: AnyObject {
     func signDidSelect(service: Service)
 }
 
-@IBDesignable class SignServiceView: NibLoadingView {
+@IBDesignable class SignServiceView: TappableNibLoadingView {
     weak var delegate: SignServiceViewDelegate?
 
     private(set) var service: Service? = nil
@@ -25,7 +25,6 @@ protocol SignServiceViewDelegate: AnyObject {
     @IBInspectable var serviceColor: UIColor? {
         didSet {
             serviceLabel.textColor = serviceColor
-//            if subtitleLabel.alpha < 1 { subtitleLabel.textColor = serviceColor }
         }
     }
     @IBInspectable var subtitle: String? {
@@ -36,22 +35,36 @@ protocol SignServiceViewDelegate: AnyObject {
     }
     var isSelected: Bool = false {
         didSet {
-//            view.layer.backgroundColor = isSelected ? UIColor(white: 1, alpha: 0.15).cgColor : nil
-            view.layer.backgroundColor = isSelected ? serviceColor?.withAlphaComponent(0.24).cgColor : nil
-//            view.layer.backgroundColor = isSelected ? serviceColor?.cgColor : nil
-//            serviceLabel.textColor = serviceColor//isSelected ? .black : serviceColor
-//            if subtitleLabel.alpha < 1 { subtitleLabel.textColor = serviceColor }//isSelected ? .black : serviceColor
+            updateSelection()
         }
     }
     
     @IBOutlet private var serviceLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
     
+    override func didLoadNibView() {
+        tapAction = { _ in
+            guard let service = self.service else { return }
+            self.delegate?.signDidSelect(service: service)
+            self.isSelected = true
+        }
+        onPress = {
+            self.view.layer.backgroundColor = self.serviceColor?.withAlphaComponent(0.32).cgColor
+        }
+        onRelease = {
+            self.updateSelection()
+        }
+    }
+    
     override func updateFonts() {
         serviceLabel.font = .serviceName
         subtitleLabel.font = .subtitle
         subtitleLabel.alpha = CromiSignConstants.secondaryOpacity
         view.layer.cornerRadius = 3
+    }
+    
+    private func updateSelection() {
+        view.layer.backgroundColor = isSelected ? serviceColor?.withAlphaComponent(0.24).cgColor : nil
     }
     
     func populate(with service: Service) {
@@ -96,22 +109,6 @@ protocol SignServiceViewDelegate: AnyObject {
         isSecondary = false
         shouldUpdateText = true
         attrString = attributedString(fromPredictions: predictions)
-    }
-    
-    @IBAction func buttonTapped() {
-        guard let service = service else { return }
-        delegate?.signDidSelect(service: service)
-        isSelected = true
-    }
-    
-    @IBAction func buttonTouched() {
-        view.layer.backgroundColor = serviceColor?.withAlphaComponent(0.32).cgColor//UIColor(white: 1, alpha: 0.2).cgColor
-    }
-    
-    @IBAction func buttonLifted() {
-//        view.layer.backgroundColor = nil
-        let selected = isSelected
-        isSelected = selected
     }
     
     private func distanceString(from value: Int) -> String {

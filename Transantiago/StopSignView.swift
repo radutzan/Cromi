@@ -48,10 +48,14 @@ class StopSignView: CromiSignView, SignServiceViewDelegate {
                 pendingServices = []
             }
         }
-        beginStopPredictions()
     }
     
     // MARK: - Lifecycle
+    override func willAppear() {
+        super.willAppear()
+        beginStopPredictions()
+    }
+    
     override func willDisappear() {
         super.willDisappear()
         endStopPredictions()

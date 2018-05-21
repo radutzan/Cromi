@@ -33,7 +33,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private let bipSignView = BipSignView()
     
     private let stopPinReuseIdentifier = "Stop pin"
-    private var selectedAnnotation: TransantiagoAnnotation?
+    private var selectedAnnotation: TransantiagoAnnotation? {
+        didSet {
+            guard selectedAnnotation != oldValue else { return }
+            updateSignOriginRectIfNeeded()
+        }
+    }
     
     private struct LineViewInfo {
         var presentedService: Service
@@ -100,9 +105,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         switch annotation {
         case let annotation as Stop:
-            updateStopSignViewServiceSelection()
             stopSignView.annotation = annotation
             signViewController.signView = stopSignView
+            updateStopSignViewServiceSelection()
         case let annotation as BipSpot:
             bipSignView.annotation = annotation
             signViewController.signView = bipSignView
@@ -111,6 +116,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         updateSignOriginRectIfNeeded()
+        signViewController.originCornerRadius = annotation is Stop ? 2 : 12
         signViewController.showSign()
     }
     
@@ -204,7 +210,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Signs
     @objc private func updateSignOriginRectIfNeeded() {
         guard let selectedAnnotation = selectedAnnotation else { return }
-        signViewController.originRect = CGRect(size: CGSize(width: 24, height: 24), center: point(forAnnotation: selectedAnnotation))
+        let width = selectedAnnotation is Stop ? 22 : 24
+        let offsetY: CGFloat = selectedAnnotation is Stop ? -4 : -3
+        signViewController.originRect = CGRect(size: CGSize(width: width, height: 24), center: point(forAnnotation: selectedAnnotation)).offsetBy(dx: 0, dy: offsetY)
     }
     
     private func updateStopSignViewServiceSelection() {

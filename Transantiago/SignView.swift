@@ -74,43 +74,54 @@ class SignView: NibLoadingView {
     
     // MARK: - Presentation
     private var maskViewCenter: CGPoint {
-        return CGPoint(x: frame.width / 2, y: frame.height / 2)
+        return maskViewCenter(for: CGPoint(x: 0.5, y: 0.5))
+    }
+    
+    private func maskViewCenter(for relativePoint: CGPoint) -> CGPoint {
+        return CGPoint(x: frame.width * relativePoint.x, y: frame.height  * relativePoint.y)
     }
     
     private(set) var isVisible = false
-    func present(originSize: CGSize, bottomOffset: CGFloat) {
+    func present(originSize: CGSize, translationX: CGFloat, cornerRadius: CGFloat, bottomOffset: CGFloat) {
         willAppear()
-        transform = CGAffineTransform(translationX: 0, y: (bounds.height + originSize.height) / 2 + bottomOffset)
+        
         maskingView.frame.size = originSize
         maskingView.center = maskViewCenter
-        maskingView.layer.cornerRadius = min(originSize.width, originSize.height) / 2
+        maskingView.layer.cornerRadius = min(min(originSize.width, originSize.height) / 2, cornerRadius)
+        alpha = 0.8
+        view.transform = CGAffineTransform(translationX: translationX, y: (bounds.height + originSize.height) / 2 + bottomOffset)
         
         let animator = UIViewPropertyAnimator(duration: 0.54, dampingRatio: 0.8) {
             self.alpha = 1
-            self.transform = .identity
+            self.view.transform = .identity
             self.maskingView.frame.size = self.bounds.size
             self.maskingView.center = self.maskViewCenter
             self.maskingView.layer.cornerRadius = SignConstants.cornerRadius
         }
+        animator.addCompletion { (position) in
+            if self.contentScrollView.contentSize.height > self.contentScrollView.bounds.height {
+                self.contentScrollView.flashScrollIndicators()
+            }
+        }
         animator.startAnimation()
     }
     
-    func dismiss(targetSize: CGSize, bottomOffset: CGFloat) {
+    func dismiss(targetSize: CGSize, translationX: CGFloat, cornerRadius: CGFloat, bottomOffset: CGFloat) {
         willDisappear()
         
         delay(1/60) {
             if self.isVisible { return }
-            UIView.animateKeyframes(withDuration: 0.36, delay: 0, options: [.calculationModeCubic], animations: {
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7, animations: {
-                    self.alpha = 0
-                })
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                    self.transform = CGAffineTransform(translationX: 0, y: (self.bounds.height + targetSize.height) / 2 + bottomOffset)
-                    self.maskingView.frame.size = targetSize
-                    self.maskingView.center = self.maskViewCenter
-                    self.maskingView.layer.cornerRadius = min(targetSize.width, targetSize.height) / 2
-                })
-            }, completion: nil)
+            let animator = UIViewPropertyAnimator(duration: 0.36, dampingRatio: 1) {
+                self.alpha = 0
+                self.view.transform = CGAffineTransform(translationX: translationX, y: (self.bounds.height + targetSize.height) / 2 + bottomOffset)
+                self.maskingView.frame.size = targetSize
+                self.maskingView.center = self.maskViewCenter
+                self.maskingView.layer.cornerRadius = min(min(targetSize.width, targetSize.height) / 2, cornerRadius)
+            }
+            animator.addCompletion { (position) in
+                self.view.transform = .identity
+            }
+            animator.startAnimation()
         }
     }
     

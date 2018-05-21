@@ -149,7 +149,7 @@ class SCLTransit: NSObject, DataSource {
                         orderedEstimations[serviceName] = [result]
                     }
                 }
-                print(orderedEstimations)
+//                print(orderedEstimations)
                 
                 for (serviceName, estimations) in orderedEstimations {
                     var responseKind: StopPrediction.ServiceResponse.Kind = .noPrediction
