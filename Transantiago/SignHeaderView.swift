@@ -15,7 +15,7 @@ class SignHeaderView: NibLoadingView {
             reloadData()
         }
     }
-    var style: SignStyle = .dark {
+    var style: CromiSignStyle = .dark {
         didSet {
             let backgroundColor = style == .dark ? UIColor.black : UIColor.white
             let textColor = style == .dark ? UIColor.white : UIColor.black

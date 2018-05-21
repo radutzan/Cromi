@@ -8,17 +8,12 @@
 
 import RaduKit
 
-protocol StopSignViewDelegate: SignServiceViewDelegate {
+protocol StopSignViewDelegate: SignServiceViewDelegate, SignViewDelegate {
 }
 
-class StopSignView: SignView, SignServiceViewDelegate {
+class StopSignView: CromiSignView, SignServiceViewDelegate {
     weak var stopSignDelegate: StopSignViewDelegate?
     
-    var annotation: Stop? {
-        didSet {
-            reloadData()
-        }
-    }
     var selectedService: Service? {
         didSet {
             for (serviceName, view) in serviceViews {
@@ -26,40 +21,16 @@ class StopSignView: SignView, SignServiceViewDelegate {
             }
         }
     }
-    private var signHeaderView = SignHeaderView()
-    private var mainStackView = UIStackView()
     
     // MARK: - Setup
     override func didLoadNibView() {
         super.didLoadNibView()
         view.backgroundColor = .black
-        
-        headerView = signHeaderView
-        signHeaderView.widthAnchor.constraint(equalToConstant: TypeStyle.proportionalContainerSize(for: 246, normalize: false)).isActive = true
-        let headerHeightConstraint = signHeaderView.heightAnchor.constraint(equalToConstant: TypeStyle.proportionalContainerSize(for: 56, normalize: true))
-        headerHeightConstraint.priority = .required
-        headerHeightConstraint.isActive = true
-        signHeaderView.style = .dark
-        
-        contentView = mainStackView
-        mainStackView.axis = .vertical
-        mainStackView.alignment = .fill
-        mainStackView.distribution = .fill
-        mainStackView.spacing = 0
     }
     
-    private func reloadData() {
-        clearContentStack()
-        
-        defer {
-            mainStackView.setNeedsLayout()
-            setNeedsLayout()
-            layoutIfNeeded()
-        }
-        
-        signHeaderView.annotation = annotation
-        
-        guard let annotation = annotation else { return }
+    override func reloadData() {
+        super.reloadData()
+        guard let annotation = annotation as? Stop else { return }
         
         var pendingServices: [Service] = []
         for service in annotation.services {
@@ -80,15 +51,6 @@ class StopSignView: SignView, SignServiceViewDelegate {
         beginStopPredictions()
     }
     
-    private func clearContentStack() {
-        for view in mainStackView.arrangedSubviews {
-            if view == headerView { continue }
-            mainStackView.removeArrangedSubview(view)
-            view.removeFromSuperview()
-        }
-        mainStackView.setNeedsLayout()
-    }
-    
     // MARK: - Lifecycle
     override func willDisappear() {
         super.willDisappear()
@@ -105,7 +67,16 @@ class StopSignView: SignView, SignServiceViewDelegate {
     private var serviceViews: [String: SignServiceView] = [:]
     private var predictionUpdateTimer: Timer?
     
+    func toggleStopPredictions(paused: Bool) {
+        if paused {
+            pauseStopPredictions()
+        } else {
+            beginStopPredictions()
+        }
+    }
+    
     func beginStopPredictions() {
+        guard isVisible else { return }
         getCurrentStopPrediction()
         startPredictionTimer()
         addRefreshIndicator()
@@ -122,7 +93,7 @@ class StopSignView: SignView, SignServiceViewDelegate {
     }
     
     @objc private func getCurrentStopPrediction() {
-        guard let stop = annotation else { return }
+        guard let stop = annotation as? Stop else { return }
         SCLTransit.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
             guard let prediction = prediction else { return }
             for (service, view) in self.serviceViews {

@@ -9,15 +9,14 @@
 import RaduKit
 import MapKit
 
-protocol MapViewControllerDelegate: StreetSignViewDelegate {
-    
-}
+protocol MapViewControllerDelegate: StopSignViewDelegate {}
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-    
     weak var delegate: MapViewControllerDelegate? {
         didSet {
-            signView.delegate = delegate
+            stopSignView.delegate = delegate
+            stopSignView.stopSignDelegate = delegate
+            bipSignView.delegate = delegate
         }
     }
     
@@ -27,19 +26,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     private(set) var mode: Mode = .normal
     
     @IBOutlet var mapView: MKMapView!
-    var locationServices: LocationServices?
-    private let signView = StreetSignView()
+    private let statusBarGradientLayer = CAGradientLayer()
     
-    private var selectedAnnotation: TransantiagoAnnotation?
-    private var lineViewInfo: LineViewInfo?
+    private let signViewController = SignViewController()
+    let stopSignView = StopSignView()
+    private let bipSignView = BipSignView()
+    
     private let stopPinReuseIdentifier = "Stop pin"
+    private var selectedAnnotation: TransantiagoAnnotation?
     
     private struct LineViewInfo {
         var presentedService: Service
         var currentDirection: Service.Route.Direction
     }
+    private var lineViewInfo: LineViewInfo?
     
-    private let statusBarGradientLayer = CAGradientLayer()
+    var locationServices: LocationServices?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +63,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         statusBarGradientLayer.endPoint = CGPoint(x: 0, y: 1)
         view.layer.insertSublayer(statusBarGradientLayer, above: mapView.layer)
         
-//        signView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(signView)
+        signViewController.layoutInsets = UIEdgeInsets(top: 0, left: 8, bottom: 64, right: 8)
+        addChildViewController(signViewController)
+        view.addSubview(signViewController.view)
+        signViewController.view.generateConstraintsToFillSuperview()
         
-        let displayLink = CADisplayLink(target: self, selector: #selector(updateSignFrameIfNeeded))
+        let displayLink = CADisplayLink(target: self, selector: #selector(updateSignOriginRectIfNeeded))
         displayLink.add(to: .main, forMode: .defaultRunLoopMode)
     }
     
@@ -90,29 +94,39 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = view.annotation as? TransantiagoAnnotation else { return }
         selectedAnnotation = annotation
+        
         if !(annotation is Stop) { view.image = pinImage(forAnnotation: annotation, selected: true) }
-        if view.transform != .identity {
-            view.transform = .identity
+        if view.transform != .identity { view.transform = .identity }
+        
+        switch annotation {
+        case let annotation as Stop:
+            updateStopSignViewServiceSelection()
+            stopSignView.annotation = annotation
+            signViewController.signView = stopSignView
+        case let annotation as BipSpot:
+            bipSignView.annotation = annotation
+            signViewController.signView = bipSignView
+        default:
+            signViewController.signView = nil
         }
         
-        signView.annotation = annotation
-        updateSignViewServiceSelection()
-        signView.present(fromCenter: point(forAnnotation: annotation), targetFrame: signFrame(forAnnotation: annotation))
+        updateSignOriginRectIfNeeded()
+        signViewController.showSign()
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         guard let oldAnnotation = view.annotation as? TransantiagoAnnotation else { return }
-        if !(oldAnnotation is Stop) { view.image = pinImage(forAnnotation: oldAnnotation, selected: false) }
-        if mode == .lineView {
-            process(annotationView: view, annotation: oldAnnotation)
-        }
-        let transition = CATransition()
-        transition.duration = 0.24
-        transition.type = kCATransitionFade
-        view.layer.add(transition, forKey: nil)
+        
+        UIView.transition(with: view, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            if !(oldAnnotation is Stop) { view.image = self.pinImage(forAnnotation: oldAnnotation, selected: false) }
+            if self.mode == .lineView {
+                self.process(annotationView: view, annotation: oldAnnotation)
+            }
+        }, completion: nil)
+        
         selectedAnnotation = nil
         
-        signView.dismiss(toCenter: point(forAnnotation: oldAnnotation))
+        signViewController.hideSign()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -187,9 +201,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.userLocation.title = nil
     }
     
+    // MARK: - Signs
+    @objc private func updateSignOriginRectIfNeeded() {
+        guard let selectedAnnotation = selectedAnnotation else { return }
+        signViewController.originRect = CGRect(size: CGSize(width: 24, height: 24), center: point(forAnnotation: selectedAnnotation))
+    }
+    
+    private func updateStopSignViewServiceSelection() {
+        if let stop = selectedAnnotation as? Stop, let lineViewInfo = lineViewInfo, mode == .lineView, stopContainsCurrentRoute(stop) {
+            stopSignView.selectedService = lineViewInfo.presentedService
+        } else {
+            stopSignView.selectedService = nil
+        }
+    }
+    
     // MARK: - Pins
     private func point(forAnnotation annotation: MKAnnotation) -> CGPoint {
-        return mapView.convert(annotation.coordinate, toPointTo: view).rounded()
+        return mapView.convert(annotation.coordinate, toPointTo: nil)//.rounded()
     }
     
     private func pinImage(forAnnotation annotation: TransantiagoAnnotation, selected: Bool) -> UIImage? {
@@ -246,70 +274,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotationView.color = .black
             annotationView.isinverted = false
             annotationView.transform = .identity
-        }
-    }
-    
-    // MARK: - Signs
-    // TODO: switch to layoutMargins?
-    private let signProtectedInsets = UIEdgeInsets(top: -1000, left: 8, bottom: -1000, right: 8)
-    private var protectedInsets: UIEdgeInsets {
-        var systemInsets = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height, left: 0, bottom: 0, right: 0)
-        if #available(iOS 11.0, *) {
-            systemInsets = view.safeAreaInsets
-        }
-        return UIEdgeInsets(top: signProtectedInsets.top + systemInsets.top, left: signProtectedInsets.left + systemInsets.left, bottom: signProtectedInsets.bottom + systemInsets.bottom, right: signProtectedInsets.right + systemInsets.right)
-    }
-    private var targetSignSize: CGSize {
-        let maxHeight = view.bounds.height - protectedInsets.top - protectedInsets.bottom
-        return CGSize(width: signView.intrinsicContentSize.width, height: signView.intrinsicContentSize.height > maxHeight ? maxHeight : signView.intrinsicContentSize.height)
-    }
-    private let signDistance: CGFloat = 25
-    
-    private var previousMapRect = MKMapRect()
-    @objc private func updateSignFrameIfNeeded() {
-        guard let selectedAnnotation = selectedAnnotation else { return }
-        guard !MKMapRectEqualToRect(mapView.visibleMapRect, previousMapRect) else { return }
-        previousMapRect = mapView.visibleMapRect
-        let frame = signFrame(forAnnotation: selectedAnnotation)
-        if (frame.minY > view.bounds.height || frame.minY + frame.height < -40) &&
-            (signView.frame.minY > view.bounds.height || signView.frame.minY + frame.height < -40) { return }
-        signView.frame = frame
-    }
-    
-    private func signFrame(forAnnotation annotation: MKAnnotation) -> CGRect {
-        let annotationPoint = point(forAnnotation: annotation)
-        
-        var proposedFrame = CGRect(size: targetSignSize, center: annotationPoint.offsetBy(dx: 0, dy: -targetSignSize.height / 2 - signDistance))
-        
-        if proposedFrame.minX < protectedInsets.left {
-            proposedFrame.origin.x = protectedInsets.left
-        }
-        if proposedFrame.minY < protectedInsets.top {
-            proposedFrame.origin.y = protectedInsets.top
-        }
-        if proposedFrame.maxX > view.bounds.width - protectedInsets.left {
-            proposedFrame.origin.x = view.bounds.width - protectedInsets.left - proposedFrame.width
-        }
-        if proposedFrame.maxY > view.bounds.height - protectedInsets.bottom {
-            proposedFrame.origin.y = view.bounds.height - protectedInsets.bottom - proposedFrame.height
-        }
-        
-        return proposedFrame
-    }
-    
-    private func updateSignViewServiceSelection() {
-        if let stop = selectedAnnotation as? Stop, let lineViewInfo = lineViewInfo, mode == .lineView, stopContainsCurrentRoute(stop) {
-            signView.selectedService = lineViewInfo.presentedService
-        } else {
-            signView.selectedService = nil
-        }
-    }
-    
-    func toggleStopPredictions(paused: Bool) {
-        if paused {
-            signView.pauseStopPredictions()
-        } else {
-            signView.beginStopPredictions()
         }
     }
     
@@ -372,7 +336,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         UIView.animate(withDuration: 0.24) {
             self.updateAnnotationViews()
         }
-        updateSignViewServiceSelection()
+        updateStopSignViewServiceSelection()
         if mapView.region.span.latitudeDelta < 0.008 {
             centerMap(around: mapView.centerCoordinate, animated: true, allowedSpan: 0.0084)
         }
@@ -386,7 +350,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 self.updateAnnotationViews()
             }
         }
-        updateSignViewServiceSelection()
+        updateStopSignViewServiceSelection()
         stopUpdatingLiveBuses()
         for overlay in mapView.overlays {
             mapView.remove(overlay)

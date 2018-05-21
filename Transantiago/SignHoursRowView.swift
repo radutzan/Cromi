@@ -20,7 +20,7 @@ class SignHoursRowView: NibLoadingView {
             hoursLabel.text = hours
         }
     }
-    var style: SignStyle = .dark {
+    var style: CromiSignStyle = .dark {
         didSet {
             let textColor = style == .dark ? UIColor.white : UIColor.black
             daysLabel.textColor = textColor

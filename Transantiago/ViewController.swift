@@ -106,18 +106,18 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
     // MARK: - Modals
     override func modalWillPresent(modal: AbstractModalViewController) {
         super.modalWillPresent(modal: modal)
-        mapController?.toggleStopPredictions(paused: true)
+        mapController?.stopSignView.toggleStopPredictions(paused: true)
     }
     
     override func modalWillDismiss(modal: AbstractModalViewController) {
         super.modalWillDismiss(modal: modal)
-        mapController?.toggleStopPredictions(paused: false)
+        mapController?.stopSignView.toggleStopPredictions(paused: false)
         buttonRow.present()
     }
     
     // MARK: - Map interaction
-    func signDidTapHeader(_ signView: StreetSignView) {
-        guard let annotation = signView.annotation else { return }
+    func signViewHeaderTapped(_ signView: SignView) {
+        guard let signView = signView as? CromiSignView, let annotation = signView.annotation else { return }
         var coordinate = annotation.coordinate
         let spanMultiplier = signView.intrinsicContentSize.height / 580
         coordinate.latitude += Double(spanMultiplier) * 0.0014

@@ -48,15 +48,11 @@ class SignView: NibLoadingView {
         maskingView.frame = CGRect(size: .zero, center: .zero)
         maskingView.backgroundColor = .blue
         view.mask = maskingView
-//        addSubview(maskerView) // masking debug
+//        addSubview(maskingView) // masking debug
         
         headerViewContainer.tapAction = { view in
             self.delegate?.signViewHeaderTapped(self)
         }
-    }
-    
-    override func willMove(toSuperview newSuperview: UIView?) {
-//        alpha = isVisible ? 1 : 0
     }
     
     // TouchTransparentView
@@ -84,7 +80,6 @@ class SignView: NibLoadingView {
     private(set) var isVisible = false
     func present(originSize: CGSize, bottomOffset: CGFloat) {
         willAppear()
-//        alpha = 0
         transform = CGAffineTransform(translationX: 0, y: (bounds.height + originSize.height) / 2 + bottomOffset)
         maskingView.frame.size = originSize
         maskingView.center = maskViewCenter

@@ -27,7 +27,6 @@
 		7C5D180C1FE7864D00E153FE /* InfoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5D180B1FE7864D00E153FE /* InfoBanner.swift */; };
 		7C5E1706201660B40099C8F2 /* Providencia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 7C5E1705201660B40099C8F2 /* Providencia.gpx */; };
 		7C6645671FD0AF53005EF2DF /* ButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645661FD0AF53005EF2DF /* ButtonRow.swift */; };
-		7C66456A1FD33175005EF2DF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645681FD33175005EF2DF /* MapViewController.swift */; };
 		7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456C1FD33392005EF2DF /* LocationServices.swift */; };
 		7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456E1FD33453005EF2DF /* ViewController.swift */; };
 		7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6645721FD34EAE005EF2DF /* ButtonRow.xib */; };
@@ -46,7 +45,13 @@
 		7C77F7961FFDE6F700934BED /* BipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7951FFDE6F700934BED /* BipViewController.swift */; };
 		7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7971FFDE80200934BED /* EmptyBipView.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
-		7CAD57D820B0ACA30088743D /* test_MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D720B0ACA30088743D /* test_MapViewController.swift */; };
+		7CAD57D820B0ACA30088743D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D720B0ACA30088743D /* MapViewController.swift */; };
+		7CAD57DA20B24EE70088743D /* CromiSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D920B24EE70088743D /* CromiSignView.swift */; };
+		7CAD57DB20B24EE70088743D /* CromiSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D920B24EE70088743D /* CromiSignView.swift */; };
+		7CAD57DC20B24FBF0088743D /* StopSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCBE220B00FE600232040 /* StopSignView.swift */; };
+		7CAD57DE20B24FF00088743D /* BipSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57DD20B24FF00088743D /* BipSignView.swift */; };
+		7CAD57DF20B24FF00088743D /* BipSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57DD20B24FF00088743D /* BipSignView.swift */; };
+		7CAD57E020B25AB00088743D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D720B0ACA30088743D /* MapViewController.swift */; };
 		7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781232004896A005A9464 /* CromiDialogViewController.swift */; };
 		7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB781242004896A005A9464 /* CromiDialogViewController.xib */; };
 		7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781272005388B005A9464 /* ColorOptionPickerView.swift */; };
@@ -60,8 +65,6 @@
 		7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */; };
 		7CE946D31DF8FB0600F3D29A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE946D21DF8FB0600F3D29A /* MapKit.framework */; };
 		7CE946DB1DF9579200F3D29A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
-		7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */; };
-		7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */; };
 		7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
 		7CFCCB8920AFFA2A00232040 /* ForkModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */; };
 		7CFCCB8A20AFFA2A00232040 /* ForkModalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */; };
@@ -99,7 +102,6 @@
 		7CFCCBB320AFFBEB00232040 /* ServiceBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645761FD35C7B005EF2DF /* ServiceBar.swift */; };
 		7CFCCBB420AFFBEB00232040 /* SCLTransit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */; };
 		7CFCCBB520AFFBEB00232040 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
-		7CFCCBB620AFFBEB00232040 /* StreetSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */; };
 		7CFCCBB720AFFBEB00232040 /* CromiDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE273971F97E6940008A070 /* CromiDefines.swift */; };
 		7CFCCBB820AFFBEB00232040 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
 		7CFCCBB920AFFBEB00232040 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8D20AFFB1500232040 /* SignViewController.swift */; };
@@ -125,7 +127,6 @@
 		7CFCCBCF20AFFBEB00232040 /* SignServiceRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C60F1E9B38570012BD19 /* SignServiceRowView.xib */; };
 		7CFCCBD020AFFBEB00232040 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
 		7CFCCBD120AFFBEB00232040 /* SignTimetableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */; };
-		7CFCCBD220AFFBEB00232040 /* StreetSignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */; };
 		7CFCCBD320AFFBEB00232040 /* SignServiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C28C6051E9B35250012BD19 /* SignServiceView.xib */; };
 		7CFCCBD420AFFBEB00232040 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C58CC4E1EA05C3600259F11 /* InfoPlist.strings */; };
 		7CFCCBD520AFFBEB00232040 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C31DF8FA3E00F3D29A /* Main.storyboard */; };
@@ -134,7 +135,6 @@
 		7CFCCBE020B0029800232040 /* SignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCBDF20B0029800232040 /* SignView.xib */; };
 		7CFCCBE120B0029800232040 /* SignView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCBDF20B0029800232040 /* SignView.xib */; };
 		7CFCCBE320B00FE600232040 /* StopSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCBE220B00FE600232040 /* StopSignView.swift */; };
-		7CFCCBE420B00FE600232040 /* StopSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCBE220B00FE600232040 /* StopSignView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,7 +209,6 @@
 		7C5D180B1FE7864D00E153FE /* InfoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBanner.swift; sourceTree = "<group>"; };
 		7C5E1705201660B40099C8F2 /* Providencia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Providencia.gpx; sourceTree = "<group>"; };
 		7C6645661FD0AF53005EF2DF /* ButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRow.swift; sourceTree = "<group>"; };
-		7C6645681FD33175005EF2DF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7C66456C1FD33392005EF2DF /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
 		7C66456E1FD33453005EF2DF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7C6645721FD34EAE005EF2DF /* ButtonRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonRow.xib; sourceTree = "<group>"; };
@@ -228,7 +227,9 @@
 		7C77F7951FFDE6F700934BED /* BipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipViewController.swift; sourceTree = "<group>"; };
 		7C77F7971FFDE80200934BED /* EmptyBipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBipView.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		7CAD57D720B0ACA30088743D /* test_MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test_MapViewController.swift; sourceTree = "<group>"; };
+		7CAD57D720B0ACA30088743D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		7CAD57D920B24EE70088743D /* CromiSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CromiSignView.swift; sourceTree = "<group>"; };
+		7CAD57DD20B24FF00088743D /* BipSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BipSignView.swift; sourceTree = "<group>"; };
 		7CB781232004896A005A9464 /* CromiDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CromiDialogViewController.swift; sourceTree = "<group>"; };
 		7CB781242004896A005A9464 /* CromiDialogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiDialogViewController.xib; sourceTree = "<group>"; };
 		7CB781272005388B005A9464 /* ColorOptionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorOptionPickerView.swift; sourceTree = "<group>"; };
@@ -248,8 +249,6 @@
 		7CE946D61DF94DCB00F3D29A /* TransantiagoAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransantiagoAPI.swift; sourceTree = "<group>"; };
 		7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilities.swift; sourceTree = "<group>"; };
 		7CE946DA1DF9579200F3D29A /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetSignView.swift; sourceTree = "<group>"; };
-		7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreetSignView.xib; sourceTree = "<group>"; };
 		7CF818CD1E9EF3D2007F1468 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForkModalHeaderView.swift; sourceTree = "<group>"; };
 		7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForkModalHeaderView.xib; sourceTree = "<group>"; };
@@ -293,19 +292,19 @@
 				7CFCCB8E20AFFB1500232040 /* SignViewController.xib */,
 				7CFCCB9120AFFB7F00232040 /* SignView.swift */,
 				7CFCCBDF20B0029800232040 /* SignView.xib */,
+				7CAD57D920B24EE70088743D /* CromiSignView.swift */,
 				7CFCCBE220B00FE600232040 /* StopSignView.swift */,
-				7CE946DC1DFA21A700F3D29A /* StreetSignView.swift */,
-				7CE946DE1DFA331E00F3D29A /* StreetSignView.xib */,
+				7CAD57DD20B24FF00088743D /* BipSignView.swift */,
 				7C28C6021E9B27170012BD19 /* SignHeaderView.swift */,
 				7C28C6001E9B26E00012BD19 /* SignHeaderView.xib */,
 				7C28C6071E9B37750012BD19 /* SignServiceView.swift */,
 				7C28C6051E9B35250012BD19 /* SignServiceView.xib */,
 				7C28C6091E9B37A30012BD19 /* SignServiceRowView.swift */,
 				7C28C60F1E9B38570012BD19 /* SignServiceRowView.xib */,
-				7C28C60B1E9B380C0012BD19 /* SignHoursRowView.swift */,
-				7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */,
 				7C28C6151E9C1BCB0012BD19 /* SignTimetableView.swift */,
 				7C28C6131E9C1B890012BD19 /* SignTimetableView.xib */,
+				7C28C60B1E9B380C0012BD19 /* SignHoursRowView.swift */,
+				7C28C6111E9B38EF0012BD19 /* SignHoursRowView.xib */,
 			);
 			name = Sign;
 			sourceTree = "<group>";
@@ -394,8 +393,7 @@
 				7C35D61F1FC9D6F300F01E2D /* ServiceBar.xib */,
 				7C5D180B1FE7864D00E153FE /* InfoBanner.swift */,
 				7C5D18091FE783D300E153FE /* InfoBanner.xib */,
-				7C6645681FD33175005EF2DF /* MapViewController.swift */,
-				7CAD57D720B0ACA30088743D /* test_MapViewController.swift */,
+				7CAD57D720B0ACA30088743D /* MapViewController.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -588,7 +586,6 @@
 				7C28C6101E9B38570012BD19 /* SignServiceRowView.xib in Resources */,
 				7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */,
 				7C28C6141E9C1B890012BD19 /* SignTimetableView.xib in Resources */,
-				7CE946DF1DFA331E00F3D29A /* StreetSignView.xib in Resources */,
 				7C28C6061E9B35250012BD19 /* SignServiceView.xib in Resources */,
 				7C58CC4C1EA05C3600259F11 /* InfoPlist.strings in Resources */,
 				7CE946C51DF8FA3E00F3D29A /* Main.storyboard in Resources */,
@@ -620,7 +617,6 @@
 				7CFCCBCF20AFFBEB00232040 /* SignServiceRowView.xib in Resources */,
 				7CFCCBD020AFFBEB00232040 /* Localizable.strings in Resources */,
 				7CFCCBD120AFFBEB00232040 /* SignTimetableView.xib in Resources */,
-				7CFCCBD220AFFBEB00232040 /* StreetSignView.xib in Resources */,
 				7CFCCBD320AFFBEB00232040 /* SignServiceView.xib in Resources */,
 				7CFCCBD420AFFBEB00232040 /* InfoPlist.strings in Resources */,
 				7CFCCBD520AFFBEB00232040 /* Main.storyboard in Resources */,
@@ -665,6 +661,7 @@
 			files = (
 				7C2DB8361EEC7C5000BDE7D6 /* SearchViewController.swift in Sources */,
 				7CE4B70F1F09D3260067E5CB /* FloatingButton.swift in Sources */,
+				7CAD57DA20B24EE70088743D /* CromiSignView.swift in Sources */,
 				7C6645671FD0AF53005EF2DF /* ButtonRow.swift in Sources */,
 				7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */,
 				7C77F7811FFA754D00934BED /* User.swift in Sources */,
@@ -690,12 +687,12 @@
 				7CCDF21D1FDF1A3C00E8C0BC /* BusAnnotationView.swift in Sources */,
 				7C28C6031E9B27170012BD19 /* SignHeaderView.swift in Sources */,
 				7CFCCB8920AFFA2A00232040 /* ForkModalHeaderView.swift in Sources */,
-				7C66456A1FD33175005EF2DF /* MapViewController.swift in Sources */,
 				7C28C60A1E9B37A30012BD19 /* SignServiceRowView.swift in Sources */,
 				7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */,
 				7C6645791FD4B5F5005EF2DF /* SCLTransit.swift in Sources */,
+				7CAD57E020B25AB00088743D /* MapViewController.swift in Sources */,
 				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,
-				7CE946DD1DFA21A800F3D29A /* StreetSignView.swift in Sources */,
+				7CAD57DE20B24FF00088743D /* BipSignView.swift in Sources */,
 				7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
 				7CFCCB8F20AFFB1500232040 /* SignViewController.swift in Sources */,
@@ -708,6 +705,7 @@
 			files = (
 				7CFCCB9720AFFBEB00232040 /* SearchViewController.swift in Sources */,
 				7CFCCB9820AFFBEB00232040 /* FloatingButton.swift in Sources */,
+				7CAD57DB20B24EE70088743D /* CromiSignView.swift in Sources */,
 				7CFCCB9920AFFBEB00232040 /* ButtonRow.swift in Sources */,
 				7CFCCB9A20AFFBEB00232040 /* BipCard.swift in Sources */,
 				7CFCCB9B20AFFBEB00232040 /* User.swift in Sources */,
@@ -717,8 +715,8 @@
 				7CFCCB9F20AFFBEB00232040 /* SignTimetableView.swift in Sources */,
 				7CFCCBA020AFFBEB00232040 /* InfoBanner.swift in Sources */,
 				7CFCCBA120AFFBEB00232040 /* SignServiceView.swift in Sources */,
-				7CFCCBE420B00FE600232040 /* StopSignView.swift in Sources */,
 				7CFCCBA220AFFBEB00232040 /* BipCardView.swift in Sources */,
+				7CAD57DC20B24FBF0088743D /* StopSignView.swift in Sources */,
 				7CFCCBA320AFFBEB00232040 /* BipViewController.swift in Sources */,
 				7CFCCBA420AFFBEB00232040 /* SearchBar.swift in Sources */,
 				7CFCCBA520AFFBEB00232040 /* BipListView.swift in Sources */,
@@ -737,8 +735,8 @@
 				7CFCCBB320AFFBEB00232040 /* ServiceBar.swift in Sources */,
 				7CFCCBB420AFFBEB00232040 /* SCLTransit.swift in Sources */,
 				7CFCCBB520AFFBEB00232040 /* Models.swift in Sources */,
-				7CFCCBB620AFFBEB00232040 /* StreetSignView.swift in Sources */,
-				7CAD57D820B0ACA30088743D /* test_MapViewController.swift in Sources */,
+				7CAD57DF20B24FF00088743D /* BipSignView.swift in Sources */,
+				7CAD57D820B0ACA30088743D /* MapViewController.swift in Sources */,
 				7CFCCBB720AFFBEB00232040 /* CromiDefines.swift in Sources */,
 				7CFCCBB820AFFBEB00232040 /* AppDelegate.swift in Sources */,
 				7CFCCBB920AFFBEB00232040 /* SignViewController.swift in Sources */,
