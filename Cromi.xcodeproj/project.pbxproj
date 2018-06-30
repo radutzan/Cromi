@@ -68,8 +68,6 @@
 		7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
 		7CFCCB8920AFFA2A00232040 /* ForkModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */; };
 		7CFCCB8A20AFFA2A00232040 /* ForkModalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */; };
-		7CFCCB8B20AFFA2A00232040 /* ForkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */; };
-		7CFCCB8C20AFFA2A00232040 /* ForkModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */; };
 		7CFCCB8F20AFFB1500232040 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8D20AFFB1500232040 /* SignViewController.swift */; };
 		7CFCCB9020AFFB1500232040 /* SignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8E20AFFB1500232040 /* SignViewController.xib */; };
 		7CFCCB9720AFFBEB00232040 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DB8351EEC7C5000BDE7D6 /* SearchViewController.swift */; };
@@ -89,7 +87,6 @@
 		7CFCCBA520AFFBEB00232040 /* BipListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7911FFDE2D000934BED /* BipListView.swift */; };
 		7CFCCBA620AFFBEB00232040 /* EmptyBipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7971FFDE80200934BED /* EmptyBipView.swift */; };
 		7CFCCBA720AFFBEB00232040 /* SignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB9120AFFB7F00232040 /* SignView.swift */; };
-		7CFCCBA820AFFBEB00232040 /* ForkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */; };
 		7CFCCBA920AFFBEB00232040 /* StopAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE53B051FD5F69C00D8DC85 /* StopAnnotationView.swift */; };
 		7CFCCBAA20AFFBEB00232040 /* ColorOptionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB781272005388B005A9464 /* ColorOptionPickerView.swift */; };
 		7CFCCBAB20AFFBEB00232040 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C66456E1FD33453005EF2DF /* ViewController.swift */; };
@@ -111,7 +108,6 @@
 		7CFCCBBF20AFFBEB00232040 /* BipCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7861FFDD86F00934BED /* BipCardView.xib */; };
 		7CFCCBC020AFFBEB00232040 /* ButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6645721FD34EAE005EF2DF /* ButtonRow.xib */; };
 		7CFCCBC120AFFBEB00232040 /* ForkModalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */; };
-		7CFCCBC220AFFBEB00232040 /* ForkModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */; };
 		7CFCCBC320AFFBEB00232040 /* InfoBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C5D18091FE783D300E153FE /* InfoBanner.xib */; };
 		7CFCCBC420AFFBEB00232040 /* CromiDialogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB781242004896A005A9464 /* CromiDialogViewController.xib */; };
 		7CFCCBC520AFFBEB00232040 /* SignViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8E20AFFB1500232040 /* SignViewController.xib */; };
@@ -252,8 +248,6 @@
 		7CF818CD1E9EF3D2007F1468 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForkModalHeaderView.swift; sourceTree = "<group>"; };
 		7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForkModalHeaderView.xib; sourceTree = "<group>"; };
-		7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForkModalViewController.swift; sourceTree = "<group>"; };
-		7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForkModalViewController.xib; sourceTree = "<group>"; };
 		7CFCCB8D20AFFB1500232040 /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
 		7CFCCB8E20AFFB1500232040 /* SignViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignViewController.xib; sourceTree = "<group>"; };
 		7CFCCB9120AFFB7F00232040 /* SignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignView.swift; sourceTree = "<group>"; };
@@ -325,8 +319,6 @@
 				7CE4B70E1F09D3260067E5CB /* FloatingButton.swift */,
 				7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */,
 				7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */,
-				7CFCCB8720AFFA2A00232040 /* ForkModalViewController.swift */,
-				7CFCCB8820AFFA2A00232040 /* ForkModalViewController.xib */,
 				7C58BC6B2005472100319092 /* CromiOverlayViewController.swift */,
 				7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */,
 				7CB781232004896A005A9464 /* CromiDialogViewController.swift */,
@@ -569,7 +561,6 @@
 				7C77F7871FFDD86F00934BED /* BipCardView.xib in Resources */,
 				7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */,
 				7CFCCB8A20AFFA2A00232040 /* ForkModalHeaderView.xib in Resources */,
-				7CFCCB8C20AFFA2A00232040 /* ForkModalViewController.xib in Resources */,
 				7C5D180A1FE783D300E153FE /* InfoBanner.xib in Resources */,
 				7CB781262004896A005A9464 /* CromiDialogViewController.xib in Resources */,
 				7CFCCB9020AFFB1500232040 /* SignViewController.xib in Resources */,
@@ -600,7 +591,6 @@
 				7CFCCBBF20AFFBEB00232040 /* BipCardView.xib in Resources */,
 				7CFCCBC020AFFBEB00232040 /* ButtonRow.xib in Resources */,
 				7CFCCBC120AFFBEB00232040 /* ForkModalHeaderView.xib in Resources */,
-				7CFCCBC220AFFBEB00232040 /* ForkModalViewController.xib in Resources */,
 				7CFCCBC320AFFBEB00232040 /* InfoBanner.xib in Resources */,
 				7CFCCBC420AFFBEB00232040 /* CromiDialogViewController.xib in Resources */,
 				7CFCCBC520AFFBEB00232040 /* SignViewController.xib in Resources */,
@@ -678,7 +668,6 @@
 				7C77F7921FFDE2D000934BED /* BipListView.swift in Sources */,
 				7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */,
 				7CFCCBDE20AFFFBD00232040 /* SignView.swift in Sources */,
-				7CFCCB8B20AFFA2A00232040 /* ForkModalViewController.swift in Sources */,
 				7CE53B061FD5F69C00D8DC85 /* StopAnnotationView.swift in Sources */,
 				7CB781282005388B005A9464 /* ColorOptionPickerView.swift in Sources */,
 				7C66456F1FD33453005EF2DF /* ViewController.swift in Sources */,
@@ -722,7 +711,6 @@
 				7CFCCBA520AFFBEB00232040 /* BipListView.swift in Sources */,
 				7CFCCBA620AFFBEB00232040 /* EmptyBipView.swift in Sources */,
 				7CFCCBA720AFFBEB00232040 /* SignView.swift in Sources */,
-				7CFCCBA820AFFBEB00232040 /* ForkModalViewController.swift in Sources */,
 				7CFCCBA920AFFBEB00232040 /* StopAnnotationView.swift in Sources */,
 				7CFCCBAA20AFFBEB00232040 /* ColorOptionPickerView.swift in Sources */,
 				7CFCCBAB20AFFBEB00232040 /* ViewController.swift in Sources */,
@@ -915,7 +903,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -931,7 +919,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cl.radu.cromi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -947,7 +935,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cl.radu.cromi-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -963,7 +951,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cl.radu.cromi-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ForkModalHeaderView" customModule="Fork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ForkModalHeaderView" customModule="Cromi" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="Vh4-Ib-m1r" id="ARJ-Xl-icb"/>
                 <outlet property="submitButton" destination="D7U-Ps-9sP" id="3HJ-kp-GQp"/>
@@ -50,7 +50,7 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7U-Ps-9sP">
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7U-Ps-9sP">
                             <rect key="frame" x="220" y="7.5" width="68" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="CYZ-ts-VeD"/>

@@ -16,6 +16,10 @@ class User: NSObject, Storable {
         }
     }
     
+    static var fileName: String {
+        return "Cromi User Data"
+    }
+    
     // MARK: - Data
     var bipCards: [BipCard] = [] {
         didSet {

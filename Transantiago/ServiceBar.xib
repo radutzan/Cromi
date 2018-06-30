@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,7 +48,7 @@
                         <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="alg-nm-jNr">
                             <rect key="frame" x="-0.5" y="0.0" width="246" height="40"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxb-9q-M0L">
+                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxb-9q-M0L">
                                     <rect key="frame" x="0.0" y="0.0" width="123" height="40"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                     <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
@@ -66,7 +66,7 @@
                                         <action selector="segmentedControlButtonTouchedWithButton:" destination="-1" eventType="touchDragEnter" id="c6L-VI-HOL"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prw-Fd-C86">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prw-Fd-C86">
                                     <rect key="frame" x="123" y="0.0" width="123" height="40"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                     <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
@@ -105,16 +105,9 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CX5-bc-4ks">
-                    <rect key="frame" x="303" y="0.0" width="40" height="52"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="W65-h3-CS4"/>
-                    </constraints>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="lEV-uo-MCu" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="1lH-Q6-QrY"/>
-                <constraint firstAttribute="trailing" secondItem="CX5-bc-4ks" secondAttribute="trailing" id="7q6-Nm-jol"/>
                 <constraint firstItem="fep-qp-Q7z" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="8xj-HN-YCA"/>
                 <constraint firstItem="8JH-BE-9s5" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="6" id="I1U-2S-KgF"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8JH-BE-9s5" secondAttribute="bottom" constant="6" id="IB8-8y-var"/>
@@ -123,17 +116,10 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lEV-uo-MCu" secondAttribute="bottom" id="clF-YZ-3Ce"/>
                 <constraint firstItem="8JH-BE-9s5" firstAttribute="leading" secondItem="lEV-uo-MCu" secondAttribute="trailing" constant="12" id="ecl-SC-7jC"/>
                 <constraint firstItem="lEV-uo-MCu" firstAttribute="leading" secondItem="fep-qp-Q7z" secondAttribute="trailing" id="ooZ-f9-qAy"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="CX5-bc-4ks" secondAttribute="bottom" id="uhY-sf-lTK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8JH-BE-9s5" secondAttribute="trailing" constant="6" id="v8d-an-ane"/>
-                <constraint firstItem="CX5-bc-4ks" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="wZW-Ld-SJF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="CX5-bc-4ks"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="18.5" y="339"/>
         </view>
     </objects>
