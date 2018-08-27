@@ -91,9 +91,10 @@ class BipAPI: NSObject {
         case metroDead = "http://www.metrosantiago.cl/contents/guia-viajero/includes/consultarTarjeta/"
         case bipServicio = "https://bip-servicio.herokuapp.com/api/v1/solicitudes.json?bip="
         case franciscoCapone = "http://bip.franciscocapone.com/api/getSaldo/"
+        case saldoDashBip = "https://saldo-bip.cl/consulta/api/v1/solicitudes.json?bip="
     }
     
-    private let currentServer: APIServer = .bipServicio
+    private let currentServer: APIServer = .saldoDashBip
     private let dateFormatter: DateFormatter
     
     override init() {
@@ -137,7 +138,7 @@ class BipAPI: NSObject {
             }
             return (id: cardNumber, balance: balanceInt, lastUpdated: lastUpdated)
             
-        case .bipServicio:
+        case .bipServicio, .saldoDashBip:
             guard let rootData = jsonData as? [String: String],
                 let statusString = rootData["estadoContrato"], statusString == "Contrato Activo",
                 let idString = rootData["id"],

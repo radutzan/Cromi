@@ -25,6 +25,7 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
         
         buttonRow.buttonItems = [ButtonItem(image: #imageLiteral(resourceName: "button bip"), title: NSLocalizedString("Bip button", comment: ""), action: bipButtonTapped(button:)),
                              ButtonItem(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
+//        buttonRow.setIsEnabled(on: [0], to: false)
         locationServices.delegate = self
         
         serviceBar.delegate = self
@@ -50,7 +51,7 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
     
     private let shouldPresentFeatureSpotlight = false
     private func presentFeatureSpotlightIfNeeded() {
-        let spotlightKey = "Bip Cards Spotlight"//"Live Buses Spotlight"//"Line View Spotlight"
+        let spotlightKey = "Bip Cards Disabled"//"Bip Cards Spotlight"//"Live Buses Spotlight"//"Line View Spotlight"
         guard !UserDefaults.standard.bool(forKey: spotlightKey), shouldPresentFeatureSpotlight else { return }
         
         let spotlightAlert = UIAlertController(title: NSLocalizedString("Feature Spotlight alert title", comment: ""), message: NSLocalizedString("Feature Spotlight alert message", comment: ""), preferredStyle: .alert)

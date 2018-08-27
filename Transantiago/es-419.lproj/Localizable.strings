@@ -71,6 +71,6 @@
 "Info Banner message" = "La posición de los buses en el mapa tiene al menos 2 minutos de retraso.";
 
 // Feature Spotlight
-"Feature Spotlight alert title" = "Nuevo: Saldo de tarjetas Bip";
-"Feature Spotlight alert message" = "Ahora puedes agregar tus tarjetas Bip y ver su saldo. Toca el botón Bip de abajo.";
-"Feature Spotlight alert confirmation" = "Buena";
+"Feature Spotlight alert title" = "Tarjetas Bip Temporalmente Desactivadas";
+"Feature Spotlight alert message" = "Todas las fuentes de datos que usaba para tarjetas Bip fueron eliminadas. Mientras busco otras, las funcionalidades de tarjeta Bip están desactivadas.";
+"Feature Spotlight alert confirmation" = "Pucha";

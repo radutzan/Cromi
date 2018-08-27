@@ -80,7 +80,7 @@ class SignViewController: UIViewController {
         guard isViewLoaded, let signView = signView else { return }
         let originCenter = originRect.minX + (originRect.width / 2)
         signLeadingConstraint.constant = max(layoutInsets.left, originCenter - (signView.bounds.width / 2))
-        signBottomConstraint.constant = max(layoutInsets.bottom + safeAreaInsets.bottom, (view.bounds.height - originRect.minY) + distanceFromOrigin)
+        signBottomConstraint.constant = (view.bounds.height - originRect.minY) + distanceFromOrigin//max(layoutInsets.bottom + safeAreaInsets.bottom, (view.bounds.height - originRect.minY) + distanceFromOrigin)
     }
     
     private func layoutInsetsUpdated() {

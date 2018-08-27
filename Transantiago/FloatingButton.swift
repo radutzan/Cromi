@@ -12,11 +12,36 @@ class FloatingButton: UIButton {
     var size: CGFloat = 44
     var shadow = Shadow.floatingHigh
     private var selectedScale: CGFloat = 1.32
+    private var storedTintColor: UIColor?
+    override var tintColor: UIColor! {
+        didSet {
+            guard tintColor != .white else { return }
+            storedTintColor = tintColor
+        }
+    }
+    override var isHighlighted: Bool {
+        didSet {
+            guard isHighlighted != oldValue else { return }
+            updateVisualState()
+        }
+    }
+    override var isSelected: Bool {
+        didSet {
+            guard isSelected != oldValue else { return }
+            updateVisualState()
+        }
+    }
+    override var isEnabled: Bool {
+        didSet {
+            guard isEnabled != oldValue else { return }
+            updateVisualState()
+        }
+    }
     
     override func setImage(_ image: UIImage?, for state: UIControlState) {
         super.setImage(image?.withRenderingMode(.alwaysTemplate), for: state)
     }
-
+    
     override func willMove(toSuperview newSuperview: UIView?) {
         setUpButtonIfNeeded()
     }
@@ -34,30 +59,12 @@ class FloatingButton: UIButton {
         didSetUpButton = true
     }
     
-    override var tintColor: UIColor! {
-        didSet {
-            guard tintColor != .white else { return }
-            storedTintColor = tintColor
-        }
-    }
-    private var storedTintColor: UIColor?
-    
-    override var isHighlighted: Bool {
-        didSet {
-            guard isHighlighted != oldValue else { return }
-            updateVisualState()
-        }
-    }
-    
-    override var isSelected: Bool {
-        didSet {
-            guard isSelected != oldValue else { return }
-            updateVisualState()
-        }
-    }
-    
     private var isVisuallySelected = false
     private func updateVisualState() {
+        guard isEnabled else {
+            self.tintColor = UIColor(white: 0, alpha: 0.5)
+            return
+        }
         let shouldSelect = isHighlighted || isSelected
         guard shouldSelect != isVisuallySelected else { return }
         isVisuallySelected = shouldSelect

@@ -14,13 +14,15 @@ struct ButtonItem {
     var action: (UIButton) -> ()
     var isPrimary: Bool = false
     var isDestructive: Bool = false
+    var isDisabled: Bool = false
     
-    init(image: UIImage, title: String, action: @escaping (UIButton) -> (), isPrimary: Bool = false, isDestructive: Bool = false) {
+    init(image: UIImage, title: String, action: @escaping (UIButton) -> (), isPrimary: Bool = false, isDestructive: Bool = false, isDisabled: Bool = false) {
         self.image = image
         self.title = title
         self.action = action
         self.isPrimary = isPrimary
         self.isDestructive = isDestructive
+        self.isDisabled = isDisabled
     }
 }
 
