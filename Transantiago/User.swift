@@ -26,6 +26,7 @@ class User: NSObject, Storable {
             didUpdateData()
         }
     }
+    var favoriteStops: [Stop] = []
     private var storageManager: StorageManager!
     
     // MARK: - Initializing
@@ -36,6 +37,7 @@ class User: NSObject, Storable {
     
     required init?(coder decoder: NSCoder) {
         self.bipCards = decoder.decodeObject(forKey: "bipCards") as? [BipCard] ?? []
+        self.favoriteStops = decoder.decodeObject(forKey: "favoriteStops") as? [Stop] ?? []
         super.init()
         commonInit()
     }
@@ -52,6 +54,7 @@ class User: NSObject, Storable {
     // MARK: - Saving
     func encode(with coder: NSCoder) {
         coder.encode(bipCards, forKey: "bipCards")
+        coder.encode(favoriteStops, forKey: "favoriteStops")
     }
     
     private func setNeedsSave() {

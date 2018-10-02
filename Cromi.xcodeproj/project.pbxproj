@@ -45,6 +45,10 @@
 		7C77F7961FFDE6F700934BED /* BipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7951FFDE6F700934BED /* BipViewController.swift */; };
 		7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7971FFDE80200934BED /* EmptyBipView.swift */; };
 		7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */; };
+		7C9C31182163EE3F0002F60C /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9C31172163EE3F0002F60C /* Annotations.swift */; };
+		7C9C31192163EE3F0002F60C /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9C31172163EE3F0002F60C /* Annotations.swift */; };
+		7C9C311C2163EEC40002F60C /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9C311B2163EEC40002F60C /* Stop.swift */; };
+		7C9C311D2163EEC40002F60C /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9C311B2163EEC40002F60C /* Stop.swift */; };
 		7CAD57D820B0ACA30088743D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D720B0ACA30088743D /* MapViewController.swift */; };
 		7CAD57DA20B24EE70088743D /* CromiSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D920B24EE70088743D /* CromiSignView.swift */; };
 		7CAD57DB20B24EE70088743D /* CromiSignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAD57D920B24EE70088743D /* CromiSignView.swift */; };
@@ -64,7 +68,7 @@
 		7CE946C71DF8FA3E00F3D29A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C61DF8FA3E00F3D29A /* Assets.xcassets */; };
 		7CE946CA1DF8FA3E00F3D29A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CE946C81DF8FA3E00F3D29A /* LaunchScreen.storyboard */; };
 		7CE946D31DF8FB0600F3D29A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE946D21DF8FB0600F3D29A /* MapKit.framework */; };
-		7CE946DB1DF9579200F3D29A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
+		7CE946DB1DF9579200F3D29A /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Other.swift */; };
 		7CF818CA1E9EF3A9007F1468 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF818CC1E9EF3A9007F1468 /* Localizable.strings */; };
 		7CFCCB8920AFFA2A00232040 /* ForkModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */; };
 		7CFCCB8A20AFFA2A00232040 /* ForkModalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */; };
@@ -98,7 +102,7 @@
 		7CFCCBB220AFFBEB00232040 /* SignServiceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28C6091E9B37A30012BD19 /* SignServiceRowView.swift */; };
 		7CFCCBB320AFFBEB00232040 /* ServiceBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645761FD35C7B005EF2DF /* ServiceBar.swift */; };
 		7CFCCBB420AFFBEB00232040 /* SCLTransit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */; };
-		7CFCCBB520AFFBEB00232040 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Models.swift */; };
+		7CFCCBB520AFFBEB00232040 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946DA1DF9579200F3D29A /* Other.swift */; };
 		7CFCCBB720AFFBEB00232040 /* CromiDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE273971F97E6940008A070 /* CromiDefines.swift */; };
 		7CFCCBB820AFFBEB00232040 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */; };
 		7CFCCBB920AFFBEB00232040 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFCCB8D20AFFB1500232040 /* SignViewController.swift */; };
@@ -223,6 +227,8 @@
 		7C77F7951FFDE6F700934BED /* BipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipViewController.swift; sourceTree = "<group>"; };
 		7C77F7971FFDE80200934BED /* EmptyBipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBipView.swift; sourceTree = "<group>"; };
 		7C80A65F1EF1CD8E00DF6A15 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		7C9C31172163EE3F0002F60C /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
+		7C9C311B2163EEC40002F60C /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		7CAD57D720B0ACA30088743D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7CAD57D920B24EE70088743D /* CromiSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CromiSignView.swift; sourceTree = "<group>"; };
 		7CAD57DD20B24FF00088743D /* BipSignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BipSignView.swift; sourceTree = "<group>"; };
@@ -244,7 +250,7 @@
 		7CE946D21DF8FB0600F3D29A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7CE946D61DF94DCB00F3D29A /* TransantiagoAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransantiagoAPI.swift; sourceTree = "<group>"; };
 		7CE946D81DF953ED00F3D29A /* JSONUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtilities.swift; sourceTree = "<group>"; };
-		7CE946DA1DF9579200F3D29A /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		7CE946DA1DF9579200F3D29A /* Other.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
 		7CF818CD1E9EF3D2007F1468 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7CFCCB8520AFFA2A00232040 /* ForkModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForkModalHeaderView.swift; sourceTree = "<group>"; };
 		7CFCCB8620AFFA2A00232040 /* ForkModalHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForkModalHeaderView.xib; sourceTree = "<group>"; };
@@ -390,16 +396,25 @@
 			name = Map;
 			sourceTree = "<group>";
 		};
-		7CE2739A1F97EB8D0008A070 /* Data */ = {
+		7C9C311A2163EE840002F60C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7CE946DA1DF9579200F3D29A /* Models.swift */,
-				7C77F77E1FF42C6500934BED /* BipCard.swift */,
 				7C77F7801FFA754D00934BED /* User.swift */,
+				7C9C31172163EE3F0002F60C /* Annotations.swift */,
+				7C9C311B2163EEC40002F60C /* Stop.swift */,
+				7CE946DA1DF9579200F3D29A /* Other.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		7CE2739A1F97EB8D0008A070 /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7C77F77E1FF42C6500934BED /* BipCard.swift */,
 				7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */,
 				7C61D3591F97FC2300CE8483 /* Archived Sources */,
 			);
-			name = Data;
+			name = "Data Sources";
 			sourceTree = "<group>";
 		};
 		7CE946B31DF8FA3E00F3D29A = {
@@ -429,7 +444,8 @@
 			children = (
 				7CE273971F97E6940008A070 /* CromiDefines.swift */,
 				7CE946BF1DF8FA3E00F3D29A /* AppDelegate.swift */,
-				7CE2739A1F97EB8D0008A070 /* Data */,
+				7C9C311A2163EE840002F60C /* Models */,
+				7CE2739A1F97EB8D0008A070 /* Data Sources */,
 				7CE946C31DF8FA3E00F3D29A /* Main.storyboard */,
 				7C66456E1FD33453005EF2DF /* ViewController.swift */,
 				7C66456C1FD33392005EF2DF /* LocationServices.swift */,
@@ -656,6 +672,7 @@
 				7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */,
 				7C77F7811FFA754D00934BED /* User.swift in Sources */,
 				7C58BC6C2005472100319092 /* CromiOverlayViewController.swift in Sources */,
+				7C9C311C2163EEC40002F60C /* Stop.swift in Sources */,
 				7CB781252004896A005A9464 /* CromiDialogViewController.swift in Sources */,
 				7C66456D1FD33392005EF2DF /* LocationServices.swift in Sources */,
 				7C28C6161E9C1BCB0012BD19 /* SignTimetableView.swift in Sources */,
@@ -664,6 +681,7 @@
 				7CFCCBE320B00FE600232040 /* StopSignView.swift in Sources */,
 				7C77F7891FFDDA0000934BED /* BipCardView.swift in Sources */,
 				7C77F7961FFDE6F700934BED /* BipViewController.swift in Sources */,
+				7C9C31182163EE3F0002F60C /* Annotations.swift in Sources */,
 				7C80A6601EF1CD8E00DF6A15 /* SearchBar.swift in Sources */,
 				7C77F7921FFDE2D000934BED /* BipListView.swift in Sources */,
 				7C77F7981FFDE80200934BED /* EmptyBipView.swift in Sources */,
@@ -680,7 +698,7 @@
 				7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */,
 				7C6645791FD4B5F5005EF2DF /* SCLTransit.swift in Sources */,
 				7CAD57E020B25AB00088743D /* MapViewController.swift in Sources */,
-				7CE946DB1DF9579200F3D29A /* Models.swift in Sources */,
+				7CE946DB1DF9579200F3D29A /* Other.swift in Sources */,
 				7CAD57DE20B24FF00088743D /* BipSignView.swift in Sources */,
 				7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
@@ -699,6 +717,7 @@
 				7CFCCB9A20AFFBEB00232040 /* BipCard.swift in Sources */,
 				7CFCCB9B20AFFBEB00232040 /* User.swift in Sources */,
 				7CFCCB9C20AFFBEB00232040 /* CromiOverlayViewController.swift in Sources */,
+				7C9C311D2163EEC40002F60C /* Stop.swift in Sources */,
 				7CFCCB9D20AFFBEB00232040 /* CromiDialogViewController.swift in Sources */,
 				7CFCCB9E20AFFBEB00232040 /* LocationServices.swift in Sources */,
 				7CFCCB9F20AFFBEB00232040 /* SignTimetableView.swift in Sources */,
@@ -707,6 +726,7 @@
 				7CFCCBA220AFFBEB00232040 /* BipCardView.swift in Sources */,
 				7CAD57DC20B24FBF0088743D /* StopSignView.swift in Sources */,
 				7CFCCBA320AFFBEB00232040 /* BipViewController.swift in Sources */,
+				7C9C31192163EE3F0002F60C /* Annotations.swift in Sources */,
 				7CFCCBA420AFFBEB00232040 /* SearchBar.swift in Sources */,
 				7CFCCBA520AFFBEB00232040 /* BipListView.swift in Sources */,
 				7CFCCBA620AFFBEB00232040 /* EmptyBipView.swift in Sources */,
@@ -722,7 +742,7 @@
 				7CFCCBB220AFFBEB00232040 /* SignServiceRowView.swift in Sources */,
 				7CFCCBB320AFFBEB00232040 /* ServiceBar.swift in Sources */,
 				7CFCCBB420AFFBEB00232040 /* SCLTransit.swift in Sources */,
-				7CFCCBB520AFFBEB00232040 /* Models.swift in Sources */,
+				7CFCCBB520AFFBEB00232040 /* Other.swift in Sources */,
 				7CAD57DF20B24FF00088743D /* BipSignView.swift in Sources */,
 				7CAD57D820B0ACA30088743D /* MapViewController.swift in Sources */,
 				7CFCCBB720AFFBEB00232040 /* CromiDefines.swift in Sources */,
