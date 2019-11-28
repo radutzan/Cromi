@@ -11,6 +11,7 @@ import MapKit
 
 class SCLTransit: NSObject, DataSource {
     static let get = SCLTransit()
+    private let baseURLString = "https://api.scltrans.it"
     
     override init() {
         super.init()
@@ -69,7 +70,7 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func annotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping ([Stop]?, [BipSpot]?, [MetroStation]?) -> ()) {
-        guard let requestURL = URL(string: "https://api.scltrans.it/v1/map?center_lat=\(coordinate.latitude)&center_lon=\(coordinate.longitude)&include_bip_spots=1&include_stop_routes=1") else { return }
+        guard let requestURL = URL(string: baseURLString + "/v1/map?center_lat=\(coordinate.latitude)&center_lon=\(coordinate.longitude)&include_bip_spots=1&include_stop_routes=1") else { return }
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var stops: [Stop]?
@@ -130,7 +131,7 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> ()) {
-        guard let requestURL = URL(string: "https://api.scltrans.it/v1/stops/\(code)/next_arrivals") else { return }
+        guard let requestURL = URL(string: baseURLString + "/v1/stops/\(code)/next_arrivals") else { return }
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var prediction: StopPrediction?
@@ -186,7 +187,7 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func service(withName serviceName: String, completion: @escaping (Service?) -> ()) {
-//        guard let requestURL = URL(string: "https://api.scltrans.it/v1/routes/\(serviceName)/directions") else { return }
+//        guard let requestURL = URL(string: baseURLString + "/v1/routes/\(serviceName)/directions") else { return }
 //        print("SCLTransit: Requesting \(requestURL.absoluteString)")
 //        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
 //            var service: Service?
@@ -204,7 +205,7 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func serviceRoutes(for service: Service, completion: @escaping (Service?) -> ()) {
-        guard let requestURL = URL(string: "https://api.scltrans.it/v2/routes/\(service.name)/directions") else { return }
+        guard let requestURL = URL(string: baseURLString + "/v2/routes/\(service.name)/directions") else { return }
         let startTime = CACurrentMediaTime()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
@@ -249,7 +250,7 @@ class SCLTransit: NSObject, DataSource {
     }
     
     func buses(forService serviceName: String, direction: Service.Route.Direction, completion: @escaping ([Bus]?) -> ()) {
-        guard let requestURL = URL(string: "https://api.scltrans.it/v1/buses?route_id=\(serviceName)&direction_id=\(direction.rawValue)") else { return }
+        guard let requestURL = URL(string: baseURLString + "/v1/buses?route_id=\(serviceName)&direction_id=\(direction.rawValue)") else { return }
         print("SCLTransit: Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var buses: [Bus]?
