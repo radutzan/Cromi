@@ -37,7 +37,7 @@ protocol SearchBarDelegate: class {
         searchIcon.alpha = 0.42
         addSubview(searchIcon)
         
-        textField.placeholder = NSLocalizedString("Search box placeholder", comment: "")
+        textField.placeholder = "Search box placeholder".localized()
         textField.font = .title
         textField.delegate = self
         textField.returnKeyType = .search

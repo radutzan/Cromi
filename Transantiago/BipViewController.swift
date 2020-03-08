@@ -30,7 +30,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         }
         
         contentView = listView
-        buttonRow.buttonItems = [doneButtonItem, ButtonItem(image: #imageLiteral(resourceName: "button add"), title: NSLocalizedString("Add", comment: ""), action: { _ in self.presentEntryView() })]
+        buttonRow.buttonItems = [doneButtonItem, ButtonItem(image: #imageLiteral(resourceName: "button add"), title: "Add".localized(), action: { _ in self.presentEntryView() })]
         updateData(isFirstLoad: true)
     }
     
@@ -79,7 +79,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
             emptyView.button.tapAction = { _ in self.presentEntryView() }
             listView.views = [emptyView]
         }
-        listView.infoLabel.text = cards.count > 0 ? NSLocalizedString("Bip Info Label Text", comment: "") : ""
+        listView.infoLabel.text = cards.count > 0 ? "Bip Info Label Text".localized() : ""
     }
     
     private func performDataRefresh() {
@@ -111,7 +111,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
         UIView.transition(with: cardView, duration: animated ? 0.24 : 0, options: [.transitionCrossDissolve], animations: {
             cardView.cardNumber = card.id
             cardView.nameLabel.text = card.name
-            cardView.metadataLabel.text = "\(String(format: "%08d", card.id)) \(card.kind == .student ? "• \(NSLocalizedString("Student Card", comment: ""))" : "")"
+            cardView.metadataLabel.text = "\(String(format: "%08d", card.id)) \(card.kind == .student ? "• \("Student Card".localized())" : "")"
             cardView.balanceLabel.text = self.formatter.string(from: card.balance as NSNumber) ?? "Error"
             cardView.updatedDateLabel.text = card.lastUpdated != nil ? self.lastUpdatedString(from: card.lastUpdated!) : ""
             cardView.color = card.color
@@ -121,7 +121,7 @@ class BipViewController: CromiOverlayViewController, BipCardViewDelegate, UIGest
     private func lastUpdatedString(from date: Date) -> String {
         let hoursAgo = round((Date().timeIntervalSince(date) / 60) / 60)
         if hoursAgo <= 24 {
-            return String(format: NSLocalizedString("Hours Ago Format", comment: ""), Int(hoursAgo))//"hace \(Int(hoursAgo)) horas"
+            return String(format: "Hours Ago Format".localized(), Int(hoursAgo))//"hace \(Int(hoursAgo)) horas"
         } else {
             let formatter = DateFormatter()
             formatter.dateStyle = .short

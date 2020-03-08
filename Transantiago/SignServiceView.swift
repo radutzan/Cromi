@@ -71,7 +71,7 @@ protocol SignServiceViewDelegate: AnyObject {
         self.service = service
         serviceName = service.name
         serviceColor = service.color
-        subtitle = "\(NSLocalizedString("to", comment: "")) \(service.stopInfo?.headsign ?? "")"
+        subtitle = "\("to".localized()) \(service.stopInfo?.headsign ?? "")"
     }
     
     func update(withResponse response: StopPrediction.ServiceResponse?) {
@@ -97,9 +97,9 @@ protocol SignServiceViewDelegate: AnyObject {
             shouldUpdateText = true
             switch response.kind {
             case .noIncomingBuses:
-                attrString = NSAttributedString(string: NSLocalizedString("No incoming buses", comment: ""))
+                attrString = NSAttributedString(string: "No incoming buses".localized())
             case .outOfSchedule:
-                attrString = NSAttributedString(string: NSLocalizedString("Out of schedule", comment: ""))
+                attrString = NSAttributedString(string: "Out of schedule".localized())
             default:
                 shouldUpdateText = false
             }

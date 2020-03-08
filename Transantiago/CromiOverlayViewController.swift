@@ -14,7 +14,7 @@ class CromiOverlayViewController: AbstractModalViewController, UIScrollViewDeleg
     @IBOutlet private var scrollView: TouchTransparentScrollView!
     @IBOutlet var buttonRow: ButtonRow!
     var doneButtonItem: ButtonItem {
-        return ButtonItem(image: #imageLiteral(resourceName: "button done"), title: NSLocalizedString("Done", comment: ""), action: { button in
+        return ButtonItem(image: #imageLiteral(resourceName: "button done"), title: "Done".localized(), action: { button in
             button.isSelected = true
             self.close()
         })

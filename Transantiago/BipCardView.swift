@@ -39,9 +39,9 @@ class BipCardView: NibLoadingView {
     
     // MARK: - Internal properties
     private var optionItems: [ButtonItem] {
-        return [ButtonItem(image: #imageLiteral(resourceName: "button edit"), title: NSLocalizedString("Edit", comment: ""), action: { button in
+        return [ButtonItem(image: #imageLiteral(resourceName: "button edit"), title: "Edit".localized(), action: { button in
             self.editAction?(self.cardNumber, self.nameLabel.text ?? "", self.color)
-        }), ButtonItem(image: #imageLiteral(resourceName: "button trash"), title: NSLocalizedString("Delete", comment: ""), action: { button in
+        }), ButtonItem(image: #imageLiteral(resourceName: "button trash"), title: "Delete".localized(), action: { button in
             self.deleteAction?(self.cardNumber, self.nameLabel.text ?? "", self.color)
         })]
     }
@@ -70,7 +70,7 @@ class BipCardView: NibLoadingView {
             button.setImage(buttonItem.image, for: .normal)
             button.accessibilityLabel = buttonItem.title
             button.tapAction = buttonItem.action
-            if buttonItem.title == NSLocalizedString("Delete", comment: "") {
+            if buttonItem.title == "Delete".localized() {
                 button.tintColor = .red
             }
             optionsContainerView.addSubview(button)
@@ -119,7 +119,7 @@ class BipCardView: NibLoadingView {
     private func toggleProposeDeleteSwipe(on: Bool) {
         guard isProposingDeleteSwipe != on else { return }
         for view in optionsContainerView.subviews {
-            guard let button = view as? FloatingButton, button.accessibilityLabel == NSLocalizedString("Delete", comment: "") else { continue }
+            guard let button = view as? FloatingButton, button.accessibilityLabel == "Delete".localized() else { continue }
             isProposingDeleteSwipe = on
             button.isSelected = on
             feedbackGenerator.selectionChanged()

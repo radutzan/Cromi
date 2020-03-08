@@ -57,7 +57,7 @@ class BipSpot: TransantiagoAnnotation {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var hashValue: Int {
+    override var hash: Int {
         return coordinate.latitude.hashValue ^ coordinate.longitude.hashValue ^ (title ?? "").hashValue
     }
     

@@ -58,9 +58,9 @@ class ServiceBar: NibLoadingView {
         }
         
         directionButton1.isHidden = service.outboundRoute == nil
-        directionButton1.setTitle("\(NSLocalizedString("to", comment: "")) \(service.outboundRoute?.headsign ?? "nowhere")", for: .normal)
+        directionButton1.setTitle("\("to".localized()) \(service.outboundRoute?.headsign ?? "nowhere")", for: .normal)
         directionButton2.isHidden = service.inboundRoute == nil
-        directionButton2.setTitle("\(NSLocalizedString("to", comment: "")) \(service.inboundRoute?.headsign ?? "nowhere")", for: .normal)
+        directionButton2.setTitle("\("to".localized()) \(service.inboundRoute?.headsign ?? "nowhere")", for: .normal)
         updateSegmentedControl()
     }
     

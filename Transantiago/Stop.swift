@@ -44,7 +44,7 @@ class Stop: TransantiagoAnnotation, NSCoding {
         coder.encode(favoriteName, forKey: "favoriteName")
     }
     
-    override var hashValue: Int {
+    override var hash: Int {
         return code.hashValue ^ 420.hashValue
     }
     

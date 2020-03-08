@@ -23,8 +23,8 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buttonRow.buttonItems = [ButtonItem(image: #imageLiteral(resourceName: "button bip"), title: NSLocalizedString("Bip button", comment: ""), action: bipButtonTapped(button:)),
-                             ButtonItem(image: #imageLiteral(resourceName: "button location"), title: NSLocalizedString("Location button", comment: ""), action: locationButtonTapped(button:))]
+        buttonRow.buttonItems = [ButtonItem(image: #imageLiteral(resourceName: "button bip"), title: "Bip button".localized(), action: bipButtonTapped(button:)),
+                             ButtonItem(image: #imageLiteral(resourceName: "button location"), title: "Location button".localized(), action: locationButtonTapped(button:))]
 //        buttonRow.setIsEnabled(on: [0], to: false)
         locationServices.delegate = self
         
@@ -35,8 +35,8 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
         infoBanner.delegate = self
         infoBanner.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handle(infoBannerPan:))))
         infoBannerHorizontalCenterConstraint.constant = view.bounds.width
-        infoBanner.title = NSLocalizedString("Info Banner title", comment: "")
-        infoBanner.message = NSLocalizedString("Info Banner message", comment: "")
+        infoBanner.title = "Info Banner title".localized()
+        infoBanner.message = "Info Banner message".localized()
         
         if let mapViewController = childViewControllers.first as? MapViewController {
             mapController = mapViewController
@@ -54,8 +54,8 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
         let spotlightKey = "Bip Cards Disabled"//"Bip Cards Spotlight"//"Live Buses Spotlight"//"Line View Spotlight"
         guard !UserDefaults.standard.bool(forKey: spotlightKey), shouldPresentFeatureSpotlight else { return }
         
-        let spotlightAlert = UIAlertController(title: NSLocalizedString("Feature Spotlight alert title", comment: ""), message: NSLocalizedString("Feature Spotlight alert message", comment: ""), preferredStyle: .alert)
-        spotlightAlert.addAction(UIAlertAction(title: NSLocalizedString("Feature Spotlight alert confirmation", comment: ""), style: .default, handler: nil))
+        let spotlightAlert = UIAlertController(title: "Feature Spotlight alert title".localized(), message: "Feature Spotlight alert message".localized(), preferredStyle: .alert)
+        spotlightAlert.addAction(UIAlertAction(title: "Feature Spotlight alert confirmation".localized(), style: .default, handler: nil))
         present(spotlightAlert, animated: true, completion: nil)
         
         UserDefaults.standard.set(true, forKey: spotlightKey)
@@ -78,8 +78,8 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
     
     func locationServicesUserOutsideSantiago() {
         isNotInSantiago = true
-        let stgoAlert = UIAlertController(title: NSLocalizedString("Not in Santiago alert title", comment: ""), message: NSLocalizedString("Not in Santiago alert message", comment: ""), preferredStyle: .alert)
-        stgoAlert.addAction(UIAlertAction(title: NSLocalizedString("Not in Santiago alert confirmation", comment: ""), style: .default, handler: { (action) in
+        let stgoAlert = UIAlertController(title: "Not in Santiago alert title".localized(), message: "Not in Santiago alert message".localized(), preferredStyle: .alert)
+        stgoAlert.addAction(UIAlertAction(title: "Not in Santiago alert confirmation".localized(), style: .default, handler: { (action) in
             self.locationServices.forceSantiago = true
             self.mapController?.centerMapAroundUserLocation(animated: true)
             self.mapController?.placeAnnotations(aroundCoordinate: self.locationServices.userLocation)

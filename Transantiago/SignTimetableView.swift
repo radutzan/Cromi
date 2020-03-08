@@ -39,7 +39,7 @@ class SignTimetableView: NibLoadingView {
         for hours in operationHours {
             let hoursRow = SignHoursRowView()
             hoursRow.days = hours.rangeTitle
-            hoursRow.hours = "\(hours.start) \(NSLocalizedString("to", comment: "")) \(hours.end)"
+            hoursRow.hours = "\(hours.start) \("to".localized()) \(hours.end)"
             hoursRow.style = style
             add(hoursRow: hoursRow)
         }

@@ -58,6 +58,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if #available(iOS 11.0, *) {
             mapView.register(StopAnnotationView.self, forAnnotationViewWithReuseIdentifier: stopPinReuseIdentifier)
         }
+        
+        if #available(iOS 11.0, *) {
+            additionalSafeAreaInsets.bottom = 70
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

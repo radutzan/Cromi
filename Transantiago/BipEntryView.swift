@@ -56,16 +56,16 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
     }
     
     override func didLoadNibView() {
-        titleLabel.text = NSLocalizedString("Add Card Title", comment: "")
+        titleLabel.text = "Add Card Title".localized()
         setUpFields()
-        cancelButton.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
+        cancelButton.setTitle("Cancel".localized(), for: .normal)
         cancelButton.tapAction = { _ in
             self.isVisible = false
             self.endEditing(true)
             self.cancelAction?()
         }
         isAddingEnabled = false
-        addButton.setTitle(NSLocalizedString("Add", comment: ""), for: .normal)
+        addButton.setTitle("Add".localized(), for: .normal)
         addButton.tapAction = { _ in
             guard self.finishEditing() else { return }
         }
@@ -98,7 +98,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         let placeholderTextColor = textColor.withAlphaComponent(secondaryOpacity)
         let fieldBackgroundColor = textColor.withAlphaComponent(textColor == .white ? 0.16 : 0.08)
         
-        nameField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Card Name Placeholder", comment: ""), attributes: [.foregroundColor: placeholderTextColor])
+        nameField.attributedPlaceholder = NSAttributedString(string: "Card Name Placeholder".localized(), attributes: [.foregroundColor: placeholderTextColor])
         nameField.delegate = self
         nameField.backgroundColor = fieldBackgroundColor
         nameField.textColor = textColor
@@ -124,7 +124,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         didValidateCurrentCardNumber = true
         isCurrentCardNumberValid = true
         
-        titleLabel.text = NSLocalizedString("Edit Card Title", comment: "")
+        titleLabel.text = "Edit Card Title".localized()
         numberField.text = String(number)
         numberField.isEnabled = false
         numberField.textColor = UIColor.black.withAlphaComponent(0.5)
@@ -143,7 +143,7 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         }
         
         isAddingEnabled = true
-        addButton.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
+        addButton.setTitle("Save".localized(), for: .normal)
         addButton.tapAction = { _ in
             guard self.finishEditing() else { return }
             completion?()
@@ -161,8 +161,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         guard isCurrentCardNumberValid else { return nil }
         guard let name = self.nameField.text, name.count > 0 else {
             print("BipEntryView: Attempted to complete without name")
-            let alert = UIAlertController(title: NSLocalizedString("No Bip Name Alert Title", comment: ""), message: NSLocalizedString("No Bip Name Alert Message", comment: ""), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+            let alert = UIAlertController(title: "No Bip Name Alert Title".localized(), message: "No Bip Name Alert Message".localized(), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK".localized(), style: .default, handler: { _ in
                 self.nameField.becomeFirstResponder()
             }))
             UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -171,8 +171,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
         let storedNumbers = User.current.bipCards.map { $0.id }
         if storedNumbers.contains(currentCardNumber) && !isEditing {
             print("BipEntryView: Attempted to add already added card")
-            let alert = UIAlertController(title: NSLocalizedString("Card Already Added Alert Title", comment: ""), message: NSLocalizedString("Card Already Added Alert Message", comment: ""), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+            let alert = UIAlertController(title: "Card Already Added Alert Title".localized(), message: "Card Already Added Alert Message".localized(), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK".localized(), style: .default, handler: { _ in
                 self.numberField.becomeFirstResponder()
             }))
             UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -229,8 +229,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
                     } else {
                         print("BipEntryView: Card is invalid")
                         guard !silently else { return }
-                        let alert = UIAlertController(title: NSLocalizedString("Invalid Bip Card Alert Title", comment: ""), message: NSLocalizedString("Invalid Bip Card Alert Message", comment: ""), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .default, handler: { _ in
+                        let alert = UIAlertController(title: "Invalid Bip Card Alert Title".localized(), message: "Invalid Bip Card Alert Message".localized(), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Retry".localized(), style: .default, handler: { _ in
                             self.numberField.becomeFirstResponder()
                         }))
                         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -238,8 +238,8 @@ class BipEntryView: NibLoadingView, UITextFieldDelegate {
                 } else {
                     print("BipEntryView: Card validity check error")
                     guard !silently else { return }
-                    let alert = UIAlertController(title: NSLocalizedString("Bip Validity Check Error Alert Title", comment: ""), message: NSLocalizedString("Bip Validity Check Error Alert Message", comment: ""), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    let alert = UIAlertController(title: "Bip Validity Check Error Alert Title".localized(), message: "Bip Validity Check Error Alert Message".localized(), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK".localized(), style: .default, handler: { _ in
                     }))
                     UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                 }

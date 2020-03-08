@@ -46,6 +46,7 @@
 "No data" = "No hay información";
 "Out of schedule" = "Fuera de horario";
 "No incoming buses" = "No vienen buses";
+"Cerca" = "Cerca";
 
 // API Errors
 "and" = "y";

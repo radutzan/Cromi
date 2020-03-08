@@ -281,6 +281,17 @@ class SCLTransit: NSObject, DataSource {
         if string.contains(" Y ") {
             string.append(" min")
         }
-        return string.replacingOccurrences(of: " 0", with: " ").replacingOccurrences(of: "Entre ", with: "").replacingOccurrences(of: "En menos de ", with: "~").replacingOccurrences(of: "Menos de ", with: "~").replacingOccurrences(of: "~ ", with: "~").replacingOccurrences(of: "Mas de ", with: ">").replacingOccurrences(of: ". ", with: "").replacingOccurrences(of: ".", with: "").replacingOccurrences(of: " Y ", with: "–").replacingOccurrences(of: " min", with: "'")
+        return string
+            .replacingOccurrences(of: " 0", with: " ")
+            .replacingOccurrences(of: "Entre ", with: "")
+            .replacingOccurrences(of: "En menos de ", with: "~")
+            .replacingOccurrences(of: "Menos de ", with: "~")
+            .replacingOccurrences(of: "~ ", with: "~")
+            .replacingOccurrences(of: "Mas de ", with: ">")
+            .replacingOccurrences(of: ". ", with: "")
+            .replacingOccurrences(of: ".", with: "")
+            .replacingOccurrences(of: " Y ", with: "–")
+            .replacingOccurrences(of: " min", with: "'")
+            .replacingOccurrences(of: "Llegando", with: "Cerca".localized())
     }
 }
