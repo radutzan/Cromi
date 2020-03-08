@@ -290,11 +290,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 annotationView.superview?.bringSubview(toFront: annotationView)
             }
             annotationView.color = stopContainsCurrentRoute(stop) ? lineViewInfo.presentedService.color : nil
-            annotationView.isinverted = !stopContainsCurrentRoute(stop)
+            annotationView.isInverted = !stopContainsCurrentRoute(stop)
             annotationView.transform = stopContainsCurrentRoute(stop) ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
         } else {
             annotationView.color = nil
-            annotationView.isinverted = false
+            annotationView.isInverted = false
             annotationView.transform = .identity
         }
     }

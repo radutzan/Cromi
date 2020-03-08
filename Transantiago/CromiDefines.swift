@@ -25,7 +25,7 @@ extension UIColor {
     static var cromiFloatingBackground: UIColor {
         var color = UIColor.white
         if #available(iOS 13.0, *) {
-            color = UIApplication.shared.keyWindow?.rootViewController?.traitCollection.userInterfaceStyle == .dark ? .secondarySystemBackground : .white
+            color = UITraitCollection.current.userInterfaceStyle == .dark ? .secondarySystemBackground : .white
         }
         return color
     }

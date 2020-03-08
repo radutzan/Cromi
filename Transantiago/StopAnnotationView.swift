@@ -12,17 +12,15 @@ class StopAnnotationView: MKAnnotationView {
 
     var color: UIColor? {
         didSet {
+            guard color != oldValue else { return }
             updateColor()
         }
     }
-    override var isSelected: Bool {
+    var isInverted: Bool = false {
         didSet {
+            guard isInverted != oldValue else { return }
             updateColor()
-        }
-    }
-    var isinverted: Bool = false {
-        didSet {
-            updateColor()
+            alpha = isInverted ? 0.8 : 1
         }
     }
     private var pinContentImageView = UIImageView(image: #imageLiteral(resourceName: "pin stop bus icon"))
@@ -42,8 +40,15 @@ class StopAnnotationView: MKAnnotationView {
         pinContentImageView.frame = CGRect(x: 6, y: 3, width: 22, height: 24)
         pinContentImageView.contentMode = .center
         pinContentImageView.clipsToBounds = true
-        pinContentImageView.layer.cornerRadius = 2
+        pinContentImageView.layer.cornerRadius = 4
         addSubview(pinContentImageView)
+        
+        updateColor()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        updateColor()
     }
     
     private func updateColor() {
@@ -53,7 +58,7 @@ class StopAnnotationView: MKAnnotationView {
             defaultColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
             invertedColor = traitCollection.userInterfaceStyle == .dark ? .black : .white
         }
-        let shouldInvert = (!isinverted && isSelected) || (isinverted && !isSelected)
+        let shouldInvert = (!isInverted && isSelected) || (isInverted && !isSelected)
         pinContentImageView.tintColor = shouldInvert ? (color ?? defaultColor) : invertedColor
         pinContentImageView.backgroundColor = shouldInvert ? invertedColor : (color ?? defaultColor)
     }

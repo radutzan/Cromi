@@ -31,11 +31,20 @@ class InfoBanner: NibLoadingView {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var messageLabel: UILabel!
     @IBOutlet private var doneButton: UIButton!
+    @IBOutlet private var blurView: UIVisualEffectView!
     
     override func didLoadNibView() {
         apply(shadow: .floatingLow)
         doneButton.tapAction = { button in
             self.delegate?.infoBannerRequestedDismissal()
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if #available(iOS 13.0, *) {
+            blurView.effect = UIBlurEffect(style: .systemThinMaterial)
+        } else {
+            blurView.effect = UIBlurEffect(style: .extraLight)
         }
     }
 

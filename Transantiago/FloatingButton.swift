@@ -48,10 +48,10 @@ class FloatingButton: UIButton {
     
     private var didSetUpButton = false
     private func setUpButtonIfNeeded() {
+        backgroundColor = UIColor.cromiFloatingBackground
         guard !didSetUpButton else { return }
         clipsToBounds = false
         adjustsImageWhenHighlighted = false
-        backgroundColor = UIColor.cromiFloatingBackground
         layer.cornerRadius = size / 2
         layer.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size, height: size), cornerRadius: layer.cornerRadius).cgPath
         apply(shadow: shadow)
@@ -70,7 +70,7 @@ class FloatingButton: UIButton {
         let tintColor = storedTintColor ?? superview?.tintColor ?? .black
         
         let animator = UIViewPropertyAnimator(duration: 0.32, dampingRatio: 0.64) {
-            self.layer.backgroundColor = shouldSelect ? tintColor.cgColor : UIColor.cromiFloatingBackground.cgColor
+            self.backgroundColor = shouldSelect ? tintColor : UIColor.cromiFloatingBackground
             self.tintColor = shouldSelect ? .white : tintColor
             self.transform = shouldSelect ? CGAffineTransform.identity.scaledBy(x: self.selectedScale, y: self.selectedScale) : .identity
         }

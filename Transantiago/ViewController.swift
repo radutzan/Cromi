@@ -52,9 +52,10 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
         let launchCount = UserDefaults.standard.integer(forKey: "launchCount") + 1
         UserDefaults.standard.set(launchCount, forKey: "launchCount")
         
-        if launchCount > 9 {
-            SKStoreReviewController.requestReview()
-        }
+        let nagKey = "didNag0.7"
+        guard launchCount > 9, !UserDefaults.standard.bool(forKey: nagKey) else { return }
+        SKStoreReviewController.requestReview()
+        UserDefaults.standard.set(true, forKey: nagKey)
     }
     
     private let shouldPresentFeatureSpotlight = false

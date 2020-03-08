@@ -27,7 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <blurEffect style="systemThickMaterialDark"/>
+                    <blurEffect style="light"/>
                 </visualEffectView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzc-S9-KGp" customClass="TouchTransparentScrollView" customModule="Cromi" customModuleProvider="target">
                     <rect key="frame" x="30" y="0.0" width="315" height="587"/>
