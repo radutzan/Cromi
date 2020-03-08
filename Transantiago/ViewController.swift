@@ -53,7 +53,7 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
         UserDefaults.standard.set(launchCount, forKey: "launchCount")
         
         let nagKey = "didNag0.7"
-        guard launchCount > 9, !UserDefaults.standard.bool(forKey: nagKey) else { return }
+        guard launchCount > 14, !UserDefaults.standard.bool(forKey: nagKey) else { return }
         SKStoreReviewController.requestReview()
         UserDefaults.standard.set(true, forKey: nagKey)
     }

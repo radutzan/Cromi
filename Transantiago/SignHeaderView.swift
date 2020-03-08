@@ -34,7 +34,7 @@ class SignHeaderView: NibLoadingView {
     var pretitle: String? {
         didSet {
             pretitleLabel.isHidden = pretitle == nil
-            pretitleLabel.text = pretitle
+            pretitleLabel.text = pretitle?.uppercased()
             if let pretitle = pretitle {
                 pretitleLabel.attributedText = attributedString(from: pretitle, style: TypeStyle.preTitle)
             }

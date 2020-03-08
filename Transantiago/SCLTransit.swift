@@ -42,7 +42,7 @@ class SCLTransit: NSObject, DataSource {
                     stopNumber = Int(nameComponents[0].replacingOccurrences(of: "Parada ", with: ""))
                     title = nameComponents[1]
                 } else {
-                    subtitle = nameComponents[1]
+                    subtitle = nameComponents[1].replacingOccurrences(of: "Esq. ", with: "")
                 }
                 
                 var services: [Service] = []
