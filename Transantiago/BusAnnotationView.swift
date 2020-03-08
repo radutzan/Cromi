@@ -77,9 +77,17 @@ class BusAnnotationView: MKAnnotationView {
         serviceLabel.layer.borderColor = color.cgColor
         serviceLabel.textColor = color
         plateLabel.layer.backgroundColor = color.cgColor
+        if #available(iOS 12.0, *) {
+            serviceLabel.layer.backgroundColor = traitCollection.userInterfaceStyle == .dark ? UIColor.black.cgColor : UIColor.white.cgColor
+            plateLabel.textColor = traitCollection.userInterfaceStyle == .dark ? .black : .white
+        }
     }
     
     override func prepareForReuse() {
         color = .black
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateColor()
     }
 }

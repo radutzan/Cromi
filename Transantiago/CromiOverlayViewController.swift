@@ -91,7 +91,11 @@ class CromiOverlayViewController: AbstractModalViewController, UIScrollViewDeleg
         scrollView.transform = CGAffineTransform(translationX: 0, y: hiddenScrollViewYOffset)
         let presentAnimator = UIViewPropertyAnimator(duration: 0.48, dampingRatio: 0.76) {
             self.presentationActions(self)
-            self.backgroundBlur.effect = UIBlurEffect(style: .light)
+            if #available(iOS 13.0, *) {
+                self.backgroundBlur.effect = UIBlurEffect(style: .systemMaterial)
+            } else {
+                self.backgroundBlur.effect = UIBlurEffect(style: .light)
+            }
             self.scrollView.transform = CGAffineTransform.identity
         }
         presentAnimator.addCompletion { (position) in

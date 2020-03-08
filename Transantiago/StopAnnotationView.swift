@@ -10,7 +10,7 @@ import MapKit
 
 class StopAnnotationView: MKAnnotationView {
 
-    var color: UIColor = .black {
+    var color: UIColor? {
         didSet {
             updateColor()
         }
@@ -47,13 +47,23 @@ class StopAnnotationView: MKAnnotationView {
     }
     
     private func updateColor() {
+        var defaultColor = UIColor.black
+        var invertedColor = UIColor.white
+        if #available(iOS 12.0, *) {
+            defaultColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
+            invertedColor = traitCollection.userInterfaceStyle == .dark ? .black : .white
+        }
         let shouldInvert = (!isinverted && isSelected) || (isinverted && !isSelected)
-        pinContentImageView.tintColor = shouldInvert ? color : .white
-        pinContentImageView.backgroundColor = shouldInvert ? .white : color
+        pinContentImageView.tintColor = shouldInvert ? (color ?? defaultColor) : invertedColor
+        pinContentImageView.backgroundColor = shouldInvert ? invertedColor : (color ?? defaultColor)
     }
     
     override func prepareForReuse() {
-        color = .black
+        color = nil
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateColor()
     }
     
 }

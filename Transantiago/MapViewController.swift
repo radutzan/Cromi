@@ -63,7 +63,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        statusBarGradientLayer.colors = [UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 1).cgColor, UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 0).cgColor]
         statusBarGradientLayer.startPoint = CGPoint(x: 0, y: 0)
         statusBarGradientLayer.endPoint = CGPoint(x: 0, y: 1)
         view.layer.insertSublayer(statusBarGradientLayer, above: mapView.layer)
@@ -81,6 +80,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         statusBarGradientLayer.isHidden = UIApplication.shared.statusBarFrame.height <= 0
         if !statusBarGradientLayer.isHidden {
             statusBarGradientLayer.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: view.bounds.width, height: 40))
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        let darkColors = [UIColor(red: 0.167, green: 0.177, blue: 0.185, alpha: 1.00).cgColor, UIColor(red: 0.167, green: 0.177, blue: 0.185, alpha: 0).cgColor]
+        let lightColors = [UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 1).cgColor, UIColor(red: 0.976, green: 0.961, blue: 0.929, alpha: 0).cgColor]
+        
+        if #available(iOS 12.0, *) {
+            statusBarGradientLayer.colors = traitCollection.userInterfaceStyle == .dark ? darkColors : lightColors
+        } else {
+            statusBarGradientLayer.colors = lightColors
         }
     }
     
@@ -275,11 +285,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if stopContainsCurrentRoute(stop) {
                 annotationView.superview?.bringSubview(toFront: annotationView)
             }
-            annotationView.color = stopContainsCurrentRoute(stop) ? lineViewInfo.presentedService.color : .black
+            annotationView.color = stopContainsCurrentRoute(stop) ? lineViewInfo.presentedService.color : nil
             annotationView.isinverted = !stopContainsCurrentRoute(stop)
             annotationView.transform = stopContainsCurrentRoute(stop) ? .identity : CGAffineTransform(scaleX: lineViewNormalStopScale, y: lineViewNormalStopScale)
         } else {
-            annotationView.color = .black
+            annotationView.color = nil
             annotationView.isinverted = false
             annotationView.transform = .identity
         }

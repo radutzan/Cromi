@@ -21,6 +21,16 @@ extension Shadow {
     static let restingHigh = Shadow(radius: 3, offsetHeight: 3, opacity: 0.12)
 }
 
+extension UIColor {
+    static var cromiFloatingBackground: UIColor {
+        var color = UIColor.white
+        if #available(iOS 13.0, *) {
+            color = UIApplication.shared.keyWindow?.rootViewController?.traitCollection.userInterfaceStyle == .dark ? .secondarySystemBackground : .white
+        }
+        return color
+    }
+}
+
 extension TypeStyle {
     static let title = TypeStyle(
         normalSize: proportionalTypeSize(for: 17),

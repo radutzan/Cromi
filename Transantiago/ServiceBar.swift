@@ -42,8 +42,7 @@ class ServiceBar: NibLoadingView {
         serviceNameLabel.text = service.name
         serviceNameLabel.textColor = service.color
         
-        backgroundColor = .clear
-        layer.backgroundColor = UIColor.white.cgColor
+        backgroundColor = .cromiFloatingBackground
         layer.cornerRadius = 12
         apply(shadow: .floatingHigh)
         
@@ -63,6 +62,10 @@ class ServiceBar: NibLoadingView {
         directionButton2.isHidden = service.inboundRoute == nil
         directionButton2.setTitle("\(NSLocalizedString("to", comment: "")) \(service.inboundRoute?.headsign ?? "nowhere")", for: .normal)
         updateSegmentedControl()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        backgroundColor = .cromiFloatingBackground
     }
     
     private func updateSegmentedControl() {
