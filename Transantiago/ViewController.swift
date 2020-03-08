@@ -8,6 +8,7 @@
 
 import RaduKit
 import MapKit
+import StoreKit
 
 class ViewController: ModalSupportingViewController, MKMapViewDelegate, LocationServicesDelegate, MapViewControllerDelegate, ServiceBarDelegate, InfoBannerDelegate {
     
@@ -47,6 +48,13 @@ class ViewController: ModalSupportingViewController, MKMapViewDelegate, Location
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        let launchCount = UserDefaults.standard.integer(forKey: "launchCount") + 1
+        UserDefaults.standard.set(launchCount, forKey: "launchCount")
+        
+        if launchCount > 9 {
+            SKStoreReviewController.requestReview()
+        }
     }
     
     private let shouldPresentFeatureSpotlight = false
