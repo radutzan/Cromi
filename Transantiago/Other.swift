@@ -74,9 +74,13 @@ class Service: NSObject {
     let destinationString: String?
     let stopInfo: StopInfo?
     
-    struct StopInfo {
+    struct StopInfo: Equatable {
         let headsign: String
         let direction: Route.Direction
+        
+        static func ==(lhs: StopInfo, rhs: StopInfo) -> Bool {
+            return lhs.headsign == rhs.headsign && lhs.direction == rhs.direction
+        }
     }
     
     struct Route {
@@ -110,7 +114,7 @@ class Service: NSObject {
     }
     
     static func ==(lhs: Service, rhs: Service) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.name == rhs.name && lhs.stopInfo == rhs.stopInfo
     }
     
     override func isEqual(_ object: Any?) -> Bool {

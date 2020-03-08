@@ -14,10 +14,12 @@ protocol StopSignViewDelegate: SignServiceViewDelegate, SignViewDelegate {
 class StopSignView: CromiSignView, SignServiceViewDelegate {
     weak var stopSignDelegate: StopSignViewDelegate?
     
+    private var serviceViews: [Service: SignServiceView] = [:]
+    
     var selectedService: Service? {
         didSet {
-            for (serviceName, view) in serviceViews {
-                view.isSelected = serviceName == selectedService?.name
+            for (service, view) in serviceViews {
+                view.isSelected = service == selectedService
             }
         }
     }
@@ -31,18 +33,33 @@ class StopSignView: CromiSignView, SignServiceViewDelegate {
     override func reloadData() {
         super.reloadData()
         guard let annotation = annotation as? Stop else { return }
+        var finalServices = annotation.services
         
+        // dedupe services
+        var previousService: Service?
+        var indicesToRemove: [Int] = []
+        for (index, service) in annotation.services.enumerated() {
+            if service.name == previousService?.name {
+                indicesToRemove.append(index)
+            }
+            previousService = service
+        }
+        for index in indicesToRemove.reversed() {
+            finalServices.remove(at: index)
+        }
+        
+        // build views
         var pendingServices: [Service] = []
-        for service in annotation.services {
+        for service in finalServices {
             pendingServices.append(service)
             
-            if pendingServices.count == 2 || service == annotation.services.last! {
+            if pendingServices.count == 2 || service == finalServices.last! {
                 let serviceRowView = SignServiceRowView(services: pendingServices)
                 mainStackView.addArrangedSubview(serviceRowView)
                 
                 for (index, service) in pendingServices.enumerated() {
-                    serviceViews[service.name] = index == 0 ? serviceRowView.serviceView1 : serviceRowView.serviceView2
-                    serviceViews[service.name]?.delegate = self
+                    serviceViews[service] = index == 0 ? serviceRowView.serviceView1 : serviceRowView.serviceView2
+                    serviceViews[service]?.delegate = self
                 }
                 
                 pendingServices = []
@@ -68,7 +85,6 @@ class StopSignView: CromiSignView, SignServiceViewDelegate {
     }
     
     // MARK: - Stop predictions
-    private var serviceViews: [String: SignServiceView] = [:]
     private var predictionUpdateTimer: Timer?
     
     func toggleStopPredictions(paused: Bool) {
@@ -101,7 +117,7 @@ class StopSignView: CromiSignView, SignServiceViewDelegate {
         SCLTransit.get.prediction(forStopCode: stop.code) { (prediction) -> (Void) in
             guard let prediction = prediction else { return }
             for (service, view) in self.serviceViews {
-                let responses = prediction.serviceResponses.filter { $0.serviceName.lowercased() == service.lowercased() }
+                let responses = prediction.serviceResponses.filter { $0.serviceName.lowercased() == service.name.lowercased() }
                 mainThread {
                     view.update(withResponse: responses.count > 0 ? responses[0] : nil)
                 }
