@@ -32,6 +32,8 @@
 		7C6645731FD34EAE005EF2DF /* ButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C6645721FD34EAE005EF2DF /* ButtonRow.xib */; };
 		7C6645771FD35C7B005EF2DF /* ServiceBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645761FD35C7B005EF2DF /* ServiceBar.swift */; };
 		7C6645791FD4B5F5005EF2DF /* SCLTransit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */; };
+		7C76F2872419E4BE007A138F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C76F2862419E4BE007A138F /* Storage.swift */; };
+		7C76F2882419E4BE007A138F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C76F2862419E4BE007A138F /* Storage.swift */; };
 		7C77F77F1FF42C6500934BED /* BipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F77E1FF42C6500934BED /* BipCard.swift */; };
 		7C77F7811FFA754D00934BED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C77F7801FFA754D00934BED /* User.swift */; };
 		7C77F7851FFA7EEA00934BED /* CromiOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */; };
@@ -214,6 +216,7 @@
 		7C6645721FD34EAE005EF2DF /* ButtonRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonRow.xib; sourceTree = "<group>"; };
 		7C6645761FD35C7B005EF2DF /* ServiceBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceBar.swift; sourceTree = "<group>"; };
 		7C6645781FD4B5F5005EF2DF /* SCLTransit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCLTransit.swift; sourceTree = "<group>"; };
+		7C76F2862419E4BE007A138F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		7C77F77E1FF42C6500934BED /* BipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipCard.swift; sourceTree = "<group>"; };
 		7C77F7801FFA754D00934BED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7C77F7831FFA7EEA00934BED /* CromiOverlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CromiOverlayViewController.xib; sourceTree = "<group>"; };
@@ -400,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				7C77F7801FFA754D00934BED /* User.swift */,
+				7C76F2862419E4BE007A138F /* Storage.swift */,
 				7C9C31172163EE3F0002F60C /* Annotations.swift */,
 				7C9C311B2163EEC40002F60C /* Stop.swift */,
 				7CE946DA1DF9579200F3D29A /* Other.swift */,
@@ -704,6 +708,7 @@
 				7CE273981F97E6940008A070 /* CromiDefines.swift in Sources */,
 				7CE946C01DF8FA3E00F3D29A /* AppDelegate.swift in Sources */,
 				7CFCCB8F20AFFB1500232040 /* SignViewController.swift in Sources */,
+				7C76F2872419E4BE007A138F /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +754,7 @@
 				7CFCCBB720AFFBEB00232040 /* CromiDefines.swift in Sources */,
 				7CFCCBB820AFFBEB00232040 /* AppDelegate.swift in Sources */,
 				7CFCCBB920AFFBEB00232040 /* SignViewController.swift in Sources */,
+				7C76F2882419E4BE007A138F /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
