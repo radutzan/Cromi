@@ -81,7 +81,7 @@ class Service: NSObject, NSCoding {
         }
     }
     
-    init(name: String, color: UIColor, routes: [Route]?, destinationString: String?) {
+    init(name: String, color: UIColor, routes: [Route]?, destinationString: String? = nil) {
         self.name = name
         self.color = color
         self.routes = routes

@@ -18,6 +18,7 @@ class SCLTransit: NSObject, DataSource {
         annotations(aroundCoordinate: CLLocationCoordinate2DMake(-33.425567, -70.614486)) { (_, _, _) in }
     }
     
+    // MARK: - Stop processing
     private func processStops(from stopsData: [[String : Any]]) -> (stops: [Stop], metroStations: [MetroStation]) {
         var stops: [Stop] = []
         var metroStations: [MetroStation] = []
@@ -69,9 +70,10 @@ class SCLTransit: NSObject, DataSource {
         return (stops, metroStations)
     }
     
+    // MARK: - Around coordinate
     func annotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping ([Stop]?, [BipSpot]?, [MetroStation]?) -> ()) {
         guard let requestURL = URL(string: baseURLString + "/v1/map?center_lat=\(coordinate.latitude)&center_lon=\(coordinate.longitude)&include_bip_spots=1&include_stop_routes=1") else { return }
-        print("SCLTransit: Requesting \(requestURL.absoluteString)")
+        dlog("Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var stops: [Stop]?
             var bipSpots: [BipSpot]?
@@ -123,16 +125,17 @@ class SCLTransit: NSObject, DataSource {
                 metroStations = stopsResult.metroStations
             }
             if let error = error {
-                print("SCLTransit: Map annotations request failed with error: \(error)")
+                self.dlog("Map annotations request failed with error: \(error)")
             }
             completion(stops, bipSpots, metroStations)
         }
         task.resume()
     }
     
+    // MARK: - Predictions
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> ()) {
         guard let requestURL = URL(string: baseURLString + "/v1/stops/\(code)/next_arrivals") else { return }
-        print("SCLTransit: Requesting \(requestURL.absoluteString)")
+        dlog("Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var prediction: StopPrediction?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
@@ -179,36 +182,68 @@ class SCLTransit: NSObject, DataSource {
                 prediction = StopPrediction(timestamp: Date(), stopCode: code, responseString: nil, serviceResponses: serviceResponses)
             }
             if let error = error {
-                print("SCLTransit: Prediction  request failed with error: \(error)")
+                self.dlog("Prediction  request failed with error: \(error)")
             }
             completion(prediction)
         }
         task.resume()
     }
     
-    func service(withName serviceName: String, completion: @escaping (Service?) -> ()) {
-//        guard let requestURL = URL(string: baseURLString + "/v1/routes/\(serviceName)/directions") else { return }
-//        print("SCLTransit: Requesting \(requestURL.absoluteString)")
-//        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
-//            var service: Service?
-//            if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
-////                service = Service(name: serviceName, color: <#T##UIColor#>, routes: <#T##[Service.Route]?#>, stopData: nil)
-//            }
-//            if let error = error {
-//                print("SCLTransit: Service routes request failed with error: \(error)")
-//            }
-//            mainThread {
-//                completion(service)
-//            }
-//        }
-//        task.resume()
+    // MARK: - Services for agency
+    func services(for agency: String, completion: @escaping ([Service]) -> ()) {
+        guard let requestURL = URL(string: baseURLString + "/v1/routes?agency_id=\(agency)") else { return }
+        dlog("Requesting \(requestURL.absoluteString)")
+        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
+            var services: [Service] = [] // TODO: support paging
+            if let data = data,
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                let base = jsonObject as? [String: Any],
+                let results = base["results"] as? [[String: Any]], results.count > 0 {
+                for result in results {
+                    guard let serviceName = result["route_id"] as? String,
+                        let colorString = result["route_color"] as? String else { continue }
+                    services.append(Service(name: serviceName, color: UIColor(hexString: colorString), routes: nil, destinationString: nil))
+                }
+            }
+            if let error = error {
+                self.dlog("Services for agency request failed with error: \(error)")
+            }
+            mainThread {
+                completion(services)
+            }
+        }
+        task.resume()
     }
     
+    // MARK: - Service with name
+    func service(with name: String, completion: @escaping (Service?) -> ()) {
+        guard let requestURL = URL(string: baseURLString + "/v1/routes/\(name)") else { return }
+        dlog("Requesting \(requestURL.absoluteString)")
+        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
+            var service: Service?
+            if let data = data,
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                let base = jsonObject as? [String: Any],
+                let serviceName = base["route_id"] as? String,
+                let colorString = base["route_color"] as? String {
+                service = Service(name: serviceName, color: UIColor(hexString: colorString), routes: nil, destinationString: nil)
+            }
+            if let error = error {
+                self.dlog("Service with name request failed with error: \(error)")
+            }
+            mainThread {
+                completion(service)
+            }
+        }
+        task.resume()
+    }
+    
+    // MARK: - Service route
     func serviceRoutes(for service: Service, completion: @escaping (Service?) -> ()) {
         guard let requestURL = URL(string: baseURLString + "/v2/routes/\(service.name)/directions") else { return }
         let startTime = CACurrentMediaTime()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        print("SCLTransit: Requesting \(requestURL.absoluteString)")
+        dlog("Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var newService: Service?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
@@ -238,20 +273,21 @@ class SCLTransit: NSObject, DataSource {
                 newService = Service(name: service.name, color: service.color, routes: routes, stopInfo: nil)
             }
             if let error = error {
-                print("SCLTransit: Service routes request failed with error: \(error)")
+                self.dlog("Service routes request failed with error: \(error)")
             }
             mainThread {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                print("SCLTransit: Delivering service routes after \(CACurrentMediaTime() - startTime) seconds.")
+                self.dlog("Delivering service routes after \(CACurrentMediaTime() - startTime) seconds.")
                 completion(newService)
             }
         }
         task.resume()
     }
     
+    // MARK: - Live buses
     func buses(forService serviceName: String, direction: Service.Route.Direction, completion: @escaping ([Bus]?) -> ()) {
         guard let requestURL = URL(string: baseURLString + "/v1/buses?route_id=\(serviceName)&direction_id=\(direction.rawValue)") else { return }
-        print("SCLTransit: Requesting \(requestURL.absoluteString)")
+        dlog("Requesting \(requestURL.absoluteString)")
         let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
             var buses: [Bus]?
             if let data = data, let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) {
@@ -269,13 +305,14 @@ class SCLTransit: NSObject, DataSource {
                 }
             }
             if let error = error {
-                print("SCLTransit: Live buses request failed with error: \(error)")
+                self.dlog("Live buses request failed with error: \(error)")
             }
             completion(buses)
         }
         task.resume()
     }
     
+    // MARK: - Sanitization
     private func sanitize(prediction string: String) -> String {
         var string = string
         if string.contains(" Y ") {

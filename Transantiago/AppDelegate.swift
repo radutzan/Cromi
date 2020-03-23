@@ -12,6 +12,10 @@ extension User {
     fileprivate(set) static var current: User!
 }
 
+extension Storage {
+    fileprivate(set) static var shared: Storage!
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -26,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let startTime = CACurrentMediaTime()
         print("AppDelegate: Producing shared objects")
         User.current = NSKeyedUnarchiver.unarchiveObject(withFile: User.filePath) as? User ?? User()
+        Storage.shared = NSKeyedUnarchiver.unarchiveObject(withFile: Storage.filePath) as? Storage ?? Storage()
+        MetroFetcher.shared.refreshMetroIfNeeded()
         print("AppDelegate: Delivered user at \(CACurrentMediaTime() - startTime) seconds.")
     }
 }

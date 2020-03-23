@@ -18,7 +18,11 @@ class User: Chest {
             didUpdateData()
         }
     }
-    var favoriteStops: [Stop] = []
+    var favoriteStops: [Stop] = [] {
+        didSet {
+            didUpdateData()
+        }
+    }
     
     // MARK: - Read/write
     override init() {

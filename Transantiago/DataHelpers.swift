@@ -16,7 +16,7 @@ protocol DataSource: AnyObject {
     // MARK: - Requests
     func annotations(aroundCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping ([Stop]?, [BipSpot]?, [MetroStation]?) -> ())
     func prediction(forStopCode code: String, completion: @escaping (StopPrediction?) -> ())
-    func service(withName serviceName: String, completion: @escaping (Service?) -> ())
+    func service(with name: String, completion: @escaping (Service?) -> ())
 }
 
 // MARK: - Coordinate
